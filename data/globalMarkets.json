@@ -1,0 +1,79 @@
+[
+  {
+    "territoryCode": "NG",
+    "territoryName": "Nigeria (Domestic Core)",
+    "region": "West Africa",
+    "tier": "Tier 1 - First-Party Epicenter",
+    "keyCities": ["Lagos", "Abuja", "Port Harcourt", "Ibadan"],
+    "dominantPlatforms": ["Audiomack", "Boomplay", "Spotify", "Apple Music", "Terrestrial Radio"],
+    "exportIndex": 100,
+    "topLjFit": ["Drey Star", "Tiwa LJ", "DJ Vibe", "Zinolee LJ"],
+    "marketStrategy": "Radio dominance (Cool FM, Beat FM) + Street-level DJ pool distribution + Mainland grassroots momentum."
+  },
+  {
+    "territoryCode": "GH",
+    "territoryName": "Ghana",
+    "region": "West Africa",
+    "tier": "Tier 1 - High Affinity Diaspora",
+    "keyCities": ["Accra", "Kumasi", "Takoradi"],
+    "dominantPlatforms": ["Spotify", "Apple Music", "Audiomack", "YFM Accra"],
+    "exportIndex": 92,
+    "topLjFit": ["Drey Star", "Tiwa LJ", "Ayo Crown"],
+    "marketStrategy": "Cross-border December festival season push + Accra nightlife DJ sync + collaborations with Ghanaian highlife/drill talent."
+  },
+  {
+    "territoryCode": "ZA",
+    "territoryName": "South Africa",
+    "region": "Southern Africa",
+    "tier": "Tier 1 - Amapiano Epicenter",
+    "keyCities": ["Johannesburg", "Pretoria", "Durban", "Cape Town"],
+    "dominantPlatforms": ["Spotify", "Apple Music", "TikTok ZA", "Metro FM"],
+    "exportIndex": 95,
+    "topLjFit": ["K-Breeze", "DJ Vibe ft. LJ All-Stars"],
+    "marketStrategy": "Authentic log-drum resonance, local producer partnerships, and radio plugger alignment on Metro FM / Gagasi."
+  },
+  {
+    "territoryCode": "UK",
+    "territoryName": "United Kingdom",
+    "region": "Europe",
+    "tier": "Tier 1 - Global Diaspora Hub",
+    "keyCities": ["London", "Birmingham", "Manchester"],
+    "dominantPlatforms": ["Spotify", "Apple Music", "BBC Radio 1Xtra", "Capital XTRA"],
+    "exportIndex": 96,
+    "topLjFit": ["Drey Star", "Femme Fatale LJ", "Tiwa LJ"],
+    "marketStrategy": "BBC 1Xtra specialist radio campaigns + TikTok dance trends in London universities + Afro Nation festival placement."
+  },
+  {
+    "territoryCode": "US",
+    "territoryName": "United States",
+    "region": "Americas",
+    "tier": "Tier 1 - Major Commercial & Sync Market",
+    "keyCities": ["New York", "Atlanta", "Los Angeles", "Houston"],
+    "dominantPlatforms": ["Apple Music", "Spotify", "Hot 97 / Power 105", "SiriusXM The Heat"],
+    "exportIndex": 94,
+    "topLjFit": ["Femme Fatale LJ", "Drey Star", "Tobi Strings"],
+    "marketStrategy": "Focus on high-value sync licensing (Netflix, Hollywood trailers, automotive brands) + diaspora college circuits."
+  },
+  {
+    "territoryCode": "FR",
+    "territoryName": "France & Francophone Diaspora",
+    "region": "Europe",
+    "tier": "Tier 2 - High Growth Cross-Cultural",
+    "keyCities": ["Paris", "Marseille", "Lyon"],
+    "dominantPlatforms": ["Deezer", "Spotify", "Apple Music", "Mouv'"],
+    "exportIndex": 84,
+    "topLjFit": ["Tiwa LJ", "K-Breeze"],
+    "marketStrategy": "Target Paris Afro-Pop clubs and French-African crossover playlists on Deezer & Spotify France."
+  },
+  {
+    "territoryCode": "AE",
+    "territoryName": "UAE & Gulf",
+    "region": "Middle East",
+    "tier": "Tier 2 - Luxury Nightlife & Hospitality",
+    "keyCities": ["Dubai", "Abu Dhabi"],
+    "dominantPlatforms": ["Spotify", "Anghami", "Apple Music"],
+    "exportIndex": 86,
+    "topLjFit": ["Drey Star", "Tobi Strings", "Seyi Glow"],
+    "marketStrategy": "Luxury hospitality, beach club resident DJs, rooftop hotel lounge licensing, and high-end automotive tie-ins."
+  }
+]

@@ -1,0 +1,1888 @@
+[
+  {
+    "id": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion / High Velocity",
+    "bpm": 107,
+    "key": "A minor",
+    "energy": 89,
+    "danceability": 93,
+    "mood": "Electric, Swagger, Triumphant, Hypnotic",
+    "vocalType": "Male lead vocal with female backing harmonies",
+    "language": "English / Pidgin / Yoruba",
+    "era": "2026 (Priority Single)",
+    "instrumentation": [
+      "Talking Drum",
+      "Live Brass Horns",
+      "Log Drum Accent",
+      "Sub Bass 808",
+      "Clean Stratocaster Guitar"
+    ],
+    "productionStyle": "Pan-African Stadium Afro-Fusion",
+    "songStructure": "Intro-Hook-Verse-Chorus-PostChorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "9s",
+    "chorusEnergy": 95,
+    "tempoRange": "105–112 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Wizkid",
+      "Asake"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "Lagos Nightfall"
+    ],
+    "audience": "Global African diaspora, UK Urban, West African Youth, Dance TikTok",
+    "useCases": [
+      "Spotify Editorial Lead",
+      "Apple Music African Essentials",
+      "FIFA EA Soundtrack",
+      "Global Fashion Week",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-10-01",
+    "duration": 188,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true
+  },
+  {
+    "id": "lj-001",
+    "title": "Lagos Nightfall",
+    "artist": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion / Nightlife",
+    "bpm": 108,
+    "key": "A minor",
+    "energy": 84,
+    "danceability": 91,
+    "mood": "Energetic, Confident, Euphoric",
+    "vocalType": "Male vocal with Female hook",
+    "language": "English / Pidgin / Yoruba",
+    "era": "2020s (Modern)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "Saxophone",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Lagos Modern Afrobeats & Amapiano elements",
+    "songStructure": "Intro-Verse-PreChorus-Chorus-Verse-Chorus-Bridge-Chorus-Outro",
+    "introLength": "12s",
+    "chorusEnergy": 88,
+    "tempoRange": "105–115 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Fireboy DML"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Peru",
+      "Calm Down"
+    ],
+    "audience": "Gen-Z & Millennial diaspora, Lagos nightlife, Global Afrobeats fans",
+    "useCases": [
+      "Club / Nightclub",
+      "Night Drive",
+      "Fashion Show",
+      "Aspirational Ad",
+      "Party Playlist"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-08-14",
+    "duration": 198
+  },
+  {
+    "id": "lj-002",
+    "title": "Midnight Eko (Luxury Edition)",
+    "artist": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Luxury / Smooth",
+    "bpm": 105,
+    "key": "F# minor",
+    "energy": 78,
+    "danceability": 85,
+    "mood": "Aspirational, Premium, Sensual",
+    "vocalType": "Male vocal",
+    "language": "English / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Muted Trumpet",
+      "Rhodes Piano",
+      "Sub-bass",
+      "Shaker",
+      "Nylon Guitar"
+    ],
+    "productionStyle": "High-end Acoustic & Electronic Hybrid",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "14s",
+    "chorusEnergy": 82,
+    "tempoRange": "100–110 BPM",
+    "similarArtists": [
+      "Wizkid",
+      "Victony",
+      "Adekunle Gold"
+    ],
+    "similarSongs": [
+      "Essence",
+      "Soweto",
+      "Ogaranya"
+    ],
+    "audience": "Luxury lifestyle, Afro-cosmopolitans, Lounge crowds",
+    "useCases": [
+      "Luxury Car Commercial",
+      "Real Estate Ad",
+      "Lounge",
+      "Film Soundtrack"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-09-02",
+    "duration": 212
+  },
+  {
+    "id": "lj-003",
+    "title": "Golden Vibe",
+    "artist": "Tiwa LJ",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop",
+    "bpm": 112,
+    "key": "A minor",
+    "energy": 86,
+    "danceability": 90,
+    "mood": "Joyful, Radiant, Danceable",
+    "vocalType": "Female vocal",
+    "language": "English / Yoruba",
+    "era": "2020s",
+    "instrumentation": [
+      "Brass Section",
+      "Congas",
+      "Synthesizer",
+      "Log Drum"
+    ],
+    "productionStyle": "Polished Mainstream Afropop",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "8s",
+    "chorusEnergy": 92,
+    "tempoRange": "110–115 BPM",
+    "similarArtists": [
+      "Tiwa Savage",
+      "Ayra Starr",
+      "Yemi Alade"
+    ],
+    "similarSongs": [
+      "Rush",
+      "Somebody's Son",
+      "Johnny"
+    ],
+    "audience": "Global Pop, African Youth, Dance TikTok",
+    "useCases": [
+      "Summer Festival",
+      "Workout",
+      "Retail Fashion",
+      "TV Commercial"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-07-20",
+    "duration": 185
+  },
+  {
+    "id": "lj-004",
+    "title": "Island Groove",
+    "artist": "K-Breeze",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Amapiano",
+    "subGenre": "Afro-Piano",
+    "bpm": 114,
+    "key": "G minor",
+    "energy": 83,
+    "danceability": 92,
+    "mood": "Hypnotic, Driving, Cool",
+    "vocalType": "Male chant & vocal",
+    "language": "Zulu / Pidgin / English",
+    "era": "2020s",
+    "instrumentation": [
+      "Log Drum",
+      "Tremolo Piano",
+      "Shaker",
+      "Claps"
+    ],
+    "productionStyle": "Deep Amapiano Log-Bass Bounce",
+    "songStructure": "Intro-BassDrop-Chant-Vocal-BassDrop-Outro",
+    "introLength": "18s",
+    "chorusEnergy": 86,
+    "tempoRange": "112–116 BPM",
+    "similarArtists": [
+      "Asake",
+      "Kabza De Small",
+      "Focalistic"
+    ],
+    "similarSongs": [
+      "Lonely At The Top",
+      "Amapiano",
+      "Ke Star"
+    ],
+    "audience": "Clubbers, DJ tastemakers, Street dancers",
+    "useCases": [
+      "DJ Sets",
+      "Gaming Soundtrack (EA Sports)",
+      "Party Playlists",
+      "Sports Promo"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-06-11",
+    "duration": 240
+  },
+  {
+    "id": "lj-005",
+    "title": "Tears to Triumphs",
+    "artist": "Femme Fatale LJ",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afro-Soul",
+    "subGenre": "Cinematic Soul / Alté",
+    "bpm": 96,
+    "key": "C# minor",
+    "energy": 58,
+    "danceability": 52,
+    "mood": "Emotional, Resilient, Heartbreak to Recovery",
+    "vocalType": "Female vocal (Soulful & Expressive)",
+    "language": "English / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Grand Piano",
+      "Cello",
+      "Talking Drum",
+      "Warm Ambient Pads"
+    ],
+    "productionStyle": "Cinematic African Orchestral Hybrid",
+    "songStructure": "Intro-Verse-PreChorus-Chorus-Verse-Chorus-Climax-Outro",
+    "introLength": "15s",
+    "chorusEnergy": 76,
+    "tempoRange": "90–100 BPM",
+    "similarArtists": [
+      "Tems",
+      "Simi",
+      "Fave"
+    ],
+    "similarSongs": [
+      "Free Mind",
+      "Baby Riddim",
+      "Duduke"
+    ],
+    "audience": "Film Supervisors, Indie lovers, Emotional streaming",
+    "useCases": [
+      "Netflix Drama Series",
+      "Movie Trailer",
+      "Documentary Sync",
+      "Heartbreak Playlist"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-08-30",
+    "duration": 224
+  },
+  {
+    "id": "lj-006",
+    "title": "Street Solace",
+    "artist": "Zinolee LJ",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Street-Pop",
+    "subGenre": "Afro-Fuji Fusion",
+    "bpm": 104,
+    "key": "D minor",
+    "energy": 76,
+    "danceability": 80,
+    "mood": "Reflective, Gritty, Melodic",
+    "vocalType": "Male vocal",
+    "language": "Yoruba / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Talking Drum",
+      "Violin riffs",
+      "Synth bass",
+      "Percussion"
+    ],
+    "productionStyle": "Mainland Lagos Street Resonance",
+    "songStructure": "Intro-Hook-Verse-Hook-Verse-Hook-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 80,
+    "tempoRange": "100–106 BPM",
+    "similarArtists": [
+      "Bella Shmurda",
+      "Seyi Vibez",
+      "Mohbad"
+    ],
+    "similarSongs": [
+      "Cash App",
+      "Chance",
+      "Peace"
+    ],
+    "audience": "Mainland Lagos youth, Grassroots listeners, Urban UK diaspora",
+    "useCases": [
+      "Street Anthems",
+      "Urban Drama Series",
+      "Underground Clubs"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-05-18",
+    "duration": 178
+  },
+  {
+    "id": "lj-007",
+    "title": "Majestic Heritage",
+    "artist": "Ayo Crown",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Highlife",
+    "subGenre": "Modern Afro-Highlife",
+    "bpm": 106,
+    "key": "E minor",
+    "energy": 72,
+    "danceability": 78,
+    "mood": "Celebratory, Regal, Warm",
+    "vocalType": "Male vocal",
+    "language": "Yoruba / English",
+    "era": "Modern Classic",
+    "instrumentation": [
+      "Live Brass Horns",
+      "Highlife Lead Guitar",
+      "Talking Drum",
+      "Shekere"
+    ],
+    "productionStyle": "Live Band Organic Rich Warmth",
+    "songStructure": "Intro-Solo-Verse-Chorus-TrumpetBreak-Verse-Chorus-Outro",
+    "introLength": "20s",
+    "chorusEnergy": 79,
+    "tempoRange": "104–108 BPM",
+    "similarArtists": [
+      "The Cavemen",
+      "Flavour",
+      "Chief Osita Osadebe"
+    ],
+    "similarSongs": [
+      "Selense",
+      "Ada Ada",
+      "Osondi Owendi"
+    ],
+    "audience": "Afro-Cultural events, Highlife purists, Wedding receptions",
+    "useCases": [
+      "Cultural Film Sync",
+      "Wedding & Family Ads",
+      "Hotel & Luxury Hospitality"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-04-10",
+    "duration": 250
+  },
+  {
+    "id": "lj-008",
+    "title": "Lekki Horizon",
+    "artist": "Seyi Glow",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afro-R&B",
+    "subGenre": "Afro-Chill / Sunset",
+    "bpm": 98,
+    "key": "B minor",
+    "energy": 64,
+    "danceability": 68,
+    "mood": "Intimate, Seductive, Sunset Chills",
+    "vocalType": "Female vocal",
+    "language": "English / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Acoustic Guitar",
+      "Subtle 808",
+      "Wind Chimes",
+      "Airy Pads"
+    ],
+    "productionStyle": "Minimalist Afro-R&B",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "11s",
+    "chorusEnergy": 70,
+    "tempoRange": "95–102 BPM",
+    "similarArtists": [
+      "Tems",
+      "Teni",
+      "Gyankroma"
+    ],
+    "similarSongs": [
+      "Damages",
+      "Case",
+      "Higher"
+    ],
+    "audience": "Late night listeners, Coffee shops, Romantic chill",
+    "useCases": [
+      "Romantic Trailer",
+      "Luxury Cosmetics Commercial",
+      "Chill Playlist"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1520523839898-507124cd5371?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-08-01",
+    "duration": 205
+  },
+  {
+    "id": "lj-009",
+    "title": "Detty December",
+    "artist": "DJ Vibe ft. LJ All-Stars",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Club / Festival Banger",
+    "bpm": 115,
+    "key": "A minor",
+    "energy": 95,
+    "danceability": 96,
+    "mood": "High Octane, Explosive, Festive",
+    "vocalType": "Ensemble / Duet",
+    "language": "Pidgin / Yoruba / English",
+    "era": "2020s",
+    "instrumentation": [
+      "Log Drum",
+      "Horns",
+      "Sirens",
+      "808 Claps",
+      "Talking Drum"
+    ],
+    "productionStyle": "Festival Mainstage Loud & Punchy",
+    "songStructure": "Chant-Drop-Verse-Drop-Chant-Drop",
+    "introLength": "6s",
+    "chorusEnergy": 98,
+    "tempoRange": "114–118 BPM",
+    "similarArtists": [
+      "Davido",
+      "Zlatan",
+      "Poco Lee"
+    ],
+    "similarSongs": [
+      "Unavailable",
+      "Buga",
+      "Electricity"
+    ],
+    "audience": "Partygoers, DJ circuit, African diaspora holiday festival",
+    "useCases": [
+      "Energy Drink Commercial",
+      "Club DJ Primetime",
+      "Sports Arena",
+      "Party Playlist"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-09-18",
+    "duration": 190
+  },
+  {
+    "id": "lj-010",
+    "title": "Naija Sunrise",
+    "artist": "Tobi Strings",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Instrumental",
+    "subGenre": "Afro-Acoustic Guitar",
+    "bpm": 104,
+    "key": "G major",
+    "energy": 62,
+    "danceability": 70,
+    "mood": "Peaceful, Inspiring, Warm Sunrise",
+    "vocalType": "Instrumental",
+    "language": "Instrumental",
+    "era": "Modern Classic",
+    "instrumentation": [
+      "Acoustic Spanish Guitar",
+      "Udu Drum",
+      "Soft Shakers",
+      "Bass"
+    ],
+    "productionStyle": "Organic Acoustic Clarity",
+    "songStructure": "Intro-ThemeA-ThemeB-Improv-ThemeA-Outro",
+    "introLength": "16s",
+    "chorusEnergy": 66,
+    "tempoRange": "100–108 BPM",
+    "similarArtists": [
+      "Kunle Ayo",
+      "Lionel Loueke",
+      "Earl Klugh"
+    ],
+    "similarSongs": [
+      "Morning Sunrise",
+      "African Guitar Grooves"
+    ],
+    "audience": "Travelers, Focus & Study, Boutique Hotels, Nature Documentaries",
+    "useCases": [
+      "Airline Boarding Music",
+      "Luxury Hotel Lobby",
+      "Travel Doc Sync",
+      "Meditation/Focus"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2026-03-25",
+    "duration": 215
+  },
+  {
+    "id": "ext-001",
+    "title": "City Boys",
+    "artist": "Burna Boy",
+    "isLjArtist": false,
+    "label": "Atlantic Records / Spaceship",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion",
+    "bpm": 106,
+    "key": "A minor",
+    "energy": 86,
+    "danceability": 88,
+    "mood": "Confident, Swagger, Anthemic",
+    "vocalType": "Male vocal",
+    "language": "English / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Sample Horns",
+      "Log Drum",
+      "Sub Bass"
+    ],
+    "productionStyle": "Afro-Fusion Sample-Heavy",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "12s",
+    "chorusEnergy": 90,
+    "tempoRange": "104–108 BPM",
+    "similarArtists": [
+      "Drey Star",
+      "Rema",
+      "Wizkid"
+    ],
+    "similarSongs": [
+      "Lagos Nightfall",
+      "Last Last"
+    ],
+    "audience": "Global Mainstream",
+    "useCases": [
+      "Sports Ads",
+      "Nightlife",
+      "Gaming"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2023-08-25",
+    "duration": 153
+  },
+  {
+    "id": "ext-002",
+    "title": "Lonely At The Top",
+    "artist": "Asake",
+    "isLjArtist": false,
+    "label": "YBNL / EMPIRE",
+    "genre": "Amapiano",
+    "subGenre": "Afro-Soul Piano",
+    "bpm": 114,
+    "key": "G minor",
+    "energy": 82,
+    "danceability": 87,
+    "mood": "Philosophical, Celebratory, Introspective",
+    "vocalType": "Male vocal",
+    "language": "Yoruba / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Log Drum",
+      "Violin",
+      "Choir chorus"
+    ],
+    "productionStyle": "Fuji-Piano Fusion",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 85,
+    "tempoRange": "112–116 BPM",
+    "similarArtists": [
+      "K-Breeze",
+      "Seyi Vibez"
+    ],
+    "similarSongs": [
+      "Island Groove",
+      "Basquiat"
+    ],
+    "audience": "Global African diaspora",
+    "useCases": [
+      "Reflective Ads",
+      "Bar & Lounge",
+      "Radio Primetime"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2023-06-16",
+    "duration": 157
+  },
+  {
+    "id": "ext-003",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": false,
+    "label": "Mavin Global",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop",
+    "bpm": 100,
+    "key": "F# minor",
+    "energy": 79,
+    "danceability": 84,
+    "mood": "Vibrant, Empowering, Catchy",
+    "vocalType": "Female vocal",
+    "language": "Pidgin / English",
+    "era": "2020s",
+    "instrumentation": [
+      "Synths",
+      "Snare claps",
+      "Afro percussion"
+    ],
+    "productionStyle": "Clean Global Pop",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "8s",
+    "chorusEnergy": 84,
+    "tempoRange": "98–104 BPM",
+    "similarArtists": [
+      "Tiwa LJ",
+      "Tems"
+    ],
+    "similarSongs": [
+      "Golden Vibe",
+      "Bloody Samaritan"
+    ],
+    "audience": "TikTok, Gen-Z global",
+    "useCases": [
+      "Cosmetics",
+      "Fashion Ads",
+      "Pop Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185
+  },
+  {
+    "id": "ext-004",
+    "title": "Free Mind",
+    "artist": "Tems",
+    "isLjArtist": false,
+    "label": "Since '93 / RCA",
+    "genre": "Afro-Soul",
+    "subGenre": "Alté R&B",
+    "bpm": 96,
+    "key": "C# minor",
+    "energy": 62,
+    "danceability": 65,
+    "mood": "Meditative, Deep, Healing",
+    "vocalType": "Female vocal",
+    "language": "English / Pidgin",
+    "era": "2020s",
+    "instrumentation": [
+      "Warm Rhodes",
+      "Bass guitar",
+      "Subtle drums"
+    ],
+    "productionStyle": "Atmospheric Soul",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "12s",
+    "chorusEnergy": 68,
+    "tempoRange": "92–98 BPM",
+    "similarArtists": [
+      "Femme Fatale LJ",
+      "Seyi Glow"
+    ],
+    "similarSongs": [
+      "Tears to Triumphs",
+      "Higher"
+    ],
+    "audience": "Indie, Film supervisors, R&B fans",
+    "useCases": [
+      "Film Drama Sync",
+      "Mindfulness",
+      "Late Night Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2020-09-25",
+    "duration": 247
+  },
+  {
+    "id": "ext-005",
+    "title": "Unavailable",
+    "artist": "Davido ft. Musa Keys",
+    "isLjArtist": false,
+    "label": "DMW / Sony Music",
+    "genre": "Amapiano",
+    "subGenre": "Afro-Amapiano",
+    "bpm": 112,
+    "key": "A minor",
+    "energy": 89,
+    "danceability": 93,
+    "mood": "Playful, Exuberant, Dance",
+    "vocalType": "Male vocal",
+    "language": "Pidgin / English",
+    "era": "2020s",
+    "instrumentation": [
+      "Log Drum",
+      "Shakers",
+      "Horns"
+    ],
+    "productionStyle": "High Energy Pan-African",
+    "songStructure": "Hook-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "7s",
+    "chorusEnergy": 92,
+    "tempoRange": "110–115 BPM",
+    "similarArtists": [
+      "DJ Vibe",
+      "K-Breeze",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "Detty December",
+      "Island Groove"
+    ],
+    "audience": "Global Partygoers",
+    "useCases": [
+      "Major Sports Sync",
+      "Festival DJ Sets",
+      "Beverage Commercial"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2023-03-31",
+    "duration": 170
+  },
+  {
+    "id": "lj-011",
+    "title": "Lekki Toll Memories",
+    "artist": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Nostalgia / Deep Vibe",
+    "bpm": 102,
+    "key": "G minor",
+    "energy": 73,
+    "danceability": 79,
+    "mood": "Nostalgic, Soulful, Reflective",
+    "vocalType": "Male vocal",
+    "language": "English / Pidgin",
+    "era": "2025 (Catalogue Asset - 18 Months Old)",
+    "instrumentation": [
+      "Electric Piano",
+      "Sub Bass",
+      "Rimshot Claps",
+      "Nylon Guitar"
+    ],
+    "productionStyle": "Downtempo Afro-Groove",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Outro",
+    "introLength": "14s",
+    "chorusEnergy": 78,
+    "tempoRange": "100–104 BPM",
+    "similarArtists": [
+      "Wizkid",
+      "Omah Lay"
+    ],
+    "similarSongs": [
+      "Soso",
+      "Essence"
+    ],
+    "audience": "Late-night listeners, Nostalgia streaming, Coffee shops",
+    "useCases": [
+      "Catalogue Revival Campaign",
+      "Indie Film Sync",
+      "Chill Sunday Playlists"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2025-04-10",
+    "duration": 204,
+    "isCatalogueRevivalCandidate": true
+  },
+  {
+    "id": "lj-012",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-013",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-014",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-015",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-016",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-017",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-018",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-019",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-020",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-021",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-022",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-023",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-024",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-025",
+    "title": "Heaven Baby",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion",
+    "bpm": 104,
+    "key": "A minor",
+    "energy": 82,
+    "danceability": 85,
+    "mood": "Energetic, Confident, Global",
+    "vocalType": "Lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "100–108 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://cdn-images.dzcdn.net/images/cover/64f822132d39a3677d59f745a248a2ce/500x500-000000-80-0-0.jpg",
+    "previewUrl": "https://cdnt-preview.dzcdn.net/api/1/1/2/8/a/0/28a5a9a03faa1356d27915637c25960e.mp3?hdnea=exp=1791412332~acl=/api/1/1/2/8/a/0/28a5a9a03faa1356d27915637c25960e.mp3*~data=user_id=0,application_id=42~hmac=2be0f09528e0e33f17bf9aab080c6ed14c4da29ac2e417f5c4085f413915a1b8",
+    "releaseDate": "2024-01-01",
+    "duration": 159,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/lj-025"
+  },
+  {
+    "id": "lj-026",
+    "title": "Heaven Baby",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion",
+    "bpm": 104,
+    "key": "A minor",
+    "energy": 82,
+    "danceability": 85,
+    "mood": "Energetic, Confident, Global",
+    "vocalType": "Lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "100–108 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://cdn-images.dzcdn.net/images/cover/64f822132d39a3677d59f745a248a2ce/500x500-000000-80-0-0.jpg",
+    "previewUrl": "https://cdnt-preview.dzcdn.net/api/1/1/2/8/a/0/28a5a9a03faa1356d27915637c25960e.mp3?hdnea=exp=1791412391~acl=/api/1/1/2/8/a/0/28a5a9a03faa1356d27915637c25960e.mp3*~data=user_id=0,application_id=42~hmac=ce9488ad778162dfda56961cc96c1e8c9740696acf25db423e39f4a9f77dbfd4",
+    "releaseDate": "2024-01-01",
+    "duration": 159,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/lj-026"
+  },
+  {
+    "id": "lj-027",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-028",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-029",
+    "title": "Never Gonna Give You Up",
+    "artist": "Rick Astley",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Fusion",
+    "bpm": 104,
+    "key": "A minor",
+    "energy": 82,
+    "danceability": 85,
+    "mood": "Energetic, Confident, Global",
+    "vocalType": "Lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "100–108 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://cdn-images.dzcdn.net/images/cover/a37761cd98b72998ff1d8cbfedbf0863/500x500-000000-80-0-0.jpg",
+    "previewUrl": "https://cdnt-preview.dzcdn.net/api/1/1/e/7/7/0/e773d9a1121ced48f2e74bca4271699c.mp3?hdnea=exp=1791412450~acl=/api/1/1/e/7/7/0/e773d9a1121ced48f2e74bca4271699c.mp3*~data=user_id=0,application_id=42~hmac=e68bd8940399079a0aaa3fa0a32d909921f5d8e5a57e13cef8665628ca18616e",
+    "releaseDate": "1987-07-27",
+    "duration": 211,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/lj-029"
+  },
+  {
+    "id": "lj-030",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-031",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  },
+  {
+    "id": "lj-032",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afrobeats",
+    "subGenre": "Afro-Pop / R&B",
+    "bpm": 100,
+    "key": "B minor",
+    "energy": 82,
+    "danceability": 89,
+    "mood": "Confident, Electric, Celebratory",
+    "vocalType": "Female lead vocal with harmonies",
+    "language": "English / Nigerian Pidgin",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 87,
+    "tempoRange": "96–104 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "previewUrl": null,
+    "releaseDate": "2022-09-16",
+    "duration": 185,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+  }
+]

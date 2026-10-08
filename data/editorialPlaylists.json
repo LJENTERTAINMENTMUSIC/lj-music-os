@@ -1,0 +1,382 @@
+[
+  {
+    "id": "ed-001",
+    "title": "Lagos After Dark",
+    "category": "Nightlife / Mood",
+    "description": "Vibrant night drive & club soundscapes from Victoria Island to Lekki.",
+    "curator": "LJ Editorial Desk & AI Discovery",
+    "status": "APPROVED",
+    "coverArt": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+    "tracks": [
+      {
+        "trackId": "lj-001",
+        "rationale": "94% BPM & nightlife vibe match, strong local traction."
+      },
+      {
+        "trackId": "ext-001",
+        "rationale": "Mainstream anchor track (Burna Boy)."
+      },
+      {
+        "trackId": "lj-002",
+        "rationale": "Smooth luxury transition for late-night cruising."
+      },
+      {
+        "trackId": "ext-005",
+        "rationale": "Global high-energy benchmark."
+      },
+      {
+        "trackId": "lj-009",
+        "rationale": "Peak-time energy climactic placement."
+      }
+    ],
+    "ljArtistSharePct": 60,
+    "lastUpdated": "2026-10-06"
+  },
+  {
+    "id": "ed-002",
+    "title": "African Essentials",
+    "category": "Genre Essentials",
+    "description": "The defining sounds of contemporary Africa, blending Afrobeats, Amapiano, and Soul.",
+    "curator": "Human Editor Approved",
+    "status": "APPROVED",
+    "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
+    "tracks": [
+      {
+        "trackId": "lj-003",
+        "rationale": "Uplifting female vocal hook, TikTok viral surge."
+      },
+      {
+        "trackId": "ext-002",
+        "rationale": "Philosophy & groove anchor."
+      },
+      {
+        "trackId": "lj-001",
+        "rationale": "Lagos nightlife core sound."
+      },
+      {
+        "trackId": "ext-003",
+        "rationale": "Global streaming giant."
+      },
+      {
+        "trackId": "lj-004",
+        "rationale": "Amapiano crossover powerhouse."
+      },
+      {
+        "trackId": "lj-012",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-013",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-014",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-015",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-016",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-017",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-018",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-019",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-020",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-021",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-022",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-023",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-024",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-025",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-026",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-027",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-028",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-029",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-030",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-031",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-032",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      }
+    ],
+    "ljArtistSharePct": 92,
+    "lastUpdated": "2026-10-07"
+  },
+  {
+    "id": "ed-003",
+    "title": "Lagos Night Drive",
+    "category": "Curated Vibe",
+    "description": "AI-generated brief: Upbeat Afrobeats around 105–115 BPM with female vocal, energetic chorus and Lagos nightlife feel.",
+    "curator": "AI Drafted - Pending Editorial Sign-off",
+    "status": "AI_DRAFT",
+    "coverArt": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+    "tracks": [
+      {
+        "trackId": "ext-003",
+        "rationale": "100 BPM target female lead (Ayra Starr)."
+      },
+      {
+        "trackId": "lj-001",
+        "rationale": "LJ Contextual Boost: 108 BPM, Key Am, Energy 84, Danceability 91 -> 92% compatibility."
+      },
+      {
+        "trackId": "ext-001",
+        "rationale": "106 BPM anchor."
+      },
+      {
+        "trackId": "lj-003",
+        "rationale": "LJ Contextual Boost: 112 BPM female vocal energetic chorus -> 94% compatibility."
+      },
+      {
+        "trackId": "lj-002",
+        "rationale": "105 BPM smooth transition."
+      },
+      {
+        "trackId": "lj-012",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-013",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-014",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-015",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-016",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-017",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-018",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-019",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-020",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-021",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-022",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-023",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-024",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-025",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-026",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-027",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-028",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-029",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-030",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-031",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-032",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      }
+    ],
+    "ljArtistSharePct": 92,
+    "lastUpdated": "2026-10-07"
+  },
+  {
+    "id": "ed-004",
+    "title": "LJ Weekly Picks",
+    "category": "A&R Spotlight",
+    "description": "Weekly curated selection of fastest-rising LJ roster tracks and standout collaborations.",
+    "curator": "A&R Committee",
+    "status": "APPROVED",
+    "coverArt": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    "tracks": [
+      {
+        "trackId": "lj-005",
+        "rationale": "+41.8% streaming surge, 100% sync ready."
+      },
+      {
+        "trackId": "lj-001",
+        "rationale": "Chart climber, 94 momentum score."
+      },
+      {
+        "trackId": "lj-004",
+        "rationale": "Amapiano breakout, SA and UK growth."
+      },
+      {
+        "trackId": "lj-008",
+        "rationale": "R&B late night favorite."
+      },
+      {
+        "trackId": "lj-012",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-013",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-014",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-015",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-016",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-017",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-018",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-019",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-020",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-021",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-022",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-023",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-024",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-025",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-026",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-027",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-028",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-029",
+        "rationale": "LJ Contextual Boost: 104 BPM, Key A minor, Energy 82, Danceability 85 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-030",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-031",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-032",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      }
+    ],
+    "ljArtistSharePct": 100,
+    "lastUpdated": "2026-10-07"
+  }
+]

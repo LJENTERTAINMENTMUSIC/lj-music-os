@@ -1,0 +1,2554 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LJ MUSIC OS | Futuristic AI-Native Music Intelligence Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN for radar & momentum charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#7C3AED',
+              purpleDeep: '#4C1D95',
+              violet: '#8B5CF6',
+              violetLight: '#C084FC',
+              indigo: '#4F46E5',
+              dark: '#07070A',
+              card: '#0E1019',
+              cardGlass: 'rgba(15, 17, 26, 0.72)',
+              cardBorder: 'rgba(255, 255, 255, 0.08)',
+              accent: '#6366F1',
+              gold: '#E5A93C'
+            }
+          },
+          borderRadius: {
+            '2xl': '20px',
+            '3xl': '28px',
+            '4xl': '36px'
+          },
+          boxShadow: {
+            'glow-violet': '0 0 35px rgba(124, 58, 237, 0.28)',
+            'glow-purple': '0 0 50px rgba(139, 92, 246, 0.35)',
+            'spatial': '0 25px 60px -15px rgba(0, 0, 0, 0.7)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --bg-dark: #07070A;
+      --glass-surface: rgba(14, 16, 26, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --purple-primary: #7C3AED;
+      --electric-violet: #8B5CF6;
+      --indigo-accent: #4F46E5;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(79, 70, 229, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Liquid Glass & Spatial Panels (iPhone 18 Aesthetic) */
+    .glass-panel {
+      background: rgba(14, 16, 26, 0.75);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-panel-subtle {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-orb {
+      background: radial-gradient(circle at 35% 35%, #C084FC, #7C3AED 55%, #4C1D95 100%);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.6), 0 0 60px rgba(99, 102, 241, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .purple-gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F3E8FF 40%, #C084FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .purple-accent-gradient {
+      background: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #4F46E5 100%);
+    }
+
+    .glow-violet {
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.3);
+    }
+
+    /* macOS Window Dots (Apple Music style) */
+    .mac-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .mac-dot-red { background: #FF5F56; border: 1px solid #E0443E; }
+    .mac-dot-yellow { background: #FFBD2E; border: 1px solid #DEA123; }
+    .mac-dot-green { background: #27C93F; border: 1px solid #1AAB29; }
+
+    /* Bouncing Equalizer Bars (Muzes & Apple Music) */
+    .sound-bar {
+      display: inline-block;
+      width: 3px;
+      background: #A78BFA;
+      border-radius: 2px;
+      animation: soundBars 1.2s ease-in-out infinite;
+    }
+    .sound-bar-1 { animation-delay: 0.1s; height: 10px; }
+    .sound-bar-2 { animation-delay: 0.3s; height: 18px; }
+    .sound-bar-3 { animation-delay: 0.5s; height: 14px; }
+    .sound-bar-4 { animation-delay: 0.2s; height: 22px; }
+    .sound-bar-5 { animation-delay: 0.4s; height: 12px; }
+
+    @keyframes soundBars {
+      0%, 100% { height: 4px; }
+      50% { height: 22px; }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #07070A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7C3AED;
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col selection:bg-purple-600 selection:text-white">
+
+  <!-- TOP HEADER & BRAND APPARATUS -->
+  <header class="h-16 border-b border-white/[0.08] bg-[#07070A]/85 backdrop-blur-2xl sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center space-x-3.5">
+      <!-- Minimal Luxury Wordmark Icon -->
+      <div class="w-10 h-10 rounded-2xl purple-accent-gradient flex items-center justify-center font-black text-white text-base shadow-glow-violet border border-white/20">
+        LJ
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-black tracking-tight text-white text-base purple-gradient-text">LJ MUSIC OS</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold bg-purple-500/15 text-purple-300 border border-purple-500/30 flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping"></span>
+            <span>10,000 AI AGENTS ACTIVE</span>
+          </span>
+        </div>
+        <p class="text-[10px] text-slate-400 tracking-wide font-medium">LJ Entertainment • Music Intelligence & Growth Operating System</p>
+      </div>
+    </div>
+
+    <!-- Live Intelligence Stats & Swarm Trigger -->
+    <div class="flex items-center space-x-3">
+      <div class="hidden xl:flex items-center space-x-2 bg-white/[0.03] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-400 text-[11px]">Swarm Workforce:</span>
+        <span class="text-violet-300 font-semibold font-mono-code text-[11px]">9,842 ACTIVE · 73 COLLABORATING</span>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-2 bg-white/[0.03] border border-white/[0.08] px-3 py-1.5 rounded-full text-xs backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+        <span class="text-slate-400 text-[11px]">Safety:</span>
+        <span class="text-indigo-300 font-semibold font-mono-code text-[11px]">ZERO-BOT ENFORCED</span>
+      </div>
+
+      <!-- Prominent Add New Artist Button -->
+      <button onclick="openAddArtistFlow()" class="flex items-center space-x-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 hover:text-white font-extrabold px-3.5 py-2 rounded-xl text-xs transition border border-emerald-500/40 shadow-md active:scale-95">
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+        <span>+ Add New Artist</span>
+      </button>
+
+      <button onclick="triggerQuickAutomation('weekly')" class="flex items-center space-x-2 purple-accent-gradient hover:opacity-95 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-glow-violet active:scale-95 border border-white/20">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span class="tracking-wide">Run Swarm Cycle</span>
+      </button>
+
+      <!-- Executive Desk Profile -->
+      <div class="flex items-center space-x-2 pl-3 border-l border-white/[0.08]">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-900 to-indigo-700 border border-violet-400/40 flex items-center justify-center text-xs font-bold text-violet-200 shadow-md">
+          LJ
+        </div>
+        <div class="hidden lg:block text-left text-xs leading-tight">
+          <div class="font-bold text-slate-200">Executive Desk</div>
+          <div class="text-[9px] text-slate-400">Master Clearance</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE MUSIC TRADING FLOOR TICKER -->
+  <div class="bg-[#050508] border-b border-white/[0.06] px-4 md:px-6 py-2 overflow-x-auto text-[11px] font-mono-code flex items-center space-x-6 text-slate-300">
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">ACTIVE CATALOGUE:</span> <strong class="text-white">428 SONGS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">MOMENTUM SURGES:</span> <strong class="text-violet-400 font-bold animate-pulse">37 TRACKS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">BREAKOUTS:</span> <strong class="text-purple-300">9 ARTISTS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">PLAYLIST LEADS:</span> <strong class="text-emerald-400">84 OPPS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">RADIO TARGETS:</span> <strong class="text-amber-400">31 STATIONS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">SYNC BRIEFS:</span> <strong class="text-violet-400">17 ACTIVE</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">GLOBAL EXPORT:</span> <strong class="text-indigo-400">8 MARKETS</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">VERIFIED PLACEMENTS:</span> <strong class="text-emerald-400">13 TODAY</strong></div>
+    <div class="flex items-center space-x-1.5"><span class="text-slate-500">RIGHTS CLEARANCE:</span> <strong class="text-purple-300 font-bold">100% ONE-STOP</strong></div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="flex flex-1 overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR NAVIGATION (Desktop Rail - Muzes & Groovvy Style) -->
+    <aside class="hidden md:flex w-64 border-r border-white/[0.08] bg-[#0A0713]/90 backdrop-blur-2xl flex-col justify-between overflow-y-auto z-20 flex-shrink-0">
+      <div class="p-4 space-y-5">
+
+        <!-- macOS Window Dots + Luxury Wordmark (Apple Music style) -->
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+          <div class="flex items-center space-x-2">
+            <span class="mac-dot mac-dot-red"></span>
+            <span class="mac-dot mac-dot-yellow"></span>
+            <span class="mac-dot mac-dot-green"></span>
+          </div>
+          <span class="text-[10px] font-mono-code text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">OS 2.0</span>
+        </div>
+
+        <!-- Sidebar Brand Logo -->
+        <div class="flex items-center space-x-3 px-1">
+          <div class="w-9 h-9 rounded-2xl purple-accent-gradient flex items-center justify-center font-black text-white text-sm shadow-glow-violet border border-white/20">
+            LJ
+          </div>
+          <div>
+            <div class="font-black text-white text-base purple-gradient-text tracking-tight">LJ MUSIC OS</div>
+            <div class="text-[9px] text-purple-300 font-mono-code">AI Growth Swarm</div>
+          </div>
+        </div>
+
+        <!-- Quick Sidebar Search Bar (Apple Music style) -->
+        <div class="relative">
+          <input type="text" id="sidebarSearchInput" placeholder="Quick search..." onkeydown="if(event.key==='Enter'){document.getElementById('intakeSearchInput').value=this.value; switchTab('tab-intake'); executeStoreSearch();}" class="w-full bg-[#120E22] border border-white/10 rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition">
+          <svg class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+
+        <!-- SECTION: MENU -->
+        <div>
+          <div class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest px-3 mb-2 flex items-center justify-between">
+            <span>Menu</span>
+          </div>
+          <nav class="space-y-1 text-xs">
+            <button onclick="switchTab('tab-discover')" id="nav-discover" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              <span>Explore / Home</span>
+            </button>
+            <button onclick="switchTab('tab-charts')" id="nav-charts" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <span>Top Charts</span>
+            </button>
+            <button onclick="switchTab('tab-command-center')" id="nav-command-center" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>10K Swarm Command</span>
+            </button>
+            <button onclick="switchTab('tab-council')" id="nav-council" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <span>Adversarial Council</span>
+            </button>
+            <button onclick="switchTab('tab-lyrics')" id="nav-lyrics" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+              <span>Lyrics OS (Div 17)</span>
+            </button>
+            <button onclick="switchTab('tab-curator-crm')" id="nav-curator-crm" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+              <span>Curator CRM & Pitch</span>
+            </button>
+            <button onclick="switchTab('tab-sync')" id="nav-sync" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+              <span>Commercial Sync</span>
+            </button>
+            <button onclick="switchTab('tab-anti-fraud')" id="nav-anti-fraud" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>Anti-Fraud Shield</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- SECTION: PLAYLISTS & VERIFIED ARTISTS (Muzes & Groovvy Style) -->
+        <div>
+          <div class="flex items-center justify-between px-3 mb-2">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Roster & Radio</span>
+            <button onclick="openAddArtistFlow()" class="text-xs text-emerald-400 hover:underline font-bold">+ Add</button>
+          </div>
+          <div class="space-y-1 text-xs">
+            <button onclick="focusArtistInApp('Drey Star')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
+              <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-purple-500">
+              <div class="truncate flex-1">
+                <div class="font-bold text-white group-hover:text-purple-300 truncate">Drey Star</div>
+                <div class="text-[9px] text-slate-400">LJ Priority Roster</div>
+              </div>
+            </button>
+            <button onclick="focusArtistInApp('Ayra Starr')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-emerald-500">
+              <div class="truncate flex-1">
+                <div class="font-bold text-white group-hover:text-purple-300 truncate">Ayra Starr</div>
+                <div class="text-[9px] text-slate-400">Verified DSP</div>
+              </div>
+            </button>
+            <button onclick="focusArtistInApp('Asake')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
+              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-white/20">
+              <div class="truncate flex-1">
+                <div class="font-bold text-white group-hover:text-purple-300 truncate">Asake</div>
+                <div class="text-[9px] text-slate-400">Verified DSP</div>
+              </div>
+            </button>
+            <button onclick="focusArtistInApp('Tems')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-white/20">
+              <div class="truncate flex-1">
+                <div class="font-bold text-white group-hover:text-purple-300 truncate">Tems</div>
+                <div class="text-[9px] text-slate-400">Verified DSP</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- User Profile Pill at Bottom (Groovvy & Apple Music Style) -->
+      <div class="p-3.5 border-t border-white/[0.08] bg-[#0E0B1A]/80 flex items-center justify-between text-xs">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-full purple-accent-gradient flex items-center justify-center font-bold text-white border border-white/20 shadow-sm">
+            LJ
+          </div>
+          <div>
+            <div class="font-bold text-white">Dave Cooper</div>
+            <div class="text-[9px] text-emerald-400 font-mono-code">Executive Desk ● Online</div>
+          </div>
+        </div>
+        <button onclick="toggleCopilotSheet()" class="text-slate-400 hover:text-white" title="Copilot AI">
+          <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN VIEWPORT -->
+    <main class="flex-1 overflow-y-auto bg-brand-dark p-4 md:p-6 space-y-6 pb-28" id="mainContent">
+
+      <!-- ============================================================== -->
+      <!-- TOP CONTROL & CATEGORY BAR (Muzes & Groovvy Style)            -->
+      <!-- ============================================================== -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-2 border-b border-white/[0.06]">
+        <!-- Category Navigation Pills -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0 text-xs font-bold no-scrollbar">
+          <button onclick="switchCategory('tab-command-center', this)" class="category-pill px-4 py-2 rounded-full bg-purple-600 text-white shadow-glow-violet whitespace-nowrap transition">
+            MUSIC OS
+          </button>
+          <button onclick="switchCategory('tab-intake', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>REALTIME SPOTIFY</span>
+          </button>
+          <button onclick="switchCategory('tab-command', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            10,000 SWARM
+          </button>
+          <button onclick="switchCategory('tab-discover', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            DISCOVERY
+          </button>
+          <button onclick="switchCategory('tab-charts', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            CHARTS & DSP
+          </button>
+          <button onclick="switchCategory('tab-lyrics', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            LYRICS INTELLIGENCE
+          </button>
+          <button onclick="switchCategory('tab-council', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            COUNCIL DEBATE
+          </button>
+          <button onclick="switchCategory('tab-pitch', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
+            PITCH CRM
+          </button>
+        </div>
+
+        <!-- Quick Spotify Resolver & Global Search Input -->
+        <div class="flex items-center space-x-2">
+          <div class="relative flex-1 md:w-80">
+            <input type="text" id="topGlobalSearchInput" onkeydown="if(event.key==='Enter') handleTopSearchOrSpotify(this.value)" placeholder="Search song or paste Spotify URL..." class="w-full bg-[#0E0B1A] border border-white/10 rounded-full px-4 py-2 pl-9 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition shadow-inner">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <button onclick="handleTopSearchOrSpotify(document.getElementById('topGlobalSearchInput').value)" class="p-2 rounded-full bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white transition border border-purple-500/30" title="Search or Resolve Spotify Link">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB: LJ MUSIC COMMAND CENTER (FLAGSHIP SPATIAL DESK)           -->
+      <!-- ============================================================== -->
+      <section id="tab-command-center" class="tab-panel space-y-6">
+
+        <!-- ============================================================== -->
+        <!-- CINEMATIC GIANT HERO BILLBOARD (Muzes & Groovvy Style)          -->
+        <!-- ============================================================== -->
+        <div id="flagshipBillboard" class="rounded-3xl p-6 md:p-8 relative overflow-hidden border border-white/15 shadow-2xl bg-gradient-to-r from-[#200D43] via-[#351065] to-[#12072B] transition-all duration-700">
+          <!-- Ambient Radial Glow and Decorative Rings (Muzes Style) -->
+          <div class="absolute -right-16 -top-16 w-80 h-80 rounded-full border border-purple-500/20 pointer-events-none"></div>
+          <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full border border-purple-500/10 pointer-events-none"></div>
+          <div class="absolute left-1/3 -bottom-24 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <!-- Left Billboard Content -->
+            <div class="space-y-4 max-w-xl text-left">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-purple-500/30 text-purple-200 border border-purple-400/40 flex items-center space-x-1.5 shadow-sm">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span id="billboardTag">PRIORITY SWARM CAMPAIGN</span>
+                </span>
+                <span class="text-xs text-purple-300/80 font-mono-code" id="billboardTerritory">8 Markets Active</span>
+              </div>
+
+              <div>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-none" id="billboardTrackTitle">
+                  KIRA
+                </h1>
+                <div class="flex items-center space-x-2 mt-2">
+                  <span class="text-lg md:text-xl font-bold text-purple-200" id="billboardArtistName">Drey Star</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                  <span class="text-xs text-slate-300 font-mono-code" id="billboardGenre">Afrobeats • 107 BPM</span>
+                </div>
+              </div>
+
+              <p class="text-xs md:text-sm text-slate-200 leading-relaxed max-w-lg" id="billboardDescription">
+                Hypnotic bassline, syncopated talking drums, and infectious anthemic hook dominating organic DSP discovery across 8 territories. 10,000 specialist agents deployed.
+              </p>
+
+              <!-- Billboard Action Buttons -->
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <!-- Listen Now (White Pill Button with Play) -->
+                <button onclick="playBillboardCurrentTrack()" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-purple-950 font-black text-xs md:text-sm transition flex items-center space-x-2 shadow-2xl active:scale-95">
+                  <svg class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <span>Listen Now</span>
+                </button>
+
+                <!-- Mobilize 10,000 Swarm (Electric Violet Glass Pill) -->
+                <button onclick="mobilizeSwarmOnBillboard()" class="px-5 py-2.5 rounded-full purple-accent-gradient hover:opacity-95 text-white font-extrabold text-xs md:text-sm transition flex items-center space-x-2 shadow-glow-violet border border-white/20 active:scale-95">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  <span>Mobilize 10,000 Swarm</span>
+                </button>
+
+                <!-- Pitch Dossier Button -->
+                <button onclick="openPitchForBillboard()" class="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition border border-white/10 flex items-center space-x-1.5">
+                  <svg class="w-3.5 h-3.5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span>Pitch Dossier</span>
+                </button>
+
+                <!-- Favorite Heart -->
+                <button onclick="toggleBillboardFavorite()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 hover:text-rose-400 flex items-center justify-center transition border border-white/10 active:scale-90" title="Favorite">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </button>
+              </div>
+
+              <!-- Carousel Pagination Dots (Muzes Style) -->
+              <div class="flex items-center space-x-2 pt-2">
+                <button onclick="switchHeroBillboard(0)" class="billboard-dot w-6 h-2 rounded-full bg-white transition-all duration-300" id="billboardDot0"></button>
+                <button onclick="switchHeroBillboard(1)" class="billboard-dot w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300" id="billboardDot1"></button>
+                <button onclick="switchHeroBillboard(2)" class="billboard-dot w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300" id="billboardDot2"></button>
+                <button onclick="switchHeroBillboard(3)" class="billboard-dot w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300" id="billboardDot3"></button>
+                <span class="text-[10px] text-purple-300/80 font-mono-code ml-2" id="billboardIndexLabel">1 of 4 Featured Masters</span>
+              </div>
+            </div>
+
+            <!-- Right Billboard Visual (Cutout image with glowing aura and acoustic badges) -->
+            <div class="relative flex-shrink-0 flex items-center justify-center">
+              <div class="w-60 h-60 md:w-72 md:h-72 rounded-3xl overflow-hidden border border-white/20 shadow-glow-violet relative bg-slate-900 group">
+                <img id="billboardArtistImg" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#12072B] via-transparent to-transparent opacity-50"></div>
+                
+                <!-- Floating Equalizer Waveform Badge -->
+                <div class="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/15 flex items-center justify-between">
+                  <div class="flex items-center space-x-1">
+                    <span class="sound-bar h-2"></span>
+                    <span class="sound-bar h-4"></span>
+                    <span class="sound-bar h-5"></span>
+                    <span class="sound-bar h-3"></span>
+                    <span class="sound-bar h-2"></span>
+                    <span class="text-[10px] text-purple-200 font-mono-code font-bold ml-1.5" id="billboardWaveStatus">Acoustic DNA: 94%</span>
+                  </div>
+                  <span class="text-[9px] font-mono-code text-emerald-400 font-bold">100% CLEAR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- TOP ARTISTS SQUIRCLE ROW (Groovvy Style)                       -->
+        <!-- ============================================================== -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-extrabold text-white tracking-tight">Top Artists</h2>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">LJ ROSTER</span>
+            </div>
+            <button onclick="switchTab('tab-intake')" class="text-xs text-purple-400 hover:text-purple-300 font-bold hover:underline flex items-center space-x-1">
+              <span>Explore All 15 Artists</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
+            <!-- Artist 1: Drey Star -->
+            <div onclick="focusArtistInApp('Drey Star')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Drey Star</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">1.2M Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30">LJ PRIORITY</span>
+            </div>
+
+            <!-- Artist 2: Ayra Starr -->
+            <div onclick="focusArtistInApp('Ayra Starr')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Ayra Starr</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">14.8M Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">VERIFIED DSP</span>
+            </div>
+
+            <!-- Artist 3: Asake -->
+            <div onclick="focusArtistInApp('Asake')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Asake</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">8.4M Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AMAPIANO</span>
+            </div>
+
+            <!-- Artist 4: Tems -->
+            <div onclick="focusArtistInApp('Tems')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Tems</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">19.2M Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30">GLOBAL R&B</span>
+            </div>
+
+            <!-- Artist 5: Burna Boy -->
+            <div onclick="focusArtistInApp('Burna Boy')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Burna Boy</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">22.5M Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30">AFRO-FUSION</span>
+            </div>
+
+            <!-- Artist 6: Amara Blue -->
+            <div onclick="focusArtistInApp('Amara Blue')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Amara Blue</div>
+              <div class="text-[10px] text-slate-400 font-mono-code">640K Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-violet-500/20 text-violet-300 border border-violet-500/30">AFRO-SOUL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- GENRES & SONIC VIBES ROW (Groovvy Style)                       -->
+        <!-- ============================================================== -->
+        <div class="space-y-2 pb-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-extrabold text-slate-300 uppercase tracking-wider text-[11px]">Genres & Sonic Vibes</span>
+            <span class="text-slate-400 font-mono-code text-[10px]">Filter Realtime Catalogue</span>
+          </div>
+          <div class="flex items-center space-x-2.5 overflow-x-auto pb-1 no-scrollbar text-xs font-bold" id="genreVibePillRow">
+            <button onclick="filterByGenre('All', this)" class="genre-pill px-4 py-2 rounded-xl bg-purple-600 text-white shadow-glow-violet whitespace-nowrap transition">
+              🔥 All Vibes
+            </button>
+            <button onclick="filterByGenre('Afrobeats', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 border border-orange-500/30 hover:border-orange-500 text-orange-200 whitespace-nowrap transition">
+              🥁 Afrobeats
+            </button>
+            <button onclick="filterByGenre('Amapiano', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-500/30 hover:border-purple-500 text-purple-200 whitespace-nowrap transition">
+              ⚡ Amapiano
+            </button>
+            <button onclick="filterByGenre('Alté', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-teal-600/30 to-emerald-600/30 border border-teal-500/30 hover:border-teal-500 text-teal-200 whitespace-nowrap transition">
+              🌙 Alté & R&B
+            </button>
+            <button onclick="filterByGenre('Afro-Soul', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600/30 to-rose-600/30 border border-pink-500/30 hover:border-pink-500 text-pink-200 whitespace-nowrap transition">
+              🎷 Afro-Soul & Highlife
+            </button>
+            <button onclick="filterByGenre('Global Pop', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600/30 to-blue-600/30 border border-sky-500/30 hover:border-sky-500 text-sky-200 whitespace-nowrap transition">
+              🌍 Global Pop & Crossover
+            </button>
+            <button onclick="filterByGenre('Afro-Gospel', this)" class="genre-pill px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-600/30 to-amber-600/30 border border-yellow-500/30 hover:border-yellow-500 text-yellow-200 whitespace-nowrap transition">
+              ✨ Afro-Gospel
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. HERO COMMAND STATUS (Section 5) -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 relative overflow-hidden border border-white/10 shadow-spatial">
+          <!-- Ambient Purple/Violet Atmospheric Glow -->
+          <div class="absolute -right-24 -top-24 w-80 h-80 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 -bottom-20 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/[0.08] pb-6">
+            <div>
+              <div class="flex items-center space-x-2.5">
+                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  EXECUTIVE INTELLIGENCE
+                </span>
+                <span class="text-xs text-slate-400 font-mono-code" id="briefingDate">Wednesday, October 7, 2026</span>
+              </div>
+              <h1 class="text-3xl md:text-4xl font-black text-white mt-2 tracking-tight">
+                Good evening, <span class="purple-gradient-text">LJ</span>
+              </h1>
+              <p class="text-xs md:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                Your music intelligence command center. The 10,000-agent swarm is actively discovering opportunities, evaluating acoustic DNA, enforcing rights, and driving organic momentum worldwide.
+              </p>
+            </div>
+
+            <!-- Large Status Pill: 10,000 AI AGENTS ACTIVE -->
+            <div class="glass-panel-subtle p-4 rounded-2xl border border-white/10 flex flex-col items-end">
+              <span class="text-[10px] font-mono-code text-slate-400 uppercase tracking-widest">Master Workforce Status</span>
+              <div class="flex items-center space-x-2 mt-1">
+                <span class="w-3 h-3 rounded-full bg-violet-400 animate-ping"></span>
+                <span class="text-lg md:text-xl font-black tracking-tight text-white purple-gradient-text">10,000 AI AGENTS ACTIVE</span>
+              </div>
+              <span class="text-[11px] text-emerald-400 font-semibold font-mono-code mt-0.5">Autonomous & Supervised Coordination</span>
+            </div>
+          </div>
+
+          <!-- Live 5-Cluster Status Telemetry Bar -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-5 relative z-10 text-xs font-mono-code">
+            <div class="glass-panel-subtle p-3.5 rounded-2xl border border-white/[0.06] space-y-1">
+              <span class="text-slate-400 text-[10px] block">Active Agents</span>
+              <div class="text-base font-extrabold text-white flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>9,842 Active</span>
+              </div>
+            </div>
+            <div class="glass-panel-subtle p-3.5 rounded-2xl border border-white/[0.06] space-y-1">
+              <span class="text-slate-400 text-[10px] block">Collaborating</span>
+              <div class="text-base font-extrabold text-violet-300 flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+                <span>73 Collaborating</span>
+              </div>
+            </div>
+            <div class="glass-panel-subtle p-3.5 rounded-2xl border border-white/[0.06] space-y-1">
+              <span class="text-slate-400 text-[10px] block">Executing</span>
+              <div class="text-base font-extrabold text-indigo-300 flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                <span>85 Executing</span>
+              </div>
+            </div>
+            <div class="glass-panel-subtle p-3.5 rounded-2xl border border-white/[0.06] space-y-1">
+              <span class="text-slate-400 text-[10px] block">Opportunities</span>
+              <div class="text-base font-extrabold text-emerald-400 flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>127 Discovered</span>
+              </div>
+            </div>
+            <div class="glass-panel-subtle p-3.5 rounded-2xl border border-white/[0.06] space-y-1 col-span-2 sm:col-span-1">
+              <span class="text-slate-400 text-[10px] block">Catalogue Activity</span>
+              <div class="text-base font-extrabold text-white flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                <span>18 Monitored</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. WHAT'S MOVING NOW — CINEMATIC MUSIC FEATURE (Section 5) -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 border border-white/10 shadow-spatial relative overflow-hidden space-y-6">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+            <div>
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest block">Cinematic Spotlight</span>
+              <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">WHAT'S MOVING NOW</h2>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-mono-code font-bold bg-violet-500/20 text-violet-300 border border-violet-500/30">
+              PRIORITY CAMPAIGN
+            </span>
+          </div>
+
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="flex items-center space-x-5">
+              <!-- Large Artwork with Ambient Purple Reflection -->
+              <div class="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden border border-white/20 shadow-glow-violet flex-shrink-0 group">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md text-[9px] font-mono-code font-bold bg-purple-600/80 text-white">
+                  HERO ASSET
+                </div>
+              </div>
+
+              <!-- Metadata & Momentum -->
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-xl md:text-2xl font-black text-white tracking-tight">KIRA</h3>
+                  <span class="text-sm font-semibold text-slate-300">— Drey Star</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse">
+                    +41% MOMENTUM
+                  </span>
+                </div>
+                <p class="text-xs font-mono-code text-violet-300">
+                  Genre: Afrobeats • 107 BPM • Key A minor • 84.5% Completion Rate • Energy 88 • Danceability 92
+                </p>
+                <div class="flex flex-wrap items-center gap-3 pt-1 text-xs">
+                  <div class="flex items-center space-x-1.5 text-slate-300">
+                    <span class="text-slate-400">AI Opportunity Score:</span>
+                    <strong class="text-emerald-400 text-sm font-black font-mono-code">94%</strong>
+                  </div>
+                  <span class="text-slate-600">•</span>
+                  <div class="text-slate-400">
+                    Assigned: <strong class="text-white font-mono-code">1,420 Agents</strong> across DSPs, Radio & Sync
+                  </div>
+                  <span class="text-slate-600">•</span>
+                  <div class="text-emerald-400 font-semibold">
+                    ✓ 100% Pre-Cleared One-Stop Rights
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action CTAs -->
+            <div class="flex flex-wrap gap-2.5">
+              <button onclick="openAddArtistFlow()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs px-4 py-3 rounded-2xl transition shadow-glow-emerald border border-emerald-400/40 active:scale-95 flex items-center space-x-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                <span>+ Add New Artist</span>
+              </button>
+              <button onclick="switchTab('tab-council'); loadDebateForTrack('lj-000');" class="purple-accent-gradient hover:opacity-95 text-white font-extrabold text-xs px-5 py-3 rounded-2xl transition shadow-glow-violet border border-white/20 active:scale-95 flex items-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span>Convene Council</span>
+              </button>
+              <button onclick="openSyncOneSheetModal('lj-000')" class="bg-white/10 hover:bg-white/15 text-white font-bold text-xs px-4 py-3 rounded-2xl transition border border-white/10 active:scale-95">
+                1-Click Sync Package
+              </button>
+              <button onclick="switchTab('tab-lyrics'); loadLyricsForTrack('lj-000');" class="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-medium text-xs px-4 py-3 rounded-2xl transition border border-white/5">
+                Lyrics OS
+              </button>
+            </div>
+          </div>
+
+          <!-- Action Plan Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-300 pt-3 border-t border-white/[0.08]" id="kiraActionList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- 3. SIGNATURE VISUAL COMPONENT: 10,000 AI AGENT NETWORK (Section 6) -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 border border-white/10 shadow-spatial space-y-6 relative overflow-hidden">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Autonomous Spatial Network</span>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">10,000 NODES</span>
+              </div>
+              <h2 class="text-xl font-black text-white tracking-tight mt-0.5">AI AGENT COLLABORATION NETWORK</h2>
+              <p class="text-xs text-slate-400">
+                Visualizing interconnected specialist clusters: A&R, Playlist, Editorial, Radio, DSP, Marketing, Sync, Lyrics, Rights, Analytics, Global Markets.
+              </p>
+            </div>
+
+            <!-- Live Collaboration Cycle Button -->
+            <button onclick="simulateAgentCollaboration()" class="purple-accent-gradient hover:opacity-90 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition shadow-glow-violet border border-white/20 active:scale-95 flex items-center space-x-2">
+              <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Run Swarm Collaboration</span>
+            </button>
+          </div>
+
+          <!-- Collaboration Event Alert Banner -->
+          <div id="agentCollaborationBanner" class="p-4 rounded-2xl bg-purple-950/40 border border-purple-500/40 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center space-x-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-violet-400 animate-ping"></span>
+              <div>
+                <span class="font-extrabold text-white text-sm">127 agents collaborating on KIRA</span>
+                <p class="text-violet-300 text-[11px] mt-0.5 font-mono-code" id="agentPathText">
+                  DATA STREAM: KIRA → Afrobeats → Lagos → Editorial → DSP
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 font-mono-code">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">
+                OPPORTUNITY FOUND
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 font-bold">
+                94% MATCH
+              </span>
+            </div>
+          </div>
+
+          <!-- Interactive Agent Network Canvas SVG -->
+          <div class="relative w-full h-64 md:h-72 bg-[#090A12] rounded-2xl border border-white/[0.08] overflow-hidden flex items-center justify-center">
+            <svg id="agentNetworkSvg" class="w-full h-full" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="streamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#C084FC" stop-opacity="1"/>
+                  <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.8"/>
+                </linearGradient>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+              </defs>
+
+              <!-- Connection Lines -->
+              <g stroke="rgba(124, 58, 237, 0.25)" stroke-width="1.5">
+                <line x1="120" y1="150" x2="250" y2="90" />
+                <line x1="120" y1="150" x2="250" y2="210" />
+                <line x1="250" y1="90" x2="400" y2="150" stroke="url(#streamGrad)" stroke-width="2.5" />
+                <line x1="250" y1="210" x2="400" y2="150" />
+                <line x1="400" y1="150" x2="550" y2="90" stroke="url(#streamGrad)" stroke-width="2.5" />
+                <line x1="400" y1="150" x2="550" y2="210" />
+                <line x1="550" y1="90" x2="680" y2="150" stroke="url(#streamGrad)" stroke-width="2.5" />
+                <line x1="550" y1="210" x2="680" y2="150" />
+                <line x1="250" y1="90" x2="550" y2="90" stroke-dasharray="4,4" stroke="rgba(255,255,255,0.15)" />
+                <line x1="250" y1="210" x2="550" y2="210" stroke-dasharray="4,4" stroke="rgba(255,255,255,0.15)" />
+              </g>
+
+              <!-- Animated Flow Particles -->
+              <circle r="4" fill="#C084FC" filter="url(#glow)">
+                <animateMotion path="M 120,150 L 250,90 L 400,150 L 550,90 L 680,150" dur="4s" repeatCount="indefinite" />
+              </circle>
+              <circle r="3" fill="#8B5CF6" filter="url(#glow)">
+                <animateMotion path="M 120,150 L 250,210 L 400,150 L 550,210 L 680,150" dur="5s" repeatCount="indefinite" />
+              </circle>
+
+              <!-- Agent Cluster Nodes -->
+              <!-- Center Hub: KIRA Orchestrator -->
+              <g transform="translate(400,150)">
+                <circle r="26" fill="#4C1D95" stroke="#C084FC" stroke-width="2" filter="url(#glow)" />
+                <text text-anchor="middle" dy="4" fill="#FFFFFF" font-size="10" font-weight="bold">KIRA</text>
+                <text text-anchor="middle" dy="40" fill="#C084FC" font-size="9" font-family="JetBrains Mono">ORCHESTRATOR</text>
+              </g>
+
+              <!-- A&R Division -->
+              <g transform="translate(120,150)">
+                <circle r="18" fill="#1E1B4B" stroke="#7C3AED" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#E9D5FF" font-size="9" font-weight="bold">A&R</text>
+                <text text-anchor="middle" dy="-26" fill="#94A3B8" font-size="9" font-family="JetBrains Mono">1,500 AGENTS</text>
+              </g>
+
+              <!-- Playlist Division -->
+              <g transform="translate(250,90)">
+                <circle r="18" fill="#1E1B4B" stroke="#8B5CF6" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#E9D5FF" font-size="8" font-weight="bold">PLAYLIST</text>
+                <text text-anchor="middle" dy="-26" fill="#94A3B8" font-size="9" font-family="JetBrains Mono">1,000 AGENTS</text>
+              </g>
+
+              <!-- Radio & DJ -->
+              <g transform="translate(250,210)">
+                <circle r="18" fill="#1E1B4B" stroke="#6366F1" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#E9D5FF" font-size="8" font-weight="bold">RADIO</text>
+                <text text-anchor="middle" dy="32" fill="#94A3B8" font-size="9" font-family="JetBrains Mono">700 AGENTS</text>
+              </g>
+
+              <!-- Editorial Desk -->
+              <g transform="translate(550,90)">
+                <circle r="20" fill="#2E1065" stroke="#A855F7" stroke-width="2" filter="url(#glow)" />
+                <text text-anchor="middle" dy="4" fill="#FFFFFF" font-size="8" font-weight="bold">EDITORIAL</text>
+                <text text-anchor="middle" dy="-28" fill="#C084FC" font-size="9" font-family="JetBrains Mono">350 AGENTS</text>
+              </g>
+
+              <!-- Sync & Brand -->
+              <g transform="translate(550,210)">
+                <circle r="18" fill="#1E1B4B" stroke="#10B981" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#E9D5FF" font-size="8" font-weight="bold">SYNC</text>
+                <text text-anchor="middle" dy="32" fill="#94A3B8" font-size="9" font-family="JetBrains Mono">800 AGENTS</text>
+              </g>
+
+              <!-- DSP Distribution -->
+              <g transform="translate(680,150)">
+                <circle r="20" fill="#1E1B4B" stroke="#4F46E5" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#E9D5FF" font-size="9" font-weight="bold">DSP</text>
+                <text text-anchor="middle" dy="-28" fill="#94A3B8" font-size="9" font-family="JetBrains Mono">11 PLATFORMS</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 4. AGENT DECISION LOG & AI LEARNING LOOP (Sections 27 & 29) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <!-- Explainable Agent Decision Log (Section 27) -->
+          <div class="glass-panel rounded-3xl p-6 border border-white/10 shadow-spatial space-y-4">
+            <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+              <div>
+                <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Explainable AI Intelligence</span>
+                <h3 class="text-base font-black text-white">AGENT DECISION LOG</h3>
+              </div>
+              <span class="text-xs font-mono-code text-slate-400">Agent #4721</span>
+            </div>
+
+            <!-- Decision Card -->
+            <div class="glass-panel-subtle p-4 rounded-2xl border border-white/10 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-white">Found Opportunity: Spotify Afrobeats Editorial</span>
+                  <div class="text-[11px] text-slate-400 font-mono-code mt-0.5">Song: <strong class="text-violet-300">KIRA (Drey Star)</strong></div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-xs font-mono-code font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  94% MATCH
+                </span>
+              </div>
+
+              <!-- Match Reasons -->
+              <div class="grid grid-cols-2 gap-2 text-[11px] font-mono-code bg-[#07070A]/60 p-3 rounded-xl border border-white/5">
+                <div class="text-slate-300">BPM Match: <strong class="text-emerald-400">+98%</strong></div>
+                <div class="text-slate-300">Genre Match: <strong class="text-emerald-400">+96%</strong></div>
+                <div class="text-slate-300">Mood Compatibility: <strong class="text-emerald-400">+93%</strong></div>
+                <div class="text-slate-300">Audience Growth: <strong class="text-emerald-400">+91%</strong></div>
+              </div>
+
+              <div class="text-xs text-slate-300">
+                <span class="text-slate-400">Recommendation:</span> <strong class="text-white">Pitch via Official DSP Editorial Tool. Legitimate organic reach.</strong>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex gap-2 pt-2 border-t border-white/[0.06]" id="agentDecisionActionArea">
+                <button onclick="approveAgentDecision('4721', 'Spotify Afrobeats Editorial', 'KIRA', 'Drey Star')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs transition active:scale-95 shadow-md shadow-emerald-600/20">
+                  [APPROVE]
+                </button>
+                <button onclick="rejectAgentDecision('4721', 'Spotify Afrobeats Editorial')" class="bg-white/5 hover:bg-white/10 text-slate-300 font-medium py-2 px-3 rounded-xl text-xs transition">
+                  [REJECT]
+                </button>
+                <button onclick="switchTab('tab-council'); loadDebateForTrack('lj-000');" class="bg-purple-900/40 hover:bg-purple-900/60 text-purple-300 font-bold py-2 px-3 rounded-xl text-xs transition border border-purple-500/30">
+                  [VIEW REASONING]
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Continuous Learning Loop (Section 29) -->
+          <div class="glass-panel rounded-3xl p-6 border border-white/10 shadow-spatial space-y-4">
+            <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+              <div>
+                <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Feedback Architecture</span>
+                <h3 class="text-base font-black text-white">AI CONTINUOUS LEARNING LOOP</h3>
+              </div>
+              <span class="text-xs text-emerald-400 font-mono-code font-bold">100% REAL AUDIENCE SIGNALS</span>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Every legitimate outcome feeds back into the neural ranker. Placement successes and skip rates calibrate the next discovery cycle.
+            </p>
+
+            <!-- Visual Flow Stages -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono-code">
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-violet-400 block text-[10px]">STAGE 1</span>
+                <span class="text-white font-bold">DISCOVER</span>
+              </div>
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-violet-400 block text-[10px]">STAGE 2</span>
+                <span class="text-white font-bold">ANALYZE</span>
+              </div>
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-violet-400 block text-[10px]">STAGE 3</span>
+                <span class="text-white font-bold">RECOMMEND</span>
+              </div>
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-violet-400 block text-[10px]">STAGE 4</span>
+                <span class="text-white font-bold">PITCH</span>
+              </div>
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-emerald-400 block text-[10px]">STAGE 5</span>
+                <span class="text-emerald-400 font-bold">PLACEMENT</span>
+              </div>
+              <div class="bg-white/[0.03] p-2.5 rounded-xl border border-white/5 text-center">
+                <span class="text-purple-300 block text-[10px]">STAGE 6</span>
+                <span class="text-purple-300 font-bold">MEASURE & LEARN</span>
+              </div>
+            </div>
+
+            <!-- Loop Calibration Notice -->
+            <div class="p-3 bg-violet-950/20 border border-violet-500/20 rounded-xl text-[11px] text-slate-300 flex items-center justify-between">
+              <span>Learned from 1,842 historic placements</span>
+              <strong class="text-violet-300 font-mono-code">+18.4% Accuracy Improvement</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. TOP 10 ACTIONS NOW (Trading Floor Board) -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 border border-white/10 shadow-spatial space-y-4">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Trading Floor Execution Board</span>
+              <h2 class="text-lg font-black text-white">TOP 10 ACTIONS NOW</h2>
+            </div>
+            <span class="text-xs font-mono-code text-slate-400">Auto-Dispatched from 10,000 Agents</span>
+          </div>
+
+          <div class="space-y-2.5" id="topActionsList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- 6. 17-DIVISION SWARM WORKFORCE GRID (Section 26) -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 border border-white/10 shadow-spatial space-y-4">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Workforce Architecture</span>
+              <h2 class="text-lg font-black text-white">10,000-AGENT SWARM DIVISIONS</h2>
+              <p class="text-xs text-slate-400">Specialist identities dynamically spawned to execute targeted music growth jobs.</p>
+            </div>
+            <span class="text-xs font-mono-code text-emerald-400 font-bold">17 ACTIVE DIVISIONS</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5" id="swarmDivisionsGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: ADVERSARIAL COUNCIL CHAMBER (Section 15)                  -->
+      <!-- ============================================================== -->
+      <section id="tab-council" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Adversarial Council Chamber</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">ANTI-ECHO CHAMBER</span>
+            </div>
+            <p class="text-sm text-slate-400">8 specialized AI personas argue, challenge assumptions, and debate viability before the Chief Decider issues the verdict.</p>
+          </div>
+          
+          <div class="flex items-center space-x-3 text-xs">
+            <span class="text-slate-400">Select Track:</span>
+            <select id="councilTrackSelect" onchange="loadDebateForSelectedTrack()" class="bg-brand-card border border-brand-cardBorder rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-brand-gold">
+              <!-- Filled by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Debate Canvas -->
+        <div id="councilDebateCanvas" class="space-y-6">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: CURATOR CRM & CONTEXTUAL PITCHES (Section 6 & 7)          -->
+      <!-- ============================================================== -->
+      <section id="tab-curator-crm" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Curator CRM & Pitch Studio</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">DECISION ENGINE</span>
+            </div>
+            <p class="text-sm text-slate-400">Verified curator directory, preference matching, anti-spam policies, and tailored pitch generator.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Curator Directory -->
+          <div class="lg:col-span-1 bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white">Verified Curators Directory</h3>
+              <span class="text-[10px] font-mono-code px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">7 VERIFIED EMAILS</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Direct contacts for editorial playlist leads, radio OAPs & sync music supervisors.</p>
+            <div class="relative">
+              <input type="text" id="curatorSearchInput" oninput="filterCuratorDirectory()" placeholder="Search curator, platform, email..." class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
+            </div>
+            <div id="curatorList" class="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Evaluation & Contextual Pitch Generator -->
+          <div class="lg:col-span-2 bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+              <div>
+                <div class="text-[10px] font-bold text-brand-gold uppercase tracking-wider">Contextual Pitch Studio</div>
+                <h3 class="text-lg font-black text-white mt-0.5" id="activeCuratorTitle">Evaluate Pitch Feasibility</h3>
+              </div>
+              <div class="flex items-center space-x-2 text-xs">
+                <span class="text-slate-400">Select Track:</span>
+                <select id="curatorPitchTrackSelect" onchange="evaluateActiveCuratorPitch()" class="bg-brand-dark border border-brand-cardBorder rounded-lg px-3 py-1.5 text-white">
+                  <!-- Filled by JS -->
+                </select>
+              </div>
+            </div>
+
+            <div id="curatorEvaluationResult" class="space-y-4">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: ANTI-FRAUD SHIELD (Section 16)                            -->
+      <!-- ============================================================== -->
+      <section id="tab-anti-fraud" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Anti-Fraud & Zero-Bot Defense Shield</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-red-500/20 text-red-400 border border-red-500/30">ZERO TOLERANCE</span>
+            </div>
+            <p class="text-sm text-slate-400">Protects LJ Entertainment from artificial streaming strikes, click farms, and paid guaranteed-stream scams.</p>
+          </div>
+          <div class="text-xs bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full font-bold">
+            ✓ 100% Spotify & Apple Music Compliant
+          </div>
+        </div>
+
+        <!-- Audit Simulator Tool -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">
+            Audit Third-Party Marketing Proposal or Playlist Offer
+          </label>
+          <div class="flex gap-3">
+            <input type="text" id="fraudAuditInput" value="Pay ₦500,000 and I will guarantee 500,000 Spotify streams within 7 days" class="flex-1 bg-brand-dark border border-brand-cardBorder rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold">
+            <button onclick="runFraudAudit()" class="bg-red-600 hover:bg-red-500 text-white font-extrabold px-6 py-3 rounded-xl text-sm transition shadow-lg shadow-red-600/20">
+              Run Threat Audit
+            </button>
+          </div>
+
+          <div id="fraudAuditResult" class="pt-2">
+            <!-- Result displayed here -->
+          </div>
+        </div>
+
+        <!-- Known Threats & Blacklist -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Fraud Watchlist & Enforced Blacklists</h3>
+          <div class="space-y-3" id="fraudWatchlistContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: CATALOGUE REVIVAL WAR ROOM (Section 13)                   -->
+      <!-- ============================================================== -->
+      <section id="tab-revival" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Catalogue Revival War Room</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">DORMANT ASSET FLYWHEEL</span>
+            </div>
+            <p class="text-sm text-slate-400">"No song in the LJ catalogue sits idle." Scans older catalogue for sudden search/social surges and provisions revival campaigns.</p>
+          </div>
+          <button onclick="loadCatalogueRevival()" class="bg-brand-card hover:bg-brand-cardBorder border border-brand-cardBorder text-slate-200 text-xs px-3 py-1.5 rounded-lg transition">
+            Scan Catalogue for Spikes
+          </button>
+        </div>
+
+        <div id="revivalCandidatesContainer" class="space-y-6">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: LYRICS INTELLIGENCE & DISTRIBUTION (DIVISION 17)          -->
+      <!-- ============================================================== -->
+      <section id="tab-lyrics" class="tab-panel hidden space-y-6">
+        <!-- Division Header & Workforce Banner -->
+        <div class="bg-gradient-to-r from-pink-950/40 via-brand-card to-slate-900 border border-pink-500/40 rounded-2xl p-6 shadow-2xl space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-pink-500 text-white uppercase tracking-wider">DIVISION 17 • 500 AI AGENTS</span>
+                <span class="text-xs text-pink-300 font-mono-code">Supervised by Chief Lyrics Intelligence Agent</span>
+              </div>
+              <h1 class="text-2xl font-black text-white mt-1">Lyrics Intelligence & Multi-Destination OS</h1>
+              <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                Centralized canonical lyrics pipeline: accurate, word-synchronized, dialect-aware (Yoruba, Igbo, Nigerian Pidgin), and distributed across 11 global platforms with zero-single-point-of-failure auto-recovery.
+              </p>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <div class="text-right">
+                <span class="text-[10px] text-slate-400 block font-mono-code uppercase">Active Song Target</span>
+                <select id="lyricsTrackSelect" onchange="loadLyricsForSelectedTrack()" class="bg-brand-dark border border-brand-cardBorder text-white text-xs font-bold rounded-lg px-3 py-1.5 focus:border-pink-500 focus:outline-none">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 500 Agents Allocation Breakdown -->
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-2 pt-1 text-[11px]">
+            <div class="bg-brand-dark/80 p-2.5 rounded-lg border border-brand-cardBorder">
+              <div class="text-slate-400 text-[10px]">Transcription</div>
+              <div class="font-bold text-white font-mono-code">100 Agents</div>
+            </div>
+            <div class="bg-brand-dark/80 p-2.5 rounded-lg border border-brand-cardBorder">
+              <div class="text-slate-400 text-[10px]">Synchronization</div>
+              <div class="font-bold text-pink-400 font-mono-code">75 Agents</div>
+            </div>
+            <div class="bg-brand-dark/80 p-2.5 rounded-lg border border-brand-cardBorder">
+              <div class="text-slate-400 text-[10px]">Nigerian Languages</div>
+              <div class="font-bold text-brand-gold font-mono-code">50 Agents</div>
+            </div>
+            <div class="bg-brand-dark/80 p-2.5 rounded-lg border border-brand-cardBorder">
+              <div class="text-slate-400 text-[10px]">Translations</div>
+              <div class="font-bold text-indigo-400 font-mono-code">50 Agents</div>
+            </div>
+            <div class="bg-brand-dark/80 p-2.5 rounded-lg border border-brand-cardBorder">
+              <div class="text-slate-400 text-[10px]">Error & Auto-Recovery</div>
+              <div class="font-bold text-emerald-400 font-mono-code">50 Agents</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Overview: Quality Score & Dialect Card -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Lyric Quality Score Radar (0-100) -->
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quality Metric</span>
+                <h3 class="text-base font-black text-white">Lyrics Quality Score</h3>
+              </div>
+              <div class="text-right">
+                <span id="lyricsOverallScoreBadge" class="text-2xl font-black font-mono-code text-pink-400">97/100</span>
+                <span class="block text-[9px] text-emerald-400 font-bold">APPROVED PREMIUM</span>
+              </div>
+            </div>
+
+            <!-- 7 Sub-Scores -->
+            <div class="space-y-2 text-xs" id="lyricsSubScoresContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- African Language & Dialect Intelligence -->
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Dialect Engine</span>
+              <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-brand-gold border border-amber-500/30">AFRICAN LINGUISTICS</span>
+            </div>
+            <h3 class="text-sm font-bold text-white" id="lyricsPrimaryLangText">Nigerian Pidgin / English / Yoruba</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Specialized linguistic agents verify cultural slang, idiomatic meaning, and accent phonetics before synchronization.
+            </p>
+            <div class="space-y-2 pt-2" id="lyricsDialectPhrasesContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Discrepancy & Verification Alert Chamber -->
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-3" id="lyricsDiscrepancyCard">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Human-In-The-Loop Verification</span>
+              <span id="discrepancyStatusBadge" class="px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">1 AWAITING REVIEW</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Audio vs Artist Discrepancy</h3>
+            <div id="discrepancyContentArea" class="space-y-3 text-xs">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Studio: Live Synced Lyrics Studio & Multi-Format Inspector -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-2xl space-y-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg font-black text-white" id="lyricsStudioTrackTitle">KIRA — Drey Star</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono-code bg-brand-dark border border-brand-cardBorder text-slate-300" id="lyricsIsrcBadge">ISRC: NG-LJ1-26-00001</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Click any timestamp or lyric line to jump playback directly to that millisecond mark.</p>
+            </div>
+
+            <!-- View Switcher -->
+            <div class="flex items-center space-x-1 bg-brand-dark p-1 rounded-xl border border-brand-cardBorder text-xs font-semibold">
+              <button onclick="switchLyricsFormat('synced')" id="btn-format-synced" class="lyrics-format-btn px-3 py-1.5 rounded-lg bg-pink-500 text-white font-bold transition">Line-Synced</button>
+              <button onclick="switchLyricsFormat('words')" id="btn-format-words" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Word-Synced</button>
+              <button onclick="switchLyricsFormat('plain')" id="btn-format-plain" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Plain Canonical</button>
+              <button onclick="switchLyricsFormat('clean')" id="btn-format-clean" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Clean / Radio</button>
+              <button onclick="switchLyricsFormat('translations')" id="btn-format-translations" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Translations</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Lyrics Content Area -->
+          <div id="lyricsDisplayContainer" class="min-h-[280px] max-h-[380px] overflow-y-auto pr-3 font-mono-code text-xs space-y-2">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Section 4 & 6: "Lyrics Everywhere" Multi-Destination Grid & Auto-Recovery -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-2xl space-y-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <h3 class="text-lg font-black text-white">The "Lyrics Everywhere" Multi-Destination Matrix</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">11 PLATFORMS CONNECTED</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Automated ingestion, translation, and error-recovery across all official streaming, search, and label destinations.</p>
+            </div>
+
+            <div class="text-xs bg-brand-dark px-3 py-1.5 rounded-lg border border-brand-cardBorder text-slate-300">
+              Zero-Single-Point-Of-Failure: <strong class="text-emerald-400">ACTIVE</strong>
+            </div>
+          </div>
+
+          <!-- Destinations Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 text-xs" id="lyricsDestinationsGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Section 10: One-Click Global Automatic Correction Network -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3">
+            <div>
+              <h3 class="text-base font-black text-white">One-Click Global Automatic Correction Network</h3>
+              <p class="text-xs text-slate-400">Artist or label edits once inside LJ Music OS → instantaneously propagates to all 11 destinations.</p>
+            </div>
+            <span class="text-[10px] font-bold text-brand-gold bg-brand-gold/10 border border-brand-gold/30 px-2 py-0.5 rounded uppercase">KILLER FEATURE</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2 space-y-3">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Select Line #</label>
+                  <select id="correctionLineSelect" onchange="onCorrectionLineSelected()" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-xs text-white">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Corrected Lyric Content</label>
+                  <input type="text" id="correctionInputText" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-xs text-white focus:border-pink-500 focus:outline-none" placeholder="Enter updated lyric line...">
+                </div>
+              </div>
+
+              <div class="flex justify-end">
+                <button onclick="dispatchGlobalLyricsCorrection()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs transition shadow-lg shadow-pink-500/20 active:scale-95">
+                  ⚡ Dispatch Global Correction (11 Platforms)
+                </button>
+              </div>
+            </div>
+
+            <!-- Correction Dispatch Status Box -->
+            <div class="bg-brand-dark rounded-xl p-3.5 border border-brand-cardBorder space-y-2 text-xs" id="correctionDispatchStatusBox">
+              <span class="text-[10px] font-bold text-slate-400 uppercase block">Propagation Audit</span>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                Ready to dispatch. Changes are validated against ISRC, PRO splits, and DSP formatting schemas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 9 & 5: Google Search Schema.org & Unified Music Rights Graph -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Google Search Canonical Web Page & Schema.org JSON-LD -->
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between border-b border-brand-cardBorder pb-2">
+              <div>
+                <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">SEO & Structured Web</span>
+                <h3 class="text-sm font-bold text-white">Google Search Canonical Schema.org</h3>
+              </div>
+              <span class="text-[9px] font-mono-code bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold">JSON-LD</span>
+            </div>
+
+            <!-- SERP Snippet Preview -->
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder space-y-1">
+              <div class="text-[11px] text-blue-400 hover:underline cursor-pointer font-medium" id="googleSerpUrl">ljentertainment.live › music › drey-star › kira</div>
+              <div class="text-xs font-semibold text-white" id="googleSerpHeading">Drey Star - KIRA Lyrics | LJ Entertainment</div>
+              <div class="text-[11px] text-slate-400 line-clamp-2" id="googleSerpSnippet">
+                Official line-synced lyrics for KIRA by Drey Star. "I dey find my way home / Nobody fit stop me when the light come on / Oluwa cover me..."
+              </div>
+            </div>
+
+            <div class="text-[10px] font-mono-code bg-slate-950 p-3 rounded-xl border border-brand-cardBorder text-slate-300 max-h-48 overflow-y-auto" id="googleSchemaJsonArea">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Unified Music Rights Graph Visualizer -->
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between border-b border-brand-cardBorder pb-2">
+              <div>
+                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Catalogue Technology</span>
+                <h3 class="text-sm font-bold text-white">Unified Music Rights & Distribution Graph</h3>
+              </div>
+              <span class="text-[9px] font-mono-code bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold">GRAPH CORE</span>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Unifies: <strong>Song ↔ Artist ↔ Release ↔ ISRC ↔ Writers ↔ Publishing ↔ Master ↔ PRO ↔ Lyrics ↔ DSPs ↔ Sync</strong>.
+            </p>
+
+            <div class="bg-brand-dark p-3.5 rounded-xl border border-brand-cardBorder space-y-2 text-xs" id="musicGraphDisplayArea">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: AI MUSIC COPILOT (FLAGSHIP AGENT)                         -->
+      <!-- ============================================================== -->
+      <section id="tab-copilot" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black tracking-tight text-white">AI Music Copilot</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-brand-gold text-black">FLAGSHIP AI AGENT</span>
+            </div>
+            <p class="text-sm text-slate-400 mt-1">"Tell me what you're trying to achieve, and the platform finds the music."</p>
+          </div>
+          <div class="flex items-center space-x-2 text-xs text-slate-400">
+            <span>Powered by</span>
+            <span class="font-mono-code text-brand-gold font-bold">LJ Acoustic DNA & Rights Matcher</span>
+          </div>
+        </div>
+
+        <!-- Query Input Card -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+            Enter Commercial Brief, Creative Intent, or A&R Query
+          </label>
+          <div class="relative">
+            <textarea id="copilotInput" rows="3" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition resize-none shadow-inner" placeholder="e.g. I need an Afrobeats song for a Lagos luxury real-estate commercial, male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics."></textarea>
+            
+            <div class="flex items-center justify-between mt-3">
+              <div class="text-[11px] text-slate-400 flex items-center space-x-1">
+                <span>Try prompt:</span>
+                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Luxury Real Estate Commercial</button>
+                <span>•</span>
+                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Netflix Drama Heartbreak</button>
+                <span>•</span>
+                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Burna Boy Afrofusion Fit</button>
+              </div>
+
+              <button onclick="executeCopilotQuery()" id="copilotSubmitBtn" class="flex items-center space-x-2 bg-gradient-to-r from-brand-gold to-amber-500 hover:from-amber-400 hover:to-brand-gold text-black font-extrabold px-5 py-2 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 active:scale-95">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Search & Verify Rights</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copilot Response Section -->
+        <div id="copilotResultsArea" class="space-y-4">
+          <!-- Filled dynamically by JavaScript -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: DISCOVER & CATALOGUE (MUSIC DNA - Section 8)              -->
+      <!-- ============================================================== -->
+      <section id="tab-discover" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Section 8 • Visual Discovery</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">AI-POWERED</span>
+            </div>
+            <h1 class="text-2xl font-black text-white tracking-tight mt-0.5">Music Discovery & Acoustic DNA</h1>
+            <p class="text-xs text-slate-400">Deep visual exploration across real-time momentum, 16-parameter Music DNA, and curated discovery buckets.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-slate-400">Roster Filter:</span>
+            <button onclick="filterCatalogue('all')" class="cat-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold purple-accent-gradient text-white shadow-glow-violet border border-white/20 transition" id="btn-filter-all">All Tracks</button>
+            <button onclick="filterCatalogue('lj')" class="cat-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 hover:text-white border border-white/10 transition" id="btn-filter-lj">⭐ LJ Artists Only</button>
+          </div>
+        </div>
+
+        <!-- 8.1 Discovery Category Chips -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 no-scrollbar text-xs font-bold" id="discoverCategoryTabs">
+          <button onclick="selectDiscoverCategory('trending')" id="catTab-trending" class="discover-cat-btn px-4 py-2 rounded-2xl bg-purple-600 text-white shadow-glow-violet border border-purple-400/30 transition">🔥 Trending Now</button>
+          <button onclick="selectDiscoverCategory('rising')" id="catTab-rising" class="discover-cat-btn px-4 py-2 rounded-2xl bg-white/5 text-slate-300 hover:text-white border border-white/10 transition">⚡ Rising Fast</button>
+          <button onclick="selectDiscoverCategory('breakout')" id="catTab-breakout" class="discover-cat-btn px-4 py-2 rounded-2xl bg-white/5 text-slate-300 hover:text-white border border-white/10 transition">🌟 Breakout Artists</button>
+          <button onclick="selectDiscoverCategory('ljpicks')" id="catTab-ljpicks" class="discover-cat-btn px-4 py-2 rounded-2xl bg-white/5 text-slate-300 hover:text-white border border-white/10 transition">👑 LJ Picks</button>
+          <button onclick="selectDiscoverCategory('aipicks')" id="catTab-aipicks" class="discover-cat-btn px-4 py-2 rounded-2xl bg-white/5 text-slate-300 hover:text-white border border-white/10 transition">🤖 AI Picks</button>
+        </div>
+
+        <!-- 8.2 Signature Horizontal Scrolling Visual Carousel -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-2">
+              <span id="discoverCarouselTitle">Trending Now</span>
+              <span class="text-[10px] text-violet-400 font-mono-code font-normal">Horizontal Discovery Deck</span>
+            </span>
+            <div class="flex items-center space-x-2">
+              <button onclick="scrollDiscoverCarousel(-1)" class="w-7 h-7 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center border border-white/10 text-xs">‹</button>
+              <button onclick="scrollDiscoverCarousel(1)" class="w-7 h-7 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center border border-white/10 text-xs">›</button>
+            </div>
+          </div>
+          <div id="discoverCarousel" class="flex overflow-x-auto gap-4 pb-4 no-scrollbar scroll-smooth">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- 8.3 Multi-Dimensional Filter Bar -->
+        <div class="glass-panel rounded-2xl p-4 border border-white/10 flex flex-wrap gap-3 items-center justify-between">
+          <div class="flex-1 min-w-[240px] relative">
+            <input type="text" id="catalogueSearchInput" oninput="debounceCatalogueSearch()" placeholder="Search title, artist, key, instrument (e.g. Talking Drum, Log Drum)..." class="w-full bg-[#07070A]/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition">
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <select id="genreFilterSelect" onchange="applyFilters()" class="bg-[#07070A]/80 border border-white/10 rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-purple-500 text-xs">
+              <option value="">All Genres</option>
+              <option value="Afrobeats">Afrobeats</option>
+              <option value="Amapiano">Amapiano</option>
+              <option value="Afro-Soul">Afro-Soul</option>
+              <option value="Highlife">Highlife</option>
+              <option value="Street-Pop">Street-Pop</option>
+              <option value="Instrumental">Instrumental</option>
+            </select>
+            <select id="bpmFilterSelect" onchange="applyFilters()" class="bg-[#07070A]/80 border border-white/10 rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-purple-500 text-xs">
+              <option value="">All Tempos</option>
+              <option value="90-100">90–100 BPM (Chill / Soul)</option>
+              <option value="100-110">100–110 BPM (Afro-Fusion / Mid)</option>
+              <option value="110-120">110–120 BPM (Club / Amapiano)</option>
+              <option value="120+">120+ BPM (High Energy)</option>
+            </select>
+            <select id="moodFilterSelect" onchange="applyFilters()" class="bg-[#07070A]/80 border border-white/10 rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-purple-500 text-xs">
+              <option value="">All Moods</option>
+              <option value="Energetic">Energetic & Confident</option>
+              <option value="Aspirational">Aspirational & High Energy</option>
+              <option value="Romantic">Romantic & Intimate</option>
+              <option value="Hypnotic">Hypnotic & Late-Night</option>
+            </select>
+            <select id="energyFilterSelect" onchange="applyFilters()" class="bg-[#07070A]/80 border border-white/10 rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-purple-500 text-xs">
+              <option value="">All Energy Levels</option>
+              <option value="high">High Energy (80%+)</option>
+              <option value="mid">Mid Energy (50-80%)</option>
+              <option value="low">Low Energy (<50%)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 8.4 Full Catalog Grid -->
+        <div id="catalogueGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Populated via JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: TOP OF THE WEEK CHARTS                                   -->
+      <!-- ============================================================== -->
+      <section id="tab-charts" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Top of the Week</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30" id="chartWeekLabel">WEEK 41 (OCTOBER 2026)</span>
+            </div>
+            <p class="text-sm text-slate-400">Multi-dimensional rankings automatically computed from platform telemetry and streaming momentum.</p>
+          </div>
+          <button onclick="refreshCharts()" class="text-xs bg-brand-card hover:bg-brand-cardBorder text-slate-300 px-3 py-1.5 rounded-lg border border-brand-cardBorder transition flex items-center space-x-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Recalculate Rankings</span>
+          </button>
+        </div>
+
+        <!-- Chart Navigation Pills -->
+        <div class="flex space-x-2 overflow-x-auto pb-2 border-b border-brand-cardBorder text-xs">
+          <button onclick="switchChartSubTab('top10')" id="chart-sub-top10" class="chart-tab-btn px-4 py-2 rounded-xl font-bold bg-brand-gold text-black">Top 10 Official</button>
+          <button onclick="switchChartSubTab('fastestRising')" id="chart-sub-fastestRising" class="chart-tab-btn px-4 py-2 rounded-xl font-medium bg-brand-card text-slate-300 hover:text-white">⚡ Fastest Rising</button>
+          <button onclick="switchChartSubTab('biggestMovers')" id="chart-sub-biggestMovers" class="chart-tab-btn px-4 py-2 rounded-xl font-medium bg-brand-card text-slate-300 hover:text-white">🚀 Biggest Movers</button>
+          <button onclick="switchChartSubTab('breakout')" id="chart-sub-breakout" class="chart-tab-btn px-4 py-2 rounded-xl font-medium bg-brand-card text-slate-300 hover:text-white">🌟 Breakout Artists</button>
+          <button onclick="switchChartSubTab('aiPicks')" id="chart-sub-aiPicks" class="chart-tab-btn px-4 py-2 rounded-xl font-medium bg-brand-card text-slate-300 hover:text-white">🤖 AI Picks</button>
+          <button onclick="switchChartSubTab('staffPicks')" id="chart-sub-staffPicks" class="chart-tab-btn px-4 py-2 rounded-xl font-medium bg-brand-card text-slate-300 hover:text-white">👑 Staff Picks</button>
+        </div>
+
+        <!-- Chart Table Display -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl overflow-hidden shadow-xl" id="chartTableView">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: WHAT PEOPLE ARE LISTENING TO (Section 11)                 -->
+      <!-- ============================================================== -->
+      <section id="tab-trending" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Real-Time Telemetry</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30" id="risingBadgeCount">
+                🔥 5 Rising Now
+              </span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-black text-white mt-1 tracking-tight">WHAT PEOPLE ARE LISTENING TO</h1>
+            <p class="text-xs text-slate-400 mt-0.5">Continuous telemetry pipeline: Plays → Searches → Saves → Shares → Adds → Skips → Momentum Score.</p>
+          </div>
+          <div class="flex items-center space-x-3 text-xs">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold font-mono-code">
+              ✓ Telemetry Health: 100%
+            </span>
+          </div>
+        </div>
+
+        <!-- Regional Selector Pills (Section 11) -->
+        <div class="glass-panel p-2 rounded-2xl flex flex-wrap gap-1.5 border border-white/10 text-xs font-mono-code">
+          <button onclick="setListeningRegion('GLOBAL')" class="listening-region-btn px-4 py-2 rounded-xl font-bold purple-accent-gradient text-white transition shadow-sm" id="btn-reg-GLOBAL">GLOBAL</button>
+          <button onclick="setListeningRegion('NIGERIA')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-NIGERIA">NIGERIA</button>
+          <button onclick="setListeningRegion('LAGOS')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-LAGOS">LAGOS</button>
+          <button onclick="setListeningRegion('AFRICA')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-AFRICA">AFRICA</button>
+          <button onclick="setListeningRegion('UK')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-UK">UK</button>
+          <button onclick="setListeningRegion('USA')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-USA">USA</button>
+          <button onclick="setListeningRegion('GHANA')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-GHANA">GHANA</button>
+          <button onclick="setListeningRegion('SOUTH AFRICA')" class="listening-region-btn px-4 py-2 rounded-xl font-medium bg-white/5 text-slate-300 hover:text-white transition" id="btn-reg-SOUTH AFRICA">SOUTH AFRICA</button>
+        </div>
+
+        <!-- Regional Intelligence Metric Highlights -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5" id="regionalTelemetryCards">
+          <div class="glass-panel p-4 rounded-2xl border border-white/10 space-y-1">
+            <span class="text-[10px] font-mono-code uppercase text-slate-400 block">Top Trending Genre</span>
+            <div class="text-base font-extrabold text-white" id="regTrendingGenre">Afrobeats / Lagos Club</div>
+            <span class="text-[11px] text-emerald-400 font-mono-code">+42% regional share</span>
+          </div>
+          <div class="glass-panel p-4 rounded-2xl border border-white/10 space-y-1">
+            <span class="text-[10px] font-mono-code uppercase text-slate-400 block">Search Growth</span>
+            <div class="text-base font-extrabold text-violet-300 font-mono-code" id="regSearchGrowth">+58.4% 7D</div>
+            <span class="text-[11px] text-slate-400">Organic viral discovery</span>
+          </div>
+          <div class="glass-panel p-4 rounded-2xl border border-white/10 space-y-1">
+            <span class="text-[10px] font-mono-code uppercase text-slate-400 block">Listener Velocity</span>
+            <div class="text-base font-extrabold text-emerald-400 font-mono-code" id="regListenerVelocity">2.4M Weekly</div>
+            <span class="text-[11px] text-slate-400">Zero artificial inflation</span>
+          </div>
+          <div class="glass-panel p-4 rounded-2xl border border-white/10 space-y-1">
+            <span class="text-[10px] font-mono-code uppercase text-slate-400 block">Playlist Activity</span>
+            <div class="text-base font-extrabold text-white font-mono-code" id="regPlaylistActivity">14,820 Adds</div>
+            <span class="text-[11px] text-purple-300 font-mono-code">82% Editorial ratio</span>
+          </div>
+        </div>
+
+        <!-- Telemetry Live Signal Pipeline -->
+        <div class="glass-panel rounded-3xl p-6 border border-white/10 shadow-spatial space-y-4">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <div class="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Live Telemetry Pipeline</div>
+              <p class="text-xs text-slate-300">Ingest real-time streaming signals to dynamically compute Momentum Scores and playlist eligibility.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="injectTelemetrySignal('lj-000', 'SAVE')" class="px-3.5 py-2 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition active:scale-95">
+                +1,000 Verified Saves (KIRA)
+              </button>
+              <button onclick="injectTelemetrySignal('lj-005', 'COMPLETE')" class="px-3.5 py-2 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 text-xs font-semibold transition active:scale-95">
+                +Completion Surge (Femme Fatale)
+              </button>
+              <button onclick="injectTelemetrySignal('lj-004', 'PLAYLIST_ADD')" class="px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/40 text-xs font-semibold transition active:scale-95">
+                +Viral Playlist Adds (K-Breeze)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listening Intelligence Table -->
+        <div class="glass-panel border border-white/10 rounded-3xl overflow-hidden shadow-spatial" id="listeningTableView">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: AI AUTO-PLAYLIST & CONTEXTUAL BOOST                      -->
+      <!-- ============================================================== -->
+      <section id="tab-playlist-ai" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <h1 class="text-2xl font-black text-white">AI Auto-Playlist Engine & LJ Artist Boost</h1>
+            <p class="text-sm text-slate-400">Contextual acoustic matching: Find strongest musical match first → then verify legitimate LJ fit.</p>
+          </div>
+          <div class="text-xs bg-brand-gold/10 border border-brand-gold/30 text-brand-gold px-3 py-1 rounded-full font-semibold">
+            Anti-Forcing Rule: Compatibility >= 85% Required
+          </div>
+        </div>
+
+        <!-- Query Form -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 space-y-4">
+          <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">
+            Natural Language Playlist Request
+          </label>
+          <div class="flex gap-3">
+            <input type="text" id="playlistQueryInput" value="Find an upbeat Afrobeats song around 105–115 BPM with a female vocal, energetic chorus and Lagos nightlife feel." class="flex-1 bg-brand-dark border border-brand-cardBorder rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold">
+            <button onclick="generatePlaylistAI()" class="bg-brand-gold hover:bg-amber-400 text-black font-extrabold px-6 py-3 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 active:scale-95">
+              Generate Playlist
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Sandbox -->
+        <div id="playlistOutputArea" class="space-y-4">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: SYNC MARKETPLACE & RIGHTS READINESS                      -->
+      <!-- ============================================================== -->
+      <section id="tab-sync" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-2xl font-black text-white">Sync Marketplace</h1>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">COMMERCIAL RIGHTS ENGINE</span>
+            </div>
+            <p class="text-sm text-slate-400">Commercial sync briefs matched with LJ catalogue, instant rights verification & clearance packages.</p>
+          </div>
+          <div class="flex items-center space-x-3 text-xs">
+            <span class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-slate-300">Sync Ready (90-100%)</span></span>
+            <span class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span class="text-slate-300">Clearance Req (60-89%)</span></span>
+            <span class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span><span class="text-slate-300">Not Ready (&lt;60%)</span></span>
+          </div>
+        </div>
+
+        <!-- Briefs Grid -->
+        <div id="syncBriefsGrid" class="space-y-6">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: MUSIC PITCHING ENGINE                                    -->
+      <!-- ============================================================== -->
+      <section id="tab-pitch" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <h1 class="text-2xl font-black text-white">Music Pitching Engine</h1>
+            <p class="text-sm text-slate-400">Generate high-impact Pitch Cards for DSP editors, radio program directors, and film supervisors.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <select id="pitchTrackSelect" onchange="renderPitchCardForSelected()" class="bg-brand-card border border-brand-cardBorder rounded-lg px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <!-- Options filled by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Pitch Card Canvas -->
+        <div id="pitchCardCanvas">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: EDITORIAL CURATION DESK (Section 13)                      -->
+      <!-- ============================================================== -->
+      <section id="tab-editorial" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Section 13 • Editorial Desk</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">ZERO FORCED PLACEMENT</span>
+            </div>
+            <h1 class="text-2xl font-black text-white tracking-tight mt-0.5">Editorial Curation Desk</h1>
+            <p class="text-xs text-slate-400">High-level interface where human editors and AI curators review candidate songs, approve schedules, and verify context matches.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              Editorial Integrity Layer Active
+            </span>
+          </div>
+        </div>
+
+        <!-- Section 13: Visual Funnel -->
+        <div class="glass-panel rounded-3xl p-6 border border-white/10 shadow-spatial space-y-4">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest">Autonomous Editorial Pipeline</span>
+              <h2 class="text-lg font-black text-white">AUTONOMOUS DISCOVERY & CURATION FUNNEL</h2>
+            </div>
+            <span class="text-xs font-mono-code text-emerald-400 font-bold">100% EDITORIAL CONTEXT MATCH</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
+            <div class="glass-panel-subtle p-3 rounded-2xl border border-white/10">
+              <div class="text-[10px] font-mono-code text-slate-400 uppercase">Stage 1</div>
+              <div class="text-xl font-black text-white mt-0.5">47,281</div>
+              <div class="text-[11px] text-violet-300 font-medium">Analyzed</div>
+            </div>
+            <div class="glass-panel-subtle p-3 rounded-2xl border border-white/10">
+              <div class="text-[10px] font-mono-code text-slate-400 uppercase">Stage 2</div>
+              <div class="text-xl font-black text-white mt-0.5">1,842</div>
+              <div class="text-[11px] text-violet-300 font-medium">Relevant</div>
+            </div>
+            <div class="glass-panel-subtle p-3 rounded-2xl border border-white/10">
+              <div class="text-[10px] font-mono-code text-slate-400 uppercase">Stage 3</div>
+              <div class="text-xl font-black text-amber-400 mt-0.5">127</div>
+              <div class="text-[11px] text-amber-300 font-medium">Candidates</div>
+            </div>
+            <div class="glass-panel-subtle p-3 rounded-2xl border border-white/10">
+              <div class="text-[10px] font-mono-code text-slate-400 uppercase">Stage 4</div>
+              <div class="text-xl font-black text-purple-400 mt-0.5">32</div>
+              <div class="text-[11px] text-purple-300 font-medium">Editorial Queue</div>
+            </div>
+            <div class="glass-panel-subtle p-3 rounded-2xl border border-emerald-500/30 bg-emerald-950/20">
+              <div class="text-[10px] font-mono-code text-emerald-400 uppercase">Stage 5</div>
+              <div class="text-xl font-black text-emerald-400 mt-0.5">12</div>
+              <div class="text-[11px] text-emerald-300 font-bold">Approved</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curated Editorial Playlists & Candidate Cards -->
+        <div id="editorialPlaylistsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: GEO MUSIC INTELLIGENCE                                   -->
+      <!-- ============================================================== -->
+      <section id="tab-geo" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <h1 class="text-2xl font-black text-white">Geo Music Intelligence</h1>
+            <p class="text-sm text-slate-400">Where is this music working? City-level traction, tour routing, and regional marketing targets.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-1 bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl">
+            <h3 class="text-sm font-bold text-white mb-3">Top Streaming Metropolitan Hubs</h3>
+            <div id="geoCityList" class="space-y-3">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl">
+            <h3 class="text-sm font-bold text-white mb-3">LJ Artists Territorial Momentum</h3>
+            <div id="geoArtistProfiles" class="space-y-4">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: ARTIST & TRACK INTAKE STUDIO                              -->
+      <!-- ============================================================== -->
+      <section id="tab-intake" class="tab-panel hidden space-y-6">
+        <!-- Header & Active Working Track Banner -->
+        <div class="bg-gradient-to-r from-emerald-950/40 via-brand-card to-slate-900 border border-emerald-500/40 rounded-2xl p-6 shadow-2xl space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-emerald-500 text-black uppercase tracking-wider">A&R & REPERTOIRE INTAKE</span>
+                <span class="text-xs text-emerald-400 font-mono-code">Spotify Resolver • Store Search • Smart Auto-Placement</span>
+              </div>
+              <h1 class="text-2xl font-black text-white mt-1">Artist Onboarding & Track Intake Studio</h1>
+              <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                Add new artists and songs, import via Spotify link or DSP store search, set global active working tracks, and automatically place records into the best-fitting editorial playlists using acoustic DNA compatibility.
+              </p>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <button onclick="toggleManualIntakeForm()" class="bg-brand-dark hover:bg-slate-800 border border-brand-cardBorder text-slate-200 text-xs px-3.5 py-2 rounded-xl transition flex items-center space-x-1.5 font-bold">
+                <span>+ Custom Intake Form</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Current Global Working Track Box -->
+          <div class="bg-brand-dark/90 border border-brand-cardBorder rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4" id="intakeActiveTrackBanner">
+            <div class="flex items-center space-x-4">
+              <div class="w-14 h-14 rounded-xl overflow-hidden border border-brand-gold shadow-md" id="intakeActiveTrackThumb">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Working Track:</span>
+                  <span class="font-black text-white text-sm" id="intakeActiveTrackName">KIRA — Drey Star</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] bg-brand-gold text-black font-bold">CURRENT FOCUS</span>
+                </div>
+                <p class="text-xs text-brand-gold font-mono-code mt-0.5" id="intakeActiveTrackMeta">107 BPM • Key Am • 89 Energy • ISRC: NG-LJ1-26-00001</p>
+              </div>
+            </div>
+
+            <!-- Fast-jump buttons to operate on this track across OS -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="switchTab('tab-council'); loadDebateForTrack(currentActiveTrackId);" class="bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/40 text-purple-300 px-2.5 py-1.5 rounded-lg text-xs transition">
+                🏛️ Council Debate
+              </button>
+              <button onclick="switchTab('tab-lyrics'); loadLyricsForTrack(currentActiveTrackId);" class="bg-pink-900/40 hover:bg-pink-900/60 border border-pink-500/40 text-pink-300 px-2.5 py-1.5 rounded-lg text-xs transition">
+                🎤 Lyrics OS
+              </button>
+              <button onclick="switchTab('tab-pitch'); setupPitchSelect(); renderPitchCardForSelected();" class="bg-sky-900/40 hover:bg-sky-900/60 border border-sky-500/40 text-sky-300 px-2.5 py-1.5 rounded-lg text-xs transition">
+                🎯 Pitch Card
+              </button>
+              <button onclick="triggerAutoPlacementForCurrentTrack()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-md shadow-emerald-600/20">
+                ⚡ Auto-Place Playlists
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search & Import Section: Spotify Link or DSP Store Search -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-base font-black text-white">Real-Time Spotify Artist Profile & 10,000-Agent Swarm</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Paste a live Spotify URL or type an artist name to fetch their verified profile, monthly listeners, and top songs with 30s audio previews, then deploy the 10,000 AI Agent Swarm.</p>
+            </div>
+            <span class="text-[10px] font-mono-code text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE SPOTIFY PROFILER ACTIVE</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <input type="text" id="intakeSearchInput" value="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl pl-4 pr-10 py-3 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono-code" placeholder="Paste Spotify link (https://open.spotify.com/track/... or /artist/...) or search artist name...">
+              <button onclick="document.getElementById('intakeSearchInput').value=''" class="absolute right-3 top-3 text-slate-500 hover:text-white">✕</button>
+            </div>
+            <button onclick="executeStoreSearch()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20 flex items-center justify-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Resolve Spotify & Show Profile</span>
+            </button>
+          </div>
+
+          <!-- Quick Test Chips -->
+          <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span class="text-[10px] font-bold text-slate-500 uppercase">Quick Demos:</span>
+            <button onclick="applySearchPreset('https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🟢 Spotify Link: Ayra Starr - Rush
+            </button>
+            <button onclick="applySearchPreset('Asake - Active')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Asake — Active
+            </button>
+            <button onclick="applySearchPreset('Tems - Me & U')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Tems — Me & U
+            </button>
+            <button onclick="applySearchPreset('Burna Boy - City Boys')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Burna Boy — City Boys
+            </button>
+            <button onclick="applySearchPreset('Amara Blue - Sunrise in Lekki')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-brand-gold text-[11px] transition">
+              ✨ New Talent: Amara Blue
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Results & Intake Action Canvas -->
+        <div id="intakeSearchResultsArea" class="space-y-4">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Smart Playlist Auto-Placement Results Area -->
+        <div id="intakeAutoPlacementCanvas" class="hidden bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-2xl space-y-4">
+          <!-- Populated by JS upon auto-placement -->
+        </div>
+
+        <!-- Collapsible Direct / Custom Studio Intake Form -->
+        <div id="manualIntakeForm" class="hidden bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Manual / Direct Studio Intake Form</h3>
+              <p class="text-xs text-slate-400">For unreleased masters, demos, or newly signed LJ artists without a live DSP link.</p>
+            </div>
+            <button onclick="toggleManualIntakeForm()" class="text-slate-400 hover:text-white text-xs">✕ Close</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Artist Name *</label>
+              <input type="text" id="manualArtistName" placeholder="e.g. Seyi Vibes" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Track Title *</label>
+              <input type="text" id="manualTrackTitle" placeholder="e.g. Lekki Moonlight" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Genre / Sub-Genre</label>
+              <input type="text" id="manualGenre" value="Afrobeats / Afro-Fusion" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Tempo (BPM)</label>
+              <input type="number" id="manualBpm" value="108" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500 font-mono-code">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Musical Key</label>
+              <input type="text" id="manualKey" value="A minor" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Languages</label>
+              <input type="text" id="manualLanguage" value="English / Nigerian Pidgin / Yoruba" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-2">
+            <button onclick="submitManualTrackIntake()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow-md shadow-emerald-600/20">
+              Save & Ingest Track into Catalogue
+            </button>
+          </div>
+        </div>
+
+        <!-- LJ Artist Roster Directory -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3">
+            <div>
+              <h3 class="text-base font-black text-white">LJ Artist Roster Directory</h3>
+              <p class="text-xs text-slate-400">All managed artists and benchmark catalogue profiles currently active in LJ Music OS.</p>
+            </div>
+            <button onclick="loadArtistRosterDirectory()" class="text-xs text-emerald-400 hover:underline font-bold">Refresh Roster</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="intakeArtistRosterContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: ARTIST PORTAL (Drey Star)                                -->
+      <!-- ============================================================== -->
+      <section id="tab-artist-portal" class="tab-panel hidden space-y-6">
+        <div class="bg-gradient-to-r from-brand-card via-slate-900 to-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center space-x-4">
+              <div class="w-20 h-20 rounded-2xl overflow-hidden border-2 border-brand-gold/60 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h1 class="text-2xl font-black text-white">Drey Star</h1>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-gold text-black">LJ PRIORITY ROSTER</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">Afro-Fusion / Nightlife • Lagos, Nigeria • Signed Exclusive</p>
+                <div class="flex items-center space-x-3 mt-2 text-xs">
+                  <span class="text-slate-300">Total Catalog Plays: <strong class="text-white">376,800</strong></span>
+                  <span class="text-slate-300">Weekly Engagement: <strong class="text-emerald-400">+43.0%</strong></span>
+                  <span class="text-slate-300">Sync Status: <strong class="text-emerald-400">100% Pre-Cleared</strong></span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <button onclick="switchTab('tab-pitch'); document.getElementById('pitchTrackSelect').value = 'lj-000'; renderPitchCardForSelected();" class="bg-brand-gold hover:bg-amber-400 text-black font-bold px-4 py-2 rounded-xl text-xs transition">
+                View Active Pitch Card (KIRA)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 11: "My Lyrics" Artist Portal Dashboard -->
+        <div class="bg-brand-card border border-pink-500/30 rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-3">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider">Artist Direct Portal</span>
+                <span class="px-2 py-0.5 rounded text-[9px] font-mono-code bg-pink-500/20 text-pink-300 font-bold">MY LYRICS</span>
+              </div>
+              <h2 class="text-lg font-black text-white mt-0.5">My Lyrics & Synchronization Hub</h2>
+              <p class="text-xs text-slate-400">Canonical lyrics, timing verification, and dispute resolution for Drey Star.</p>
+            </div>
+            <button onclick="switchTab('tab-lyrics')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition">
+              Open Full Lyrics Studio
+            </button>
+          </div>
+
+          <!-- 6 Key Metrics -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder">
+              <span class="text-[10px] text-slate-400 uppercase block">Songs</span>
+              <span class="text-xl font-black text-white font-mono-code" id="myLyricsSongsCount">4</span>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder">
+              <span class="text-[10px] text-slate-400 uppercase block">Verified</span>
+              <span class="text-xl font-black text-emerald-400 font-mono-code" id="myLyricsVerifiedCount">3</span>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-amber-500/40">
+              <span class="text-[10px] text-amber-400 uppercase block font-bold">Needs Review</span>
+              <span class="text-xl font-black text-amber-400 font-mono-code" id="myLyricsReviewCount">1</span>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder">
+              <span class="text-[10px] text-slate-400 uppercase block">Pending Dist.</span>
+              <span class="text-xl font-black text-slate-400 font-mono-code" id="myLyricsPendingCount">0</span>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder">
+              <span class="text-[10px] text-slate-400 uppercase block">Synced</span>
+              <span class="text-xl font-black text-pink-400 font-mono-code" id="myLyricsSyncedCount">4</span>
+            </div>
+            <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder">
+              <span class="text-[10px] text-slate-400 uppercase block">Translations</span>
+              <span class="text-xl font-black text-indigo-400 font-mono-code" id="myLyricsTranslationsCount">6</span>
+            </div>
+          </div>
+
+          <div class="bg-brand-dark/90 p-3 rounded-xl border border-amber-500/30 flex items-center justify-between text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="text-amber-400 text-sm">⚠️</span>
+              <span class="text-slate-300" id="myLyricsAlertText">1 song ('KIRA') has an audio-vs-submission discrepancy awaiting artist/label signoff.</span>
+            </div>
+            <button onclick="switchTab('tab-lyrics'); loadLyricsForTrack('lj-000');" class="text-xs font-bold text-amber-400 hover:underline">
+              Resolve Discrepancy →
+            </button>
+          </div>
+        </div>
+
+        <div id="artistPortalTracks" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: AUTOMATION ENGINE HUB                                    -->
+      <!-- ============================================================== -->
+      <section id="tab-automation" class="tab-panel hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+          <div>
+            <h1 class="text-2xl font-black text-white">Scheduled Automation Engine Hub</h1>
+            <p class="text-sm text-slate-400">Multi-cadence scheduled sidecar runner powering background charts, momentum recalculations, and sync alerts.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="triggerQuickAutomation('hourly')" class="bg-brand-card hover:bg-brand-cardBorder border border-brand-cardBorder text-slate-200 text-xs px-3 py-1.5 rounded-lg transition">Trigger Hourly</button>
+            <button onclick="triggerQuickAutomation('daily')" class="bg-brand-card hover:bg-brand-cardBorder border border-brand-cardBorder text-slate-200 text-xs px-3 py-1.5 rounded-lg transition">Trigger Daily</button>
+            <button onclick="triggerQuickAutomation('weekly')" class="bg-brand-gold hover:bg-amber-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition">Trigger Weekly</button>
+          </div>
+        </div>
+
+        <!-- Cadence Architecture Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-brand-card border border-brand-cardBorder rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-blue-400 uppercase">Hourly Cadence</span>
+              <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            </div>
+            <div class="text-sm font-semibold text-white">Streaming Velocity Audit</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Monitors instant listener surges, detects breakout tracks, and notifies A&R of viral spikes.</p>
+            <div class="text-[11px] font-mono-code text-slate-400 pt-2 border-t border-brand-cardBorder">
+              Schedule: <span class="text-slate-200">0 * * * *</span>
+            </div>
+          </div>
+
+          <div class="bg-brand-card border border-brand-cardBorder rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-400 uppercase">Daily Cadence</span>
+              <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+            </div>
+            <div class="text-sm font-semibold text-white">Daily Momentum Cycle</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Recalculates 0-100 Momentum Scores across entire catalogue and updates chart movement metrics.</p>
+            <div class="text-[11px] font-mono-code text-slate-400 pt-2 border-t border-brand-cardBorder">
+              Schedule: <span class="text-slate-200">0 9 * * *</span>
+            </div>
+          </div>
+
+          <div class="bg-brand-card border border-brand-cardBorder rounded-xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-brand-gold uppercase">Weekly Cadence</span>
+              <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+            </div>
+            <div class="text-sm font-semibold text-white">Top of the Week & Sync Digest</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Freezes official charts, compiles Breakout Artists, scans commercial briefs, and generates A&R priorities.</p>
+            <div class="text-[11px] font-mono-code text-slate-400 pt-2 border-t border-brand-cardBorder">
+              Schedule: <span class="text-slate-200">0 9 * * 1 (Mondays)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automation Event Stream Logs -->
+        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-white">Recent Automation Execution Logs</h3>
+            <span class="text-xs text-slate-400 font-mono-code" id="automationLogCount">0 events</span>
+          </div>
+          <div id="automationLogsContainer" class="space-y-2 font-mono-code text-xs max-h-96 overflow-y-auto pr-2">
+            <!-- Logs populated by JS -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============================================================== -->
+    <!-- RIGHT SIDEBAR: NOW PLAYING & SWARM COCKPIT (Groovvy & Muzes Style) -->
+    <!-- ============================================================== -->
+    <aside id="rightPlayerCockpit" class="hidden xl:flex w-80 2xl:w-96 border-l border-white/[0.08] bg-[#0A0713]/90 backdrop-blur-2xl flex-col justify-between overflow-y-auto z-20 flex-shrink-0 p-5 space-y-5 pb-28">
+      
+      <!-- Top Bar: Title & Swarm Pulse -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-black uppercase tracking-wider text-white">Now Playing</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono-code">Swarm Acoustic Cockpit</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <button onclick="toggleCopilotSheet()" title="AI Co-pilot" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition">
+            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </button>
+          <button onclick="openTrackDnaModal(currentActiveTrackId)" title="Acoustic DNA" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Large Squircle Album Artwork (Groovvy style) -->
+      <div class="relative group">
+        <div class="w-full aspect-square rounded-3xl overflow-hidden bg-slate-900 border border-white/10 shadow-2xl relative">
+          <img id="rightCockpitCover" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          
+          <!-- Ambient gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0713] via-transparent to-transparent opacity-60"></div>
+          
+          <!-- Bouncing Equalizer Bars in bottom corner -->
+          <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 flex items-center space-x-1">
+            <span class="sound-bar h-2"></span>
+            <span class="sound-bar h-4"></span>
+            <span class="sound-bar h-3"></span>
+            <span class="sound-bar h-5"></span>
+            <span class="sound-bar h-2"></span>
+            <span class="text-[10px] font-mono-code font-bold text-violet-300 ml-1.5" id="rightCockpitBpm">107 BPM</span>
+          </div>
+
+          <!-- Verified Quality Badge -->
+          <div class="absolute top-3 right-3 bg-purple-600/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-purple-400/40 text-[9px] font-extrabold text-white uppercase tracking-wider flex items-center space-x-1 shadow-lg">
+            <span>⭐ PRIORITY MASTER</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track Metadata & Heart Button -->
+      <div class="flex items-center justify-between">
+        <div class="truncate pr-2">
+          <h3 class="text-lg font-black text-white truncate tracking-tight" id="rightCockpitTitle">KIRA</h3>
+          <p class="text-xs text-slate-300 font-medium truncate flex items-center space-x-1.5">
+            <span id="rightCockpitArtist">Drey Star</span>
+            <svg class="w-3.5 h-3.5 text-purple-400 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </p>
+        </div>
+        <button id="rightCockpitFavBtn" onclick="toggleRightCockpitFavorite()" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-rose-400 flex items-center justify-center transition border border-white/5 active:scale-90" title="Favorite">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+      </div>
+
+      <!-- Scrubber Waveform Progress Bar -->
+      <div class="space-y-1.5">
+        <div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden cursor-pointer" onclick="seekRightCockpitProgress(event)" id="rightCockpitProgressTrack">
+          <div id="rightCockpitProgressBar" class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" style="width: 42%;"></div>
+        </div>
+        <div class="flex items-center justify-between text-[10px] font-mono-code text-slate-400">
+          <span id="rightCockpitElapsed">01:24</span>
+          <span id="rightCockpitDuration">03:18</span>
+        </div>
+      </div>
+
+      <!-- Electric Violet Playback Controller Card (Groovvy Style) -->
+      <div class="bg-gradient-to-br from-[#7C3AED] to-[#4338CA] p-4 rounded-3xl shadow-glow-violet border border-white/20 text-white">
+        <div class="flex items-center justify-between">
+          <!-- Shuffle -->
+          <button onclick="toggleShuffle()" class="text-white/70 hover:text-white transition p-1" title="Shuffle">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h4l3 5 3-5h6m-6 16h6m-6 0l-3-5-3 5H4"/></svg>
+          </button>
+          
+          <!-- Previous -->
+          <button onclick="playPrevTrack()" class="text-white hover:scale-110 transition p-1" title="Previous">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          
+          <!-- Giant White Play/Pause Button -->
+          <button onclick="playProceduralAfroBeat()" id="rightCockpitPlayBtn" class="w-12 h-12 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition">
+            <svg class="w-6 h-6 ml-0.5" id="rightCockpitPlayIcon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          
+          <!-- Next -->
+          <button onclick="playNextTrack()" class="text-white hover:scale-110 transition p-1" title="Next">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          
+          <!-- Loop -->
+          <button onclick="toggleLoop()" class="text-white/70 hover:text-white transition p-1" title="Loop">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Expandable Synced Lyrics Drawer (Groovvy Style) -->
+      <div class="glass-panel-subtle rounded-2xl p-3.5 border border-white/10 space-y-2">
+        <div class="flex items-center justify-between cursor-pointer" onclick="toggleRightLyricsDrawer()">
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-purple-300 flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+            <span>SYNCED LYRICS (DIV 17)</span>
+          </span>
+          <span class="text-slate-400 text-xs font-mono-code" id="rightLyricsToggleIcon">▲</span>
+        </div>
+        <div id="rightLyricsDrawerContent" class="space-y-1.5 text-xs font-medium">
+          <p class="text-white font-bold bg-purple-500/20 px-2 py-1 rounded-lg border-l-2 border-purple-400" id="rightLyricsActiveLine">"No long talk, we make the vibe roll..."</p>
+          <p class="text-slate-400 px-2 text-[11px]" id="rightLyricsNextLine">"Dancing through the night until the sun comes home"</p>
+        </div>
+        <button onclick="switchTab('tab-lyrics'); loadLyricsForCurrentTrack();" class="w-full text-center text-[10px] text-purple-300 hover:text-white font-mono-code font-bold pt-1 hover:underline">
+          Open Full Lyrics Studio →
+        </button>
+      </div>
+
+      <!-- Mini Swarm Telemetry & Acoustic DNA Gauges -->
+      <div class="glass-panel-subtle rounded-2xl p-3.5 border border-white/10 space-y-2.5">
+        <div class="flex items-center justify-between text-[11px]">
+          <span class="font-bold text-white">Swarm Optimization</span>
+          <span class="text-emerald-400 font-mono-code font-bold">10,000 ACTIVE</span>
+        </div>
+        
+        <!-- DNA Mini Gauges -->
+        <div class="space-y-1.5 text-[10px] font-mono-code">
+          <div>
+            <div class="flex justify-between text-slate-400 mb-0.5">
+              <span>Danceability</span>
+              <span class="text-purple-300 font-bold" id="rightGaugeDance">88%</span>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-1"><div class="h-full bg-purple-500 rounded-full" id="rightBarDance" style="width: 88%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-slate-400 mb-0.5">
+              <span>Energy</span>
+              <span class="text-indigo-300 font-bold" id="rightGaugeEnergy">82%</span>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-1"><div class="h-full bg-indigo-500 rounded-full" id="rightBarEnergy" style="width: 82%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-slate-400 mb-0.5">
+              <span>Acoustic Hit Score</span>
+              <span class="text-emerald-400 font-bold" id="rightGaugeHit">94 / 100</span>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-1"><div class="h-full bg-emerald-400 rounded-full" id="rightBarHit" style="width: 94%;"></div></div>
+          </div>
+        </div>
+
+        <button onclick="mobilizeSwarmOnCurrentWorkingTrack()" class="w-full py-2 rounded-xl purple-accent-gradient hover:opacity-95 text-white font-black text-xs transition shadow-glow-violet flex items-center justify-center space-x-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Mobilize 10,000 Agents</span>
+        </button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- PERSISTENT AUDIO PLAYBACK & SYNTHESIZER BAR -->
+  <footer class="h-20 border-t border-white/[0.08] bg-[#07070A]/90 backdrop-blur-2xl px-4 md:px-6 flex items-center justify-between z-40 fixed bottom-0 left-0 right-0">
+    <div class="flex items-center space-x-3 md:space-x-4 min-w-[180px] md:min-w-[220px]">
+      <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-slate-900 border border-white/15 overflow-hidden shadow-md flex-shrink-0" id="currentTrackCover">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+      </div>
+      <div class="truncate">
+        <div class="font-bold text-xs md:text-sm text-white truncate" id="currentTrackTitle">KIRA</div>
+        <div class="text-[11px] text-slate-400 truncate" id="currentTrackArtist">Drey Star <span class="text-violet-400">⭐ Priority Single</span></div>
+      </div>
+    </div>
+
+    <!-- Center Playback Controls & Web Audio Afro-Synth -->
+    <div class="flex flex-col items-center space-y-1">
+      <div class="flex items-center space-x-2.5 md:space-x-3">
+        <button onclick="playPrevTrack()" title="Previous Track" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition border border-white/5 active:scale-90">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button onclick="playProceduralAfroBeat()" id="playSynthBtn" title="Play / Pause Groove" class="w-10 h-10 rounded-full purple-accent-gradient hover:opacity-95 text-white flex items-center justify-center font-bold transition shadow-glow-violet active:scale-95 border border-white/20">
+          <svg class="w-5 h-5 ml-0.5" id="playIcon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button onclick="stopProceduralAfroBeat()" title="Stop Synthesizer" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 flex items-center justify-center transition border border-white/10 active:scale-90">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+        </button>
+        <button onclick="playNextTrack()" title="Next Track" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition border border-white/5 active:scale-90">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+      </div>
+      <div class="text-[10px] text-slate-400 hidden sm:flex items-center space-x-2">
+        <span id="synthStatusText">Web Audio Afro-Groove Synthesizer: Ready</span>
+        <span class="text-violet-300 font-mono-code font-bold" id="currentBpmBadge">107 BPM (A Minor)</span>
+      </div>
+    </div>
+
+    <!-- Right Side: Quick Action & DNA Inspector Trigger -->
+    <div class="flex items-center space-x-2 md:space-x-3">
+      <button onclick="openTrackDnaModal(currentActiveTrackId)" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-200 font-medium transition flex items-center space-x-1.5">
+        <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span class="hidden sm:inline">Music DNA</span>
+      </button>
+
+      <button onclick="openSyncOneSheetModal(currentActiveTrackId)" class="px-3 py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-xs text-purple-200 font-semibold transition">
+        Sync Package
+      </button>
+    </div>
+  </footer>
+
+  <!-- PERSISTENT FLOATING AI COPILOT ORB (Section 7) -->
+  <div class="fixed bottom-24 right-5 md:bottom-24 md:right-8 z-50">
+    <button onclick="toggleCopilotSheet()" id="floatingCopilotOrb" title="LJ Music Copilot" class="w-14 h-14 rounded-full glass-orb flex items-center justify-center text-white transition transform hover:scale-110 active:scale-95 group relative">
+      <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-[#07070A] rounded-full animate-ping"></span>
+      <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-[#07070A] rounded-full"></span>
+      <svg class="w-7 h-7 text-white drop-shadow group-hover:rotate-12 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    </button>
+  </div>
+
+  <!-- FLOATING MOBILE BOTTOM NAVIGATION BAR (iPhone 18 Spatial Glass - Section 2 & 3) -->
+  <nav class="md:hidden fixed bottom-2 left-3 right-3 z-50 glass-panel rounded-full px-4 py-2 flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-2xl">
+    <button onclick="switchTab('tab-command-center')" class="flex flex-col items-center text-slate-300 hover:text-white px-2">
+      <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span class="text-[9px] mt-0.5 font-medium">Home</span>
+    </button>
+    <button onclick="switchTab('tab-discover')" class="flex flex-col items-center text-slate-400 hover:text-white px-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <span class="text-[9px] mt-0.5 font-medium">Discover</span>
+    </button>
+    
+    <!-- Luminous AI Center Button -->
+    <button onclick="toggleCopilotSheet()" class="relative -top-2 w-11 h-11 rounded-full glass-orb flex items-center justify-center text-white shadow-glow-violet hover:scale-105 active:scale-95 transition">
+      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    </button>
+
+    <button onclick="switchTab('tab-charts')" class="flex flex-col items-center text-slate-400 hover:text-white px-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <span class="text-[9px] mt-0.5 font-medium">Charts</span>
+    </button>
+    <button onclick="switchTab('tab-intake')" class="flex flex-col items-center text-slate-400 hover:text-white px-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span class="text-[9px] mt-0.5 font-medium">Library</span>
+    </button>
+  </nav>
+
+  <!-- LJ MUSIC COPILOT FULL-WIDTH LIQUID GLASS SHEET (Section 7) -->
+  <div id="copilotFloatingSheet" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden flex flex-col justify-end md:justify-center md:items-center p-0 md:p-6 transition duration-300">
+    <div class="glass-panel w-full md:max-w-3xl rounded-t-3xl md:rounded-3xl border border-white/15 p-6 md:p-8 space-y-5 shadow-spatial max-h-[85vh] overflow-y-auto">
+      
+      <!-- Sheet Header -->
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl glass-orb flex items-center justify-center text-white shadow-glow-violet">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-lg font-black text-white purple-gradient-text">LJ MUSIC COPILOT</h2>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">INTELLIGENCE SHEET</span>
+            </div>
+            <p class="text-xs text-slate-300 font-medium">What do you want to accomplish?</p>
+          </div>
+        </div>
+        <button onclick="toggleCopilotSheet()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Suggested Command Chips (From Master UX Prompt Section 7) -->
+      <div class="space-y-1.5">
+        <span class="text-[10px] font-mono-code uppercase tracking-wider text-slate-400 block">Suggested Commands</span>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          <button onclick="applyCopilotSheetPrompt('Find opportunities for KIRA')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Find opportunities for KIRA
+          </button>
+          <button onclick="applyCopilotSheetPrompt('Build this week\'s Afrobeats playlist')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Build this week's Afrobeats playlist
+          </button>
+          <button onclick="applyCopilotSheetPrompt('Which artist should LJ prioritize?')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Which artist should LJ prioritize?
+          </button>
+          <button onclick="applyCopilotSheetPrompt('Find sync opportunities for luxury advertising')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Find sync opportunities
+          </button>
+          <button onclick="applyCopilotSheetPrompt('Prepare a curator pitch for Lagos nightlife')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Prepare a curator pitch
+          </button>
+          <button onclick="applyCopilotSheetPrompt('Check lyrics distribution for KIRA')" class="bg-white/5 hover:bg-purple-600/20 hover:text-white text-slate-300 px-3 py-1.5 rounded-xl border border-white/5 transition">
+            Check lyrics distribution
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Input -->
+      <div class="space-y-3">
+        <div class="relative">
+          <textarea id="copilotSheetTextarea" rows="2" class="w-full bg-[#07070A] border border-white/10 rounded-2xl p-3.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition resize-none shadow-inner" placeholder="Ask anything across catalogue, playlisting, sync, radio, or lyrics..."></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button onclick="submitCopilotSheetQuery()" class="purple-accent-gradient hover:opacity-95 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs transition shadow-glow-violet border border-white/20 active:scale-95 flex items-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Execute Copilot Query</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Sheet Response Area -->
+      <div id="copilotSheetResponseArea" class="space-y-3 pt-2">
+        <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-xs space-y-2">
+          <div class="flex items-center space-x-2 text-violet-300 font-bold">
+            <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+            <span>I found 27 high-fit playlist opportunities for KIRA.</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            8 are marked high priority based on acoustic DNA compatibility (107 BPM, A minor, Energy 88). 100% pre-cleared master and publishing rights.
+          </p>
+          <div class="flex gap-2 pt-1">
+            <button onclick="switchTab('tab-curator-crm'); toggleCopilotSheet();" class="purple-accent-gradient text-white font-bold px-3 py-1.5 rounded-lg text-[11px] transition shadow-sm">
+              [VIEW OPPORTUNITIES]
+            </button>
+            <button onclick="switchTab('tab-pitch'); toggleCopilotSheet();" class="bg-white/10 hover:bg-white/15 text-white font-bold px-3 py-1.5 rounded-lg text-[11px] transition border border-white/10">
+              [CREATE PITCH]
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MUSIC DNA INSPECTOR -->
+  <div id="dnaModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel border border-white/15 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative">
+      <button onclick="closeTrackDnaModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="dnaModalContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: SYNC ONE-SHEET / CLEARANCE PACKAGE -->
+  <div id="syncPackageModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel border border-white/15 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative">
+      <button onclick="closeSyncPackageModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="syncPackageContent"></div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION SYSTEM CONTAINER -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-[9999] flex flex-col space-y-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>

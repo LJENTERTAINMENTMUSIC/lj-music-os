@@ -1,0 +1,54 @@
+[
+  {
+    "id": "fraud-001",
+    "threatName": "StreamBlast Guaranteed 500k Promo Package",
+    "threatType": "PAID_GUARANTEED_STREAMS",
+    "vendorOffer": "Pay ₦500,000 for guaranteed 500,000 Spotify streams within 7 days",
+    "riskLevel": "CRITICAL_FRAUD",
+    "riskScore": 100,
+    "verdict": "🚨 BLOCKED & FLAGGED: HIGH RISK — DO NOT ENGAGE",
+    "violationPolicy": "Spotify Artificial Streaming Penalty Notice & Apple Music Fraud Guidelines",
+    "detectedIndicators": [
+      "Guarantees specific stream counts (Direct violation of Spotify Artist Terms)",
+      "Uses automated server click-farms based in datacenter IP ranges",
+      "Average listen duration is exactly 31-33 seconds (looping to trigger monetization without human completion)",
+      "Zero organic saves, zero organic library adds, zero search intent",
+      "High probability of catalog takedown, royalty withholding, and Spotify penalty strikes"
+    ],
+    "recommendedAction": "Block immediately. Prohibit LJ marketing personnel or third-party managers from transacting with this vendor."
+  },
+  {
+    "id": "fraud-002",
+    "threatName": "MegaViral Top 50 Playlist Placement Network",
+    "threatType": "BOTTED_PLAYLIST_NETWORK",
+    "vendorOffer": "Guaranteed placement on top 5 algorithmic imitation playlists with 100k followers",
+    "riskLevel": "CRITICAL_FRAUD",
+    "riskScore": 95,
+    "verdict": "🚨 HIGH RISK — DO NOT ENGAGE",
+    "violationPolicy": "Third-Party Playlist Payola & Automated Traffic Ingestion",
+    "detectedIndicators": [
+      "Follower growth curve shows unnatural vertical cliffs (+50,000 followers in 2 hours)",
+      "Listener-to-follower ratio is completely erratic (<0.1%)",
+      "Curator solicits direct payment via WhatsApp / Telegram rather than approved pitch channels",
+      "Song order changes every 12 hours with rotating victims"
+    ],
+    "recommendedAction": "Add playlist ID and curator wallet to automated blacklist filter."
+  },
+  {
+    "id": "fraud-003",
+    "threatName": "Legitimate Editorial & Meta Ads Performance Growth",
+    "threatType": "VERIFIED_LEGITIMATE_GROWTH",
+    "vendorOffer": "Direct conversion ads on Instagram/TikTok driving verified real human listeners to Spotify/Apple Music",
+    "riskLevel": "CLEAN_COMPLIANT",
+    "riskScore": 4,
+    "verdict": "✅ VERIFIED COMPLIANT PROMOTION",
+    "violationPolicy": "100% Compliant with all DSP Terms of Service",
+    "detectedIndicators": [
+      "No guaranteed stream numbers (growth tied to genuine creative appeal)",
+      "Real human intent: high save rates (25%+), playlist adds, and follow-through",
+      "Varied listening durations and high repeat listening percentages",
+      "Full transparency in advertising manager and pixel attribution"
+    ],
+    "recommendedAction": "Approved for LJ Marketing Division budget allocation."
+  }
+]

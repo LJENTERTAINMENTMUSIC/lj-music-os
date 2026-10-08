@@ -1,0 +1,102 @@
+[
+  {
+    "id": "brief-001",
+    "client": "Netflix Original Series",
+    "project": "'Lagos Shadows' - Global Drama (Season 2 Finale)",
+    "scene": "Emotional climax: Protagonist reflects on betrayal and begins personal resurgence after devastating loss.",
+    "theme": "Heartbreak to recovery, Resilience, Emotional Triumph",
+    "vocal": "Female vocal (Soulful, resonant)",
+    "tempoRange": "90–110 BPM",
+    "preferredGenre": "Afro-Soul / Cinematic African Alté",
+    "budget": "$45,000 – $75,000 (All-in Master & Sync)",
+    "deadline": "2026-11-15",
+    "rightsRequired": "Worldwide Theatrical / VOD / Streaming, In Perpetuity",
+    "keyCriteria": {
+      "moodKeywords": ["Emotional", "Resilient", "Heartbreak", "Recovery", "Triumph"],
+      "bpmMin": 90,
+      "bpmMax": 110,
+      "preferredGender": "Female",
+      "noExplicit": true
+    }
+  },
+  {
+    "id": "brief-002",
+    "client": "Porsche / Luxury Auto Brand",
+    "project": "Panamera Electric - Pan-African Launch Campaign",
+    "scene": "Night drive through Lekki-Ikoyi Link bridge, luxury cityscape, aspirational executive aesthetic.",
+    "theme": "Luxury, Aspirational, Modern African Elegance, Nightlife Sophistication",
+    "vocal": "Male or Smooth Vocal / Minimal Hook",
+    "tempoRange": "100–110 BPM",
+    "preferredGenre": "Afrobeats (Luxury / Smooth Afro-Fusion)",
+    "budget": "$60,000 – $95,000",
+    "deadline": "2026-10-30",
+    "rightsRequired": "Worldwide Broadcast, Digital, Commercial Rights (1 Year)",
+    "keyCriteria": {
+      "moodKeywords": ["Aspirational", "Premium", "Sensual", "Confident", "Luxury"],
+      "bpmMin": 100,
+      "bpmMax": 110,
+      "preferredGender": "Male",
+      "noExplicit": true
+    }
+  },
+  {
+    "id": "brief-003",
+    "client": "EA Sports",
+    "project": "EA FC 27 (FIFA) Official In-Game & Menu Soundtrack",
+    "scene": "High-octane stadium vibes, global street football flair, rhythmic swagger.",
+    "theme": "High Energy, Club, Danceable, Global Street Bounce",
+    "vocal": "Male chant or upbeat vocal",
+    "tempoRange": "112–116 BPM",
+    "preferredGenre": "Amapiano / Afro-House / Club Afrobeats",
+    "budget": "$35,000 – $55,000 + Global In-Game Royalty",
+    "deadline": "2026-12-01",
+    "rightsRequired": "Worldwide Interactive Game License (3 Years)",
+    "keyCriteria": {
+      "moodKeywords": ["Hypnotic", "Driving", "Cool", "High Octane", "Swagger"],
+      "bpmMin": 112,
+      "bpmMax": 116,
+      "preferredGender": "Any",
+      "noExplicit": true
+    }
+  },
+  {
+    "id": "brief-004",
+    "client": "Lagos Luxury Real Estate Group",
+    "project": "Eko Atlantic Waterfront Towers Commercial",
+    "scene": "Sun setting over Lagos oceanfront skyline, penthouse interiors, world-class architecture.",
+    "theme": "Aspirational, Nigerian Pride, Luxury, Elegance",
+    "vocal": "Male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics",
+    "tempoRange": "100–110 BPM",
+    "preferredGenre": "Afrobeats",
+    "budget": "$25,000 – $40,000",
+    "deadline": "2026-10-25",
+    "rightsRequired": "Digital, TV Broadcast, Event Showrooms (2 Years)",
+    "keyCriteria": {
+      "moodKeywords": ["Aspirational", "Premium", "Smooth", "Luxury"],
+      "bpmMin": 100,
+      "bpmMax": 110,
+      "preferredGender": "Male",
+      "noExplicit": true
+    }
+  },
+  {
+    "id": "brief-005",
+    "client": "Global Tourism & Hospitality (Marriott / African Luxury)",
+    "project": "Discover Africa - Heritage & Hospitality Documentary Series",
+    "scene": "Morning sunrise over African landscapes, warm cultural welcomes, culinary traditions.",
+    "theme": "Warmth, Heritage, Celebration, Acoustic Organic",
+    "vocal": "Instrumental or Gentle Vocals",
+    "tempoRange": "100–108 BPM",
+    "preferredGenre": "Highlife / Afro-Acoustic / Instrumental",
+    "budget": "$20,000 – $35,000",
+    "deadline": "2026-11-20",
+    "rightsRequired": "Worldwide OTT Streaming & In-Flight Entertainment",
+    "keyCriteria": {
+      "moodKeywords": ["Peaceful", "Warm", "Celebratory", "Regal", "Organic"],
+      "bpmMin": 100,
+      "bpmMax": 108,
+      "preferredGender": "Any",
+      "noExplicit": true
+    }
+  }
+]
