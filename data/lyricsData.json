@@ -443,7 +443,7 @@
           "status": "RESOLVED",
           "resolvedVersion": "I dey find my way home",
           "resolvedBy": "Label Rights Supervisor",
-          "resolvedAt": "2026-10-11T23:27:26.553Z"
+          "resolvedAt": "2026-10-11T23:44:16.484Z"
         }
       ]
     },
@@ -652,6 +652,237 @@
       }
     },
     "correctionHistory": [
+      {
+        "correctionId": "corr-6496",
+        "timestamp": "2026-10-11T23:44:16.496Z",
+        "initiatedBy": "Drey Star (Verified Artist Direct)",
+        "summary": "Corrected line #3: \"I dey find my way home (Global Corrected)\" → \"I dey find my way home (Global Corrected)\"",
+        "affectedDestinationsCount": 11,
+        "propagationStatus": "COMPLETE_ALL_CHANNELS",
+        "destinationDispatches": [
+          {
+            "destination": "Spotify",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Word-Synced TTML / JSON and acknowledged by Spotify endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Apple Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced Line & Word Synced TTML and acknowledged by Apple Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "YouTube Music & Content ID",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in WebVTT Timed Captions and acknowledged by YouTube Music & Content ID endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Amazon Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in X-TTML Line Synced and acknowledged by Amazon Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Deezer",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC and acknowledged by Deezer endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "TIDAL",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced LRC and acknowledged by TIDAL endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Audiomack",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Plain & Section-Tagged Lyrics and acknowledged by Audiomack endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Boomplay",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC (Pan-African Focus) and acknowledged by Boomplay endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Google Search & Knowledge Graph",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Canonical Semantic HTML & JSON-LD and acknowledged by Google Search & Knowledge Graph endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "LJ First-Party Platform",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in High-Fidelity Word-Synced Interactive Web UI and acknowledged by LJ First-Party Platform endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          },
+          {
+            "destination": "Artist Official Websites",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Interactive Lyric Player Embed and acknowledged by Artist Official Websites endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:44:16.496Z"
+          }
+        ],
+        "verifiedBy": "Chief Lyrics Intelligence Agent"
+      },
+      {
+        "correctionId": "corr-4313",
+        "timestamp": "2026-10-11T23:40:04.313Z",
+        "initiatedBy": "Drey Star (Verified Artist Direct)",
+        "summary": "Corrected line #3: \"I dey find my way home (Global Corrected)\" → \"I dey find my way home (Global Corrected)\"",
+        "affectedDestinationsCount": 11,
+        "propagationStatus": "COMPLETE_ALL_CHANNELS",
+        "destinationDispatches": [
+          {
+            "destination": "Spotify",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Word-Synced TTML / JSON and acknowledged by Spotify endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Apple Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced Line & Word Synced TTML and acknowledged by Apple Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "YouTube Music & Content ID",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in WebVTT Timed Captions and acknowledged by YouTube Music & Content ID endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Amazon Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in X-TTML Line Synced and acknowledged by Amazon Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Deezer",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC and acknowledged by Deezer endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "TIDAL",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced LRC and acknowledged by TIDAL endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Audiomack",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Plain & Section-Tagged Lyrics and acknowledged by Audiomack endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Boomplay",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC (Pan-African Focus) and acknowledged by Boomplay endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Google Search & Knowledge Graph",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Canonical Semantic HTML & JSON-LD and acknowledged by Google Search & Knowledge Graph endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "LJ First-Party Platform",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in High-Fidelity Word-Synced Interactive Web UI and acknowledged by LJ First-Party Platform endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          },
+          {
+            "destination": "Artist Official Websites",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Interactive Lyric Player Embed and acknowledged by Artist Official Websites endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:40:04.313Z"
+          }
+        ],
+        "verifiedBy": "Chief Lyrics Intelligence Agent"
+      },
+      {
+        "correctionId": "corr-2808",
+        "timestamp": "2026-10-11T23:30:22.808Z",
+        "initiatedBy": "Drey Star (Verified Artist Direct)",
+        "summary": "Corrected line #3: \"I dey find my way home (Global Corrected)\" → \"I dey find my way home (Global Corrected)\"",
+        "affectedDestinationsCount": 11,
+        "propagationStatus": "COMPLETE_ALL_CHANNELS",
+        "destinationDispatches": [
+          {
+            "destination": "Spotify",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Word-Synced TTML / JSON and acknowledged by Spotify endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Apple Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced Line & Word Synced TTML and acknowledged by Apple Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "YouTube Music & Content ID",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in WebVTT Timed Captions and acknowledged by YouTube Music & Content ID endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Amazon Music",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in X-TTML Line Synced and acknowledged by Amazon Music endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Deezer",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC and acknowledged by Deezer endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "TIDAL",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Enhanced LRC and acknowledged by TIDAL endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Audiomack",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Plain & Section-Tagged Lyrics and acknowledged by Audiomack endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Boomplay",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Line-Synced LRC (Pan-African Focus) and acknowledged by Boomplay endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Google Search & Knowledge Graph",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Canonical Semantic HTML & JSON-LD and acknowledged by Google Search & Knowledge Graph endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "LJ First-Party Platform",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in High-Fidelity Word-Synced Interactive Web UI and acknowledged by LJ First-Party Platform endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          },
+          {
+            "destination": "Artist Official Websites",
+            "status": "DELIVERED_SUCCESS",
+            "actionTaken": "Payload compiled in Interactive Lyric Player Embed and acknowledged by Artist Official Websites endpoint.",
+            "confirmedTimestamp": "2026-10-11T23:30:22.808Z"
+          }
+        ],
+        "verifiedBy": "Chief Lyrics Intelligence Agent"
+      },
       {
         "correctionId": "corr-6562",
         "timestamp": "2026-10-11T23:27:26.562Z",
@@ -5629,6 +5860,129 @@
   },
   "lj-034": {
     "trackId": "lj-034",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "isrc": "NG-M01-22-00101",
+    "album": "Rush - Single",
+    "releaseDate": "2022-09-16",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Rush)\n\nChorus:\nFeel the energy of Ayra Starr, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Rush)\n\nChorus:\nFeel the energy of Ayra Starr, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Rush)",
+        "singer": "Ayra Starr",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Ayra Starr, we dey elevate",
+        "singer": "Ayra Starr",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Ayra Starr",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Rush (Français)",
+        "chorus": "Ressens l'énergie de Ayra Starr..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/ayra-starr/rush"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/ayra-starr/rush",
+      "title": "Ayra Starr — Rush (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-035": {
+    "trackId": "lj-035",
     "title": "Rush",
     "artist": "Ayra Starr",
     "isrc": "NG-M01-22-00101",

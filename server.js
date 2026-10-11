@@ -571,33 +571,38 @@ app.get('/api/player/config', (req, res) => {
   res.json({
     engine: 'LJ Universal Multi-Platform Streaming Adapter 2.0',
     providers: [
-      { id: 'spotify', name: 'Spotify Web Playback SDK', type: 'sdk', available: true },
+      { id: 'spotify', name: 'Spotify Web Playback SDK & Embed', type: 'sdk', available: true },
       { id: 'apple-music', name: 'Apple MusicKit.js', type: 'sdk', available: true },
       { id: 'youtube', name: 'YouTube Music / IFrame API', type: 'iframe', available: true },
-      { id: 'direct', name: 'Direct High-Fidelity Audio Preview', type: 'html5_audio', available: true },
-      { id: 'synth', name: 'Procedural Web Audio Afro-Synth', type: 'web_audio', available: true }
+      { id: 'direct', name: 'Direct High-Fidelity Audio Preview', type: 'html5_audio', available: true }
     ]
   });
 });
 
-app.post('/api/player/resolve-stream', (req, res) => {
-  const { trackId } = req.body;
+const handleResolveStream = (req, res) => {
+  const trackId = req.query.trackId || req.body?.trackId;
   const { catalogue } = loadState();
   const track = catalogue.find(t => t.id === trackId) || catalogue[0];
+  const sId = track.spotifyId || (track.spotifyUrl ? track.spotifyUrl.split('/track/')[1]?.split('?')[0] : null);
   res.json({
     trackId: track.id,
     title: track.title,
     artist: track.artist,
     streams: {
-      spotifyUri: track.spotifyUrl ? `spotify:track:${track.spotifyUrl.split('/track/')[1]?.split('?')[0]}` : null,
-      spotifyUrl: track.spotifyUrl || null,
+      spotifyId: sId,
+      spotifyUri: sId ? `spotify:track:${sId}` : null,
+      spotifyUrl: track.spotifyUrl || (sId ? `https://open.spotify.com/track/${sId}` : null),
+      spotifyEmbedUrl: track.spotifyEmbedUrl || (sId ? `https://open.spotify.com/embed/track/${sId}?utm_source=generator&theme=0` : null),
       appleMusicId: track.appleMusicId || null,
-      youtubeId: track.youtubeId || 'dQw4w9WgXcQ',
+      youtubeId: track.youtubeId || null,
       previewUrl: track.previewUrl || null
     },
     preferredEngine: track.previewUrl ? 'direct' : 'spotify'
   });
-});
+};
+
+app.get('/api/player/resolve-stream', handleResolveStream);
+app.post('/api/player/resolve-stream', handleResolveStream);
 
 // Start Server
 app.listen(PORT, () => {

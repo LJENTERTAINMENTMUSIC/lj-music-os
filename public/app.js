@@ -1797,40 +1797,29 @@ function initAudioContext() {
 }
 
 function playProceduralAfroBeat() {
-  initAudioContext();
-  if (isPlayingBeat) {
-    stopProceduralAfroBeat();
+  // Demo sound oscillators cleaned and cleared: route directly to authentic music player
+  if (window.universalPlayer) {
+    window.universalPlayer.togglePlay();
     return;
   }
-
-  isPlayingBeat = true;
-  const synthText = document.getElementById("synthStatusText");
-  if (synthText) {
-    synthText.innerText = "Web Audio Afro-Groove: Synthesizing Live Pattern (107 BPM)";
-    synthText.classList.add("text-emerald-400");
+  const track = (allTracks && allTracks.length > 0) ? (allTracks.find(t => t.id === currentActiveTrackId) || allTracks[0]) : null;
+  if (track) {
+    selectAndPlayTrack(track.id);
   }
-  const playIcon = document.getElementById("playIcon");
-  if (playIcon) playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-  const rightIcon = document.getElementById("rightCockpitPlayIcon");
-  if (rightIcon) rightIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-
-  let step = 0;
-  const intervalMs = (60 / 107) * 1000 / 4;
-
-  beatInterval = setInterval(() => {
-    if (step % 4 === 0 || step === 6 || step === 10) triggerLogKick();
-    triggerShaker();
-    if (step === 4 || step === 7 || step === 12) triggerTalkingDrum();
-    step = (step + 1) % 16;
-  }, intervalMs);
 }
 
 function stopProceduralAfroBeat() {
+  if (window.universalPlayer) {
+    window.universalPlayer.pause();
+    return;
+  }
+  if (activeAudioStream) {
+    activeAudioStream.pause();
+  }
   isPlayingBeat = false;
-  if (beatInterval) clearInterval(beatInterval);
   const synthText = document.getElementById("synthStatusText");
   if (synthText) {
-    synthText.innerText = "Web Audio Afro-Groove Synthesizer: Stopped";
+    synthText.innerText = "Spotify Master Audio: Paused";
     synthText.classList.remove("text-emerald-400");
   }
   const playIcon = document.getElementById("playIcon");
@@ -1840,54 +1829,15 @@ function stopProceduralAfroBeat() {
 }
 
 function triggerLogKick() {
-  if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = "sine";
-  osc.frequency.setValueAtTime(120, audioCtx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(35, audioCtx.currentTime + 0.18);
-  gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.22);
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.22);
+  // Demo sound silenced
 }
 
 function triggerShaker() {
-  if (!audioCtx) return;
-  const bufferSize = audioCtx.sampleRate * 0.04;
-  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-  const noise = audioCtx.createBufferSource();
-  noise.buffer = buffer;
-  const filter = audioCtx.createBiquadFilter();
-  filter.type = "highpass";
-  filter.frequency.value = 4500;
-  const gain = audioCtx.createGain();
-  gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-  noise.connect(filter);
-  filter.connect(gain);
-  gain.connect(audioCtx.destination);
-  noise.start();
+  // Demo sound silenced
 }
 
 function triggerTalkingDrum() {
-  if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = "triangle";
-  osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(320, audioCtx.currentTime + 0.08);
-  osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.16);
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.18);
+  // Demo sound silenced
 }
 
 let activeAudioStream = null;
@@ -1933,13 +1883,11 @@ function selectAndPlayTrack(trackId) {
     updateRightSidebarCockpit(track);
   }
 
-  // Route playback through Universal Streaming Player Adapter
+  // Route playback exclusively to authentic Spotify / studio audio stream
   if (window.universalPlayer && typeof window.universalPlayer.play === 'function') {
     window.universalPlayer.play(track);
   } else if (track.previewUrl) {
     playDirectAudio(track.previewUrl, track.title, track.artist);
-  } else {
-    playProceduralAfroBeat();
   }
 }
 
@@ -3461,10 +3409,12 @@ const billboardFeaturedTracks = [
     territory: "8 Markets Active",
     description: "Hypnotic bassline, syncopated talking drums, and infectious anthemic hook dominating organic DSP discovery across 8 territories. 10,000 specialist agents deployed.",
     coverArt: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 94%"
+    waveStatus: "Acoustic DNA: 94%",
+    spotifyId: "3t2e2E5F2a2o3S5e2R2z4x",
+    spotifyUrl: "https://open.spotify.com/track/3t2e2E5F2a2o3S5e2R2z4x"
   },
   {
-    id: "lj-001",
+    id: "ext-003",
     title: "Rush",
     artist: "Ayra Starr",
     genre: "Afropop • 100 BPM • Key E Minor",
@@ -3472,10 +3422,12 @@ const billboardFeaturedTracks = [
     territory: "14.8M Monthly Listeners",
     description: "Sensational viral rhythm with soulful melodies and chart-topping momentum. AI distribution targeting 32 tier-1 Afropop playlists globally.",
     coverArt: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 98%"
+    waveStatus: "Acoustic DNA: 98%",
+    spotifyId: "2fXw04m92698q1toYDC3mn",
+    spotifyUrl: "https://open.spotify.com/track/2fXw04m92698q1toYDC3mn"
   },
   {
-    id: "lj-002",
+    id: "ext-002",
     title: "Lonely At The Top",
     artist: "Asake",
     genre: "Amapiano & Fuji • 114 BPM • C# Minor",
@@ -3483,10 +3435,12 @@ const billboardFeaturedTracks = [
     territory: "8.4M Monthly Listeners",
     description: "Soul-stirring log drum cadences with meditative Fuji-infused vocal delivery. Synced lyrics distributed across 11 DSP endpoints worldwide.",
     coverArt: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 96%"
+    waveStatus: "Acoustic DNA: 96%",
+    spotifyId: "72K8eG1jF8d689r5G4d6fJ",
+    spotifyUrl: "https://open.spotify.com/track/72K8eG1jF8d689r5G4d6fJ"
   },
   {
-    id: "lj-003",
+    id: "ext-004",
     title: "Free Mind",
     artist: "Tems",
     genre: "Alté R&B • 92 BPM • Key F# Major",
@@ -3494,7 +3448,9 @@ const billboardFeaturedTracks = [
     territory: "19.2M Monthly Listeners",
     description: "Atmospheric textures and vocal resonance calibrated for high-value television and gaming sync opportunities with 100% one-stop rights clearance.",
     coverArt: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 99%"
+    waveStatus: "Acoustic DNA: 99%",
+    spotifyId: "6t36tK1sI0l2l8Q43uXG2Q",
+    spotifyUrl: "https://open.spotify.com/track/6t36tK1sI0l2l8Q43uXG2Q"
   }
 ];
 
@@ -3683,6 +3639,19 @@ function updateRightSidebarCockpit(track) {
   const activeLine = document.getElementById("rightLyricsActiveLine");
   if (track.lyricsSnippet && activeLine) {
     activeLine.innerText = `"${track.lyricsSnippet}"`;
+  }
+
+  // Update Spotify Embed Player & Direct Link
+  const spotifyIframe = document.getElementById("spotifyIframe");
+  if (spotifyIframe && (track.spotifyId || track.spotifyUrl)) {
+    const sId = track.spotifyId || (track.spotifyUrl ? track.spotifyUrl.split('/track/')[1]?.split('?')[0] : '3t2e2E5F2a2o3S5e2R2z4x');
+    if (sId && !spotifyIframe.src.includes(sId)) {
+      spotifyIframe.src = `https://open.spotify.com/embed/track/${sId}?utm_source=generator&theme=0`;
+    }
+  }
+  const spotifyLink = document.getElementById("spotifyDirectLink");
+  if (spotifyLink && track.spotifyUrl) {
+    spotifyLink.href = track.spotifyUrl;
   }
 }
 window.updateRightSidebarCockpit = updateRightSidebarCockpit;

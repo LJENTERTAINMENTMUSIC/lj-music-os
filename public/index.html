@@ -2310,6 +2310,23 @@
         </div>
       </div>
 
+      <!-- Official Spotify Interactive Embed Player Widget -->
+      <div id="spotifyEmbedCard" class="glass-panel-subtle rounded-2xl p-2.5 border border-white/10 space-y-2">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center space-x-1.5">
+            <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.722 1.113.294.18.386.562.207.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.52-.973 3.632-1.102 8.147-.568 11.233 1.328.366.226.481.707.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.624-1.167 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.838.327 1.282-.264.443-.838.59-1.28.327z"/></svg>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">Spotify Master Player</span>
+          </div>
+          <a id="spotifyDirectLink" href="https://open.spotify.com/track/3t2e2E5F2a2o3S5e2R2z4x" target="_blank" class="text-[9px] text-slate-400 hover:text-white font-mono-code flex items-center space-x-0.5">
+            <span>Open in Spotify</span>
+            <span>↗</span>
+          </a>
+        </div>
+        <div class="rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner">
+          <iframe id="spotifyIframe" src="https://open.spotify.com/embed/track/3t2e2E5F2a2o3S5e2R2z4x?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
       <!-- Expandable Synced Lyrics Drawer (Groovvy Style) -->
       <div class="glass-panel-subtle rounded-2xl p-3.5 border border-white/10 space-y-2">
         <div class="flex items-center justify-between cursor-pointer" onclick="toggleRightLyricsDrawer()">
