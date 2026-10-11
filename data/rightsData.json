@@ -1141,5 +1141,75 @@
     "syncReadinessScore": 98,
     "syncStatus": "SYNC_READY",
     "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared"
+  },
+  "lj-033": {
+    "trackId": "lj-033",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+    "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+    "writerSplits": [
+      {
+        "name": "Ayra Starr",
+        "role": "Primary Lyricist & Composer",
+        "share": 70,
+        "ipi": "009948211"
+      },
+      {
+        "name": "LJ In-House Audio Lab",
+        "role": "Arrangement & Production",
+        "share": 30,
+        "ipi": "009124451"
+      }
+    ],
+    "publisher": "LJ Global Publishing Worldwide",
+    "pro": "PRS for Music / COSON",
+    "isrc": "NG-M01-22-00101",
+    "ipi": "009948211",
+    "explicitContent": false,
+    "sampleClearance": "100% Original Composition - No Uncleared Samples",
+    "featuredArtistAgreements": "N/A (Solo Release)",
+    "producerAgreements": "Standard Exclusive Work-For-Hire Executed",
+    "contractStatus": "Active Exclusive Agreement",
+    "territory": "Worldwide (In Perpetuity)",
+    "licensingTier": "Tier A ($20,000 – $60,000)",
+    "syncReadinessScore": 98,
+    "syncStatus": "SYNC_READY",
+    "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared"
+  },
+  "lj-034": {
+    "trackId": "lj-034",
+    "title": "Rush",
+    "artist": "Ayra Starr",
+    "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+    "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+    "writerSplits": [
+      {
+        "name": "Ayra Starr",
+        "role": "Primary Lyricist & Composer",
+        "share": 70,
+        "ipi": "009948211"
+      },
+      {
+        "name": "LJ In-House Audio Lab",
+        "role": "Arrangement & Production",
+        "share": 30,
+        "ipi": "009124451"
+      }
+    ],
+    "publisher": "LJ Global Publishing Worldwide",
+    "pro": "PRS for Music / COSON",
+    "isrc": "NG-M01-22-00101",
+    "ipi": "009948211",
+    "explicitContent": false,
+    "sampleClearance": "100% Original Composition - No Uncleared Samples",
+    "featuredArtistAgreements": "N/A (Solo Release)",
+    "producerAgreements": "Standard Exclusive Work-For-Hire Executed",
+    "contractStatus": "Active Exclusive Agreement",
+    "territory": "Worldwide (In Perpetuity)",
+    "licensingTier": "Tier A ($20,000 – $60,000)",
+    "syncReadinessScore": 98,
+    "syncStatus": "SYNC_READY",
+    "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared"
   }
 }

@@ -566,6 +566,39 @@ app.get('/api/artist/roster', (req, res) => {
   res.json(roster);
 });
 
+// Universal Streaming Player Telemetry & Resolver
+app.get('/api/player/config', (req, res) => {
+  res.json({
+    engine: 'LJ Universal Multi-Platform Streaming Adapter 2.0',
+    providers: [
+      { id: 'spotify', name: 'Spotify Web Playback SDK', type: 'sdk', available: true },
+      { id: 'apple-music', name: 'Apple MusicKit.js', type: 'sdk', available: true },
+      { id: 'youtube', name: 'YouTube Music / IFrame API', type: 'iframe', available: true },
+      { id: 'direct', name: 'Direct High-Fidelity Audio Preview', type: 'html5_audio', available: true },
+      { id: 'synth', name: 'Procedural Web Audio Afro-Synth', type: 'web_audio', available: true }
+    ]
+  });
+});
+
+app.post('/api/player/resolve-stream', (req, res) => {
+  const { trackId } = req.body;
+  const { catalogue } = loadState();
+  const track = catalogue.find(t => t.id === trackId) || catalogue[0];
+  res.json({
+    trackId: track.id,
+    title: track.title,
+    artist: track.artist,
+    streams: {
+      spotifyUri: track.spotifyUrl ? `spotify:track:${track.spotifyUrl.split('/track/')[1]?.split('?')[0]}` : null,
+      spotifyUrl: track.spotifyUrl || null,
+      appleMusicId: track.appleMusicId || null,
+      youtubeId: track.youtubeId || 'dQw4w9WgXcQ',
+      previewUrl: track.previewUrl || null
+    },
+    preferredEngine: track.previewUrl ? 'direct' : 'spotify'
+  });
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`=======================================================`);

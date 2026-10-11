@@ -2208,7 +2208,17 @@
             <span class="text-xs font-black uppercase tracking-wider text-white">Now Playing</span>
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           </div>
-          <span class="text-[10px] text-slate-400 font-mono-code">Swarm Acoustic Cockpit</span>
+          <div class="flex items-center space-x-1.5 mt-0.5">
+            <span class="text-[10px] text-slate-400 font-mono-code">Engine:</span>
+            <select onchange="window.universalPlayer?.setPreferredSource(this.value)" class="bg-[#120B22] border border-white/10 rounded px-1.5 py-0.5 text-[9px] font-mono-code text-purple-300 focus:outline-none focus:border-purple-500 cursor-pointer">
+              <option value="auto">⚡ Auto Engine</option>
+              <option value="spotify">🟢 Spotify SDK</option>
+              <option value="apple-music">🍎 Apple MusicKit</option>
+              <option value="youtube">🔴 YouTube Audio</option>
+              <option value="direct">⚡ Hifi Audio</option>
+              <option value="synth">🎛️ Afro-Synth</option>
+            </select>
+          </div>
         </div>
         <div class="flex items-center space-x-1.5">
           <button onclick="toggleCopilotSheet()" title="AI Co-pilot" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition">
@@ -2388,8 +2398,9 @@
         </button>
       </div>
       <div class="text-[10px] text-slate-400 hidden sm:flex items-center space-x-2">
-        <span id="synthStatusText">Web Audio Afro-Groove Synthesizer: Ready</span>
+        <span id="synthStatusText">Universal Engine: Ready</span>
         <span class="text-violet-300 font-mono-code font-bold" id="currentBpmBadge">107 BPM (A Minor)</span>
+        <span id="activeStreamingSourceBadge" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[9px] font-bold">⚡ Universal Engine</span>
       </div>
     </div>
 
@@ -2547,6 +2558,12 @@
 
   <!-- TOAST NOTIFICATION SYSTEM CONTAINER -->
   <div id="toastContainer" class="fixed top-5 right-5 z-[9999] flex flex-col space-y-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Multi-Platform Universal Streaming Player Architecture -->
+  <script src="/spotify-player.js"></script>
+  <script src="/apple-music-player.js"></script>
+  <script src="/youtube-player.js"></script>
+  <script src="/universal-player.js"></script>
 
   <!-- Application Logic -->
   <script src="/app.js"></script>

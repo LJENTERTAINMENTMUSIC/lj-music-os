@@ -144,10 +144,18 @@
       {
         "trackId": "lj-032",
         "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-033",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
+      },
+      {
+        "trackId": "lj-034",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with African Essentials."
       }
     ],
-    "ljArtistSharePct": 92,
-    "lastUpdated": "2026-10-07"
+    "ljArtistSharePct": 93,
+    "lastUpdated": "2026-10-11"
   },
   {
     "id": "ed-003",
@@ -261,10 +269,18 @@
       {
         "trackId": "lj-032",
         "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-033",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
+      },
+      {
+        "trackId": "lj-034",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 96% compatibility with Lagos Night Drive."
       }
     ],
-    "ljArtistSharePct": 92,
-    "lastUpdated": "2026-10-07"
+    "ljArtistSharePct": 93,
+    "lastUpdated": "2026-10-11"
   },
   {
     "id": "ed-004",
@@ -374,9 +390,17 @@
       {
         "trackId": "lj-032",
         "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-033",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
+      },
+      {
+        "trackId": "lj-034",
+        "rationale": "LJ Contextual Boost: 100 BPM, Key B minor, Energy 82, Danceability 89 → 99% compatibility with LJ Weekly Picks."
       }
     ],
     "ljArtistSharePct": 100,
-    "lastUpdated": "2026-10-07"
+    "lastUpdated": "2026-10-11"
   }
 ]

@@ -1,8 +1,189 @@
 /**
- * LJ MUSIC OS - Spotify Web Playback Integration
- * Plays real Spotify tracks instead of placeholder audio
+ * LJ MUSIC OS — SPOTIFY WEB PLAYBACK SDK ADAPTER & PLAYER
+ * Production-ready Spotify Web Playback SDK integration with device management,
+ * state synchronization, audio preview fallback, and universal player compatibility.
  */
 
+// ==========================================
+// 1. SPOTIFY PLAYER ADAPTER (Universal Player)
+// ==========================================
+class SpotifyPlayerAdapter {
+  constructor(options = {}) {
+    this.name = options.name || "LJ Music OS Spotify Player";
+    this.token = options.token || null;
+    this.player = null;
+    this.deviceId = null;
+    this.isReady = false;
+    this.isPlaying = false;
+    this.currentTrack = null;
+    this.volume = options.volume || 0.8;
+    this.onStateChangeCallback = null;
+    this.sdkLoaded = false;
+  }
+
+  setToken(token) {
+    this.token = token;
+    if (!this.player && this.sdkLoaded) {
+      this.initPlayer();
+    }
+  }
+
+  loadSdk() {
+    if (window.Spotify) {
+      this.sdkLoaded = true;
+      if (this.token) this.initPlayer();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://sdk.scdn.co/spotify-player.js";
+    script.async = true;
+
+    const prevReady = window.onSpotifyWebPlaybackSDKReady;
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      this.sdkLoaded = true;
+      console.log("⚡ Spotify Web Playback SDK Ready");
+      if (typeof prevReady === "function") prevReady();
+      if (this.token) {
+        this.initPlayer();
+      }
+    };
+
+    document.head.appendChild(script);
+  }
+
+  initPlayer() {
+    if (!window.Spotify || !this.token) return;
+
+    this.player = new window.Spotify.Player({
+      name: this.name,
+      getOAuthToken: cb => cb(this.token),
+      volume: this.volume
+    });
+
+    // Error handling
+    this.player.addListener('initialization_error', ({ message }) => console.warn('Spotify init error:', message));
+    this.player.addListener('authentication_error', ({ message }) => console.warn('Spotify auth error:', message));
+    this.player.addListener('account_error', ({ message }) => console.warn('Spotify account error (Premium required for full SDK):', message));
+    this.player.addListener('playback_error', ({ message }) => console.warn('Spotify playback error:', message));
+
+    // Ready & Device Registration
+    this.player.addListener('ready', ({ device_id }) => {
+      this.deviceId = device_id;
+      this.isReady = true;
+      console.log('✅ Spotify Player connected with Device ID:', device_id);
+    });
+
+    this.player.addListener('not_ready', ({ device_id }) => {
+      this.isReady = false;
+      console.log('⚠️ Spotify Device ID went offline:', device_id);
+    });
+
+    // Playback state synchronization
+    this.player.addListener('player_state_changed', state => {
+      if (!state) {
+        this.isPlaying = false;
+        return;
+      }
+
+      this.isPlaying = !state.paused;
+      const track = state.track_window?.current_track;
+      if (track) {
+        this.currentTrack = {
+          id: track.id,
+          title: track.name,
+          artist: track.artists?.map(a => a.name).join(", "),
+          coverArt: track.album?.images?.[0]?.url,
+          durationMs: track.duration_ms,
+          positionMs: state.position
+        };
+      }
+
+      if (this.onStateChangeCallback) {
+        this.onStateChangeCallback({
+          source: 'spotify',
+          isPlaying: this.isPlaying,
+          track: this.currentTrack,
+          position: state.position / 1000,
+          duration: (state.duration || 0) / 1000
+        });
+      }
+    });
+
+    this.player.connect();
+  }
+
+  async playUri(spotifyUri) {
+    if (!this.player || !this.deviceId || !this.token) {
+      console.warn("Spotify SDK player not ready or unauthenticated; falling back to direct audio.");
+      return false;
+    }
+
+    try {
+      const response = await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`, {
+        method: 'PUT',
+        body: JSON.stringify({ uris: [spotifyUri] }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        }
+      });
+      return response.ok;
+    } catch (err) {
+      console.error("Spotify play API error:", err);
+      return false;
+    }
+  }
+
+  async togglePlay() {
+    if (this.player) {
+      await this.player.togglePlay();
+      return true;
+    }
+    return false;
+  }
+
+  async pause() {
+    if (this.player) {
+      await this.player.pause();
+      this.isPlaying = false;
+      return true;
+    }
+    return false;
+  }
+
+  async resume() {
+    if (this.player) {
+      await this.player.resume();
+      this.isPlaying = true;
+      return true;
+    }
+    return false;
+  }
+
+  async seek(seconds) {
+    if (this.player) {
+      await this.player.seek(Math.floor(seconds * 1000));
+      return true;
+    }
+    return false;
+  }
+
+  async setVolume(percent) {
+    this.volume = Math.max(0, Math.min(1, percent / 100));
+    if (this.player) {
+      await this.player.setVolume(this.volume);
+    }
+  }
+
+  onStateChange(cb) {
+    this.onStateChangeCallback = cb;
+  }
+}
+
+// ==========================================
+// 2. STANDALONE SPOTIFY PLAYER
+// ==========================================
 class SpotifyPlayer {
   constructor() {
     this.player = null;
@@ -21,7 +202,7 @@ class SpotifyPlayer {
     this.token = token;
     
     return new Promise((resolve) => {
-      window.onSpotifyWebPlaybackSDKReady = () => {
+      const initCallback = () => {
         console.log('🎵 Spotify SDK ready, initializing player...');
         
         this.player = new Spotify.Player({
@@ -43,15 +224,19 @@ class SpotifyPlayer {
         });
       };
 
-      // Load Spotify SDK if not already loaded
       if (!window.Spotify) {
+        const prevReady = window.onSpotifyWebPlaybackSDKReady;
+        window.onSpotifyWebPlaybackSDKReady = () => {
+          if (typeof prevReady === "function") prevReady();
+          initCallback();
+        };
+
         const script = document.createElement('script');
         script.src = 'https://sdk.scdn.co/spotify-web-playback-sdk.js';
         script.async = true;
         document.body.appendChild(script);
       } else {
-        // SDK already loaded, trigger ready event
-        window.onSpotifyWebPlaybackSDKReady();
+        initCallback();
       }
     });
   }
@@ -68,8 +253,8 @@ class SpotifyPlayer {
       }
 
       this.isPlaying = !state.paused;
-      this.currentTrack = state.current_track;
-      this.deviceId = state.device_id;
+      this.currentTrack = state.track_window?.current_track || state.current_track;
+      this.deviceId = state.device_id || this.deviceId;
       this.currentPosition = state.position;
       this.currentDuration = state.duration;
 
@@ -124,7 +309,6 @@ class SpotifyPlayer {
     }
 
     try {
-      // Use Spotify API to start playback
       const response = await fetch(
         `https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`,
         {
@@ -253,7 +437,6 @@ class SpotifyPlayer {
 
     const track = this.currentTrack;
     const albumArt = track.album?.images?.[0]?.url || '/placeholder.png';
-    const progress = (this.currentPosition / this.currentDuration) * 100;
     const currentTime = this.formatTime(this.currentPosition);
     const duration = this.formatTime(this.currentDuration);
 
@@ -379,10 +562,11 @@ class SpotifyPlayer {
    * Send telemetry data to LJ Music OS backend
    */
   async sendTelemetry(state) {
-    if (!state.current_track) return;
+    const track = state.track_window?.current_track || state.current_track;
+    if (!track) return;
 
-    const trackId = state.current_track.id;
-    const spotifyId = state.current_track.external_ids?.isrc || state.current_track.id;
+    const trackId = track.id;
+    const spotifyId = track.external_ids?.isrc || track.id;
     const completion = (state.position / state.duration) * 100;
 
     try {
@@ -394,15 +578,15 @@ class SpotifyPlayer {
           spotifyId: spotifyId,
           signalType: this.isPlaying ? 'play' : 'pause',
           metadata: {
-            artist: state.current_track.artists?.[0]?.name,
-            title: state.current_track.name,
-            album: state.current_track.album?.name,
+            artist: track.artists?.[0]?.name,
+            title: track.name,
+            album: track.album?.name,
             duration: state.duration,
             position: state.position,
             completionPct: Math.round(completion),
             isPlaying: !state.paused,
-            explicit: state.current_track.explicit,
-            uri: state.current_track.uri
+            explicit: track.explicit,
+            uri: track.uri
           }
         })
       });
@@ -445,7 +629,10 @@ class SpotifyPlayer {
   }
 }
 
-// Global instance
+// Global exports
+window.SpotifyPlayerAdapter = SpotifyPlayerAdapter;
+window.SpotifyPlayer = SpotifyPlayer;
 let spotifyPlayer = new SpotifyPlayer();
+window.spotifyPlayer = spotifyPlayer;
 
-console.log('✅ Spotify Player module loaded');
+console.log('✅ Spotify Player & Adapter modules loaded');

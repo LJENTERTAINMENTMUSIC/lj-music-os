@@ -1933,7 +1933,10 @@ function selectAndPlayTrack(trackId) {
     updateRightSidebarCockpit(track);
   }
 
-  if (track.previewUrl) {
+  // Route playback through Universal Streaming Player Adapter
+  if (window.universalPlayer && typeof window.universalPlayer.play === 'function') {
+    window.universalPlayer.play(track);
+  } else if (track.previewUrl) {
     playDirectAudio(track.previewUrl, track.title, track.artist);
   } else {
     playProceduralAfroBeat();
