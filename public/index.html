@@ -201,6 +201,12 @@
         <span>🔄 Restore</span>
       </button>
 
+      <button onclick="openIntegrationsModal()" class="flex items-center space-x-1.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white font-semibold px-3 py-2 rounded-xl text-xs transition border border-white/10 active:scale-95 shadow-sm" title="View Cloud Integrations Status (GitHub, Vercel, Supabase, Spotify)">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="hidden sm:inline">Integrations</span>
+        <span class="px-1.5 py-0.2 rounded text-[9px] bg-purple-500/30 text-purple-200 font-mono font-bold">3/4</span>
+      </button>
+
       <button onclick="triggerQuickAutomation('weekly')" class="flex items-center space-x-2 purple-accent-gradient hover:opacity-95 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-glow-violet active:scale-95 border border-white/20">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         <span class="tracking-wide">Run Swarm Cycle</span>
@@ -2637,6 +2643,16 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CLOUD INTEGRATIONS MONITOR -->
+  <div id="integrationsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel border border-white/15 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative">
+      <button onclick="closeIntegrationsModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="integrationsModalContent"></div>
     </div>
   </div>
 
