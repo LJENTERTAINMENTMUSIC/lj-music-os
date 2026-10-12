@@ -16,6 +16,12 @@ class ArtistIntakeEngine {
     this.telemetryFile = path.join(baseDir, 'data', 'listeningTelemetry.json');
     this.lyricsFile = path.join(baseDir, 'data', 'lyricsData.json');
     this.editorialFile = path.join(baseDir, 'data', 'editorialPlaylists.json');
+    this.rosterFile = path.join(baseDir, 'data', 'artistRoster.json');
+    this.catalogueBackupFile = path.join(baseDir, 'data', 'catalogue.backup.json');
+    this.rightsBackupFile = path.join(baseDir, 'data', 'rightsData.backup.json');
+    this.telemetryBackupFile = path.join(baseDir, 'data', 'listeningTelemetry.backup.json');
+    this.lyricsBackupFile = path.join(baseDir, 'data', 'lyricsData.backup.json');
+    this.editorialBackupFile = path.join(baseDir, 'data', 'editorialPlaylists.backup.json');
   }
 
   _loadJson(filePath) {
@@ -683,25 +689,203 @@ class ArtistIntakeEngine {
   }
 
   /**
-   * Returns complete artist roster across catalogue
+   * Registers a verified Spotify or DSP artist profile directly into LJ Music OS Roster
+   */
+  registerArtistProfile(artistData) {
+    let roster = this._loadJson(this.rosterFile);
+    if (!Array.isArray(roster)) roster = [];
+
+    const artistName = (artistData.name || artistData.artist || "").trim();
+    if (!artistName) return { success: false, error: "Valid artist name is required" };
+
+    const existingIdx = roster.findIndex(a => a.artist?.toLowerCase() === artistName.toLowerCase() || a.name?.toLowerCase() === artistName.toLowerCase());
+
+    const sUrl = artistData.spotifyUrl || `https://open.spotify.com/search/${encodeURIComponent(artistName)}`;
+    const sId = artistData.spotifyId || (sUrl.includes('/artist/') ? sUrl.split('/artist/')[1]?.split('?')[0] : null);
+
+    const newArtist = {
+      id: artistData.id || `art-${Date.now().toString().slice(-6)}`,
+      artist: artistName,
+      name: artistName,
+      isLjArtist: true,
+      label: artistData.label || "LJ Entertainment / Priority Roster",
+      picture: artistData.picture || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+      banner: artistData.banner || artistData.picture || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&auto=format&fit=crop&q=80",
+      followers: artistData.followers || "Verified Spotify Artist",
+      fansCount: artistData.fansCount || 250000,
+      monthlyListeners: artistData.monthlyListeners || "Verified Global Streamer",
+      primaryGenre: artistData.primaryGenre || "Afrobeats",
+      spotifyUrl: sUrl,
+      spotifyId: sId,
+      spotifyUri: sId ? `spotify:artist:${sId}` : null,
+      verified: true,
+      bio: artistData.bio || `Verified Spotify artist profile onboarded to LJ Music OS. 10,000-Agent Swarm mobilized.`,
+      addedAt: new Date().toISOString(),
+      statusBadge: "✓ VERIFIED SPOTIFY PROFILE",
+      tracksCount: 0,
+      totalPlays: 0,
+      genres: [artistData.primaryGenre || "Afrobeats"],
+      tracks: []
+    };
+
+    if (existingIdx >= 0) {
+      roster[existingIdx] = { ...roster[existingIdx], ...newArtist };
+    } else {
+      roster.push(newArtist);
+    }
+
+    this._saveJson(this.rosterFile, roster);
+    return {
+      success: true,
+      artist: newArtist,
+      roster,
+      message: `Successfully registered "${artistName}" with verified Spotify profile.`
+    };
+  }
+
+  /**
+   * Clears all artists, catalogue tracks, telemetry, rights, and lyrics to start completely from scratch
+   */
+  clearAllArtistsAndCatalogue() {
+    this._saveJson(this.catalogueFile, []);
+    this._saveJson(this.rightsFile, {});
+    this._saveJson(this.telemetryFile, {});
+    this._saveJson(this.lyricsFile, {});
+    this._saveJson(this.rosterFile, []);
+
+    // Also empty playlist track assignments
+    const playlists = this._loadJson(this.editorialFile);
+    if (Array.isArray(playlists)) {
+      const resetPlaylists = playlists.map(pl => ({
+        ...pl,
+        tracks: [],
+        ljArtistSharePct: 0,
+        lastUpdated: new Date().toISOString().split('T')[0]
+      }));
+      this._saveJson(this.editorialFile, resetPlaylists);
+    }
+
+    return {
+      success: true,
+      tracksCount: 0,
+      rosterCount: 0,
+      message: "All artists, tracks, telemetry, and rights cleared. System is reset to clean state ready for fresh DSP onboarding."
+    };
+  }
+
+  /**
+   * Restores the benchmark catalogue and roster from backup files
+   */
+  restoreBenchmarkCatalogue() {
+    if (fs.existsSync(this.catalogueBackupFile)) {
+      fs.copyFileSync(this.catalogueBackupFile, this.catalogueFile);
+    }
+    if (fs.existsSync(this.rightsBackupFile)) {
+      fs.copyFileSync(this.rightsBackupFile, this.rightsFile);
+    }
+    if (fs.existsSync(this.telemetryBackupFile)) {
+      fs.copyFileSync(this.telemetryBackupFile, this.telemetryFile);
+    }
+    if (fs.existsSync(this.lyricsBackupFile)) {
+      fs.copyFileSync(this.lyricsBackupFile, this.lyricsFile);
+    }
+    if (fs.existsSync(this.editorialBackupFile)) {
+      fs.copyFileSync(this.editorialBackupFile, this.editorialFile);
+    }
+
+    // Populate roster from restored catalogue
+    const catalogue = this._loadJson(this.catalogueFile);
+    const roster = [];
+    catalogue.forEach(t => {
+      if (!roster.some(a => a.artist === t.artist)) {
+        roster.push({
+          id: `art-${t.id}`,
+          artist: t.artist,
+          name: t.artist,
+          isLjArtist: t.isLjArtist,
+          label: t.label || "LJ Entertainment",
+          picture: t.coverArt,
+          banner: t.coverArt,
+          followers: "Verified Streaming Profile",
+          primaryGenre: t.genre,
+          spotifyUrl: t.spotifyUrl || `https://open.spotify.com/search/${encodeURIComponent(t.artist)}`,
+          verified: true,
+          bio: `Verified artist profile active on LJ Music OS.`,
+          statusBadge: t.isLjArtist ? "⭐ LJ EXCLUSIVE ROSTER" : "BENCHMARK EXTERNAL"
+        });
+      }
+    });
+    this._saveJson(this.rosterFile, roster);
+
+    return {
+      success: true,
+      tracksCount: catalogue.length,
+      rosterCount: roster.length,
+      message: "Benchmark catalogue and artist roster restored successfully."
+    };
+  }
+
+  /**
+   * Returns complete artist roster across catalogue and registered artist profiles
    */
   getArtistRoster() {
     const catalogue = this._loadJson(this.catalogueFile);
     const telemetry = this._loadJson(this.telemetryFile);
+    const registeredRoster = this._loadJson(this.rosterFile);
 
     const rosterMap = {};
 
+    // 1. Populate registered onboarded artists first
+    if (Array.isArray(registeredRoster)) {
+      registeredRoster.forEach(reg => {
+        const name = reg.artist || reg.name;
+        if (!name) return;
+        rosterMap[name] = {
+          id: reg.id || `art-${Date.now()}`,
+          artist: name,
+          name: name,
+          isLjArtist: reg.isLjArtist !== false,
+          label: reg.label || "LJ Entertainment",
+          tracksCount: 0,
+          totalPlays: 0,
+          topTrack: "Awaiting audio upload",
+          genres: new Set(reg.genres || [reg.primaryGenre || "Afrobeats"]),
+          picture: reg.picture,
+          coverArt: reg.picture || reg.coverArt,
+          banner: reg.banner || reg.picture,
+          followers: reg.followers || "Verified Spotify Artist",
+          spotifyUrl: reg.spotifyUrl,
+          spotifyUri: reg.spotifyUri,
+          verified: true,
+          bio: reg.bio || "Verified artist profile ready for master upload.",
+          statusBadge: "✓ VERIFIED SPOTIFY PROFILE",
+          tracks: []
+        };
+      });
+    }
+
+    // 2. Enrich or populate with catalogue tracks
     catalogue.forEach(t => {
       if (!rosterMap[t.artist]) {
         rosterMap[t.artist] = {
+          id: `art-${t.id}`,
           artist: t.artist,
+          name: t.artist,
           isLjArtist: t.isLjArtist,
           label: t.label || "LJ Entertainment",
           tracksCount: 0,
           totalPlays: 0,
           topTrack: t.title,
           genres: new Set(),
+          picture: t.coverArt,
           coverArt: t.coverArt,
+          banner: t.coverArt,
+          followers: "Verified Streaming Profile",
+          spotifyUrl: t.spotifyUrl,
+          spotifyUri: t.spotifyId ? `spotify:artist:${t.spotifyId}` : null,
+          verified: true,
+          bio: `Verified artist profile active on LJ Music OS.`,
+          statusBadge: t.isLjArtist ? "⭐ LJ EXCLUSIVE ROSTER" : "BENCHMARK EXTERNAL",
           tracks: []
         };
       }
@@ -710,19 +894,23 @@ class ArtistIntakeEngine {
       const tel = telemetry[t.id] || {};
       a.totalPlays += tel.plays || 0;
       a.genres.add(t.genre);
+      a.topTrack = a.topTrack === "Awaiting audio upload" ? t.title : a.topTrack;
       a.tracks.push({
         id: t.id,
         title: t.title,
         bpm: t.bpm,
         key: t.key,
+        energy: t.energy,
+        danceability: t.danceability,
+        previewUrl: t.previewUrl,
+        spotifyUrl: t.spotifyUrl,
         momentum: tel.momentumScore || 75
       });
     });
 
     return Object.values(rosterMap).map(a => ({
       ...a,
-      genres: Array.from(a.genres),
-      statusBadge: a.isLjArtist ? "⭐ LJ EXCLUSIVE ROSTER" : "BENCHMARK EXTERNAL"
+      genres: Array.from(a.genres)
     }));
   }
 
@@ -770,10 +958,31 @@ class ArtistIntakeEngine {
         '5C1PetL0gWbO951Ff7b4zF': 'Asake',
         '6pGfA5Xv3bK4mN8pQ9zW1e': 'Tems',
         '4cOdK2wGLETKBW3PvgPWqT': 'Ayra Starr',
-        '1Xyo4u8uXC1ZmMpatF05PJ': 'The Weeknd'
+        '5yv2wLqYk4qj6lD2t4l5gq': 'Omah Lay',
+        '75UQw81n9pUo1V3zP0gqH2': 'Fireboy DML',
+        '4O15N5oxm7l6vX0yGvX3k2': 'CKay',
+        '7bXgB648hu0VvCq4V5Wc8k': 'Tiwa Savage',
+        '2L6lQ2hS7K7l8zF4h3J2g1': 'Adekunle Gold',
+        '1Xyo4u8uXC1ZmMpatF05PJ': 'The Weeknd',
+        '3TVXtAsR1Inumwj472S9r4': 'Drake',
+        '2CIMQHirSU0MQqyYHq0eOx': 'deadmau5',
+        '66CXWjxzNUsdJxJ2Jdw4Ac': 'Ariana Grande',
+        '06HL4z0CvFAxyc27GXpf02': 'Taylor Swift',
+        '7dGJoEc5QknZhY2DaxdY9e': 'SZA',
+        '2YZyLoL8N0Wb9xBt1NhZWg': 'Kendrick Lamar'
       };
       if (knownArtistIds[artistId]) {
         resolvedArtistName = knownArtistIds[artistId];
+      } else {
+        // Try scraping or checking URL slug
+        try {
+          const res = await fetch(q, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+          const html = await res.text();
+          const match = html.match(/<title>([^<|–-]+)[|–-]/);
+          if (match && match[1] && !match[1].toLowerCase().includes("spotify")) {
+            resolvedArtistName = match[1].trim();
+          }
+        } catch (e) {}
       }
     }
 

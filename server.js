@@ -566,6 +566,21 @@ app.get('/api/artist/roster', (req, res) => {
   res.json(roster);
 });
 
+app.post('/api/artist/register', (req, res) => {
+  const result = intakeEngine.registerArtistProfile(req.body);
+  res.json(result);
+});
+
+app.post('/api/artist/clear-roster', (req, res) => {
+  const result = intakeEngine.clearAllArtistsAndCatalogue();
+  res.json(result);
+});
+
+app.post('/api/artist/restore-catalogue', (req, res) => {
+  const result = intakeEngine.restoreBenchmarkCatalogue();
+  res.json(result);
+});
+
 // Universal Streaming Player Telemetry & Resolver
 app.get('/api/player/config', (req, res) => {
   res.json({
@@ -583,6 +598,15 @@ const handleResolveStream = (req, res) => {
   const trackId = req.query.trackId || req.body?.trackId;
   const { catalogue } = loadState();
   const track = catalogue.find(t => t.id === trackId) || catalogue[0];
+  if (!track) {
+    return res.json({
+      trackId: null,
+      title: "No Active Track",
+      artist: "LJ Music OS",
+      streams: {},
+      preferredEngine: 'spotify'
+    });
+  }
   const sId = track.spotifyId || (track.spotifyUrl ? track.spotifyUrl.split('/track/')[1]?.split('?')[0] : null);
   res.json({
     trackId: track.id,

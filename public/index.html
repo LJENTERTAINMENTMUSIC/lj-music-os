@@ -186,10 +186,19 @@
         <span class="text-indigo-300 font-semibold font-mono-code text-[11px]">ZERO-BOT ENFORCED</span>
       </div>
 
-      <!-- Prominent Add New Artist Button -->
+      <!-- Prominent Add New Artist & Reset Roster Controls -->
       <button onclick="openAddArtistFlow()" class="flex items-center space-x-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 hover:text-white font-extrabold px-3.5 py-2 rounded-xl text-xs transition border border-emerald-500/40 shadow-md active:scale-95">
         <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
         <span>+ Add New Artist</span>
+      </button>
+
+      <button onclick="clearAllArtistsPrompt()" class="flex items-center space-x-1 bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 hover:text-rose-100 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-rose-500/20 active:scale-95" title="Clear all artists to start completely fresh from scratch">
+        <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <span>Clear Roster</span>
+      </button>
+
+      <button onclick="restoreBenchmarkRosterPrompt()" class="hidden md:flex items-center space-x-1 bg-purple-500/10 hover:bg-purple-500/25 text-purple-300 hover:text-purple-100 font-medium px-2.5 py-2 rounded-xl text-xs transition border border-purple-500/20 active:scale-95" title="Restore benchmark catalogue">
+        <span>🔄 Restore</span>
       </button>
 
       <button onclick="triggerQuickAutomation('weekly')" class="flex items-center space-x-2 purple-accent-gradient hover:opacity-95 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-glow-violet active:scale-95 border border-white/20">
@@ -1865,26 +1874,33 @@
       </section>
 
       <!-- ============================================================== -->
-      <!-- TAB: ARTIST & TRACK INTAKE STUDIO                              -->
+      <!-- TAB: ARTIST & TRACK INTAKE STUDIO (DSP STORE ONBOARDING)       -->
       <!-- ============================================================== -->
       <section id="tab-intake" class="tab-panel hidden space-y-6">
-        <!-- Header & Active Working Track Banner -->
+        <!-- Header & Workspace Status Controls -->
         <div class="bg-gradient-to-r from-emerald-950/40 via-brand-card to-slate-900 border border-emerald-500/40 rounded-2xl p-6 shadow-2xl space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
             <div>
-              <div class="flex items-center space-x-2">
-                <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-emerald-500 text-black uppercase tracking-wider">A&R & REPERTOIRE INTAKE</span>
-                <span class="text-xs text-emerald-400 font-mono-code">Spotify Resolver • Store Search • Smart Auto-Placement</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-emerald-500 text-black uppercase tracking-wider">A&R & DSP STORE INTAKE</span>
+                <span class="text-xs text-emerald-400 font-mono-code">Spotify Identity Resolver • Audio Art Studio • 10,000-Agent Swarm</span>
               </div>
-              <h1 class="text-2xl font-black text-white mt-1">Artist Onboarding & Track Intake Studio</h1>
+              <h1 class="text-2xl font-black text-white mt-1">Artist Onboarding & DSP Store Verifier</h1>
               <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
-                Add new artists and songs, import via Spotify link or DSP store search, set global active working tracks, and automatically place records into the best-fitting editorial playlists using acoustic DNA compatibility.
+                The standard DSP distribution onboarding flow: Search and verify an artist's real profile on Spotify or DSP stores by name or link before uploading final audio masters and album artwork.
               </p>
             </div>
             
-            <div class="flex items-center space-x-2">
-              <button onclick="toggleManualIntakeForm()" class="bg-brand-dark hover:bg-slate-800 border border-brand-cardBorder text-slate-200 text-xs px-3.5 py-2 rounded-xl transition flex items-center space-x-1.5 font-bold">
-                <span>+ Custom Intake Form</span>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="clearAllArtistsPrompt()" class="bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs px-3 py-2 rounded-xl transition flex items-center space-x-1.5 font-bold shadow-sm" title="Clear all artists and tracks to start completely fresh">
+                <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <span>Clear All Artists</span>
+              </button>
+              <button onclick="restoreBenchmarkRosterPrompt()" class="bg-purple-900/30 hover:bg-purple-900/50 border border-purple-500/30 text-purple-300 text-xs px-3 py-2 rounded-xl transition flex items-center space-x-1.5 font-bold">
+                <span>🔄 Restore Benchmark</span>
+              </button>
+              <button onclick="toggleManualIntakeForm()" class="bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-200 text-xs px-3.5 py-2 rounded-xl transition flex items-center space-x-1.5 font-bold">
+                <span>+ Upload Audio & Art</span>
               </button>
             </div>
           </div>
@@ -1892,7 +1908,7 @@
           <!-- Current Global Working Track Box -->
           <div class="bg-brand-dark/90 border border-brand-cardBorder rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4" id="intakeActiveTrackBanner">
             <div class="flex items-center space-x-4">
-              <div class="w-14 h-14 rounded-xl overflow-hidden border border-brand-gold shadow-md" id="intakeActiveTrackThumb">
+              <div class="w-14 h-14 rounded-xl overflow-hidden border border-brand-gold shadow-md flex-shrink-0" id="intakeActiveTrackThumb">
                 <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
               </div>
               <div>
@@ -1923,49 +1939,56 @@
           </div>
         </div>
 
-        <!-- Search & Import Section: Spotify Link or DSP Store Search -->
+        <!-- Step 1: Search & Verify Artist Profile on Spotify / DSP Stores -->
         <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.08] pb-3">
             <div>
-              <h2 class="text-base font-black text-white">Real-Time Spotify Artist Profile & 10,000-Agent Swarm</h2>
-              <p class="text-xs text-slate-400 mt-0.5">Paste a live Spotify URL or type an artist name to fetch their verified profile, monthly listeners, and top songs with 30s audio previews, then deploy the 10,000 AI Agent Swarm.</p>
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs font-black text-emerald-400 uppercase tracking-wider font-mono-code">Step 1 • Store Profile Verification</span>
+              </div>
+              <h2 class="text-base font-black text-white mt-0.5">Search Artist on Spotify / DSP Store</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Enter an artist name or paste their live Spotify artist link to pull their verified photo, monthly listeners, and discography before uploading audio masters.</p>
             </div>
-            <span class="text-[10px] font-mono-code text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE SPOTIFY PROFILER ACTIVE</span>
+            <span class="text-[10px] font-mono-code text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">LIVE DSP API ACTIVE</span>
           </div>
 
           <div class="flex flex-col sm:flex-row gap-3">
             <div class="relative flex-1">
-              <input type="text" id="intakeSearchInput" value="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl pl-4 pr-10 py-3 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono-code" placeholder="Paste Spotify link (https://open.spotify.com/track/... or /artist/...) or search artist name...">
-              <button onclick="document.getElementById('intakeSearchInput').value=''" class="absolute right-3 top-3 text-slate-500 hover:text-white">✕</button>
+              <input type="text" id="intakeSearchInput" value="https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl pl-4 pr-10 py-3.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono-code shadow-inner" placeholder="Paste Spotify Artist Link (https://open.spotify.com/artist/...) or type Artist Name...">
+              <button onclick="document.getElementById('intakeSearchInput').value=''" class="absolute right-3 top-3.5 text-slate-500 hover:text-white">✕</button>
             </div>
-            <button onclick="executeStoreSearch()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20 flex items-center justify-center space-x-2">
+            <button onclick="executeStoreSearch()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20 flex items-center justify-center space-x-2 active:scale-95">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Resolve Spotify & Show Profile</span>
+              <span>Verify & Resolve Profile</span>
             </button>
           </div>
 
-          <!-- Quick Test Chips -->
+          <!-- Quick Test Presets -->
           <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
-            <span class="text-[10px] font-bold text-slate-500 uppercase">Quick Demos:</span>
-            <button onclick="applySearchPreset('https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🟢 Spotify Link: Ayra Starr - Rush
+            <span class="text-[10px] font-bold text-slate-500 uppercase font-mono-code">Quick Presets:</span>
+            <button onclick="applySearchPreset('https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-emerald-300 text-[11px] transition">
+              🟢 Ayra Starr (Spotify Link)
             </button>
-            <button onclick="applySearchPreset('Asake - Active')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Asake — Active
+            <button onclick="applySearchPreset('Burna Boy')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Burna Boy
             </button>
-            <button onclick="applySearchPreset('Tems - Me & U')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Tems — Me & U
+            <button onclick="applySearchPreset('Asake')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Asake
             </button>
-            <button onclick="applySearchPreset('Burna Boy - City Boys')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Burna Boy — City Boys
+            <button onclick="applySearchPreset('Tems')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Tems
             </button>
-            <button onclick="applySearchPreset('Amara Blue - Sunrise in Lekki')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-brand-gold text-[11px] transition">
-              ✨ New Talent: Amara Blue
+            <button onclick="applySearchPreset('Rema')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Rema
+            </button>
+            <button onclick="applySearchPreset('Davido')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Davido
             </button>
           </div>
         </div>
 
-        <!-- Search Results & Intake Action Canvas -->
+        <!-- Search Results & Verified Spotify Profile Card -->
         <div id="intakeSearchResultsArea" class="space-y-4">
           <!-- Populated by JS -->
         </div>
@@ -1975,58 +1998,122 @@
           <!-- Populated by JS upon auto-placement -->
         </div>
 
-        <!-- Collapsible Direct / Custom Studio Intake Form -->
-        <div id="manualIntakeForm" class="hidden bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
-          <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3">
+        <!-- Step 2: Audio Art & Master Release Upload Studio ("Upload Audio Art & Real Profile Master") -->
+        <div id="manualIntakeForm" class="hidden bg-brand-card border border-emerald-500/30 rounded-2xl p-6 shadow-2xl space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-cardBorder pb-4">
             <div>
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Manual / Direct Studio Intake Form</h3>
-              <p class="text-xs text-slate-400">For unreleased masters, demos, or newly signed LJ artists without a live DSP link.</p>
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-purple-600 text-white uppercase tracking-wider font-mono-code">Step 2 • Release Master Ingestion</span>
+                <span class="text-xs text-emerald-400 font-mono-code">Audio Art (Cover) + Audio Stream</span>
+              </div>
+              <h3 class="text-lg font-black text-white mt-1">Audio Art & Master Release Upload Studio</h3>
+              <p class="text-xs text-slate-400">Register your final master recording and cover artwork under the verified artist profile. 10,000 AI Agent Swarm will mobilize automatically.</p>
             </div>
-            <button onclick="toggleManualIntakeForm()" class="text-slate-400 hover:text-white text-xs">✕ Close</button>
+            <button onclick="toggleManualIntakeForm()" class="text-slate-400 hover:text-white text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 self-start sm:self-auto">✕ Close Studio</button>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">Artist Name *</label>
-              <input type="text" id="manualArtistName" placeholder="e.g. Seyi Vibes" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Col: Audio Art Preview -->
+            <div class="space-y-3">
+              <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider font-mono-code">1. Audio Art (Cover Artwork)</label>
+              <div class="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-dashed border-emerald-500/40 bg-brand-dark flex flex-col items-center justify-center p-3 group shadow-xl">
+                <img id="manualAudioArtPreview" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-xl shadow-md">
+                <div class="absolute bottom-3 left-3 right-3 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-center text-[10px] text-emerald-300 font-mono-code font-bold">
+                  ✓ DSP ARTWORK APPROVED (1:1 RGB)
+                </div>
+              </div>
+              <div>
+                <input type="text" id="manualCoverArtUrl" oninput="updateAudioArtPreview(this.value)" value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80" placeholder="Paste Cover Art Image URL (3000x3000px)..." class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono-code">
+                <p class="text-[10px] text-slate-400 mt-1">Recommended: 3000×3000px high-resolution RGB image for Spotify & Apple Music.</p>
+              </div>
             </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Track Title *</label>
-              <input type="text" id="manualTrackTitle" placeholder="e.g. Lekki Moonlight" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Genre / Sub-Genre</label>
-              <input type="text" id="manualGenre" value="Afrobeats / Afro-Fusion" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Tempo (BPM)</label>
-              <input type="number" id="manualBpm" value="108" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500 font-mono-code">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Musical Key</label>
-              <input type="text" id="manualKey" value="A minor" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Languages</label>
-              <input type="text" id="manualLanguage" value="English / Nigerian Pidgin / Yoruba" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500">
-            </div>
-          </div>
 
-          <div class="flex justify-end pt-2">
-            <button onclick="submitManualTrackIntake()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow-md shadow-emerald-600/20">
-              Save & Ingest Track into Catalogue
-            </button>
+            <!-- Middle & Right Col: Metadata & Master Details -->
+            <div class="lg:col-span-2 space-y-4 text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-slate-300 mb-1 font-bold">Primary Artist Profile *</label>
+                  <input type="text" id="manualArtistName" placeholder="e.g. Ayra Starr" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-slate-300 mb-1 font-bold">Master Track Title *</label>
+                  <input type="text" id="manualTrackTitle" placeholder="e.g. Rush (Master)" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-slate-400 mb-1">Release Version</label>
+                  <select id="manualVersion" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                    <option value="Original Master">Original Master</option>
+                    <option value="Radio Edit">Radio Edit</option>
+                    <option value="Club Mix">Club Mix / Extended</option>
+                    <option value="Acoustic">Acoustic / Stripped</option>
+                    <option value="Sped Up">Sped Up Version</option>
+                    <option value="Remix">Remix</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Genre & Style</label>
+                  <input type="text" id="manualGenre" value="Afrobeats / Afro-Fusion" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Tempo (BPM)</label>
+                  <input type="number" id="manualBpm" value="108" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-mono-code">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-slate-400 mb-1">Musical Key</label>
+                  <input type="text" id="manualKey" value="A minor" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Primary Languages</label>
+                  <input type="text" id="manualLanguage" value="English / Nigerian Pidgin / Yoruba" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">ISRC Code</label>
+                  <input type="text" id="manualIsrc" placeholder="NG-LJ1-26-00099 (Auto-assigned)" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-mono-code">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">High-Fidelity Audio Preview / Stream URL</label>
+                <div class="flex gap-2">
+                  <input type="text" id="manualAudioUrl" placeholder="Direct audio URL (.mp3 / .m4a / .wav)..." class="flex-1 bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-mono-code">
+                  <button type="button" onclick="testManualAudio()" class="px-4 py-3 bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-bold rounded-xl transition">
+                    ▶ Test Audio
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-brand-cardBorder">
+                <span class="text-[11px] text-slate-400">100% Chain-of-title rights split & 17 Swarm Divisions will mobilize upon save.</span>
+                <button onclick="submitManualTrackIntake()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-600/30 flex items-center justify-center space-x-2 active:scale-95">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>🚀 Ingest Master & Launch Swarm</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- LJ Artist Roster Directory -->
+        <!-- Step 3: LJ Artist Roster Directory -->
         <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-xl space-y-4">
           <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3">
             <div>
-              <h3 class="text-base font-black text-white">LJ Artist Roster Directory</h3>
-              <p class="text-xs text-slate-400">All managed artists and benchmark catalogue profiles currently active in LJ Music OS.</p>
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-violet-600 text-white uppercase tracking-wider font-mono-code">Step 3 • Directory</span>
+                <h3 class="text-base font-black text-white">LJ Artist Roster Directory</h3>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">All verified Spotify profiles and managed artists active in LJ Music OS.</p>
             </div>
-            <button onclick="loadArtistRosterDirectory()" class="text-xs text-emerald-400 hover:underline font-bold">Refresh Roster</button>
+            <div class="flex items-center space-x-2">
+              <button onclick="clearAllArtistsPrompt()" class="text-xs text-rose-400 hover:underline font-bold">Clear All</button>
+              <span class="text-slate-600">•</span>
+              <button onclick="loadArtistRosterDirectory()" class="text-xs text-emerald-400 hover:underline font-bold">Refresh Roster</button>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="intakeArtistRosterContainer">

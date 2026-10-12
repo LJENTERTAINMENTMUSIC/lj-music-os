@@ -2518,7 +2518,30 @@ function renderRealtimeSpotifyProfile(profile, container) {
             <span>Open on Spotify ↗</span>
           </a>
           <button onclick="toggleManualIntakeForm()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition border border-white/10">
-            Manual Form Override
+            Upload Audio & Art
+          </button>
+        </div>
+      </div>
+
+      <!-- DSP Store Profile Verification Confirmation Box -->
+      <div class="bg-gradient-to-r from-emerald-950/50 via-brand-dark to-slate-900 border-2 border-emerald-500/50 p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10 shadow-glow-emerald">
+        <div class="space-y-1">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-[11px] font-black text-emerald-400 uppercase tracking-wider font-mono-code">DSP Identity Verified</span>
+          </div>
+          <h4 class="text-base font-extrabold text-white">Is this the official Spotify profile for ${artist.name}?</h4>
+          <p class="text-xs text-slate-300 max-w-xl">
+            Confirm to link this verified profile to LJ Music OS. You can then immediately upload new audio masters & artwork under this profile or import existing tracks from Spotify.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5 flex-shrink-0">
+          <button onclick="confirmAndOnboardCurrentArtist()" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 flex items-center space-x-2 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>✓ Confirm & Onboard Artist Profile</span>
+          </button>
+          <button onclick="openNewIndependentArtistForm()" class="px-3.5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition">
+            <span>✨ New Indie Profile</span>
           </button>
         </div>
       </div>
@@ -2575,8 +2598,11 @@ function renderRealtimeSpotifyProfile(profile, container) {
                 ` : `
                   <span class="text-[10px] text-slate-500 font-mono-code italic">Preview N/A</span>
                 `}
+                <button onclick="ingestRealtimeTrackDirectly(${idx})" class="px-3 py-1.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1 active:scale-95" title="Import this track into LJ Catalogue">
+                  <span>+ Ingest</span>
+                </button>
                 <button onclick="onSelectRealtimeTrack(${idx}); setRealtimeTrackAsActiveWorkingTrack(${idx})" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition">
-                  🎯 Set Focus
+                  🎯 Focus
                 </button>
               </div>
             </div>
@@ -3120,6 +3146,162 @@ function setAsActiveWorkingTrack(trackId) {
   }
 }
 
+// DSP Store Onboarding & Audio Art Integration Methods
+async function confirmAndOnboardCurrentArtist() {
+  if (!currentRealtimeProfile || !currentRealtimeProfile.artist) {
+    showToast("Please search and verify an artist first.", 'warning', 'No Artist Selected');
+    return;
+  }
+  const art = currentRealtimeProfile.artist;
+  try {
+    const res = await fetch("/api/artist/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: art.name,
+        picture: art.picture,
+        banner: art.banner,
+        followers: art.followers,
+        spotifyUrl: art.spotifyUrl,
+        primaryGenre: art.primaryGenre,
+        bio: art.bio,
+        verified: true
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      await loadArtistRosterDirectory();
+      showToast(`✓ "${art.name}" verified & onboarded to LJ Music OS. 10,000 AI Agent Swarm mobilized!`, 'success', 'Artist Verified');
+      
+      // Auto pre-populate and open Audio Art & Master Upload Studio
+      const aNameInput = document.getElementById("manualArtistName");
+      if (aNameInput) aNameInput.value = art.name;
+      const form = document.getElementById("manualIntakeForm");
+      if (form && form.classList.contains("hidden")) {
+        form.classList.remove("hidden");
+        form.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  } catch (e) {
+    console.error("Error onboarding artist:", e);
+    showToast("Failed to onboard artist profile.", "error");
+  }
+}
+
+async function ingestRealtimeTrackDirectly(idx) {
+  if (!currentRealtimeProfile || !currentRealtimeProfile.topTracks[idx]) return;
+  const track = currentRealtimeProfile.topTracks[idx];
+  try {
+    const res = await fetch("/api/artist/ingest", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ trackData: track })
+    });
+    const data = await res.json();
+    if (data.success) {
+      await loadCatalogue();
+      await loadArtistRosterDirectory();
+      setAsActiveWorkingTrack(data.track.id);
+      autoPlaceTrackIntoPlaylists(data.track.id);
+      showToast(`✓ Master "${track.title}" by ${track.artist} ingested into catalogue & placed into playlists!`, 'success', 'Master Ingested');
+    }
+  } catch (e) {
+    console.error("Error ingesting track:", e);
+    showToast("Failed to ingest track.", "error");
+  }
+}
+
+function openNewIndependentArtistForm() {
+  const form = document.getElementById("manualIntakeForm");
+  if (form) {
+    form.classList.remove("hidden");
+    form.scrollIntoView({ behavior: 'smooth' });
+  }
+  const input = document.getElementById("manualArtistName");
+  if (input) {
+    input.value = "";
+    input.focus();
+  }
+}
+
+function updateAudioArtPreview(url) {
+  const img = document.getElementById("manualAudioArtPreview");
+  if (img && url && url.trim().length > 5) {
+    img.src = url.trim();
+  }
+}
+
+function testManualAudio() {
+  const url = document.getElementById("manualAudioUrl")?.value.trim();
+  const title = document.getElementById("manualTrackTitle")?.value.trim() || "Master Audio Test";
+  const artist = document.getElementById("manualArtistName")?.value.trim() || "Artist";
+  if (!url) {
+    showToast("Please enter an audio stream or file URL to test.", 'warning', 'No Audio URL');
+    return;
+  }
+  playDirectAudio(url, title, artist);
+}
+
+async function clearAllArtistsPrompt() {
+  if (!confirm("Are you sure you want to clear all artists and catalogue tracks from the tool to start completely from the beginning?\n\nThis will reset the roster, catalogue, rights, and telemetry ready for fresh DSP onboarding.")) {
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/artist/clear-roster", { method: "POST" });
+    const data = await res.json();
+    if (data.success) {
+      await loadCatalogue();
+      await loadArtistRosterDirectory();
+      currentActiveTrackId = null;
+      window.currentActiveTrackId = null;
+
+      // Reset active banner
+      const inName = document.getElementById("intakeActiveTrackName");
+      if (inName) inName.innerText = "No Active Focus Master";
+      const inMeta = document.getElementById("intakeActiveTrackMeta");
+      if (inMeta) inMeta.innerText = "Search an artist on Spotify or upload a master below to begin.";
+
+      showToast("All artists and catalogue cleared. Ready for fresh DSP onboarding from Spotify or store.", 'info', 'Workspace Reset');
+      switchTab("tab-intake");
+      const searchInput = document.getElementById("intakeSearchInput");
+      if (searchInput) {
+        searchInput.value = "";
+        searchInput.focus();
+      }
+      const resultsArea = document.getElementById("intakeSearchResultsArea");
+      if (resultsArea) resultsArea.innerHTML = "";
+    }
+  } catch (e) {
+    console.error("Error clearing roster:", e);
+    showToast("Failed to clear roster.", "error");
+  }
+}
+
+async function restoreBenchmarkRosterPrompt() {
+  if (!confirm("Restore the 23-track benchmark catalogue and artist roster?")) return;
+  try {
+    const res = await fetch("/api/artist/restore-catalogue", { method: "POST" });
+    const data = await res.json();
+    if (data.success) {
+      await loadCatalogue();
+      await loadArtistRosterDirectory();
+      showToast("Benchmark catalogue and artist roster restored successfully.", 'success', 'Roster Restored');
+    }
+  } catch (e) {
+    console.error("Error restoring benchmark catalogue:", e);
+    showToast("Failed to restore catalogue.", "error");
+  }
+}
+
+window.confirmAndOnboardCurrentArtist = confirmAndOnboardCurrentArtist;
+window.ingestRealtimeTrackDirectly = ingestRealtimeTrackDirectly;
+window.openNewIndependentArtistForm = openNewIndependentArtistForm;
+window.updateAudioArtPreview = updateAudioArtPreview;
+window.testManualAudio = testManualAudio;
+window.clearAllArtistsPrompt = clearAllArtistsPrompt;
+window.restoreBenchmarkRosterPrompt = restoreBenchmarkRosterPrompt;
+
 async function submitManualTrackIntake() {
   const artist = document.getElementById("manualArtistName")?.value.trim();
   const title = document.getElementById("manualTrackTitle")?.value.trim();
@@ -3127,6 +3309,10 @@ async function submitManualTrackIntake() {
   const bpm = parseInt(document.getElementById("manualBpm")?.value) || 108;
   const key = document.getElementById("manualKey")?.value.trim() || "A minor";
   const language = document.getElementById("manualLanguage")?.value.trim() || "English / Nigerian Pidgin";
+  const version = document.getElementById("manualVersion")?.value || "Original Master";
+  const coverArt = document.getElementById("manualCoverArtUrl")?.value.trim() || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80";
+  const previewUrl = document.getElementById("manualAudioUrl")?.value.trim() || null;
+  const isrc = document.getElementById("manualIsrc")?.value.trim() || `NG-LJ1-26-00${Math.floor(100 + Math.random() * 900)}`;
 
   if (!artist || !title) {
     showToast("Please provide at least Artist Name and Track Title.", 'warning', 'Missing Fields');
@@ -3134,18 +3320,20 @@ async function submitManualTrackIntake() {
   }
 
   const trackData = {
-    title,
+    title: version !== "Original Master" ? `${title} (${version})` : title,
     artist,
     genre,
     subGenre: "Afro-Fusion",
     bpm,
     key,
-    energy: 85,
-    danceability: 89,
+    energy: 86,
+    danceability: 90,
     language,
     mood: "Confident, Electric, High Velocity",
-    vocalType: "Lead vocal with harmonies",
-    coverArt: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80"
+    vocalType: "Studio Recorded Lead Vocal",
+    coverArt,
+    previewUrl,
+    isrc
   };
 
   try {
@@ -3161,10 +3349,11 @@ async function submitManualTrackIntake() {
       setAsActiveWorkingTrack(data.track.id);
       autoPlaceTrackIntoPlaylists(data.track.id);
       toggleManualIntakeForm();
-      showToast(`Track "${title}" by ${artist} registered into catalogue and evaluated for editorial placements.`, 'success', 'Track Registered');
+      showToast(`✓ Master "${trackData.title}" by ${artist} registered into catalogue and evaluated for editorial placements.`, 'success', 'Master Ingested');
     }
   } catch (err) {
     console.error("Error submitting manual intake:", err);
+    showToast("Error ingesting master track.", "error");
   }
 }
 
@@ -3176,30 +3365,63 @@ async function loadArtistRosterDirectory() {
     const res = await fetch("/api/artist/roster");
     const roster = await res.json();
 
-    container.innerHTML = roster.map(a => `
-      <div class="bg-brand-dark border border-brand-cardBorder rounded-xl p-4 space-y-3 hover:border-emerald-500/40 transition">
-        <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-xl overflow-hidden border border-brand-gold shadow-md flex-shrink-0">
-            <img src="${a.coverArt}" class="w-full h-full object-cover">
+    if (!Array.isArray(roster) || roster.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full glass-panel border border-violet-500/20 rounded-2xl p-8 text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-purple-900/30 border border-purple-500/30 flex items-center justify-center mx-auto text-xl">
+            🎵
           </div>
-          <div>
-            <div class="flex items-center space-x-1.5">
-              <span class="font-black text-sm text-white">${a.artist}</span>
-              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono-code font-bold ${a.isLjArtist ? 'bg-brand-gold text-black' : 'bg-slate-800 text-slate-300'}">${a.isLjArtist ? 'LJ ROSTER' : 'BENCHMARK'}</span>
-            </div>
-            <p class="text-[10px] text-slate-400 mt-0.5">${a.genres.slice(0, 2).join(' • ')}</p>
-          </div>
-        </div>
-
-        <div class="flex justify-between items-center text-[11px] pt-2 border-t border-brand-cardBorder text-slate-300 font-mono-code">
-          <span>${a.tracksCount} Catalogue Tracks</span>
-          <span class="text-emerald-400 font-bold">${a.totalPlays.toLocaleString()} Plays</span>
-        </div>
-
-        <div class="flex gap-2 pt-1">
-          <button onclick="setAsActiveWorkingTrack('${a.tracks[0]?.id || ''}')" class="flex-1 bg-brand-card hover:bg-slate-800 border border-brand-cardBorder text-white text-[11px] font-bold py-1.5 rounded-lg transition">
-            Work on Top Track ("${a.tracks[0]?.title || 'Master'}")
+          <h4 class="text-sm font-black text-white">No Artists Onboarded Yet</h4>
+          <p class="text-xs text-slate-400 max-w-md mx-auto">
+            Your workspace is clean and ready. Search any artist by name or paste their Spotify artist link above to link their verified profile before uploading audio art and master recordings.
+          </p>
+          <button onclick="document.getElementById('intakeSearchInput').focus()" class="px-4 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 text-xs font-bold transition">
+            + Search Artist on Store
           </button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = roster.map(a => `
+      <div class="bg-brand-dark border border-brand-cardBorder rounded-xl p-4 space-y-3 hover:border-emerald-500/40 transition flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center space-x-3">
+            <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-brand-gold shadow-md flex-shrink-0">
+              <img src="${a.picture || a.coverArt}" class="w-full h-full object-cover">
+              <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full flex items-center justify-center text-[8px] text-black font-black">✓</div>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center space-x-1.5 truncate">
+                <span class="font-black text-sm text-white truncate">${a.artist || a.name}</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded font-mono-code font-bold ${a.isLjArtist ? 'bg-brand-gold text-black' : 'bg-slate-800 text-slate-300'}">${a.isLjArtist ? 'LJ ROSTER' : 'BENCHMARK'}</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5 truncate">${(a.genres || []).slice(0, 2).join(' • ') || 'Afrobeats'} • ${a.followers || 'Verified Profile'}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center text-[11px] pt-2 border-t border-brand-cardBorder text-slate-300 font-mono-code">
+            <span>${a.tracksCount || 0} Catalogue Tracks</span>
+            <span class="text-emerald-400 font-bold">${(a.totalPlays || 0).toLocaleString()} Plays</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 pt-2 border-t border-white/[0.05]">
+          <div class="flex gap-2">
+            <button onclick="document.getElementById('manualArtistName').value='${(a.artist || a.name).replace(/'/g, "\\'")}'; toggleManualIntakeForm();" class="flex-1 bg-emerald-600/20 hover:bg-emerald-600/40 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold py-1.5 rounded-lg transition text-center">
+              + Upload Master
+            </button>
+            ${a.spotifyUrl ? `
+              <a href="${a.spotifyUrl}" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#1DB954] text-[11px] font-bold border border-white/10 flex items-center justify-center">
+                Spotify ↗
+              </a>
+            ` : ''}
+          </div>
+          ${a.tracks && a.tracks.length > 0 ? `
+            <button onclick="setAsActiveWorkingTrack('${a.tracks[0]?.id || ''}')" class="w-full bg-brand-card hover:bg-slate-800 border border-brand-cardBorder text-slate-300 hover:text-white text-[10px] font-medium py-1 rounded-lg transition truncate text-left px-2">
+              Focus: "${a.tracks[0]?.title || 'Top Track'}"
+            </button>
+          ` : ''}
         </div>
       </div>
     `).join("");

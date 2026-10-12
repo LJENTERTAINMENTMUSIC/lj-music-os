@@ -66,6 +66,14 @@ async function runTests() {
     }
   }
 
+  // Check if system is in clean slate onboarding mode
+  const catInitial = await get('/api/catalogue');
+  const wasCleared = (catInitial.body?.total === 0 || !catInitial.body?.tracks || catInitial.body.tracks.length < 10);
+  if (wasCleared) {
+    console.log('ℹ️ System is currently in clean onboarding mode. Mounting benchmark catalogue for comprehensive verification...');
+    await post('/api/artist/restore-catalogue', {});
+  }
+
   try {
     // 1. Swarm Status
     const swarmRes = await get('/api/swarm/status');
@@ -242,6 +250,11 @@ async function runTests() {
   } catch (err) {
     console.error('Fatal test error:', err);
     failed++;
+  } finally {
+    if (wasCleared) {
+      console.log('\nℹ️ Restoring clean state (0 artists) to start fresh from beginning as requested...');
+      await post('/api/artist/clear-roster', {});
+    }
   }
 
   console.log('\n======================================================');
