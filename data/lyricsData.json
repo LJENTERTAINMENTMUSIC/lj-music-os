@@ -1,1 +1,125 @@
-{}
+{
+  "lj-000": {
+    "trackId": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "isrc": "US-SPT-26-52094",
+    "album": "KIRA - Single",
+    "releaseDate": "2026-09-26",
+    "durationMs": 231000,
+    "primaryLanguage": "English / Regional",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - KIRA)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - KIRA)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - KIRA)",
+        "singer": "Drey Star",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Drey Star, we dey elevate",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Drey Star",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "KIRA (Français)",
+        "chorus": "Ressens l'énergie de Drey Star..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/drey-star/kira"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/drey-star/kira",
+      "title": "Drey Star — KIRA (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  }
+}

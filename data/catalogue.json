@@ -1,1 +1,54 @@
-[]
+[
+  {
+    "id": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment",
+    "genre": "Afro-Beat",
+    "subGenre": "Afro-Beat",
+    "bpm": 106,
+    "key": "Eb major",
+    "energy": 80,
+    "danceability": 84,
+    "mood": "Dynamic, Contemporary African Identity, Crossover",
+    "vocalType": "Studio Recorded Vocal",
+    "language": "English / Regional",
+    "era": "2026 (Newly Ingested)",
+    "instrumentation": [
+      "Talking Drum",
+      "Log Drum",
+      "808 Bass",
+      "Electric Guitar"
+    ],
+    "productionStyle": "Modern Pan-African Production",
+    "songStructure": "Intro-Verse-Chorus-Verse-Chorus-Bridge-Outro",
+    "introLength": "10s",
+    "chorusEnergy": 85,
+    "tempoRange": "102–110 BPM",
+    "similarArtists": [
+      "Burna Boy",
+      "Rema",
+      "Drey Star"
+    ],
+    "similarSongs": [
+      "City Boys",
+      "Calm Down",
+      "KIRA"
+    ],
+    "audience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "useCases": [
+      "Editorial Playlists",
+      "Nightlife / Club",
+      "Commercial Sync",
+      "Primetime Radio"
+    ],
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/28/57/b5285723-4c8e-f592-f53d-1672f24feda3/mzaf_5923859656061233620.plus.aac.p.m4a",
+    "releaseDate": "2026-09-26",
+    "duration": 231,
+    "isPriorityCampaign": true,
+    "preReleasePitchEligible": true,
+    "spotifyUrl": "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f"
+  }
+]

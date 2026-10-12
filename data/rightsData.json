@@ -1,1 +1,37 @@
-{}
+{
+  "lj-000": {
+    "trackId": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+    "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+    "writerSplits": [
+      {
+        "name": "Drey Star",
+        "role": "Primary Lyricist & Composer",
+        "share": 70,
+        "ipi": "009948211"
+      },
+      {
+        "name": "LJ In-House Audio Lab",
+        "role": "Arrangement & Production",
+        "share": 30,
+        "ipi": "009124451"
+      }
+    ],
+    "publisher": "LJ Global Publishing Worldwide",
+    "pro": "PRS for Music / COSON",
+    "isrc": "US-SPT-26-52094",
+    "ipi": "009948211",
+    "explicitContent": false,
+    "sampleClearance": "100% Original Composition - No Uncleared Samples",
+    "featuredArtistAgreements": "N/A (Solo Release)",
+    "producerAgreements": "Standard Exclusive Work-For-Hire Executed",
+    "contractStatus": "Active Exclusive Agreement",
+    "territory": "Worldwide (In Perpetuity)",
+    "licensingTier": "Tier A ($20,000 – $60,000)",
+    "syncReadinessScore": 98,
+    "syncStatus": "SYNC_READY",
+    "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared"
+  }
+}
