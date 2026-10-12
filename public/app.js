@@ -3967,7 +3967,7 @@ async function openIntegrationsModal() {
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center space-x-2">
               <div class="w-4 h-4 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">S</div>
-              <span class="font-bold text-sm text-white">Supabase</span>
+              <span class="font-bold text-sm text-white">Supabase Postgres</span>
             </div>
             ${supabase.connected ? `
               <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1">
@@ -3977,7 +3977,7 @@ async function openIntegrationsModal() {
             ` : `
               <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center space-x-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                <span>PENDING KEYS</span>
+                <span>SETUP REQUIRED</span>
               </span>
             `}
           </div>
@@ -3986,8 +3986,24 @@ async function openIntegrationsModal() {
             <p><span class="text-slate-400">Schema:</span> <span class="font-mono text-purple-300">${supabase.schemaFile}</span></p>
             <p class="text-[11px] text-slate-400">${supabase.message}</p>
           </div>
-          <div class="mt-3 p-2 rounded-xl bg-white/[0.02] border border-white/5 text-[10px] text-slate-400">
-            Configure <code class="text-amber-300 font-mono">SUPABASE_URL</code> and <code class="text-amber-300 font-mono">SUPABASE_ANON_KEY</code> in Vercel Project Settings.
+          
+          <!-- Connect / Setup Form -->
+          <div class="mt-3 pt-3 border-t border-white/10 space-y-2">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 mb-1">SUPABASE URL</label>
+              <input type="text" id="supabaseUrlInput" placeholder="https://your-project.supabase.co" value="${supabase.url || ''}" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 mb-1">SUPABASE ANON / SERVICE KEY</label>
+              <input type="password" id="supabaseKeyInput" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
+            </div>
+            <div class="flex items-center space-x-2 pt-1">
+              <button onclick="submitSupabaseCredentials()" id="supabaseConnectBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 px-3 rounded-lg text-xs transition active:scale-95 flex items-center justify-center space-x-1 shadow-md">
+                <span>Connect & Save</span>
+              </button>
+              <a href="https://supabase.com/dashboard" target="_blank" class="px-2.5 py-1.5 bg-white/5 hover:bg-white/10 text-slate-300 text-xs rounded-lg transition border border-white/10 font-medium">Dashboard</a>
+            </div>
+            <div id="supabaseConnectMsg" class="text-[11px] font-medium hidden"></div>
           </div>
         </div>
 
@@ -4033,6 +4049,57 @@ function closeIntegrationsModal() {
   if (modal) modal.classList.add("hidden");
 }
 window.closeIntegrationsModal = closeIntegrationsModal;
+
+async function submitSupabaseCredentials() {
+  const urlEl = document.getElementById("supabaseUrlInput");
+  const keyEl = document.getElementById("supabaseKeyInput");
+  const btn = document.getElementById("supabaseConnectBtn");
+  const msg = document.getElementById("supabaseConnectMsg");
+
+  if (!urlEl || !keyEl || !btn || !msg) return;
+  const url = urlEl.value.trim();
+  const key = keyEl.value.trim();
+
+  if (!url || !key) {
+    msg.className = "text-[11px] text-rose-400 font-medium";
+    msg.innerText = "Please provide both Supabase URL and Key.";
+    msg.classList.remove("hidden");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="animate-spin inline-block mr-1">↻</span> Connecting...`;
+  msg.className = "text-[11px] text-cyan-300 font-medium";
+  msg.innerText = "Verifying connection with Supabase database...";
+  msg.classList.remove("hidden");
+
+  try {
+    const res = await fetch('/api/integrations/supabase/configure', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ supabaseUrl: url, supabaseKey: key })
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      msg.className = "text-[11px] text-emerald-300 font-medium";
+      msg.innerText = "✓ " + result.message;
+      showToast("Supabase connected and verified successfully!", "success", "Database Connected");
+      setTimeout(() => openIntegrationsModal(), 1800);
+    } else {
+      msg.className = "text-[11px] text-rose-400 font-medium";
+      msg.innerText = "✕ " + (result.message || "Connection failed. Please check credentials.");
+      btn.disabled = false;
+      btn.innerHTML = "Connect & Save";
+    }
+  } catch (err) {
+    msg.className = "text-[11px] text-rose-400 font-medium";
+    msg.innerText = "✕ Network error: " + err.message;
+    btn.disabled = false;
+    btn.innerHTML = "Connect & Save";
+  }
+}
+window.submitSupabaseCredentials = submitSupabaseCredentials;
 
 
 

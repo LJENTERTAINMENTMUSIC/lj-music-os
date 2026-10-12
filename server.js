@@ -32,7 +32,7 @@ const { evaluateCuratorPitch } = require('./engine/curatorCrmEngine');
 const { scanCatalogueForRevival } = require('./engine/catalogueRevivalEngine');
 const LyricsIntelligenceEngine = require('./engine/lyricsIntelligenceEngine');
 const ArtistIntakeEngine = require('./engine/artistIntakeEngine');
-const { checkSupabaseConnection } = require('./engine/supabaseClient');
+const { checkSupabaseConnection, configureSupabase } = require('./engine/supabaseClient');
 
 const app = express();
 const PORT = process.env.PORT || 3456;
@@ -626,6 +626,12 @@ app.get('/api/integrations/status', async (req, res) => {
       }
     }
   });
+});
+
+app.post('/api/integrations/supabase/configure', async (req, res) => {
+  const { supabaseUrl, supabaseKey } = req.body || {};
+  const result = await configureSupabase(supabaseUrl, supabaseKey);
+  res.json(result);
 });
 
 // Universal Streaming Player Telemetry & Resolver
