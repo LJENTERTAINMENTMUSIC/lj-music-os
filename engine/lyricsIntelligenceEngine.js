@@ -28,7 +28,11 @@ class LyricsIntelligenceEngine {
   }
 
   _saveLyrics(data) {
-    fs.writeFileSync(this.lyricsFile, JSON.stringify(data, null, 2), 'utf8');
+    try {
+      fs.writeFileSync(this.lyricsFile, JSON.stringify(data, null, 2), 'utf8');
+    } catch (err) {
+      console.warn("Storage warning (read-only filesystem): state updated in memory");
+    }
   }
 
   /**

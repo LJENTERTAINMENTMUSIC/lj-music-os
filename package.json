@@ -1,13 +1,14 @@
 {
   "name": "lj-music-os",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "LJ Music OS - AI Music Intelligence Platform",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "node scripts/verify-full-system.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "LJ Entertainment Music",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

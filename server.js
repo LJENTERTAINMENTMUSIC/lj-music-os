@@ -204,7 +204,11 @@ app.post('/api/editorial/approve/:id', (req, res) => {
   pl.status = "APPROVED";
   pl.curator = "Human Editor Approved (Signed Off)";
   pl.approvedAt = new Date().toISOString();
-  fs.writeFileSync(editorialFile, JSON.stringify(editorial, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(editorialFile, JSON.stringify(editorial, null, 2), 'utf8');
+  } catch (err) {
+    console.warn("Storage warning (read-only filesystem): state updated in memory");
+  }
 
   res.json({ success: true, playlist: pl });
 });
@@ -629,10 +633,14 @@ app.get('/api/player/resolve-stream', handleResolveStream);
 app.post('/api/player/resolve-stream', handleResolveStream);
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`🎵 LJ MUSIC OS - AI MUSIC INTELLIGENCE PLATFORM`);
-  console.log(`🚀 Server listening on http://localhost:${PORT}`);
-  console.log(`⚙️ Multi-cadence automation scheduler initialized`);
-  console.log(`=======================================================`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(`🎵 LJ MUSIC OS - AI MUSIC INTELLIGENCE PLATFORM`);
+    console.log(`🚀 Server listening on http://localhost:${PORT}`);
+    console.log(`⚙️ Multi-cadence automation scheduler initialized`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = app;

@@ -102,7 +102,11 @@ class AutomationScheduler {
     });
 
     // Write back telemetry
-    fs.writeFileSync(path.join(this.baseDir, 'data', 'listeningTelemetry.json'), JSON.stringify(telemetry, null, 2), 'utf8');
+    try {
+      fs.writeFileSync(path.join(this.baseDir, 'data', 'listeningTelemetry.json'), JSON.stringify(telemetry, null, 2), 'utf8');
+    } catch (err) {
+      console.warn("Telemetry storage write skipped (read-only filesystem)");
+    }
 
     const charts = generateCharts(catalogue, telemetry, rights);
 
@@ -170,9 +174,13 @@ class AutomationScheduler {
     };
 
     // Save weekly digest archive
-    const reportsDir = path.join(this.baseDir, 'data', 'reports');
-    if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir, { recursive: true });
-    fs.writeFileSync(path.join(reportsDir, 'weekly-intelligence-latest.json'), JSON.stringify(weeklyDigest, null, 2), 'utf8');
+    try {
+      const reportsDir = path.join(this.baseDir, 'data', 'reports');
+      if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir, { recursive: true });
+      fs.writeFileSync(path.join(reportsDir, 'weekly-intelligence-latest.json'), JSON.stringify(weeklyDigest, null, 2), 'utf8');
+    } catch (err) {
+      console.warn("Weekly digest file write skipped (read-only filesystem)");
+    }
 
     this.logEvent("SUCCESS", `Weekly Top of the Week charts & Sync Digest compiled successfully for ${charts.chartPeriod}.`, weeklyDigest);
     return weeklyDigest;

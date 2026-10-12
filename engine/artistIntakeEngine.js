@@ -36,7 +36,11 @@ class ArtistIntakeEngine {
   }
 
   _saveJson(filePath, data) {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    try {
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (err) {
+      console.warn("Storage warning (read-only filesystem): state updated in memory");
+    }
   }
 
   /**
