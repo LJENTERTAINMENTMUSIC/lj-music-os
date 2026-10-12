@@ -272,81 +272,121 @@
           <svg class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
 
-        <!-- SECTION: MENU -->
-        <div>
-          <div class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest px-3 mb-2 flex items-center justify-between">
-            <span>Menu</span>
+        <!-- SECTION 1: DISCOVER -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-extrabold text-violet-400 uppercase tracking-widest px-3 mb-1.5 flex items-center justify-between">
+            <span>Discover</span>
           </div>
-          <nav class="space-y-1 text-xs">
+          <nav class="space-y-0.5 text-xs">
             <button onclick="switchTab('tab-discover')" id="nav-discover" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
               <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              <span>Explore / Home</span>
+              <span>Explore & Spotlight</span>
             </button>
             <button onclick="switchTab('tab-charts')" id="nav-charts" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
               <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-              <span>Top Charts</span>
+              <span>Top Charts & Pulse</span>
             </button>
+            <button onclick="switchTab('tab-editorial')" id="nav-editorial" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+              <span>Editorial Playlists</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- SECTION 2: MUSIC LIBRARY -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 mb-1.5 flex items-center justify-between">
+            <span>Music Library</span>
+          </div>
+          <nav class="space-y-0.5 text-xs">
             <button onclick="switchTab('tab-command-center')" id="nav-command-center" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
-              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>10K Swarm Command</span>
-            </button>
-            <button onclick="switchTab('tab-council')" id="nav-council" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
-              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              <span>Adversarial Council</span>
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              <span>Master Catalogue</span>
             </button>
             <button onclick="switchTab('tab-lyrics')" id="nav-lyrics" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
               <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
-              <span>Lyrics OS (Div 17)</span>
+              <span>Lyrics Studio (Div 17)</span>
             </button>
-            <button onclick="switchTab('tab-curator-crm')" id="nav-curator-crm" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
-              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
-              <span>Curator CRM & Pitch</span>
+          </nav>
+        </div>
+
+        <!-- SECTION 3: ARTISTS & CREATORS -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 mb-1.5 flex items-center justify-between">
+            <span>Artists & Creators</span>
+            <button onclick="openAddArtistFlow()" class="text-[10px] text-emerald-400 hover:underline font-bold">+ Ingest</button>
+          </div>
+          <nav class="space-y-0.5 text-xs">
+            <button onclick="switchTab('tab-intake')" id="nav-intake" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+              <span>Master Intake Studio</span>
             </button>
             <button onclick="switchTab('tab-sync')" id="nav-sync" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
               <span>Commercial Sync</span>
+            </button>
+            <button onclick="switchTab('tab-pitch')" id="nav-pitch" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Pitch Dossier Engine</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- SECTION 4: CURATORS & NETWORKS -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 mb-1.5 flex items-center justify-between">
+            <span>Curators & Networks</span>
+          </div>
+          <nav class="space-y-0.5 text-xs">
+            <button onclick="switchTab('tab-curator-crm')" id="nav-curator-crm" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+              <span>Verified Curator CRM</span>
             </button>
             <button onclick="switchTab('tab-anti-fraud')" id="nav-anti-fraud" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
               <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               <span>Anti-Fraud Shield</span>
             </button>
+            <button onclick="switchTab('tab-geo')" id="nav-geo" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Territory Intelligence</span>
+            </button>
           </nav>
         </div>
 
-        <!-- SECTION: PLAYLISTS & VERIFIED ARTISTS (Muzes & Groovvy Style) -->
+        <!-- SECTION 5: INTELLIGENCE & SYSTEMS -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 mb-1.5 flex items-center justify-between">
+            <span>Swarm & Intelligence</span>
+          </div>
+          <nav class="space-y-0.5 text-xs">
+            <button onclick="switchTab('tab-council')" id="nav-council" class="nav-btn w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <span>Adversarial A&R Council</span>
+            </button>
+            <button onclick="openIntegrationsModal()" class="w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition font-medium text-left">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+              <span>Cloud & Supabase Sync</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- SECTION: EXCLUSIVE ROSTER -->
         <div>
           <div class="flex items-center justify-between px-3 mb-2">
-            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Roster & Radio</span>
-            <button onclick="openAddArtistFlow()" class="text-xs text-emerald-400 hover:underline font-bold">+ Add</button>
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Priority Roster</span>
+            <button onclick="openAddArtistFlow()" class="text-xs text-emerald-400 hover:underline font-bold">+ Ingest</button>
           </div>
-          <div class="space-y-1 text-xs">
-            <button onclick="focusArtistInApp('Drey Star')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
-              <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-purple-500">
+          <div class="space-y-1 text-xs" id="sidebarRosterContainer">
+            <button onclick="focusArtistInApp('Drey Star')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 transition text-left group">
+              <img src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-7 h-7 rounded-full object-cover border border-purple-400">
               <div class="truncate flex-1">
                 <div class="font-bold text-white group-hover:text-purple-300 truncate">Drey Star</div>
-                <div class="text-[9px] text-slate-400">LJ Priority Roster</div>
+                <div class="text-[9px] text-emerald-400 font-mono-code">⭐ Verified Flagship</div>
               </div>
             </button>
-            <button onclick="focusArtistInApp('Ayra Starr')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-emerald-500">
-              <div class="truncate flex-1">
-                <div class="font-bold text-white group-hover:text-purple-300 truncate">Ayra Starr</div>
-                <div class="text-[9px] text-slate-400">Verified DSP</div>
-              </div>
-            </button>
-            <button onclick="focusArtistInApp('Asake')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
-              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-white/20">
-              <div class="truncate flex-1">
-                <div class="font-bold text-white group-hover:text-purple-300 truncate">Asake</div>
-                <div class="text-[9px] text-slate-400">Verified DSP</div>
-              </div>
-            </button>
-            <button onclick="focusArtistInApp('Tems')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl hover:bg-white/5 transition text-left group">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover border border-white/20">
-              <div class="truncate flex-1">
-                <div class="font-bold text-white group-hover:text-purple-300 truncate">Tems</div>
-                <div class="text-[9px] text-slate-400">Verified DSP</div>
-              </div>
+            <div id="sidebarRosterDynamicList" class="space-y-1"></div>
+            <button onclick="switchTab('tab-intake'); document.getElementById('intakeSearchInput')?.focus();" class="w-full flex items-center justify-center space-x-1.5 p-2 rounded-xl border border-dashed border-white/10 hover:border-emerald-500/40 hover:bg-white/[0.02] text-slate-400 hover:text-emerald-300 transition text-[11px] font-medium mt-1">
+              <span>+ Link Artist via Spotify</span>
             </button>
           </div>
         </div>
@@ -532,83 +572,27 @@
             </button>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
-            <!-- Artist 1: Drey Star -->
-            <div onclick="focusArtistInApp('Drey Star')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5" id="topArtistsGridContainer">
+            <!-- Artist 1: Drey Star (Real Priority Hero Artist) -->
+            <div onclick="focusArtistInApp('Drey Star')" class="glass-panel-subtle p-3 rounded-2xl border border-purple-500/40 bg-purple-500/5 hover:border-purple-400 hover:bg-purple-500/10 transition group cursor-pointer text-center relative overflow-hidden shadow-lg">
+              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md border border-purple-400/40">
+                <img src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                <div class="absolute inset-0 bg-purple-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                 </div>
               </div>
               <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Drey Star</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">1.2M Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30">LJ PRIORITY</span>
+              <div class="text-[10px] text-emerald-400 font-mono-code font-bold">12,500 Plays</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30">⭐ LJ EXCLUSIVE ROSTER</span>
             </div>
 
-            <!-- Artist 2: Ayra Starr -->
-            <div onclick="focusArtistInApp('Ayra Starr')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
+            <!-- Add New Artist CTA Card -->
+            <div onclick="switchTab('tab-intake'); document.getElementById('intakeSearchInput')?.focus();" class="glass-panel-subtle p-3 rounded-2xl border border-dashed border-white/20 hover:border-emerald-500/50 hover:bg-white/[0.04] transition group cursor-pointer text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[170px]">
+              <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 group-hover:border-emerald-500/40 flex items-center justify-center text-slate-300 group-hover:text-emerald-300 transition text-xl mb-2">
+                +
               </div>
-              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Ayra Starr</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">14.8M Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">VERIFIED DSP</span>
-            </div>
-
-            <!-- Artist 3: Asake -->
-            <div onclick="focusArtistInApp('Asake')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
-              </div>
-              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Asake</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">8.4M Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AMAPIANO</span>
-            </div>
-
-            <!-- Artist 4: Tems -->
-            <div onclick="focusArtistInApp('Tems')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
-              </div>
-              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Tems</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">19.2M Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30">GLOBAL R&B</span>
-            </div>
-
-            <!-- Artist 5: Burna Boy -->
-            <div onclick="focusArtistInApp('Burna Boy')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
-              </div>
-              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Burna Boy</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">22.5M Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30">AFRO-FUSION</span>
-            </div>
-
-            <!-- Artist 6: Amara Blue -->
-            <div onclick="focusArtistInApp('Amara Blue')" class="glass-panel-subtle p-3 rounded-2xl border border-white/[0.08] hover:border-purple-500/50 hover:bg-white/10 transition group cursor-pointer text-center relative overflow-hidden">
-              <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md">
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                <div class="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
-              </div>
-              <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">Amara Blue</div>
-              <div class="text-[10px] text-slate-400 font-mono-code">640K Plays</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-violet-500/20 text-violet-300 border border-violet-500/30">AFRO-SOUL</span>
+              <div class="font-bold text-xs text-white group-hover:text-emerald-300 transition">Add New Artist</div>
+              <p class="text-[10px] text-slate-400 mt-1 max-w-[120px] leading-tight">Paste Spotify artist or track link</p>
             </div>
           </div>
         </div>
@@ -1479,9 +1463,9 @@
                 <span>Try prompt:</span>
                 <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Luxury Real Estate Commercial</button>
                 <span>•</span>
-                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Netflix Drama Heartbreak</button>
+                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Netflix Drama Sync</button>
                 <span>•</span>
-                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Burna Boy Afrofusion Fit</button>
+                <button onclick="setCopilotPrompt(this.innerText)" class="text-brand-gold hover:underline">Global Afrobeats Anthem</button>
               </div>
 
               <button onclick="executeCopilotQuery()" id="copilotSubmitBtn" class="flex items-center space-x-2 bg-gradient-to-r from-brand-gold to-amber-500 hover:from-amber-400 hover:to-brand-gold text-black font-extrabold px-5 py-2 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 active:scale-95">
@@ -1973,23 +1957,17 @@
           <!-- Quick Test Presets -->
           <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
             <span class="text-[10px] font-bold text-slate-500 uppercase font-mono-code">Quick Presets:</span>
-            <button onclick="applySearchPreset('https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-emerald-300 text-[11px] transition">
-              🟢 Ayra Starr (Spotify Link)
+            <button onclick="applySearchPreset('https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-emerald-300 text-[11px] transition">
+              🟢 Drey Star — KIRA (Spotify URL)
             </button>
-            <button onclick="applySearchPreset('Burna Boy')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Burna Boy
+            <button onclick="applySearchPreset('Drey Star')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 Drey Star
             </button>
-            <button onclick="applySearchPreset('Asake')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Asake
+            <button onclick="applySearchPreset('KIRA')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎵 KIRA (Single)
             </button>
-            <button onclick="applySearchPreset('Tems')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Tems
-            </button>
-            <button onclick="applySearchPreset('Rema')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Rema
-            </button>
-            <button onclick="applySearchPreset('Davido')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
-              🎵 Davido
+            <button onclick="applySearchPreset('Afrobeats Sync Search')" class="px-2.5 py-1 rounded-full bg-brand-dark border border-brand-cardBorder hover:border-emerald-500 text-slate-300 hover:text-white text-[11px] transition">
+              🎧 Pre-Cleared Roster Sync
             </button>
           </div>
         </div>
@@ -2039,11 +2017,11 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-slate-300 mb-1 font-bold">Primary Artist Profile *</label>
-                  <input type="text" id="manualArtistName" placeholder="e.g. Ayra Starr" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                  <input type="text" id="manualArtistName" placeholder="e.g. Drey Star" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
                   <label class="block text-slate-300 mb-1 font-bold">Master Track Title *</label>
-                  <input type="text" id="manualTrackTitle" placeholder="e.g. Rush (Master)" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+                  <input type="text" id="manualTrackTitle" placeholder="e.g. KIRA (Original Mix)" class="w-full bg-brand-dark border border-brand-cardBorder rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
                 </div>
               </div>
 
@@ -2410,13 +2388,13 @@
             <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.722 1.113.294.18.386.562.207.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.52-.973 3.632-1.102 8.147-.568 11.233 1.328.366.226.481.707.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.624-1.167 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.838.327 1.282-.264.443-.838.59-1.28.327z"/></svg>
             <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">Spotify Master Player</span>
           </div>
-          <a id="spotifyDirectLink" href="https://open.spotify.com/track/3t2e2E5F2a2o3S5e2R2z4x" target="_blank" class="text-[9px] text-slate-400 hover:text-white font-mono-code flex items-center space-x-0.5">
+          <a id="spotifyDirectLink" href="https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f" target="_blank" class="text-[9px] text-slate-400 hover:text-white font-mono-code flex items-center space-x-0.5">
             <span>Open in Spotify</span>
             <span>↗</span>
           </a>
         </div>
         <div class="rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner">
-          <iframe id="spotifyIframe" src="https://open.spotify.com/embed/track/3t2e2E5F2a2o3S5e2R2z4x?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe id="spotifyIframe" src="https://open.spotify.com/embed/track/5W1yl3OyfrKe8oHUY8rKbJ?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
       </div>
 

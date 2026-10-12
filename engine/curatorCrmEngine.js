@@ -21,9 +21,12 @@ function evaluateCuratorPitch(curator, track) {
     }
   }
 
-  // Check genre compatibility
-  const genreMatch = curator.genre.toLowerCase().includes(track.genre.toLowerCase()) || 
-                     (track.subGenre && curator.genre.toLowerCase().includes(track.subGenre.toLowerCase()));
+  // Check genre compatibility (normalize hyphens and spacing e.g., Afro-Beat vs Afrobeats)
+  const norm = s => (s || '').toLowerCase().replace(/[-\s]/g, '');
+  const cNorm = norm(curator.genre);
+  const tNorm = norm(track.genre);
+  const stNorm = norm(track.subGenre);
+  const genreMatch = cNorm.includes(tNorm) || tNorm.includes(cNorm) || (stNorm && (cNorm.includes(stNorm) || stNorm.includes(cNorm)));
 
   // Decision
   const shouldPitch = genreMatch && bpmFit;

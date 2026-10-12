@@ -27,14 +27,14 @@
     "chorusEnergy": 85,
     "tempoRange": "102–110 BPM",
     "similarArtists": [
-      "Burna Boy",
-      "Rema",
+      "Afro-Fusion Specialists",
+      "Global African Crossover",
       "Drey Star"
     ],
     "similarSongs": [
-      "City Boys",
-      "Calm Down",
-      "KIRA"
+      "KIRA (Original Mix)",
+      "KIRA (Radio Edit)",
+      "KIRA (Club Stems)"
     ],
     "audience": "Global African Diaspora, Urban Club, Streaming Curators",
     "useCases": [
@@ -49,6 +49,9 @@
     "duration": 231,
     "isPriorityCampaign": true,
     "preReleasePitchEligible": true,
-    "spotifyUrl": "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f"
+    "spotifyId": "5W1yl3OyfrKe8oHUY8rKbJ",
+    "spotifyUrl": "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f",
+    "youtubeId": "uNRZGlx3T5o",
+    "youtubeUrl": "https://www.youtube.com/watch?v=uNRZGlx3T5o"
   }
 ]

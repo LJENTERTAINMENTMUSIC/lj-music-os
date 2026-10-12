@@ -601,6 +601,18 @@ async function loadCatalogue() {
     const res = await fetch("/api/catalogue");
     const data = await res.json();
     allTracks = data.tracks;
+    if (allTracks && allTracks.length > 0) {
+      const hero = allTracks[0];
+      currentActiveTrackId = hero.id;
+      window.currentActiveTrackId = hero.id;
+      if (window.universalPlayer) {
+        window.universalPlayer.currentTrack = hero;
+        window.universalPlayer.updateDomElements(hero);
+      }
+      if (typeof updateRightSidebarCockpit === 'function') {
+        updateRightSidebarCockpit(hero);
+      }
+    }
     renderDiscoverCarousel('trending');
     renderCatalogueGrid();
     renderArtistPortalTracks();
@@ -1085,9 +1097,9 @@ function setCopilotPrompt(keyword) {
   if (keyword.includes("Real Estate")) {
     input.value = "I need an Afrobeats song for a Lagos luxury real-estate commercial, male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics.";
   } else if (keyword.includes("Netflix")) {
-    input.value = "Netflix-style drama: Emotional African song, female vocal, 90–110 BPM, theme: heartbreak/recovery.";
-  } else if (keyword.includes("Burna")) {
-    input.value = "Find LJ artists who sound compatible with Burna Boy-style Afrofusion with heavy horns and 106 BPM bounce.";
+    input.value = "Netflix-style drama: Emotional African sync record, 90–110 BPM, theme: cinematic, vulnerability to triumphant resilience.";
+  } else if (keyword.includes("Global") || keyword.includes("Anthem")) {
+    input.value = "Find LJ priority records with talking drums, log drums, 808 bass, and 106 BPM bounce suited for global rotation and commercial sync.";
   }
   executeCopilotQuery();
 }
@@ -1852,8 +1864,9 @@ function playDirectAudio(url, title, artist) {
   if (!url) return;
   try {
     activeAudioStream = new Audio(url);
+    activeAudioStream.currentTime = 0;
     activeAudioStream.play().catch(e => console.warn("Direct audio playback error:", e));
-    showToast(`Streaming Audio Preview: "${title}" by ${artist}`, 'info', 'Live Audio Preview');
+    showToast(`Streaming Audio: "${title}" by ${artist}`, 'info', 'Live Audio Preview');
     const playIcon = document.getElementById("playIcon");
     if (playIcon) playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
     const rightIcon = document.getElementById("rightCockpitPlayIcon");
@@ -3542,10 +3555,10 @@ async function submitCopilotSheetQuery() {
 
 // 25. SWARM COLLABORATION SIMULATOR
 const sampleCollaborations = [
-  { track: "KIRA", artist: "Drey Star", agents: 127, stream: "KIRA → Afrobeats → Lagos → Editorial → DSP", match: "94% MATCH", status: "OPPORTUNITY FOUND" },
-  { track: "Rush", artist: "Ayra Starr", agents: 184, stream: "Rush → Global Diaspora → UK Radio → DSP Playlists", match: "96% MATCH", status: "RADIO ROTATION CONFIRMED" },
-  { track: "Active", artist: "Asake & Travis Scott", agents: 210, stream: "Active → Fuji Fusion → Club DJs → Primetime Syndication", match: "98% MATCH", status: "VIRAL VELOCITY SURGE" },
-  { track: "Sunrise in Lekki", artist: "Amara Blue", agents: 92, stream: "Sunrise in Lekki → Sunset Chill → Netflix Sync Brief", match: "97% MATCH", status: "SYNC PRE-CLEARANCE READY" }
+  { track: "KIRA", artist: "Drey Star", agents: 384, stream: "KIRA → Global African Diaspora → Afrobeat Curators → Spotify Editorial", match: "98% MATCH", status: "HERO ROTATION ACTIVE" },
+  { track: "KIRA (Acoustic Stems)", artist: "Drey Star", agents: 210, stream: "Talking Drums + 808 Bass → Commercial Sync Briefs → Netflix Resurgence Scene", match: "97% MATCH", status: "SYNC PRE-CLEARANCE READY" },
+  { track: "KIRA (Radio Edit)", artist: "Drey Star", agents: 196, stream: "KIRA (Radio Edit) → BBC 1Xtra → Pan-African Primetime Syndication", match: "96% MATCH", status: "RADIO ROTATION CONFIRMED" },
+  { track: "KIRA (Club Mix)", artist: "Drey Star", agents: 142, stream: "KIRA Club Mix → Lagos / London DJ Pool → TikTok Momentum Surge", match: "95% MATCH", status: "VIRAL VELOCITY SURGE" }
 ];
 let simIndex = 0;
 
@@ -3626,53 +3639,14 @@ const billboardFeaturedTracks = [
     id: "lj-000",
     title: "KIRA",
     artist: "Drey Star",
-    genre: "Afrobeats • 107 BPM • Key A Minor",
-    tag: "PRIORITY SWARM CAMPAIGN",
-    territory: "8 Markets Active",
-    description: "Hypnotic bassline, syncopated talking drums, and infectious anthemic hook dominating organic DSP discovery across 8 territories. 10,000 specialist agents deployed.",
-    coverArt: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 94%",
-    spotifyId: "3t2e2E5F2a2o3S5e2R2z4x",
-    spotifyUrl: "https://open.spotify.com/track/3t2e2E5F2a2o3S5e2R2z4x"
-  },
-  {
-    id: "ext-003",
-    title: "Rush",
-    artist: "Ayra Starr",
-    genre: "Afropop • 100 BPM • Key E Minor",
-    tag: "GLOBAL STREAMING BREAKOUT",
-    territory: "14.8M Monthly Listeners",
-    description: "Sensational viral rhythm with soulful melodies and chart-topping momentum. AI distribution targeting 32 tier-1 Afropop playlists globally.",
-    coverArt: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 98%",
-    spotifyId: "2fXw04m92698q1toYDC3mn",
-    spotifyUrl: "https://open.spotify.com/track/2fXw04m92698q1toYDC3mn"
-  },
-  {
-    id: "ext-002",
-    title: "Lonely At The Top",
-    artist: "Asake",
-    genre: "Amapiano & Fuji • 114 BPM • C# Minor",
-    tag: "CHART TOPPER & SYNC PRIORITY",
-    territory: "8.4M Monthly Listeners",
-    description: "Soul-stirring log drum cadences with meditative Fuji-infused vocal delivery. Synced lyrics distributed across 11 DSP endpoints worldwide.",
-    coverArt: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
+    genre: "Afro-Beat • 106 BPM • Key Eb Major",
+    tag: "⭐ PRIORITY HERO RELEASE",
+    territory: "Global African Diaspora • 8 Markets",
+    description: "Soul-stirring Afropop anthem by Drey Star celebrating parental love and resilience. Produced with authentic African percussion and modern crossover fidelity.",
+    coverArt: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
     waveStatus: "Acoustic DNA: 96%",
-    spotifyId: "72K8eG1jF8d689r5G4d6fJ",
-    spotifyUrl: "https://open.spotify.com/track/72K8eG1jF8d689r5G4d6fJ"
-  },
-  {
-    id: "ext-004",
-    title: "Free Mind",
-    artist: "Tems",
-    genre: "Alté R&B • 92 BPM • Key F# Major",
-    tag: "COMMERCIAL SYNC LEADER",
-    territory: "19.2M Monthly Listeners",
-    description: "Atmospheric textures and vocal resonance calibrated for high-value television and gaming sync opportunities with 100% one-stop rights clearance.",
-    coverArt: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
-    waveStatus: "Acoustic DNA: 99%",
-    spotifyId: "6t36tK1sI0l2l8Q43uXG2Q",
-    spotifyUrl: "https://open.spotify.com/track/6t36tK1sI0l2l8Q43uXG2Q"
+    spotifyId: "5W1yl3OyfrKe8oHUY8rKbJ",
+    spotifyUrl: "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f"
   }
 ];
 

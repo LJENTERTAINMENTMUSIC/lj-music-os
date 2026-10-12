@@ -69,6 +69,12 @@ class YouTubePlayerAdapter {
         onReady: (event) => {
           this.isReady = true;
           console.log("✅ YouTube Audio Player Ready");
+          if (this.pendingVideoId) {
+            const vId = this.pendingVideoId;
+            const tInfo = this.currentTrack;
+            this.pendingVideoId = null;
+            this.playVideoId(vId, tInfo);
+          }
         },
         onStateChange: (event) => {
           this.handleStateChange(event.data);
@@ -129,13 +135,17 @@ class YouTubePlayerAdapter {
 
     if (!this.player || !this.isReady) {
       console.warn("YouTube player not ready yet; queueing video ID:", videoId);
+      this.pendingVideoId = videoId;
       return false;
     }
 
     try {
-      this.player.loadVideoById(videoId);
-      this.isPlaying = true;
-      return true;
+      if (typeof this.player.loadVideoById === 'function') {
+        this.player.loadVideoById({ videoId: videoId, startSeconds: 0 });
+        this.isPlaying = true;
+        return true;
+      }
+      return false;
     } catch (err) {
       console.error("YouTube play error:", err);
       return false;

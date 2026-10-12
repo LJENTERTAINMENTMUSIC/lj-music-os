@@ -7,8 +7,8 @@
     "curator": "LJ Editorial Desk & AI Discovery",
     "status": "APPROVED",
     "coverArt": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-    "tracks": [],
-    "ljArtistSharePct": 0,
+    "tracks": ["lj-000"],
+    "ljArtistSharePct": 100,
     "lastUpdated": "2026-10-12"
   },
   {
@@ -19,32 +19,32 @@
     "curator": "Human Editor Approved",
     "status": "APPROVED",
     "coverArt": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80",
-    "tracks": [],
-    "ljArtistSharePct": 0,
+    "tracks": ["lj-000"],
+    "ljArtistSharePct": 100,
     "lastUpdated": "2026-10-12"
   },
   {
     "id": "ed-003",
     "title": "Lagos Night Drive",
     "category": "Curated Vibe",
-    "description": "AI-generated brief: Upbeat Afrobeats around 105–115 BPM with female vocal, energetic chorus and Lagos nightlife feel.",
-    "curator": "AI Drafted - Pending Editorial Sign-off",
-    "status": "AI_DRAFT",
+    "description": "Dynamic Afro-Beat soundscape around 106 BPM with soulful vocals and Lagos nightlife atmosphere.",
+    "curator": "LJ Music Editorial",
+    "status": "APPROVED",
     "coverArt": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-    "tracks": [],
-    "ljArtistSharePct": 0,
+    "tracks": ["lj-000"],
+    "ljArtistSharePct": 100,
     "lastUpdated": "2026-10-12"
   },
   {
     "id": "ed-004",
     "title": "LJ Weekly Picks",
     "category": "A&R Spotlight",
-    "description": "Weekly curated selection of fastest-rising LJ roster tracks and standout collaborations.",
+    "description": "Weekly curated selection of fastest-rising LJ roster tracks and standout releases.",
     "curator": "A&R Committee",
     "status": "APPROVED",
     "coverArt": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
-    "tracks": [],
-    "ljArtistSharePct": 0,
+    "tracks": ["lj-000"],
+    "ljArtistSharePct": 100,
     "lastUpdated": "2026-10-12"
   }
 ]

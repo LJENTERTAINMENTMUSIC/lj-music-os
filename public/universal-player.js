@@ -126,11 +126,11 @@ class UniversalStreamingPlayer {
     if (this.activeSource !== 'auto') {
       return this.activeSource;
     }
-    if (track.previewUrl) return 'direct';
-    if (this.spotify.isReady && (track.spotifyUri || track.spotifyUrl)) return 'spotify';
-    if (this.apple.isReady && track.appleMusicId) return 'apple-music';
+    // Prioritize official full release stream from 0:00
     if (track.youtubeId) return 'youtube';
-    return 'direct';
+    if (this.spotify.isReady && (track.spotifyUri || track.spotifyUrl)) return 'spotify';
+    if (track.previewUrl) return 'direct';
+    return 'youtube';
   }
 
   urlToSpotifyUri(url) {
@@ -140,25 +140,20 @@ class UniversalStreamingPlayer {
   }
 
   resolveFallbackYouTubeId(track) {
-    // High-quality catalog audio IDs for demonstration masters
-    const fallbackMap = {
-      'lj-000': 'dQw4w9WgXcQ', // KIRA
-      'lj-001': '3fP_xL0zDyo', // Rush (Ayra Starr)
-      'lj-002': 'vW6xO3s2j7w', // Lonely At The Top (Asake)
-      'lj-003': '2qDq5HjTf-4'  // Free Mind (Tems)
-    };
-    return fallbackMap[track.id] || null;
+    return track.youtubeId || null;
   }
 
   playDirectAudio(url, track) {
     try {
+      this.currentTime = 0;
       this.activeAudioStream = new Audio(url);
+      this.activeAudioStream.currentTime = 0;
       this.activeAudioStream.volume = this.volume / 100;
       
       this.activeAudioStream.ontimeupdate = () => {
         if (this.activeAudioStream) {
           this.currentTime = this.activeAudioStream.currentTime;
-          this.duration = this.activeAudioStream.duration || 198;
+          this.duration = this.activeAudioStream.duration || track.duration || 231;
           this.syncProgressUi();
         }
       };
@@ -167,8 +162,10 @@ class UniversalStreamingPlayer {
         this.next();
       };
 
+      this.syncProgressUi();
+
       this.activeAudioStream.play().catch(e => {
-        console.warn("Direct audio autoplay blocked by browser policy (user gesture required):", e);
+        console.warn("Direct audio playback notification:", e);
       });
 
       this.currentSource = 'direct';
@@ -346,6 +343,20 @@ class UniversalStreamingPlayer {
     // Right Sidebar Cockpit
     if (typeof window.updateRightSidebarCockpit === 'function') {
       window.updateRightSidebarCockpit(track);
+    }
+
+    // Dynamic Spotify Embed Synchronization
+    const spotifyIframe = document.getElementById("spotifyIframe");
+    const sId = track.spotifyId || (track.spotifyUrl ? track.spotifyUrl.split('/track/')[1]?.split('?')[0] : '5W1yl3OyfrKe8oHUY8rKbJ');
+    if (spotifyIframe && sId) {
+      const targetSrc = `https://open.spotify.com/embed/track/${sId}?utm_source=generator&theme=0`;
+      if (!spotifyIframe.src.includes(sId)) {
+        spotifyIframe.src = targetSrc;
+      }
+    }
+    const spotifyLink = document.getElementById("spotifyDirectLink");
+    if (spotifyLink && track.spotifyUrl) {
+      spotifyLink.href = track.spotifyUrl;
     }
   }
 }

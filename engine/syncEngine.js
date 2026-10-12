@@ -172,6 +172,7 @@ function matchSyncBrief(brief, catalogue, rightsMap) {
   });
 
   return {
+    ...brief,
     briefId: brief.id,
     project: brief.project,
     client: brief.client,

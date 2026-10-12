@@ -12,12 +12,25 @@
     "deadline": "2026-11-15",
     "rightsRequired": "Worldwide Theatrical / VOD / Streaming, In Perpetuity",
     "keyCriteria": {
-      "moodKeywords": ["Emotional", "Resilient", "Heartbreak", "Recovery", "Triumph"],
+      "moodKeywords": [
+        "Emotional",
+        "Resilient",
+        "Heartbreak",
+        "Recovery",
+        "Triumph"
+      ],
       "bpmMin": 90,
       "bpmMax": 110,
       "preferredGender": "Female",
       "noExplicit": true
-    }
+    },
+    "submissionStatus": "SUBMITTED",
+    "submissionId": "LJ-SYNC-2026-NTF-001",
+    "submittedTrackId": "lj-000",
+    "submittedTrackTitle": "KIRA",
+    "submittedArtist": "Drey Star",
+    "submissionDate": "2026-10-12T21:33:58.464Z",
+    "proposedQuote": "$65,000 All-in Master & Sync Fee"
   },
   {
     "id": "brief-002",
@@ -32,12 +45,25 @@
     "deadline": "2026-10-30",
     "rightsRequired": "Worldwide Broadcast, Digital, Commercial Rights (1 Year)",
     "keyCriteria": {
-      "moodKeywords": ["Aspirational", "Premium", "Sensual", "Confident", "Luxury"],
+      "moodKeywords": [
+        "Aspirational",
+        "Premium",
+        "Sensual",
+        "Confident",
+        "Luxury"
+      ],
       "bpmMin": 100,
       "bpmMax": 110,
       "preferredGender": "Male",
       "noExplicit": true
-    }
+    },
+    "submissionStatus": "SUBMITTED",
+    "submissionId": "LJ-SYNC-2026-POR-002",
+    "submittedTrackId": "lj-000",
+    "submittedTrackTitle": "KIRA",
+    "submittedArtist": "Drey Star",
+    "submissionDate": "2026-10-12T21:33:58.464Z",
+    "proposedQuote": "$85,000 All-in Master & Sync Fee"
   },
   {
     "id": "brief-003",
@@ -52,12 +78,25 @@
     "deadline": "2026-12-01",
     "rightsRequired": "Worldwide Interactive Game License (3 Years)",
     "keyCriteria": {
-      "moodKeywords": ["Hypnotic", "Driving", "Cool", "High Octane", "Swagger"],
+      "moodKeywords": [
+        "Hypnotic",
+        "Driving",
+        "Cool",
+        "High Octane",
+        "Swagger"
+      ],
       "bpmMin": 112,
       "bpmMax": 116,
       "preferredGender": "Any",
       "noExplicit": true
-    }
+    },
+    "submissionStatus": "SUBMITTED",
+    "submissionId": "LJ-SYNC-2026-EAS-003",
+    "submittedTrackId": "lj-000",
+    "submittedTrackTitle": "KIRA",
+    "submittedArtist": "Drey Star",
+    "submissionDate": "2026-10-12T21:33:58.464Z",
+    "proposedQuote": "$48,000 Master & Sync License Fee + Standard Global Interactive Royalty"
   },
   {
     "id": "brief-004",
@@ -72,12 +111,24 @@
     "deadline": "2026-10-25",
     "rightsRequired": "Digital, TV Broadcast, Event Showrooms (2 Years)",
     "keyCriteria": {
-      "moodKeywords": ["Aspirational", "Premium", "Smooth", "Luxury"],
+      "moodKeywords": [
+        "Aspirational",
+        "Premium",
+        "Smooth",
+        "Luxury"
+      ],
       "bpmMin": 100,
       "bpmMax": 110,
       "preferredGender": "Male",
       "noExplicit": true
-    }
+    },
+    "submissionStatus": "SUBMITTED",
+    "submissionId": "LJ-SYNC-2026-EKO-004",
+    "submittedTrackId": "lj-000",
+    "submittedTrackTitle": "KIRA",
+    "submittedArtist": "Drey Star",
+    "submissionDate": "2026-10-12T21:33:58.464Z",
+    "proposedQuote": "$35,000 All-in Master & Sync Fee"
   },
   {
     "id": "brief-005",
@@ -92,11 +143,24 @@
     "deadline": "2026-11-20",
     "rightsRequired": "Worldwide OTT Streaming & In-Flight Entertainment",
     "keyCriteria": {
-      "moodKeywords": ["Peaceful", "Warm", "Celebratory", "Regal", "Organic"],
+      "moodKeywords": [
+        "Peaceful",
+        "Warm",
+        "Celebratory",
+        "Regal",
+        "Organic"
+      ],
       "bpmMin": 100,
       "bpmMax": 108,
       "preferredGender": "Any",
       "noExplicit": true
-    }
+    },
+    "submissionStatus": "SUBMITTED",
+    "submissionId": "LJ-SYNC-2026-MAR-005",
+    "submittedTrackId": "lj-000",
+    "submittedTrackTitle": "KIRA",
+    "submittedArtist": "Drey Star",
+    "submissionDate": "2026-10-12T21:33:58.464Z",
+    "proposedQuote": "$30,000 All-in Master & Sync Fee"
   }
 ]

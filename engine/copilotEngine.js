@@ -32,7 +32,7 @@ function parseUserQuery(query) {
   const isLuxury = q.includes("luxury") || q.includes("car") || q.includes("real estate") || q.includes("premium") || q.includes("aspirational") || q.includes("commercial") || q.includes("architect");
   const isNightlife = q.includes("nightlife") || q.includes("night drive") || q.includes("lagos night") || q.includes("club") || q.includes("party") || q.includes("dance");
   const isRomantic = q.includes("romantic") || q.includes("love") || q.includes("trailer") || q.includes("movie trailer") || q.includes("intimate");
-  const isBurnaBoy = q.includes("burna boy") || q.includes("afrofusion") || q.includes("afro-fusion");
+  const isAfroFusion = q.includes("afrofusion") || q.includes("afro-fusion") || q.includes("afrobeats") || q.includes("burna");
   const isHeartbreak = q.includes("heartbreak") || q.includes("recovery") || q.includes("drama") || q.includes("emotional");
   const isSync = q.includes("sync") || q.includes("netflix") || q.includes("licens") || q.includes("film") || q.includes("tv");
   const isCurator = q.includes("curator") || q.includes("pitch") || q.includes("spotify") || q.includes("apple music") || q.includes("editorial");
@@ -46,7 +46,7 @@ function parseUserQuery(query) {
     isLuxury,
     isNightlife,
     isRomantic,
-    isBurnaBoy,
+    isAfroFusion,
     isHeartbreak,
     isSync,
     isCurator,
@@ -234,10 +234,10 @@ async function processCopilotBrief(userQuery, catalogue, rightsMap, telemetryMap
       }
     }
 
-    if (parsed.isBurnaBoy) {
-      if (track.similarArtists && track.similarArtists.includes("Burna Boy")) {
+    if (parsed.isAfroFusion) {
+      if (track.genre && track.genre.toLowerCase().includes("afro")) {
         relevanceScore += 18;
-        rationales.push(`Sonic architecture directly aligns with Burna Boy's brass-and-drum Afro-Fusion aesthetic.`);
+        rationales.push(`Sonic architecture directly aligns with rhythmic Afro-Fusion percussion, talking drum, and brass aesthetics.`);
       }
     }
 
@@ -286,9 +286,9 @@ async function processCopilotBrief(userQuery, catalogue, rightsMap, telemetryMap
   if (parsed.isLuxury) {
     briefTitle = "Luxury Commercial Brief: Aspirational African Prestige";
     toneSummary = "Sophisticated, Sleek, 100–110 BPM, Executive Urban Vibe";
-  } else if (parsed.isBurnaBoy) {
-    briefTitle = "A&R Match: Burna Boy Afro-Fusion Compatible Roster";
-    toneSummary = "Heavy Brass, Talking Drum Rhythms, Swagger & Global Appeal";
+  } else if (parsed.isAfroFusion) {
+    briefTitle = "A&R Match: Flagship Afro-Fusion Priority Roster";
+    toneSummary = "Heavy Percussion, Talking Drum Rhythms, Swagger & Global Appeal";
   } else if (parsed.isHeartbreak) {
     briefTitle = "Dramatic Sync Brief: Emotional Resonance & Recovery";
     toneSummary = "Cinematic Soul, Vulnerable Topline, Resonant Climax";

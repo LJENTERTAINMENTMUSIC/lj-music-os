@@ -1,0 +1,372 @@
+{
+  "generatedAt": "2026-10-12T21:13:53.104Z",
+  "track": {
+    "id": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "genre": "Afro-Beat",
+    "bpm": 106,
+    "key": "Eb major",
+    "mood": "Dynamic, Contemporary African Identity, Crossover",
+    "spotifyUrl": "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f"
+  },
+  "pitchCard": {
+    "trackId": "lj-000",
+    "artist": "Drey Star",
+    "song": "KIRA",
+    "genre": "Afro-Beat (Afro-Beat)",
+    "bpm": 106,
+    "key": "Eb major",
+    "mood": "Dynamic, Contemporary African Identity, Crossover",
+    "vocalType": "Studio Recorded Vocal",
+    "comparableArtists": "Burna Boy, Rema, Drey Star",
+    "targetAudience": "Global African Diaspora, Urban Club, Streaming Curators",
+    "releaseDate": "2026-09-26",
+    "usp": "Pioneering African sonic architecture: blends authentic native instruments (Talking Drum, Log Drum, 808 Bass) with global standard pop production at 106 BPM. 100% pre-cleared master & publishing rights controlled directly by LJ Entertainment for zero-friction sync execution.",
+    "potentials": {
+      "radioPotential": "81/100",
+      "playlistPotential": "89/100",
+      "syncPotential": "84/100",
+      "commercialPotential": "83/100"
+    },
+    "recommendedDestinations": [
+      {
+        "category": "Editorial Playlists",
+        "target": "Spotify: African Heat, New Music Friday Africa, Lagos City Pop",
+        "suitability": "High Confidence (96%)",
+        "reason": "Fits high-velocity African contemporary stream with 106 BPM and strong Eb major progression."
+      },
+      {
+        "category": "Apple Music",
+        "target": "Apple Music: African Essentials, Oshe Naija, Afrobeats Risers",
+        "suitability": "Prime Lead Placement (94%)",
+        "reason": "High audio fidelity and authentic regional instrumentation (Talking Drum & Brass)."
+      },
+      {
+        "category": "Radio & Tastemaker DJs",
+        "target": "Cool FM Lagos, Beat 99.9 FM, BBC Radio 1Xtra (DJ Target & Edu), Capital XTRA",
+        "suitability": "81% Airplay Index",
+        "reason": "Clean radio edit, energetic chorus drop at 0:10s, instant listener hook."
+      },
+      {
+        "category": "Advertising & Brands",
+        "target": "Pan-African Fintech, Telecommunications (MTN, Airtel), Luxury Auto & Beverage Brands",
+        "suitability": "Prime Commercial Asset",
+        "reason": "Aspirational luxury mood, positive emotional trajectory, pre-cleared master."
+      }
+    ],
+    "syncReadinessLabel": "SYNC_READY"
+  },
+  "syncReadiness": {
+    "score": 98,
+    "badge": "SYNC_READY",
+    "color": "green",
+    "label": "🟢 SYNC READY — 98%",
+    "checklist": {
+      "masterOwnership": true,
+      "publishingOwnership": true,
+      "writerSplits": true,
+      "proRegistered": true,
+      "isrcPresent": true,
+      "ipiRegistered": true,
+      "cleanExplicit": true,
+      "sampleCleared": false,
+      "featuredAgreements": true,
+      "producerAgreements": true,
+      "contractActive": true
+    },
+    "turnaround": "1-Click Master & Publishing Pre-Cleared",
+    "licensingTier": "Tier A ($20,000 – $60,000)"
+  },
+  "curatorDossiers": [
+    {
+      "curatorId": "cur-001",
+      "curatorName": "Kofi Mensah",
+      "organization": "Spotify Editorial (Sub-Saharan Africa)",
+      "email": "kofi.mensah@spotify-editorial.com",
+      "verifiedEmail": "kofi.mensah@spotify-editorial.com",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": true,
+      "decisionLabel": "✅ YES — PITCH RECOMMENDED",
+      "why": "Strong alignment: KIRA (106 BPM, Eb major) directly matches Spotify Editorial (Sub-Saharan Africa)'s preferred 100–114 BPM bracket and Afrobeats / Afro-Fusion focus. HIGH_CONFIDENCE_PARTNER on record.",
+      "channel": "Spotify for Artists Official Direct Pitch Tool",
+      "submissionMethod": "Direct S4A Portal (Minimum 7–14 days prior to release date)",
+      "recommendedAngle": "Spotlight Drey Star's 43% organic listener velocity and authentic live talking drum horn arrangement in 'KIRA'.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Kofi,\n\nHope all is well at Spotify Editorial (Sub-Saharan Africa).\n\nGiven your focus on Euphoric, High Energy, Modern Nightlife, Authentic Percussion on African Heat / New Music Friday Africa, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-002",
+      "curatorName": "Eseosa Ighodaro",
+      "organization": "Apple Music African Editorial",
+      "email": "eseosa.ighodaro@apple.com",
+      "verifiedEmail": "eseosa.ighodaro@apple.com",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": true,
+      "decisionLabel": "✅ YES — PITCH RECOMMENDED",
+      "why": "Strong alignment: KIRA (106 BPM, Eb major) directly matches Apple Music African Editorial's preferred 105–116 BPM bracket and Afrobeats / Afro-Pop focus. ESTABLISHED_PARTNER on record.",
+      "channel": "Apple Music for Artists / Direct Label Relations Representative",
+      "submissionMethod": "Label Pitch Portal & Spatial Audio Audio Delivery",
+      "recommendedAngle": "Pitch for Oshe Naija cover feature focusing on pan-African dance trends.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Eseosa,\n\nHope all is well at Apple Music African Editorial.\n\nGiven your focus on Radiant, Polished Pop, High Energy Dance on African Essentials / Oshe Naija, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-003",
+      "curatorName": "DJ Edu & Target",
+      "organization": "BBC Radio 1Xtra (Destination Africa & New Music)",
+      "email": "dj.edu@bbc.co.uk",
+      "verifiedEmail": "dj.edu@bbc.co.uk",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": false,
+      "decisionLabel": "❌ NO — FILTERED OUT",
+      "why": "Misalignment: Track's 106 BPM or Afro-Beat genre does not strictly match BBC Radio 1Xtra (Destination Africa & New Music)'s target criteria.",
+      "channel": "BBC Music Introducing & Direct Plugger Representation",
+      "submissionMethod": "Broadcast WAV + Radio Clean Edit + Track One-Sheet",
+      "recommendedAngle": "Send exclusive first radio play for UK territory along with artist dubplate idents.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi DJ,\n\nHope all is well at BBC Radio 1Xtra (Destination Africa & New Music).\n\nGiven your focus on Swagger, Club resonance, UK diaspora appeal on 1Xtra Afrobeats Chart Show / Specialist Mixes, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-004",
+      "curatorName": "Do2dtun & OAPs",
+      "organization": "Cool FM 96.9 Lagos (Energy Hour & Drive Time)",
+      "email": "programming@coolfm.ng",
+      "verifiedEmail": "programming@coolfm.ng",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": true,
+      "decisionLabel": "✅ YES — PITCH RECOMMENDED",
+      "why": "Strong alignment: KIRA (106 BPM, Eb major) directly matches Cool FM 96.9 Lagos (Energy Hour & Drive Time)'s preferred 108–118 BPM bracket and Mainstream Afrobeats / Street Anthems focus. DOMINANT_LOCAL_GATEWAY on record.",
+      "channel": "Music Scheduling Desk / On-Air Producer",
+      "submissionMethod": "Studio Delivery & Digital Promo Pool",
+      "recommendedAngle": "Drive time prime spot with call-in audience giveaway.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Do2dtun,\n\nHope all is well at Cool FM 96.9 Lagos (Energy Hour & Drive Time).\n\nGiven your focus on High energy, Hype, Party anthem on Cool FM Top 20 Daily Countdown, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-005",
+      "curatorName": "Sarah Jenkins",
+      "organization": "Netflix Music Supervisor (EMEA Productions)",
+      "email": "sarah.jenkins@emea-sync-netflix.com",
+      "verifiedEmail": "sarah.jenkins@emea-sync-netflix.com",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": false,
+      "decisionLabel": "❌ NO — FILTERED OUT",
+      "why": "Misalignment: Track's 106 BPM or Afro-Beat genre does not strictly match Netflix Music Supervisor (EMEA Productions)'s target criteria.",
+      "channel": "DISCO.ac Inverted Catalog & Sync Agent",
+      "submissionMethod": "High-res Master + Instrumental + Stems + One-Stop Clearance Sheet",
+      "recommendedAngle": "Immediate submission of Femme Fatale LJ 'Tears to Triumphs' (100% pre-cleared one-stop).",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Sarah,\n\nHope all is well at Netflix Music Supervisor (EMEA Productions).\n\nGiven your focus on Emotional, Resilient, Vulnerable, Cinematic on Dramatic Feature Soundtracks, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-006",
+      "curatorName": "Pierre Laurent",
+      "organization": "Deezer Pan-African & Francophone Editorial",
+      "email": "plaurent@deezer.com",
+      "verifiedEmail": "plaurent@deezer.com",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": true,
+      "decisionLabel": "✅ YES — PITCH RECOMMENDED",
+      "why": "Strong alignment: KIRA (106 BPM, Eb major) directly matches Deezer Pan-African & Francophone Editorial's preferred 102–115 BPM bracket and Afrobeats / Coupé-Décalé / Highlife focus. VERIFIED_DSP_PARTNER on record.",
+      "channel": "Direct Label Submission Pool",
+      "submissionMethod": "WAV Master Delivery (French/Pidgin tagged)",
+      "recommendedAngle": "Spotlight cross-border Francophone appeal and dual translation lyrics.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Pierre,\n\nHope all is well at Deezer Pan-African & Francophone Editorial.\n\nGiven your focus on Groove, Dance, Pan-African Fusion on Afro Hits / Coupé-Décalé Fever, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    },
+    {
+      "curatorId": "cur-007",
+      "curatorName": "Michael Chen",
+      "organization": "Audiomack Africa Trending Operations",
+      "email": "mchen@audiomack.com",
+      "verifiedEmail": "mchen@audiomack.com",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "shouldPitch": false,
+      "decisionLabel": "❌ NO — FILTERED OUT",
+      "why": "Misalignment: Track's 106 BPM or Afro-Beat genre does not strictly match Audiomack Africa Trending Operations's target criteria.",
+      "channel": "Audiomack Verified Creator Portal",
+      "submissionMethod": "Direct Upload & Monetized Premiere Submission",
+      "recommendedAngle": "Push trending banner feature and premiere playlisting across West Africa.",
+      "targetPitchDate": "Immediate (Within Current Campaign Window)",
+      "followUpDate": "7 business days post-submission",
+      "generatedPitch": {
+        "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+        "body": "Hi Michael,\n\nHope all is well at Audiomack Africa Trending Operations.\n\nGiven your focus on Street energy, Anthemic chorus, Viral dance hook on Top 50 Nigeria / Trending Afrobeats, I wanted to share \"KIRA\", the new priority record from LJ Entertainment artist Drey Star.\n\nWhy this fits your audience:\n• Sonic Profile: 106 BPM in Eb major, featuring Talking Drum, Log Drum, 808 Bass.\n• Organic Momentum: Recording 90+ momentum score with high listener completion.\n• Cultural Hook: Dynamic, Contemporary African Identity, Crossover.\n\nMaster and publishing are 100% pre-cleared by LJ Entertainment.\n\nListen & Stems: https://lj-entertainment.com/track/lj-000\n\nBest,\nA&R Operations Desk, LJ Entertainment"
+      }
+    }
+  ],
+  "syncPackages": [
+    {
+      "briefId": "brief-001",
+      "client": "Netflix Original Series",
+      "project": "'Lagos Shadows' - Global Drama (Season 2 Finale)",
+      "budget": "$45,000 – $75,000 (All-in Master & Sync)",
+      "deadline": "2026-11-15",
+      "rightsRequired": "Worldwide Theatrical / VOD / Streaming, In Perpetuity",
+      "scene": "Emotional climax: Protagonist reflects on betrayal and begins personal resurgence after devastating loss.",
+      "matchScore": 78,
+      "subScores": {
+        "moodMatch": 70,
+        "tempoMatch": 98,
+        "lyricsMatch": 65,
+        "genreMatch": 80,
+        "sceneSuitability": 80
+      },
+      "readiness": "🟢 SYNC READY — 98%",
+      "licensingTier": "Tier A ($20,000 – $60,000)",
+      "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared",
+      "rightsProfile": {
+        "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+        "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+        "isrc": "US-SPT-26-52094",
+        "ipi": "009948211",
+        "pro": "PRS for Music / COSON",
+        "sampleClearance": "100% Original Composition - No Uncleared Samples"
+      }
+    },
+    {
+      "briefId": "brief-002",
+      "client": "Porsche / Luxury Auto Brand",
+      "project": "Panamera Electric - Pan-African Launch Campaign",
+      "budget": "$60,000 – $95,000",
+      "deadline": "2026-10-30",
+      "rightsRequired": "Worldwide Broadcast, Digital, Commercial Rights (1 Year)",
+      "scene": "Night drive through Lekki-Ikoyi Link bridge, luxury cityscape, aspirational executive aesthetic.",
+      "matchScore": 80,
+      "subScores": {
+        "moodMatch": 70,
+        "tempoMatch": 98,
+        "lyricsMatch": 65,
+        "genreMatch": 80,
+        "sceneSuitability": 95
+      },
+      "readiness": "🟢 SYNC READY — 98%",
+      "licensingTier": "Tier A ($20,000 – $60,000)",
+      "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared",
+      "rightsProfile": {
+        "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+        "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+        "isrc": "US-SPT-26-52094",
+        "ipi": "009948211",
+        "pro": "PRS for Music / COSON",
+        "sampleClearance": "100% Original Composition - No Uncleared Samples"
+      }
+    },
+    {
+      "briefId": "brief-003",
+      "client": "EA Sports",
+      "project": "EA FC 27 (FIFA) Official In-Game & Menu Soundtrack",
+      "budget": "$35,000 – $55,000 + Global In-Game Royalty",
+      "deadline": "2026-12-01",
+      "rightsRequired": "Worldwide Interactive Game License (3 Years)",
+      "scene": "High-octane stadium vibes, global street football flair, rhythmic swagger.",
+      "matchScore": 78,
+      "subScores": {
+        "moodMatch": 70,
+        "tempoMatch": 71,
+        "lyricsMatch": 92,
+        "genreMatch": 80,
+        "sceneSuitability": 80
+      },
+      "readiness": "🟢 SYNC READY — 98%",
+      "licensingTier": "Tier A ($20,000 – $60,000)",
+      "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared",
+      "rightsProfile": {
+        "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+        "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+        "isrc": "US-SPT-26-52094",
+        "ipi": "009948211",
+        "pro": "PRS for Music / COSON",
+        "sampleClearance": "100% Original Composition - No Uncleared Samples"
+      }
+    },
+    {
+      "briefId": "brief-004",
+      "client": "Lagos Luxury Real Estate Group",
+      "project": "Eko Atlantic Waterfront Towers Commercial",
+      "budget": "$25,000 – $40,000",
+      "deadline": "2026-10-25",
+      "rightsRequired": "Digital, TV Broadcast, Event Showrooms (2 Years)",
+      "scene": "Sun setting over Lagos oceanfront skyline, penthouse interiors, world-class architecture.",
+      "matchScore": 78,
+      "subScores": {
+        "moodMatch": 70,
+        "tempoMatch": 98,
+        "lyricsMatch": 65,
+        "genreMatch": 80,
+        "sceneSuitability": 80
+      },
+      "readiness": "🟢 SYNC READY — 98%",
+      "licensingTier": "Tier A ($20,000 – $60,000)",
+      "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared",
+      "rightsProfile": {
+        "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+        "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+        "isrc": "US-SPT-26-52094",
+        "ipi": "009948211",
+        "pro": "PRS for Music / COSON",
+        "sampleClearance": "100% Original Composition - No Uncleared Samples"
+      }
+    },
+    {
+      "briefId": "brief-005",
+      "client": "Global Tourism & Hospitality (Marriott / African Luxury)",
+      "project": "Discover Africa - Heritage & Hospitality Documentary Series",
+      "budget": "$20,000 – $35,000",
+      "deadline": "2026-11-20",
+      "rightsRequired": "Worldwide OTT Streaming & In-Flight Entertainment",
+      "scene": "Morning sunrise over African landscapes, warm cultural welcomes, culinary traditions.",
+      "matchScore": 84,
+      "subScores": {
+        "moodMatch": 70,
+        "tempoMatch": 98,
+        "lyricsMatch": 92,
+        "genreMatch": 80,
+        "sceneSuitability": 85
+      },
+      "readiness": "🟢 SYNC READY — 98%",
+      "licensingTier": "Tier A ($20,000 – $60,000)",
+      "clearanceTurnaround": "1-Click Master & Publishing Pre-Cleared",
+      "rightsProfile": {
+        "masterOwnership": "100% Owned by LJ Entertainment Ltd",
+        "publishingOwnership": "100% Controlled by LJ Music Publishing Worldwide",
+        "isrc": "US-SPT-26-52094",
+        "ipi": "009948211",
+        "pro": "PRS for Music / COSON",
+        "sampleClearance": "100% Original Composition - No Uncleared Samples"
+      }
+    }
+  ]
+}

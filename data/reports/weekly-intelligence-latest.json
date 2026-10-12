@@ -1,345 +1,36 @@
 {
   "cadence": "WEEKLY",
   "chartWeek": "Week 41 (October 2026)",
-  "generatedAt": "2026-10-07T22:03:54.509Z",
+  "generatedAt": "2026-10-12T08:06:26.617Z",
   "charts": {
     "top10": [
       {
         "rank": 1,
-        "title": "City Boys",
-        "artist": "Burna Boy",
-        "isLj": false,
-        "points": 390600
-      },
-      {
-        "rank": 2,
-        "title": "Unavailable",
-        "artist": "Davido ft. Musa Keys",
-        "isLj": false,
-        "points": 380260
-      },
-      {
-        "rank": 3,
-        "title": "Lonely At The Top",
-        "artist": "Asake",
-        "isLj": false,
-        "points": 375660
-      },
-      {
-        "rank": 4,
-        "title": "Rush",
-        "artist": "Ayra Starr",
-        "isLj": false,
-        "points": 329260
-      },
-      {
-        "rank": 5,
-        "title": "Free Mind",
-        "artist": "Tems",
-        "isLj": false,
-        "points": 286980
-      },
-      {
-        "rank": 6,
-        "title": "Detty December",
-        "artist": "DJ Vibe ft. LJ All-Stars",
-        "isLj": true,
-        "points": 252480
-      },
-      {
-        "rank": 7,
         "title": "KIRA",
         "artist": "Drey Star",
         "isLj": true,
-        "points": 252160
-      },
-      {
-        "rank": 8,
-        "title": "Golden Vibe",
-        "artist": "Tiwa LJ",
-        "isLj": true,
-        "points": 203240
-      },
-      {
-        "rank": 9,
-        "title": "Lagos Nightfall",
-        "artist": "Drey Star",
-        "isLj": true,
-        "points": 170260
-      },
-      {
-        "rank": 10,
-        "title": "Island Groove",
-        "artist": "K-Breeze",
-        "isLj": true,
-        "points": 149580
+        "points": 25480
       }
     ],
     "fastestRising": [
       {
-        "title": "Lekki Toll Memories",
-        "artist": "Drey Star",
-        "growth": "+67.7%"
-      },
-      {
         "title": "KIRA",
         "artist": "Drey Star",
-        "growth": "+43%"
-      },
-      {
-        "title": "Detty December",
-        "artist": "DJ Vibe ft. LJ All-Stars",
-        "growth": "+42.3%"
-      },
-      {
-        "title": "Tears to Triumphs",
-        "artist": "Femme Fatale LJ",
-        "growth": "+41.8%"
-      },
-      {
-        "title": "Rush",
-        "artist": "Ayra Starr",
         "growth": "+38.5%"
       }
     ],
-    "breakoutArtists": [
-      {
-        "title": "KIRA",
-        "artist": "Drey Star",
-        "growth": "+49%"
-      },
-      {
-        "title": "Tears to Triumphs",
-        "artist": "Femme Fatale LJ",
-        "growth": "+48%"
-      },
-      {
-        "title": "Detty December",
-        "artist": "DJ Vibe ft. LJ All-Stars",
-        "growth": "+46%"
-      },
-      {
-        "title": "Island Groove",
-        "artist": "K-Breeze",
-        "growth": "+45%"
-      },
-      {
-        "title": "Lagos Nightfall",
-        "artist": "Drey Star",
-        "growth": "+42.1%"
-      }
-    ]
+    "breakoutArtists": []
   },
   "aAndRWatchlist": [
     {
       "artist": "Drey Star",
       "track": "KIRA",
-      "momentumScore": 99,
-      "weeklyEngagementGrowth": "+43%",
-      "repeatListeningRate": "46.2%",
-      "completionRate": "84.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "K-Breeze",
-      "track": "Island Groove",
-      "momentumScore": 99,
-      "weeklyEngagementGrowth": "+36.8%",
-      "repeatListeningRate": "39.2%",
-      "completionRate": "78.1%",
-      "topCity": "Johannesburg",
-      "strategicPushRecommendation": "Push onto Amapiano radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Femme Fatale LJ",
-      "track": "Tears to Triumphs",
-      "momentumScore": 99,
-      "weeklyEngagementGrowth": "+41.8%",
-      "repeatListeningRate": "44.5%",
-      "completionRate": "84.6%",
-      "topCity": "London",
-      "strategicPushRecommendation": "Push onto Afro-Soul radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Seyi Glow",
-      "track": "Lekki Horizon",
-      "momentumScore": 99,
-      "weeklyEngagementGrowth": "+33.9%",
-      "repeatListeningRate": "42.1%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afro-R&B radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "DJ Vibe ft. LJ All-Stars",
-      "track": "Detty December",
-      "momentumScore": 99,
-      "weeklyEngagementGrowth": "+42.3%",
-      "repeatListeningRate": "39.5%",
-      "completionRate": "77%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Drey Star",
-      "track": "Lagos Nightfall",
-      "momentumScore": 95,
-      "weeklyEngagementGrowth": "+38.2%",
-      "repeatListeningRate": "36.4%",
-      "completionRate": "74.8%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Drey Star",
-      "track": "Midnight Eko (Luxury Edition)",
-      "momentumScore": 95,
-      "weeklyEngagementGrowth": "+32%",
-      "repeatListeningRate": "41%",
-      "completionRate": "79.2%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Tiwa LJ",
-      "track": "Golden Vibe",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+29.1%",
-      "repeatListeningRate": "35.8%",
-      "completionRate": "76.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Drey Star",
-      "track": "Lekki Toll Memories",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+67.7%",
-      "repeatListeningRate": "49%",
-      "completionRate": "88.2%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
       "momentumScore": 92,
       "weeklyEngagementGrowth": "+38.5%",
       "repeatListeningRate": "41.2%",
       "completionRate": "82.5%",
       "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayra Starr",
-      "track": "Rush",
-      "momentumScore": 92,
-      "weeklyEngagementGrowth": "+38.5%",
-      "repeatListeningRate": "41.2%",
-      "completionRate": "82.5%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Afrobeats radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Tobi Strings",
-      "track": "Naija Sunrise",
-      "momentumScore": 90,
-      "weeklyEngagementGrowth": "+17.8%",
-      "repeatListeningRate": "46%",
-      "completionRate": "85%",
-      "topCity": "London",
-      "strategicPushRecommendation": "Push onto Instrumental radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Ayo Crown",
-      "track": "Majestic Heritage",
-      "momentumScore": 83,
-      "weeklyEngagementGrowth": "+20.8%",
-      "repeatListeningRate": "38%",
-      "completionRate": "81.2%",
-      "topCity": "Lagos",
-      "strategicPushRecommendation": "Push onto Highlife radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
-    },
-    {
-      "artist": "Zinolee LJ",
-      "track": "Street Solace",
-      "momentumScore": 73,
-      "weeklyEngagementGrowth": "+22.4%",
-      "repeatListeningRate": "33%",
-      "completionRate": "71%",
-      "topCity": "Lagos (Mainland)",
-      "strategicPushRecommendation": "Push onto Street-Pop radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
+      "strategicPushRecommendation": "Push onto Afro-Beat radio rotation & editorial playlists; align with Q4 commercial brand campaigns."
     }
   ],
   "syncMarketplaceHighlights": [
@@ -347,31 +38,31 @@
       "client": "Netflix Original Series",
       "project": "'Lagos Shadows' - Global Drama (Season 2 Finale)",
       "budget": "$45,000 – $75,000 (All-in Master & Sync)",
-      "topMatchTrack": "Tears to Triumphs by Femme Fatale LJ (98% match - 🟢 SYNC READY — 100%)"
+      "topMatchTrack": "KIRA by Drey Star (78% match - 🟢 SYNC READY — 98%)"
     },
     {
       "client": "Porsche / Luxury Auto Brand",
       "project": "Panamera Electric - Pan-African Launch Campaign",
       "budget": "$60,000 – $95,000",
-      "topMatchTrack": "Midnight Eko (Luxury Edition) by Drey Star (95% match - 🟢 SYNC READY — 96%)"
+      "topMatchTrack": "KIRA by Drey Star (80% match - 🟢 SYNC READY — 98%)"
     },
     {
       "client": "EA Sports",
       "project": "EA FC 27 (FIFA) Official In-Game & Menu Soundtrack",
       "budget": "$35,000 – $55,000 + Global In-Game Royalty",
-      "topMatchTrack": "Island Groove by K-Breeze (94% match - 🟡 CLEARANCE REQUIRED — 72%)"
+      "topMatchTrack": "KIRA by Drey Star (78% match - 🟢 SYNC READY — 98%)"
     },
     {
       "client": "Lagos Luxury Real Estate Group",
       "project": "Eko Atlantic Waterfront Towers Commercial",
       "budget": "$25,000 – $40,000",
-      "topMatchTrack": "Midnight Eko (Luxury Edition) by Drey Star (96% match - 🟢 SYNC READY — 96%)"
+      "topMatchTrack": "KIRA by Drey Star (78% match - 🟢 SYNC READY — 98%)"
     },
     {
       "client": "Global Tourism & Hospitality (Marriott / African Luxury)",
       "project": "Discover Africa - Heritage & Hospitality Documentary Series",
       "budget": "$20,000 – $35,000",
-      "topMatchTrack": "Majestic Heritage by Ayo Crown (95% match - 🟢 SYNC READY — 94%)"
+      "topMatchTrack": "KIRA by Drey Star (84% match - 🟢 SYNC READY — 98%)"
     }
   ]
 }

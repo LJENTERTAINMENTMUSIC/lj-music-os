@@ -250,6 +250,15 @@ app.get('/api/sync/match/:briefId', (req, res) => {
   res.json(match);
 });
 
+app.get('/api/sync/submissions', (req, res) => {
+  const submissionsFile = path.join(dataDir, 'syncSubmissions.json');
+  if (fs.existsSync(submissionsFile)) {
+    const data = JSON.parse(fs.readFileSync(submissionsFile, 'utf8'));
+    return res.json(data);
+  }
+  res.json([]);
+});
+
 // -------------------------------------------------------------
 // 9. AI MUSIC COPILOT (KILLER FEATURE: "TELL ME WHAT YOU'RE TRYING TO ACHIEVE")
 // -------------------------------------------------------------

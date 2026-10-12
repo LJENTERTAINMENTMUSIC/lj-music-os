@@ -20,7 +20,8 @@ function generatePitchCard(track, telemetry, rights) {
   const recommendedDestinations = [];
 
   // Editorial Playlists
-  if (track.genre.toLowerCase().includes("afrobeats")) {
+  const genreLower = track.genre.toLowerCase().replace(/[-\s]/g, '');
+  if (genreLower.includes("afrobeat") || genreLower.includes("afropop") || genreLower.includes("afrofusion")) {
     recommendedDestinations.push({
       category: "Editorial Playlists",
       target: "Spotify: African Heat, New Music Friday Africa, Lagos City Pop",
