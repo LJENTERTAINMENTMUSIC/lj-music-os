@@ -3,27 +3,31 @@
  * Enterprise Postgres & Realtime sync layer for catalogue, telemetry, and lyrics.
  */
 
-let supabase = null;
+try {
+  require('dotenv').config();
+} catch (e) {}
 
-const SUPABASE_URL = process.env.SUPABASE_URL || '';
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+let supabase = null;
 
 function getSupabaseClient() {
   if (supabase) return supabase;
 
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
+  const url = process.env.SUPABASE_URL || '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+
+  if (!url || !key) {
     return null;
   }
 
   try {
     const { createClient } = require('@supabase/supabase-js');
-    supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    supabase = createClient(url, key, {
       auth: {
         persistSession: false,
         autoRefreshToken: true
       }
     });
-    console.log('⚡ Connected to Supabase enterprise database at:', SUPABASE_URL);
+    console.log('⚡ Connected to Supabase enterprise database at:', url);
     return supabase;
   } catch (err) {
     console.warn('⚠️ Supabase SDK initialization skipped or not installed:', err.message);
@@ -32,12 +36,23 @@ function getSupabaseClient() {
 }
 
 async function checkSupabaseConnection() {
-  const client = getSupabaseClient();
-  if (!client) {
+  const url = process.env.SUPABASE_URL || '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+
+  if (!url || !key) {
     return {
       connected: false,
       configured: false,
       message: 'Supabase credentials not configured in environment (SUPABASE_URL and SUPABASE_ANON_KEY required)'
+    };
+  }
+
+  const client = getSupabaseClient();
+  if (!client) {
+    return {
+      connected: false,
+      configured: true,
+      message: 'Supabase client could not be instantiated'
     };
   }
 
@@ -47,18 +62,21 @@ async function checkSupabaseConnection() {
       return {
         connected: false,
         configured: true,
+        url,
         error: error.message
       };
     }
     return {
       connected: true,
       configured: true,
+      url,
       message: 'Successfully connected and verified against Supabase database.'
     };
   } catch (err) {
     return {
       connected: false,
       configured: true,
+      url,
       error: err.message
     };
   }
