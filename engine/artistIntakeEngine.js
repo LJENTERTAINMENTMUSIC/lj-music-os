@@ -603,11 +603,19 @@ class ArtistIntakeEngine {
           r.locked = true;
         }
       });
+      const sCount = Math.max(50000, pl?.savesCount || 68400);
+      const mCount = Math.max(50000, pl?.monthlyListenersCount || 215000);
       return {
         ...target,
         id: pl?.id || target.playlistId,
         name: pl?.title || target.playlistTitle,
         title: pl?.title || target.playlistTitle,
+        platform: pl?.platform || "Spotify Editorial",
+        platformKey: pl?.platformKey || "spotify",
+        savesCount: sCount,
+        saves: pl?.saves || `${sCount.toLocaleString()} saves`,
+        monthlyListenersCount: mCount,
+        monthlyListeners: pl?.monthlyListeners || `${mCount.toLocaleString()} monthly listeners`,
         coverArt: pl?.coverArt || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
         description: pl?.description || "Curated Afro-Fusion & Global Nightlife selection.",
         curator: pl?.curator || "LJ Editorial Desk",

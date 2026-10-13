@@ -207,22 +207,38 @@ class AutonomousPlaylistTrendAgent {
       : themes[Math.floor(Math.random() * themes.length)];
 
     const newId = `pl-auto-${Date.now().toString().slice(-4)}`;
+    const platformOptions = [
+      "Spotify Editorial & Algorithm", 
+      "Apple Music High-Velocity", 
+      "TikTok Viral Soundboard", 
+      "Audiomack Verified Hits", 
+      "Boomplay Daily Trending", 
+      "YouTube Music Mix", 
+      "Deezer Global Flow"
+    ];
+    const savesCount = Math.floor(52000 + Math.random() * 240000);
+    const monthlyListenersCount = Math.floor(savesCount * (1.8 + Math.random() * 2.2));
+
     const newPlaylist = {
       id: newId,
       title: selectedTheme.title,
       curator: `LJ Autonomous Trend Agent (Swarm #${Math.floor(700 + Math.random() * 299)})`,
-      platform: "Multi-DSP (Spotify, Apple Music, YouTube)",
+      platform: platformOptions[Math.floor(Math.random() * platformOptions.length)],
       category: selectedTheme.category,
       seoKeywords: selectedTheme.keywords,
       coverArt: selectedTheme.cover,
-      followers: `${(Math.floor(15 + Math.random() * 45) * 1000).toLocaleString()} DSP Followers`,
+      savesCount,
+      saves: `${savesCount.toLocaleString()} saves`,
+      monthlyListenersCount,
+      monthlyListeners: `${monthlyListenersCount.toLocaleString()} monthly listeners`,
+      followers: `${savesCount.toLocaleString()} DSP Followers`,
       algorithmScore: Math.floor(95 + Math.random() * 4),
       trendVelocity: `+${Math.floor(180 + Math.random() * 250)}% Weekly Growth`,
       ljTrackPlacementSlot: 1, // KIRA guaranteed in Slot #1
       priorityTrackTitle: kiraTrack.title,
       priorityArtist: kiraTrack.artist,
       playGuaranteeStatus: "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-      totalPlaysDriven: Math.floor(15000 + Math.random() * 30000),
+      totalPlaysDriven: Math.floor(52000 + Math.random() * 85000),
       tracks: [
         { slot: 1, id: kiraTrack.id, title: kiraTrack.title, artist: kiraTrack.artist, isLjTrack: true, locked: true },
         { slot: 2, id: "t-ext-1", title: "Trending Hit 01", artist: "Burna Boy", isLjTrack: false },

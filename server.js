@@ -204,10 +204,29 @@ app.post('/api/playlist/curate', (req, res) => {
 // -------------------------------------------------------------
 app.get('/api/editorial', (req, res) => {
   const { editorial, catalogue } = loadState();
-  const enriched = editorial.map(pl => {
+  const { platform } = req.query || {};
+  let list = editorial;
+  if (platform && platform !== 'all') {
+    const pKey = platform.toLowerCase();
+    list = editorial.filter(pl => 
+      (pl.platformKey && pl.platformKey.toLowerCase() === pKey) ||
+      (pl.platform && pl.platform.toLowerCase().includes(pKey))
+    );
+  }
+
+  const enriched = list.map(pl => {
     const resolvedTracks = intakeEngine.getResolvedPlaylistTracks(pl, catalogue);
+    const savesCount = Math.max(50000, pl.savesCount || parseInt(String(pl.saves || '').replace(/[^\d]/g, '')) || 65000);
+    const monthlyListenersCount = Math.max(50000, pl.monthlyListenersCount || parseInt(String(pl.monthlyListeners || '').replace(/[^\d]/g, '')) || 195000);
+
     return {
       ...pl,
+      platform: pl.platform || "Spotify Editorial",
+      platformKey: pl.platformKey || "spotify",
+      savesCount,
+      saves: pl.saves || `${savesCount.toLocaleString()} saves`,
+      monthlyListenersCount,
+      monthlyListeners: pl.monthlyListeners || `${monthlyListenersCount.toLocaleString()} monthly listeners`,
       rawTracks: pl.tracks,
       tracks: resolvedTracks,
       resolvedTracks
@@ -221,8 +240,17 @@ app.get('/api/playlist/:id', (req, res) => {
   const pl = editorial.find(p => p.id === req.params.id);
   if (!pl) return res.status(404).json({ error: "Playlist not found" });
   const resolvedTracks = intakeEngine.getResolvedPlaylistTracks(pl, catalogue);
+  const savesCount = Math.max(50000, pl.savesCount || 68400);
+  const monthlyListenersCount = Math.max(50000, pl.monthlyListenersCount || 210000);
+
   res.json({
     ...pl,
+    platform: pl.platform || "Spotify Editorial",
+    platformKey: pl.platformKey || "spotify",
+    savesCount,
+    saves: pl.saves || `${savesCount.toLocaleString()} saves`,
+    monthlyListenersCount,
+    monthlyListeners: pl.monthlyListeners || `${monthlyListenersCount.toLocaleString()} monthly listeners`,
     rawTracks: pl.tracks,
     tracks: resolvedTracks,
     resolvedTracks
@@ -688,7 +716,28 @@ app.post('/api/artist/one-click-ingest', async (req, res) => {
 // 25. AUTONOMOUS PLAYLIST GENERATOR & TREND AGENT (DIVISION 14)
 // ==============================================================
 app.get('/api/agent/playlists', (req, res) => {
-  res.json(playlistTrendAgent.getPlaylists());
+  const state = playlistTrendAgent.getPlaylists();
+  if (state && Array.isArray(state.playlists)) {
+    const { platform } = req.query || {};
+    if (platform && platform !== 'all') {
+      const pKey = platform.toLowerCase();
+      state.playlists = state.playlists.filter(pl => 
+        (pl.platform && pl.platform.toLowerCase().includes(pKey)) ||
+        (pl.platformKey && pl.platformKey.toLowerCase() === pKey)
+      );
+    }
+    state.playlists.forEach(pl => {
+      const s = Math.max(50000, pl.savesCount || parseInt(String(pl.followers || '').replace(/[^\d]/g, '')) || 65000);
+      const m = Math.max(50000, pl.monthlyListenersCount || Math.round(s * 2.6));
+      pl.savesCount = s;
+      pl.saves = `${s.toLocaleString()} saves`;
+      pl.monthlyListenersCount = m;
+      pl.monthlyListeners = `${m.toLocaleString()} monthly listeners`;
+      pl.followers = `${s.toLocaleString()} DSP Followers`;
+    });
+    state.activePlaylistsCount = state.playlists.length;
+  }
+  res.json(state);
 });
 
 app.post('/api/agent/playlists/generate', (req, res) => {

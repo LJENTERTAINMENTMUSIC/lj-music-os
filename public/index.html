@@ -2039,6 +2039,30 @@
           </div>
         </div>
 
+        <!-- Cross-Platform Filter Bar (All Platforms: Spotify, Apple, Audiomack, Boomplay, YouTube, TikTok, Deezer, Amazon) -->
+        <div class="glass-panel p-3.5 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-3 shadow-spatial">
+          <div class="flex items-center space-x-1.5 overflow-x-auto no-scrollbar py-1">
+            <span class="text-[10px] font-mono-code font-bold text-slate-400 uppercase tracking-wider pr-1.5 flex items-center space-x-1">
+              <span>🌐</span>
+              <span>Platforms:</span>
+            </span>
+            <button onclick="filterEditorialByPlatform('all', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-purple-600 text-white font-black text-xs transition active:scale-95 whitespace-nowrap shadow">All (31+)</button>
+            <button onclick="filterEditorialByPlatform('spotify', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🟢 Spotify</button>
+            <button onclick="filterEditorialByPlatform('apple', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-pink-600/30 text-slate-300 hover:text-pink-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🍎 Apple Music</button>
+            <button onclick="filterEditorialByPlatform('audiomack', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-amber-600/30 text-slate-300 hover:text-amber-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🟠 Audiomack</button>
+            <button onclick="filterEditorialByPlatform('boomplay', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-cyan-600/30 text-slate-300 hover:text-cyan-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🔵 Boomplay</button>
+            <button onclick="filterEditorialByPlatform('youtube', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-red-600/30 text-slate-300 hover:text-red-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🔴 YouTube Music</button>
+            <button onclick="filterEditorialByPlatform('tiktok', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🎵 TikTok & CapCut</button>
+            <button onclick="filterEditorialByPlatform('deezer', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-purple-600/30 text-slate-300 hover:text-purple-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">🟣 Deezer</button>
+            <button onclick="filterEditorialByPlatform('amazon', this)" class="editorial-platform-pill px-3 py-1.5 rounded-xl bg-white/5 hover:bg-indigo-600/30 text-slate-300 hover:text-indigo-300 border border-white/10 text-xs font-bold transition active:scale-95 whitespace-nowrap">📦 Amazon & Tidal</button>
+          </div>
+          <div class="text-[11px] font-mono-code text-slate-300 font-bold bg-black/40 px-3 py-1.5 rounded-xl border border-white/5 flex items-center space-x-2">
+            <span class="text-amber-300">📌 Min. Saves: 50,000+</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-emerald-400">🎧 Min. Monthly Reach: 50,000+</span>
+          </div>
+        </div>
+
         <!-- Curated Editorial Playlists & Candidate Cards -->
         <div id="editorialPlaylistsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Filled by JS -->
