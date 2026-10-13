@@ -1,0 +1,206 @@
+[
+  {
+    "id": "pl-auto-001",
+    "title": "TikTok Viral Afrobeats 2026",
+    "curator": "LJ Autonomous Trend Agent (Swarm #741)",
+    "platform": "Multi-DSP (Spotify, Apple Music, YouTube Music)",
+    "category": "Viral Velocity",
+    "seoKeywords": "viral afrobeats, drey star kira, lagos sounds, tiktok dance trend",
+    "coverArt": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+    "followers": "48,200 DSP Followers",
+    "algorithmScore": 98,
+    "trendVelocity": "+340% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "KIRA",
+    "priorityArtist": "Drey Star",
+    "playGuaranteeStatus": "ACTIVE (Heavy Algorithmic Rotation)",
+    "totalPlaysDriven": 142800,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-000",
+        "title": "KIRA",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "t-002",
+        "title": "Unavailable",
+        "artist": "Davido",
+        "isLjTrack": false
+      },
+      {
+        "slot": 3,
+        "id": "t-003",
+        "title": "City Boys",
+        "artist": "Burna Boy",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-004",
+        "title": "Calm Down",
+        "artist": "Rema",
+        "isLjTrack": false
+      },
+      {
+        "slot": 5,
+        "id": "t-005",
+        "title": "Soweto",
+        "artist": "Victony",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-13T07:03:47.333Z"
+  },
+  {
+    "id": "pl-auto-002",
+    "title": "Lagos Midnight Pulse (Afro-Nightlife)",
+    "curator": "LJ Autonomous Trend Agent (Swarm #812)",
+    "platform": "Multi-DSP (Spotify, Apple Music)",
+    "category": "Nightlife & Club",
+    "seoKeywords": "lagos nightlife, afro fusion club, amapiano groove, drey star",
+    "coverArt": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    "followers": "31,900 DSP Followers",
+    "algorithmScore": 96,
+    "trendVelocity": "+215% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "KIRA",
+    "priorityArtist": "Drey Star",
+    "playGuaranteeStatus": "ACTIVE (Peak Nightlife Prime Time)",
+    "totalPlaysDriven": 98400,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-000",
+        "title": "KIRA",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "t-006",
+        "title": "Amapiano Heat",
+        "artist": "Asake",
+        "isLjTrack": false
+      },
+      {
+        "slot": 3,
+        "id": "t-007",
+        "title": "Rush",
+        "artist": "Ayra Starr",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-008",
+        "title": "Finesse",
+        "artist": "Pheelz",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-13T07:03:47.334Z"
+  },
+  {
+    "id": "pl-auto-003",
+    "title": "Acoustic Yoruba Soul & Highlife Revival",
+    "curator": "LJ Autonomous Trend Agent (Swarm #904)",
+    "platform": "Multi-DSP (Apple Music, Spotify)",
+    "category": "Heritage & Soul",
+    "seoKeywords": "dr orlando owoh, highlife revival, yoruba praise, drey star acoustic",
+    "coverArt": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+    "followers": "24,500 DSP Followers",
+    "algorithmScore": 94,
+    "trendVelocity": "+180% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "Aiye Nreti Eleya",
+    "priorityArtist": "Dr. Orlando Owoh",
+    "playGuaranteeStatus": "ACTIVE (Heritage Heavy Rotation)",
+    "totalPlaysDriven": 64200,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-001",
+        "title": "Aiye Nreti Eleya",
+        "artist": "Dr. Orlando Owoh",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "lj-000",
+        "title": "KIRA (Acoustic Soul Edit)",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 3,
+        "id": "t-009",
+        "title": "Sweet Mother",
+        "artist": "Prince Nico Mbarga",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-010",
+        "title": "Joromi",
+        "artist": "Victor Uwaifo",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-13T07:03:47.334Z"
+  },
+  {
+    "id": "pl-auto-004",
+    "title": "London to Lagos: Global Diaspora Heat",
+    "curator": "LJ Autonomous Trend Agent (Swarm #992)",
+    "platform": "Multi-DSP (Spotify, Apple Music, YouTube)",
+    "category": "Diaspora Crossover",
+    "seoKeywords": "uk afrobeats, london lagos, drey star kira, afroswing",
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "followers": "39,100 DSP Followers",
+    "algorithmScore": 97,
+    "trendVelocity": "+290% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "KIRA",
+    "priorityArtist": "Drey Star",
+    "playGuaranteeStatus": "ACTIVE (Global Algorithmic Pickup)",
+    "totalPlaysDriven": 112000,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-000",
+        "title": "KIRA",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "t-011",
+        "title": "People",
+        "artist": "Libianca",
+        "isLjTrack": false
+      },
+      {
+        "slot": 3,
+        "id": "t-012",
+        "title": "Charm",
+        "artist": "Rema",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-013",
+        "title": "Free Mind",
+        "artist": "Tems",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-13T07:03:47.334Z"
+  }
+]

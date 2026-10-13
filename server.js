@@ -32,6 +32,9 @@ const { evaluateCuratorPitch } = require('./engine/curatorCrmEngine');
 const { scanCatalogueForRevival } = require('./engine/catalogueRevivalEngine');
 const LyricsIntelligenceEngine = require('./engine/lyricsIntelligenceEngine');
 const ArtistIntakeEngine = require('./engine/artistIntakeEngine');
+const UniversalArtistResolver = require('./engine/artistResolver');
+const AutonomousPlaylistTrendAgent = require('./engine/autonomousPlaylistTrendAgent');
+const OnlineRadioAutoPlayAgent = require('./engine/onlineRadioAutoPlayAgent');
 const { checkSupabaseConnection, configureSupabase } = require('./engine/supabaseClient');
 
 const app = express();
@@ -58,6 +61,9 @@ const scheduler = new AutomationScheduler(__dirname);
 const swarm = new SwarmOrchestrator(__dirname);
 const lyricsEngine = new LyricsIntelligenceEngine(__dirname);
 const intakeEngine = new ArtistIntakeEngine(__dirname);
+const universalResolver = new UniversalArtistResolver(__dirname);
+const playlistTrendAgent = new AutonomousPlaylistTrendAgent(__dirname);
+const onlineRadioAgent = new OnlineRadioAutoPlayAgent(__dirname);
 
 // Helper to reload data
 function loadState() {
@@ -597,6 +603,64 @@ app.post('/api/artist/clear-roster', (req, res) => {
 app.post('/api/artist/restore-catalogue', (req, res) => {
   const result = intakeEngine.restoreBenchmarkCatalogue();
   res.json(result);
+});
+
+// ==============================================================
+// 24. UNIVERSAL MULTI-PLATFORM ARTIST RESOLVER (SPOTIFY + APPLE)
+// ==============================================================
+app.get('/api/artist/resolve-link', async (req, res) => {
+  const query = req.query.link || req.query.q || req.query.query || "";
+  const result = await universalResolver.resolveArtist(query);
+  res.json(result);
+});
+
+app.post('/api/artist/resolve-link', async (req, res) => {
+  const query = req.body.link || req.body.query || "";
+  const result = await universalResolver.resolveArtist(query);
+  res.json(result);
+});
+
+app.post('/api/artist/one-click-ingest', async (req, res) => {
+  try {
+    const { artistProfile } = req.body;
+    const result = await universalResolver.ingestVerifiedArtist(artistProfile, intakeEngine);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to ingest artist", details: err.message });
+  }
+});
+
+// ==============================================================
+// 25. AUTONOMOUS PLAYLIST GENERATOR & TREND AGENT (DIVISION 14)
+// ==============================================================
+app.get('/api/agent/playlists', (req, res) => {
+  res.json(playlistTrendAgent.getPlaylists());
+});
+
+app.post('/api/agent/playlists/generate', (req, res) => {
+  const { theme } = req.body || {};
+  res.json(playlistTrendAgent.generateTrendingPlaylist(theme));
+});
+
+app.post('/api/agent/playlists/rebalance', (req, res) => {
+  res.json(playlistTrendAgent.rebalanceAndEnsureLJSongPlacement());
+});
+
+// ==============================================================
+// 26. ONLINE RADIO AUTONOMOUS ROTATION & AUTO-PLAY (DIVISION 16)
+// ==============================================================
+app.get('/api/agent/radio/state', (req, res) => {
+  res.json(onlineRadioAgent.getRadioState());
+});
+
+app.post('/api/agent/radio/spin', (req, res) => {
+  const { trackId } = req.body || {};
+  res.json(onlineRadioAgent.forceRadioSpin(trackId || 'lj-000'));
+});
+
+app.post('/api/agent/radio/toggle', (req, res) => {
+  const { enabled } = req.body || {};
+  res.json(onlineRadioAgent.toggleAutoPlay(enabled));
 });
 
 // Platform Integration Health Check
