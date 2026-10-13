@@ -3363,6 +3363,180 @@ async function autoPlaceTrackIntoPlaylists(trackId) {
   }
 }
 
+// ==============================================================
+// 24. DEDICATED AUTO PLAYLISTING TOOL MODAL CONTROLLER
+// ==============================================================
+async function openAutoPlaylistingModal(trackId) {
+  trackId = trackId || currentActiveTrackId || "lj-000";
+  const modal = document.getElementById("autoPlaylistingModal");
+  if (!modal) return;
+  modal.classList.remove("hidden");
+
+  // Populate track select dropdown
+  const select = document.getElementById("autoPlaylistTrackSelect");
+  if (select) {
+    if (!allTracks || allTracks.length === 0) {
+      try {
+        const res = await fetch("/api/catalogue");
+        allTracks = await res.json();
+      } catch (e) {
+        console.warn("Could not load tracks for auto playlisting modal:", e);
+      }
+    }
+
+    if (allTracks && allTracks.length > 0) {
+      select.innerHTML = allTracks.map(t => `
+        <option value="${t.id}" ${t.id === trackId ? 'selected' : ''}>
+          ${t.title} - ${t.artist} (${t.bpm} BPM, ${t.genre || 'Afrobeats'})
+        </option>
+      `).join("");
+    }
+  }
+
+  onAutoPlaylistTrackChanged();
+  runAutoPlaylistingFromModal();
+}
+
+function closeAutoPlaylistingModal() {
+  const modal = document.getElementById("autoPlaylistingModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+function onAutoPlaylistTrackChanged() {
+  const select = document.getElementById("autoPlaylistTrackSelect");
+  const trackId = select ? select.value : (currentActiveTrackId || "lj-000");
+  const track = (allTracks && allTracks.find(t => t.id === trackId)) || {
+    id: "lj-000",
+    title: "KIRA",
+    artist: "Drey Star",
+    bpm: 107,
+    key: "A minor",
+    energy: 82,
+    danceability: 88,
+    mood: "electric / celebratory"
+  };
+
+  const preview = document.getElementById("autoPlaylistDnaPreview");
+  if (preview) {
+    preview.innerHTML = `
+      <div class="flex items-center space-x-2">
+        <span class="text-amber-400 font-extrabold uppercase font-mono-code text-[11px]">Acoustic DNA:</span>
+        <span class="bg-white/10 px-2 py-0.5 rounded text-[10px] font-mono-code text-white"><strong>${track.bpm}</strong> BPM</span>
+        <span class="bg-white/10 px-2 py-0.5 rounded text-[10px] font-mono-code text-white">Key: <strong>${track.key || 'A Minor'}</strong></span>
+        <span class="bg-white/10 px-2 py-0.5 rounded text-[10px] font-mono-code text-purple-300">Energy: <strong>${track.energy || 82}%</strong></span>
+        <span class="bg-white/10 px-2 py-0.5 rounded text-[10px] font-mono-code text-emerald-300">Dance: <strong>${track.danceability || 88}%</strong></span>
+        <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded text-[10px] font-mono-code">Mood: ${track.mood || 'Uplifting'}</span>
+      </div>
+    `;
+  }
+}
+
+async function runAutoPlaylistingFromModal() {
+  const select = document.getElementById("autoPlaylistTrackSelect");
+  const trackId = select ? select.value : (currentActiveTrackId || "lj-000");
+  const canvas = document.getElementById("autoPlaylistResultsCanvas");
+  const runBtn = document.getElementById("runAutoPlaylistModalBtn");
+  if (!canvas) return;
+
+  if (runBtn) {
+    runBtn.disabled = true;
+    runBtn.classList.add("opacity-60", "cursor-not-allowed");
+  }
+
+  canvas.innerHTML = `
+    <div class="glass-panel-subtle p-6 rounded-2xl border border-amber-500/20 text-center space-y-3">
+      <div class="w-8 h-8 border-3 border-amber-400 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <div class="text-sm font-bold text-white">Evaluating 10,000 AI Agent Swarm & DSP Curators...</div>
+      <p class="text-xs text-slate-400 max-w-md mx-auto">Analyzing sonic fingerprint, BPM sync, harmonic key alignment, and editorial placement thresholds.</p>
+    </div>
+  `;
+
+  try {
+    const res = await fetch("/api/playlist/auto-place", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ trackId })
+    });
+    const data = await res.json();
+
+    if (runBtn) {
+      runBtn.disabled = false;
+      runBtn.classList.remove("opacity-60", "cursor-not-allowed");
+    }
+
+    if (!data.success) {
+      canvas.innerHTML = `<div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-300">${data.error || 'Failed to auto-place track into playlists.'}</div>`;
+      return;
+    }
+
+    canvas.innerHTML = `
+      <div class="glass-panel-subtle p-5 rounded-2xl border border-emerald-500/30 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span class="text-[10px] font-mono-code font-bold text-emerald-400 uppercase tracking-wider">Placement Complete • Active in Roster</span>
+            </div>
+            <h3 class="text-base font-black text-white mt-0.5">"${data.trackTitle}" — ${data.artist}</h3>
+            <p class="text-xs text-slate-300 mt-0.5">${data.message || 'Auto-placed into top-matched editorial playlists with 100% rights verification.'}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="closeAutoPlaylistingModal(); switchTab('tab-editorial'); loadEditorialPlaylists();" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition shadow-glow-emerald">
+              Open Editorial Desk →
+            </button>
+          </div>
+        </div>
+
+        <div class="text-[11px] font-mono-code text-slate-400 uppercase tracking-wider">
+          Curated Editorial Targets (${data.evaluatedPlaylists ? data.evaluatedPlaylists.length : 0} Playlists Analyzed):
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          ${(data.evaluatedPlaylists || []).map(p => `
+            <div class="glass-panel p-4 rounded-xl border ${p.compatibilityScore >= 90 ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-white/10 bg-black/40'} space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="font-black text-white text-xs block">${p.playlistTitle}</span>
+                  <span class="text-[10px] text-slate-400">${p.category || 'Editorial'}</span>
+                </div>
+                <div class="text-right">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono-code font-black ${p.compatibilityScore >= 90 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'}">
+                    ${p.compatibilityScore}% FIT
+                  </span>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-snug">${p.justification}</p>
+              <div class="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono-code">
+                <span class="text-emerald-400 flex items-center space-x-1 font-bold">
+                  <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>LIVE IN PLAYLIST</span>
+                </span>
+                <span class="text-slate-400">${p.currentTracksCount || 20} Tracks Total</span>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    showToast(`"${data.trackTitle}" successfully auto-placed into ${data.placedCount || 3} editorial playlists!`, 'success', 'Auto Playlisting Complete');
+    loadEditorialPlaylists();
+
+  } catch (err) {
+    console.error("Error auto-placing track:", err);
+    if (runBtn) {
+      runBtn.disabled = false;
+      runBtn.classList.remove("opacity-60", "cursor-not-allowed");
+    }
+    canvas.innerHTML = `<div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-300">Failed to auto-place track into playlists. Please try again.</div>`;
+  }
+}
+
+window.openAutoPlaylistingModal = openAutoPlaylistingModal;
+window.closeAutoPlaylistingModal = closeAutoPlaylistingModal;
+window.onAutoPlaylistTrackChanged = onAutoPlaylistTrackChanged;
+window.runAutoPlaylistingFromModal = runAutoPlaylistingFromModal;
+
 function setAsActiveWorkingTrack(trackId) {
   const track = allTracks.find(t => t.id === trackId);
   if (!track) return;

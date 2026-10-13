@@ -553,8 +553,8 @@ class ArtistIntakeEngine {
         category: pl.category,
         compatibilityScore: finalCompatibility,
         justification,
-        currentTracksCount: pl.tracks.length,
-        alreadyPlaced: pl.tracks.some(t => t.trackId === track.id)
+        currentTracksCount: (pl.tracks || []).length,
+        alreadyPlaced: (pl.tracks || []).some(t => (typeof t === 'string' ? t : (t?.trackId || t?.id || '')) === track.id)
       };
     });
 
@@ -563,15 +563,17 @@ class ArtistIntakeEngine {
 
     // Pick top 3 playlists and execute placement
     const placedIn = [];
+    const getTrackId = (t) => typeof t === 'string' ? t : (t?.trackId || t?.id || '');
+
     evaluatedPlaylists.slice(0, 3).forEach(target => {
       const pl = playlists.find(p => p.id === target.playlistId);
-      if (pl && !pl.tracks.some(t => t.trackId === track.id)) {
+      if (pl && !(pl.tracks || []).some(t => getTrackId(t) === track.id)) {
         pl.tracks.push({
           trackId: track.id,
           rationale: target.justification
         });
         // Recalculate LJ artist share
-        const ljCount = pl.tracks.filter(t => t.trackId.startsWith("lj-")).length;
+        const ljCount = pl.tracks.filter(t => getTrackId(t).startsWith("lj-")).length;
         pl.ljArtistSharePct = Math.round((ljCount / pl.tracks.length) * 100);
         pl.lastUpdated = new Date().toISOString().split('T')[0];
         placedIn.push({
