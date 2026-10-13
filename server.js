@@ -708,8 +708,8 @@ app.get('/api/agent/radio/state', (req, res) => {
 });
 
 app.post('/api/agent/radio/spin', (req, res) => {
-  const { trackId } = req.body || {};
-  res.json(onlineRadioAgent.forceRadioSpin(trackId || 'lj-000'));
+  const { trackId, stationId } = req.body || {};
+  res.json(onlineRadioAgent.forceRadioSpin(trackId || 'lj-000', stationId));
 });
 
 app.post('/api/agent/radio/toggle', (req, res) => {

@@ -164,9 +164,9 @@ class OnlineRadioAutoPlayAgent {
   }
 
   /**
-   * Forces an immediate live broadcast spin of an LJ Track across all stations
+   * Forces an immediate live broadcast spin of an LJ Track across all stations or a specific station
    */
-  forceRadioSpin(trackId = "lj-000") {
+  forceRadioSpin(trackId = "lj-000", stationId = null) {
     this.initStorage();
     const state = this._loadJson(this.storageFile);
     const catalogue = this._loadJson(this.catalogueFile);
@@ -177,32 +177,50 @@ class OnlineRadioAutoPlayAgent {
       coverArt: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd"
     };
 
-    state.totalDailySpins = (state.totalDailySpins || 1482) + 4;
+    const targetStations = stationId 
+      ? state.stations.filter(s => s.id === stationId) 
+      : state.stations;
+    const stationsToUpdate = (targetStations && targetStations.length > 0) ? targetStations : state.stations;
+
+    state.totalDailySpins = (state.totalDailySpins || 1482) + (stationId ? 1 : 4);
     state.lastBroadcastAt = new Date().toISOString();
 
-    state.stations.forEach(st => {
+    const nowPlaying = {
+      title: track.title,
+      artist: track.artist,
+      isLjPriority: true,
+      rotationLevel: "FORCED POWER SPIN (LIVE NOW)",
+      djIntro: `[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing '${track.title}' by ${track.artist}!`,
+      streamUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
+      coverArt: track.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+      elapsedSeconds: 0,
+      durationSeconds: 231
+    };
+
+    stationsToUpdate.forEach(st => {
       st.currentTrack = {
-        title: track.title,
-        artist: track.artist,
-        isLjPriority: true,
-        rotationLevel: "FORCED POWER SPIN (LIVE NOW)",
-        djIntro: `[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing '${track.title}' by ${track.artist} on ${st.name}!`,
-        streamUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
-        coverArt: track.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
-        elapsedSeconds: 0,
-        durationSeconds: 231
+        ...nowPlaying,
+        djIntro: `[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing '${track.title}' by ${track.artist} on ${st.name}!`
       };
     });
 
     this._saveJson(this.storageFile, state);
 
+    const primaryStation = stationsToUpdate[0] || state.stations[0] || { id: "rad-001", name: "Lagos Nights Radio" };
+
     return {
       success: true,
       broadcastTrack: track.title,
       artist: track.artist,
-      stationsSpunCount: state.stations.length,
+      station: primaryStation,
+      targetStation: primaryStation,
+      nowPlaying,
+      currentTrack: nowPlaying,
+      stationsSpunCount: stationsToUpdate.length,
       totalDailySpins: state.totalDailySpins,
-      message: `⚡ Live Radio Spin Activated! "${track.title}" by ${track.artist} is now ON AIR across all ${state.stations.length} online radio broadcast stations!`
+      message: stationId 
+        ? `⚡ Live Radio Spin Activated! "${track.title}" by ${track.artist} is now ON AIR on ${primaryStation.name}!`
+        : `⚡ Live Radio Spin Activated! "${track.title}" by ${track.artist} is now ON AIR across all ${state.stations.length} online radio broadcast stations!`
     };
   }
 

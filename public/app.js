@@ -5154,20 +5154,41 @@ async function loadOnlineRadioConsole() {
   }
 }
 
-async function forceRadioSpinFromUI(stationId) {
+async function forceRadioSpinFromUI(stationIdOrTrackId, maybeTrackId) {
   showToast("Triggering instant Live Radio Spin Override on web radio relay...", "info", "Radio Override");
+
+  let stationId = null;
+  let trackId = typeof currentActiveTrackId !== 'undefined' && currentActiveTrackId ? currentActiveTrackId : "lj-000";
+
+  if (typeof stationIdOrTrackId === 'string' && stationIdOrTrackId.trim()) {
+    const val = stationIdOrTrackId.trim();
+    if (val.startsWith('rad-')) {
+      stationId = val;
+      if (maybeTrackId) trackId = maybeTrackId;
+    } else {
+      trackId = val;
+      if (maybeTrackId && maybeTrackId.startsWith('rad-')) stationId = maybeTrackId;
+    }
+  }
 
   try {
     const res = await fetch("/api/agent/radio/spin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ stationId, trackId: currentActiveTrackId || "lj-000" })
+      body: JSON.stringify({ stationId, trackId })
     });
     const data = await res.json();
 
-    if (data.success) {
-      showToast(`⚡ On-Air Override Live! Station ${data.station.name} is now broadcasting "${data.nowPlaying.title}" by ${data.nowPlaying.artist}!`, "success", "On-Air Live");
-      loadOnlineRadioConsole();
+    if (data && data.success) {
+      const stationName = data.station?.name || data.targetStation?.name || (stationId ? "Selected Station" : "All 4 Broadcast Stations");
+      const trackTitle = data.nowPlaying?.title || data.broadcastTrack || "KIRA";
+      const artistName = data.nowPlaying?.artist || data.artist || "Drey Star";
+      showToast(`⚡ On-Air Override Live! Station ${stationName} is now broadcasting "${trackTitle}" by ${artistName}!`, "success", "On-Air Live");
+      if (typeof loadOnlineRadioConsole === 'function') {
+        loadOnlineRadioConsole();
+      }
+    } else {
+      showToast((data && data.error) || "Failed to trigger radio spin override", "error", "Error");
     }
   } catch (err) {
     console.error("Error triggering radio spin:", err);
