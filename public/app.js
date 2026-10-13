@@ -5114,8 +5114,362 @@ async function rebalancePlaylistsFromUI(playlistId) {
 }
 
 // ==============================================================
-// 32. ONLINE RADIO AUTONOMOUS ROTATION & AUTO-PLAY AGENT (DIVISION 16)
 // ==============================================================
+// 32. ONLINE RADIO AUTONOMOUS ROTATION & AUTO-PLAY SWARM (DIVISION 16)
+// ==============================================================
+
+window.radioPlayer = {
+  activeStationId: "rad-001",
+  isPlaying: false,
+  audioElement: null,
+  volume: 0.85,
+  stations: [],
+  autoPlayEnabled: true,
+  timer: null,
+  elapsedSeconds: 0
+};
+
+function initRadioAudio() {
+  if (!window.radioPlayer.audioElement) {
+    window.radioPlayer.audioElement = new Audio();
+    window.radioPlayer.audioElement.preload = "auto";
+    window.radioPlayer.audioElement.volume = window.radioPlayer.volume;
+
+    window.radioPlayer.audioElement.ontimeupdate = () => {
+      const audio = window.radioPlayer.audioElement;
+      if (!audio) return;
+      const cur = Math.floor(audio.currentTime);
+      const m = Math.floor(cur / 60);
+      const s = cur % 60;
+      const timeStr = `LIVE • 0${m}:${s < 10 ? '0' : ''}${s}`;
+      const counterEl = document.getElementById("radioMasterTimeCounter");
+      if (counterEl) counterEl.innerText = timeStr;
+    };
+
+    window.radioPlayer.audioElement.onended = () => {
+      console.log("📻 Radio track finished, automatically spinning next track in rotation queue...");
+      advanceRadioQueue(window.radioPlayer.activeStationId);
+    };
+
+    window.radioPlayer.audioElement.onerror = (e) => {
+      console.warn("Radio audio stream fallback triggered:", e);
+      handleRadioAudioFallback();
+    };
+  }
+}
+
+function handleRadioAudioFallback() {
+  const fallbackUrl = "/audio/station-1-lagos-kira.m4a";
+  if (window.radioPlayer.audioElement && window.radioPlayer.audioElement.src !== window.location.origin + fallbackUrl) {
+    console.log("📻 Switching to high-compatibility studio fallback stream...");
+    window.radioPlayer.audioElement.src = fallbackUrl;
+    window.radioPlayer.audioElement.currentTime = 0;
+    window.radioPlayer.audioElement.play().catch(err => console.warn("Fallback play note:", err));
+  }
+}
+
+async function playRadioLiveStream(stationId = null) {
+  initRadioAudio();
+  
+  if (!stationId) stationId = window.radioPlayer.activeStationId || "rad-001";
+  
+  if (!window.radioPlayer.stations || window.radioPlayer.stations.length === 0) {
+    await loadOnlineRadioConsole();
+  }
+
+  const station = (window.radioPlayer.stations || []).find(s => s.id === stationId) || (window.radioPlayer.stations && window.radioPlayer.stations[0]);
+  if (!station) {
+    showToast("Radio station not found", "error", "Radio Error");
+    return;
+  }
+
+  // If already playing this exact station, toggle pause
+  if (window.radioPlayer.isPlaying && window.radioPlayer.activeStationId === stationId) {
+    pauseRadioLiveStream();
+    return;
+  }
+
+  window.radioPlayer.activeStationId = stationId;
+
+  // Resolve playable audio stream URL
+  let streamSrc = station.currentTrack?.streamUrl;
+  const fallbackMap = {
+    'rad-001': '/audio/station-1-lagos-kira.m4a',
+    'rad-002': '/audio/station-2-london-afrobeats.m4a',
+    'rad-003': '/audio/station-3-heritage-fusion.m4a',
+    'rad-004': '/audio/station-4-club-pulse.m4a'
+  };
+
+  if (!streamSrc || streamSrc.includes('itunes.apple.com')) {
+    streamSrc = fallbackMap[stationId] || '/audio/station-1-lagos-kira.m4a';
+  }
+
+  try {
+    const audio = window.radioPlayer.audioElement;
+    audio.pause();
+    audio.src = streamSrc;
+    audio.currentTime = 0;
+    audio.volume = window.radioPlayer.volume;
+
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          window.radioPlayer.isPlaying = true;
+          updateRadioBroadcastUI();
+          showToast(`📻 Tuned into ${station.name}! Broadcasting "${station.currentTrack?.title || 'KIRA'}" live.`, "success", "Live On-Air");
+        })
+        .catch(err => {
+          console.warn("Direct play blocked by browser autoplay policy:", err);
+          window.radioPlayer.isPlaying = false;
+          updateRadioBroadcastUI();
+          showToast("Click ▶ Listen Live again to permit browser audio streaming.", "info", "Audio Permission");
+        });
+    }
+  } catch (err) {
+    console.error("Radio streaming error:", err);
+    showToast("Error tuning into radio: " + err.message, "error", "Radio Error");
+  }
+}
+
+function pauseRadioLiveStream() {
+  if (window.radioPlayer.audioElement) {
+    window.radioPlayer.audioElement.pause();
+  }
+  window.radioPlayer.isPlaying = false;
+  updateRadioBroadcastUI();
+  showToast("Live Radio broadcast paused.", "info", "Radio Paused");
+}
+
+function toggleRadioBroadcast() {
+  if (window.radioPlayer.isPlaying) {
+    pauseRadioLiveStream();
+  } else {
+    playRadioLiveStream(window.radioPlayer.activeStationId || "rad-001");
+  }
+}
+
+function switchRadioStation(stationId) {
+  playRadioLiveStream(stationId);
+}
+
+function setRadioVolume(val) {
+  const v = Math.max(0, Math.min(100, parseInt(val, 10))) / 100;
+  window.radioPlayer.volume = v;
+  if (window.radioPlayer.audioElement) {
+    window.radioPlayer.audioElement.volume = v;
+  }
+  const label = document.getElementById("radioVolumeLabel");
+  if (label) label.innerText = `${Math.round(v * 100)}%`;
+}
+
+function advanceRadioQueue(stationId) {
+  const station = (window.radioPlayer.stations || []).find(s => s.id === stationId);
+  if (!station) return;
+
+  if (station.nextInQueue && station.nextInQueue.length > 0) {
+    const next = station.nextInQueue.shift();
+    const oldCurrent = station.currentTrack;
+    
+    station.nextInQueue.push({
+      title: oldCurrent.title,
+      artist: oldCurrent.artist,
+      scheduledIn: "35 mins"
+    });
+
+    station.currentTrack = {
+      title: next.title,
+      artist: next.artist,
+      isLjPriority: next.title.includes("KIRA") || next.artist.includes("Drey Star"),
+      rotationLevel: "CONTINUOUS SWARM AUTO-PLAY",
+      djIntro: `[AUTO-DJ]: Up next on ${station.name}, keeping the rhythm going with "${next.title}" by ${next.artist}!`,
+      streamUrl: station.currentTrack.streamUrl,
+      coverArt: oldCurrent.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+      elapsedSeconds: 0,
+      durationSeconds: 231
+    };
+
+    updateRadioBroadcastUI();
+    if (window.radioPlayer.isPlaying) {
+      playRadioLiveStream(stationId);
+    }
+  }
+}
+
+function updateRadioBroadcastUI() {
+  const isPlaying = window.radioPlayer.isPlaying;
+  const activeId = window.radioPlayer.activeStationId || "rad-001";
+  const station = (window.radioPlayer.stations || []).find(s => s.id === activeId) || (window.radioPlayer.stations && window.radioPlayer.stations[0]);
+
+  // 1. Top Global Radio Bar
+  const globalPlayBtn = document.getElementById("globalRadioPlayBtn");
+  const globalPlayText = document.getElementById("globalRadioPlayText");
+  const globalPlayIcon = document.getElementById("globalRadioPlayIcon");
+  const globalVisualizer = document.getElementById("globalRadioVisualizer");
+  const globalStationName = document.getElementById("globalRadioStationName");
+  const globalCurrentTrack = document.getElementById("globalRadioCurrentTrack");
+
+  if (station) {
+    if (globalStationName) globalStationName.innerText = station.name;
+    if (globalCurrentTrack && station.currentTrack) {
+      globalCurrentTrack.innerText = `"${station.currentTrack.title}" by ${station.currentTrack.artist}`;
+    }
+  }
+
+  if (isPlaying) {
+    if (globalPlayText) globalPlayText.innerText = "⏸ Pause Broadcast";
+    if (globalPlayIcon) globalPlayIcon.innerHTML = `<svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+    if (globalVisualizer) {
+      globalVisualizer.classList.remove("hidden");
+      globalVisualizer.classList.add("inline-flex");
+    }
+    if (globalPlayBtn) {
+      globalPlayBtn.classList.remove("from-purple-600", "to-indigo-600");
+      globalPlayBtn.classList.add("from-emerald-600", "to-teal-600");
+    }
+  } else {
+    if (globalPlayText) globalPlayText.innerText = "▶ Listen Live";
+    if (globalPlayIcon) globalPlayIcon.innerHTML = `<svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+    if (globalVisualizer) {
+      globalVisualizer.classList.add("hidden");
+      globalVisualizer.classList.remove("inline-flex");
+    }
+    if (globalPlayBtn) {
+      globalPlayBtn.classList.remove("from-emerald-600", "to-teal-600");
+      globalPlayBtn.classList.add("from-purple-600", "to-indigo-600");
+    }
+  }
+
+  // 2. Master Console in tab-radio
+  const masterPlayIcon = document.getElementById("radioMasterPlayIcon");
+  const masterOnAirBadge = document.getElementById("radioMasterOnAirBadge");
+  const masterEqualizer = document.getElementById("radioMasterEqualizer");
+  const masterStationTitle = document.getElementById("radioMasterStationTitle");
+  const masterDial = document.getElementById("radioMasterDial");
+  const masterTrackName = document.getElementById("radioMasterTrackName");
+  const masterDjText = document.getElementById("radioMasterDjText");
+
+  if (station) {
+    if (masterStationTitle) masterStationTitle.innerText = station.name;
+    if (masterDial) masterDial.innerText = station.frequency || station.region || "98.5 MHz FM";
+    if (masterTrackName && station.currentTrack) {
+      masterTrackName.innerText = `"${station.currentTrack.title}" — ${station.currentTrack.artist}`;
+    }
+    if (masterDjText && station.currentTrack?.djIntro) {
+      masterDjText.innerText = `"${station.currentTrack.djIntro}"`;
+    }
+  }
+
+  if (isPlaying) {
+    if (masterPlayIcon) masterPlayIcon.innerText = "⏸";
+    if (masterOnAirBadge) {
+      masterOnAirBadge.innerText = "🔴 BROADCASTING LIVE";
+      masterOnAirBadge.classList.remove("bg-purple-500/20", "text-purple-300", "border-purple-500/40");
+      masterOnAirBadge.classList.add("bg-emerald-500/30", "text-emerald-300", "border-emerald-500/50");
+    }
+    if (masterEqualizer) {
+      masterEqualizer.classList.remove("hidden");
+      masterEqualizer.classList.add("inline-flex");
+    }
+  } else {
+    if (masterPlayIcon) masterPlayIcon.innerText = "▶";
+    if (masterOnAirBadge) {
+      masterOnAirBadge.innerText = "READY TO BROADCAST";
+      masterOnAirBadge.classList.add("bg-purple-500/20", "text-purple-300", "border-purple-500/40");
+      masterOnAirBadge.classList.remove("bg-emerald-500/30", "text-emerald-300", "border-emerald-500/50");
+    }
+    if (masterEqualizer) {
+      masterEqualizer.classList.add("hidden");
+      masterEqualizer.classList.remove("inline-flex");
+    }
+  }
+
+  // 3. Update Grid Cards
+  renderOnlineRadioGridCards();
+}
+
+function renderOnlineRadioGridCards() {
+  const container = document.getElementById("onlineRadioStationsGrid");
+  if (!container || !window.radioPlayer.stations) return;
+
+  const isPlaying = window.radioPlayer.isPlaying;
+  const activeId = window.radioPlayer.activeStationId || "rad-001";
+
+  container.innerHTML = window.radioPlayer.stations.map(st => {
+    const cur = st.currentTrack || {};
+    const isLjPlaying = cur.isLjPriority;
+    const nextTrack = (st.nextInQueue && st.nextInQueue[0]) || { title: "KIRA", artist: "Drey Star", scheduledIn: "15 mins" };
+    const isThisStationPlaying = isPlaying && activeId === st.id;
+
+    return `
+      <div class="glass-panel border ${isThisStationPlaying ? 'border-emerald-400 bg-emerald-950/30 shadow-glow-emerald ring-2 ring-emerald-500/40' : isLjPlaying ? 'border-amber-500/50 bg-amber-950/20 shadow-glow-amber' : 'border-white/10 bg-black/40'} rounded-3xl p-5 shadow-spatial flex flex-col justify-between space-y-4 transition duration-300">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full ${isThisStationPlaying ? 'bg-emerald-400 animate-ping' : st.status.includes('LIVE') ? 'bg-red-500 animate-pulse' : 'bg-slate-500'}"></span>
+              <span class="text-[10px] font-mono-code font-black text-white">${st.bitrate || '320 kbps'}</span>
+              ${isThisStationPlaying ? `
+                <span class="text-[9px] font-mono-code font-black text-emerald-400 flex items-center space-x-0.5">
+                  <span class="inline-block w-1 bg-emerald-400 animate-pulse h-2"></span>
+                  <span class="inline-block w-1 bg-emerald-400 animate-pulse h-3"></span>
+                  <span class="inline-block w-1 bg-emerald-400 animate-pulse h-2"></span>
+                  <span class="ml-1">ON AIR</span>
+                </span>
+              ` : ''}
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold ${isThisStationPlaying ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : isLjPlaying ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-400'}">
+              ${isThisStationPlaying ? 'TUNED IN LIVE' : (cur.rotationLevel || 'HEAVY ROTATION')}
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-black text-white flex items-center justify-between">
+              <span>${st.name}</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">${st.frequency || st.region}</p>
+          </div>
+
+          <!-- On-Air Now Playing Card -->
+          <div class="p-3 rounded-2xl ${isThisStationPlaying ? 'bg-emerald-950/40 border border-emerald-500/40' : isLjPlaying ? 'bg-gradient-to-r from-amber-500/20 to-purple-500/20 border border-amber-400/40' : 'bg-white/5 border border-white/5'} space-y-2">
+            <div class="text-[9px] font-mono-code uppercase tracking-wider flex items-center justify-between">
+              <span class="${isThisStationPlaying ? 'text-emerald-300 font-black' : isLjPlaying ? 'text-amber-300 font-black' : 'text-slate-400'}">🔴 ON-AIR NOW:</span>
+              <span class="text-emerald-400 font-bold font-mono-code">${isThisStationPlaying ? 'ACTIVE STREAM' : 'STREAMING LIVE'}</span>
+            </div>
+            <div class="flex items-center space-x-2.5">
+              ${cur.coverArt ? `<img src="${cur.coverArt}" class="w-10 h-10 rounded-lg object-cover border border-white/10 flex-shrink-0">` : ''}
+              <div class="min-w-0 flex-1">
+                <div class="text-xs font-black text-white flex items-center space-x-1.5 truncate">
+                  <span class="truncate">"${cur.title || 'KIRA'}"</span>
+                  ${isLjPlaying ? '<span class="px-1.5 py-0.2 rounded text-[8px] font-black bg-brand-gold text-black shadow">LJ FLAGSHIP</span>' : ''}
+                </div>
+                <div class="text-[11px] text-slate-300 truncate">${cur.artist || 'Drey Star'}</div>
+              </div>
+            </div>
+            ${cur.djIntro ? `
+              <div class="text-[10px] text-slate-300 italic bg-black/50 p-2 rounded-xl border border-white/5 leading-snug">
+                "${cur.djIntro}"
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="flex items-center justify-between text-[10px] font-mono-code text-slate-400">
+            <span>Listeners: <strong class="text-white">${(st.listenersCount || 25000).toLocaleString()}</strong></span>
+            <span>Next: <strong class="text-emerald-400">"${nextTrack.title}" (${nextTrack.scheduledIn || 'Soon'})</strong></span>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-white/10 flex items-center gap-2">
+          <button onclick="forceRadioSpinFromUI('${st.id}')" class="flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-[10px] font-mono-code transition active:scale-95 shadow flex items-center justify-center space-x-1" title="Instantly force this station to broadcast LJ track">
+            <span>⚡ Spin LJ Track</span>
+          </button>
+          <button onclick="playRadioLiveStream('${st.id}')" class="px-3 py-2 rounded-xl ${isThisStationPlaying ? 'bg-amber-500 hover:bg-amber-400 text-black font-black' : 'bg-purple-600/40 hover:bg-purple-600/70 text-purple-200 border border-purple-500/40 font-bold'} text-[10px] font-mono-code transition flex items-center space-x-1 shadow active:scale-95" title="${isThisStationPlaying ? 'Pause live stream' : 'Listen live to this station'}">
+            <span>${isThisStationPlaying ? '⏸ Pause' : '▶ Listen Live'}</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
 async function loadOnlineRadioConsole() {
   const container = document.getElementById("onlineRadioStationsGrid");
@@ -5127,20 +5481,12 @@ async function loadOnlineRadioConsole() {
 
     if (!data.success || !Array.isArray(data.stations)) return;
 
+    window.radioPlayer.stations = data.stations;
+    window.radioPlayer.autoPlayEnabled = data.autoPlayEnabled;
+
     const statsBadge = document.getElementById("onlineRadioStatsBadge");
     if (statsBadge) {
       statsBadge.innerHTML = `<span>📻 ${data.stations.length} Stations Live • ${(data.totalDailySpins || 1482).toLocaleString()} Radio Spins Logged • Heavy Rotation: ${data.rotationFrequency || 'Every 35 mins'}</span>`;
-    }
-
-    // Update global top radio bar if present
-    const firstStation = data.stations[0];
-    if (firstStation) {
-      const topStationName = document.getElementById("globalRadioStationName");
-      if (topStationName) topStationName.innerText = firstStation.name;
-      const topCurrentTrack = document.getElementById("globalRadioCurrentTrack");
-      if (topCurrentTrack && firstStation.currentTrack) {
-        topCurrentTrack.innerText = `"${firstStation.currentTrack.title}" by ${firstStation.currentTrack.artist}`;
-      }
     }
 
     const autoPlayLabel = document.getElementById("radioAutoPlayLabel");
@@ -5148,71 +5494,7 @@ async function loadOnlineRadioConsole() {
       autoPlayLabel.innerText = `Auto-Play: ${data.autoPlayEnabled ? 'Active (Heavy Rotation)' : 'Paused'}`;
     }
 
-    container.innerHTML = data.stations.map(st => {
-      const cur = st.currentTrack || {};
-      const isLjPlaying = cur.isLjPriority;
-      const nextTrack = (st.nextInQueue && st.nextInQueue[0]) || { title: "KIRA", artist: "Drey Star", scheduledIn: "15 mins" };
-
-      return `
-        <div class="glass-panel border ${isLjPlaying ? 'border-amber-500/50 bg-amber-950/20 shadow-glow-amber' : 'border-white/10 bg-black/40'} rounded-3xl p-5 shadow-spatial flex flex-col justify-between space-y-4 transition duration-300">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
-              <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full ${st.status.includes('LIVE') ? 'bg-red-500 animate-pulse' : 'bg-slate-500'}"></span>
-                <span class="text-[10px] font-mono-code font-black text-white">${st.bitrate || '320 kbps'}</span>
-              </div>
-              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold ${isLjPlaying ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-400'}">
-                ${cur.rotationLevel || 'HEAVY ROTATION'}
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-sm font-black text-white">${st.name}</h3>
-              <p class="text-[11px] text-slate-400">${st.region}</p>
-            </div>
-
-            <!-- On-Air Now Playing Card -->
-            <div class="p-3 rounded-2xl ${isLjPlaying ? 'bg-gradient-to-r from-amber-500/20 to-purple-500/20 border border-amber-400/40' : 'bg-white/5 border border-white/5'} space-y-2">
-              <div class="text-[9px] font-mono-code uppercase tracking-wider flex items-center justify-between">
-                <span class="${isLjPlaying ? 'text-amber-300 font-black' : 'text-slate-400'}">🔴 ON-AIR NOW:</span>
-                <span class="text-emerald-400 font-bold font-mono-code">STREAMING LIVE</span>
-              </div>
-              <div class="flex items-center space-x-2.5">
-                ${cur.coverArt ? `<img src="${cur.coverArt}" class="w-10 h-10 rounded-lg object-cover border border-white/10 flex-shrink-0">` : ''}
-                <div class="min-w-0 flex-1">
-                  <div class="text-xs font-black text-white flex items-center space-x-1.5 truncate">
-                    <span class="truncate">"${cur.title || 'KIRA'}"</span>
-                    ${isLjPlaying ? '<span class="px-1.5 py-0.2 rounded text-[8px] font-black bg-brand-gold text-black shadow">LJ FLAGSHIP</span>' : ''}
-                  </div>
-                  <div class="text-[11px] text-slate-300 truncate">${cur.artist || 'Drey Star'}</div>
-                </div>
-              </div>
-              ${cur.djIntro ? `
-                <div class="text-[10px] text-slate-300 italic bg-black/50 p-2 rounded-xl border border-white/5 leading-snug">
-                  "${cur.djIntro}"
-                </div>
-              ` : ''}
-            </div>
-
-            <div class="flex items-center justify-between text-[10px] font-mono-code text-slate-400">
-              <span>Listeners: <strong class="text-white">${(st.listenersCount || 25000).toLocaleString()}</strong></span>
-              <span>Next: <strong class="text-emerald-400">"${nextTrack.title}" (${nextTrack.scheduledIn || 'Soon'})</strong></span>
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-white/10 flex items-center gap-2">
-            <button onclick="forceRadioSpinFromUI('${st.id}')" class="flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-[10px] font-mono-code transition active:scale-95 shadow flex items-center justify-center space-x-1">
-              <span>⚡ Spin LJ Track Now</span>
-            </button>
-            ${cur.streamUrl ? `
-              <button onclick="playCustomAudioPreview('${cur.streamUrl}', '${(cur.title || '').replace(/'/g, "\\'")}', '${(cur.artist || '').replace(/'/g, "\\'")}')" class="px-2.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-[10px] font-mono-code transition" title="Listen Live Web Stream">
-                ▶ Listen
-              </button>
-            ` : ''}
-          </div>
-        </div>
-      `;
-    }).join("");
+    updateRadioBroadcastUI();
 
   } catch (err) {
     console.error("Error loading online radio console:", err);
@@ -5249,8 +5531,12 @@ async function forceRadioSpinFromUI(stationIdOrTrackId, maybeTrackId) {
       const trackTitle = data.nowPlaying?.title || data.broadcastTrack || "KIRA";
       const artistName = data.nowPlaying?.artist || data.artist || "Drey Star";
       showToast(`⚡ On-Air Override Live! Station ${stationName} is now broadcasting "${trackTitle}" by ${artistName}!`, "success", "On-Air Live");
-      if (typeof loadOnlineRadioConsole === 'function') {
-        loadOnlineRadioConsole();
+      
+      await loadOnlineRadioConsole();
+
+      // If user is actively listening, switch live audio immediately to new spin
+      if (window.radioPlayer && window.radioPlayer.isPlaying) {
+        playRadioLiveStream(stationId || window.radioPlayer.activeStationId || "rad-001");
       }
     } else {
       showToast((data && data.error) || "Failed to trigger radio spin override", "error", "Error");
@@ -5440,6 +5726,13 @@ window.closeQuickAddArtistModal = closeQuickAddArtistModal;
 window.executeQuickArtistResolve = executeQuickArtistResolve;
 window.confirmAndIngestArtist = confirmAndIngestArtist;
 window.playCustomAudioPreview = playCustomAudioPreview;
+window.playRadioLiveStream = playRadioLiveStream;
+window.pauseRadioLiveStream = pauseRadioLiveStream;
+window.toggleRadioBroadcast = toggleRadioBroadcast;
+window.switchRadioStation = switchRadioStation;
+window.setRadioVolume = setRadioVolume;
+window.advanceRadioQueue = advanceRadioQueue;
+window.updateRadioBroadcastUI = updateRadioBroadcastUI;
 window.loadAutonomousPlaylists = loadAutonomousPlaylists;
 window.generateTrendingPlaylistFromUI = generateTrendingPlaylistFromUI;
 window.rebalancePlaylistsFromUI = rebalancePlaylistsFromUI;

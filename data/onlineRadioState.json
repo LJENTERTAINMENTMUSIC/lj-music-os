@@ -1,52 +1,54 @@
 {
   "autoPlayEnabled": true,
   "rotationFrequencyMinutes": 35,
-  "totalDailySpins": 1526,
-  "estimatedActiveListeners": 94800,
-  "lastBroadcastAt": "2026-10-13T20:18:04.363Z",
+  "totalDailySpins": 1549,
+  "estimatedActiveListeners": 98600,
+  "lastBroadcastAt": "2026-10-13T20:40:26.640Z",
   "stations": [
     {
       "id": "rad-001",
       "name": "Lagos Nights Radio 98.5 HD",
+      "frequency": "98.5 MHz FM & Worldwide Webcast",
       "region": "Lagos, Nigeria / Worldwide Webcast",
-      "bitrate": "320 kbps AAC+",
+      "bitrate": "320 kbps AAC+ Stereo",
       "listenersCount": 38400,
       "status": "LIVE ON AIR",
       "currentTrack": {
         "title": "KIRA",
         "artist": "Drey Star",
         "isLjPriority": true,
-        "rotationLevel": "FORCED POWER SPIN (LIVE NOW)",
-        "djIntro": "[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing 'KIRA' by Drey Star on Lagos Nights Radio 98.5 HD!",
-        "streamUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
+        "rotationLevel": "POWER SPIN (FLAGSHIP HEAVY ROTATION)",
+        "djIntro": "[DJ INTRO]: You are locked into Lagos Nights Radio 98.5 HD! Up next is the official #1 Lagos anthem, 'KIRA' by Drey Star, pre-cleared by LJ Entertainment!",
+        "streamUrl": "/audio/station-1-lagos-kira.m4a",
         "coverArt": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
-        "elapsedSeconds": 0,
+        "elapsedSeconds": 18,
         "durationSeconds": 231
       },
       "nextInQueue": [
         {
-          "title": "KIRA (Afro-Tech Remix)",
+          "title": "KIRA (Afro-Tech Club Remix)",
           "artist": "Drey Star",
-          "scheduledIn": "34 mins"
+          "scheduledIn": "32 mins"
         },
         {
           "title": "Unavailable",
           "artist": "Davido",
-          "scheduledIn": "38 mins"
+          "scheduledIn": "36 mins"
         },
         {
           "title": "Aiye Nreti Eleya",
           "artist": "Dr. Orlando Owoh",
-          "scheduledIn": "42 mins"
+          "scheduledIn": "40 mins"
         }
       ]
     },
     {
       "id": "rad-002",
       "name": "Afrobeats Worldwide Stream (Digital 1)",
+      "frequency": "DAB Digital 1 London",
       "region": "London, UK / Global Diaspora",
       "bitrate": "256 kbps MP3",
-      "listenersCount": 26900,
+      "listenersCount": 28400,
       "status": "LIVE ON AIR",
       "currentTrack": {
         "title": "KIRA",
@@ -54,78 +56,85 @@
         "isLjPriority": true,
         "rotationLevel": "FORCED POWER SPIN (LIVE NOW)",
         "djIntro": "[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing 'KIRA' by Drey Star on Afrobeats Worldwide Stream (Digital 1)!",
-        "streamUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
+        "streamUrl": "/audio/station-1-lagos-kira.m4a",
         "coverArt": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
         "elapsedSeconds": 0,
         "durationSeconds": 231
       },
       "nextInQueue": [
         {
-          "title": "City Boys",
-          "artist": "Burna Boy",
-          "scheduledIn": "3 mins"
-        },
-        {
           "title": "KIRA",
           "artist": "Drey Star",
-          "scheduledIn": "35 mins"
+          "scheduledIn": "2 mins"
+        },
+        {
+          "title": "City Boys",
+          "artist": "Burna Boy",
+          "scheduledIn": "6 mins"
         }
       ]
     },
     {
       "id": "rad-003",
       "name": "Naija Fusion Online FM",
+      "frequency": "104.7 HD2 Atlanta / NYC Web",
       "region": "Atlanta, GA / NYC Diaspora Web Relay",
       "bitrate": "320 kbps AAC+",
-      "listenersCount": 18200,
+      "listenersCount": 19200,
       "status": "LIVE ON AIR",
       "currentTrack": {
-        "title": "KIRA",
-        "artist": "Drey Star",
+        "title": "MCBH (Heritage Fusion Mix)",
+        "artist": "Asake & Highlife Legends",
         "isLjPriority": true,
-        "rotationLevel": "FORCED POWER SPIN (LIVE NOW)",
-        "djIntro": "[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing 'KIRA' by Drey Star on Naija Fusion Online FM!",
-        "streamUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
-        "coverArt": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
-        "elapsedSeconds": 0,
-        "durationSeconds": 231
+        "rotationLevel": "HERITAGE GOLD ROTATION",
+        "djIntro": "[DJ INTRO]: Heritage hours on Naija Fusion! Bringing ancestral talking drums and contemporary Afro-Fusion to the Americas.",
+        "streamUrl": "/audio/station-3-heritage-fusion.m4a",
+        "coverArt": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+        "elapsedSeconds": 15,
+        "durationSeconds": 240
       },
       "nextInQueue": [
         {
           "title": "KIRA",
           "artist": "Drey Star",
-          "scheduledIn": "12 mins"
+          "scheduledIn": "8 mins"
+        },
+        {
+          "title": "Aiye Nreti Eleya",
+          "artist": "Dr. Orlando Owoh",
+          "scheduledIn": "14 mins"
         }
       ]
     },
     {
       "id": "rad-004",
       "name": "West Africa Club Pulse Relay",
+      "frequency": "Pulse FM 91.1 Accra / Abidjan",
       "region": "Accra, Ghana / Abidjan Relay",
       "bitrate": "192 kbps MP3",
-      "listenersCount": 11300,
+      "listenersCount": 12600,
       "status": "LIVE ON AIR",
       "currentTrack": {
-        "title": "KIRA",
-        "artist": "Drey Star",
+        "title": "Eja Meja (Club Pulse)",
+        "artist": "Asake",
         "isLjPriority": true,
-        "rotationLevel": "FORCED POWER SPIN (LIVE NOW)",
-        "djIntro": "[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing 'KIRA' by Drey Star on West Africa Club Pulse Relay!",
-        "streamUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
-        "coverArt": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
-        "elapsedSeconds": 0,
-        "durationSeconds": 231
+        "rotationLevel": "CLUB ANTHEM ROTATION",
+        "djIntro": "[DJ INTRO]: High-octane nightlife energy across Accra and Abidjan! Heavy rotation continuous feed.",
+        "streamUrl": "/audio/station-4-club-pulse.m4a",
+        "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+        "elapsedSeconds": 48,
+        "durationSeconds": 224
       },
       "nextInQueue": [
         {
-          "title": "Calm Down",
-          "artist": "Rema",
-          "scheduledIn": "4 mins"
+          "title": "KIRA (Nightlife Mix)",
+          "artist": "Drey Star",
+          "scheduledIn": "5 mins"
         },
         {
-          "title": "KIRA",
-          "artist": "Drey Star",
-          "scheduledIn": "30 mins"
+          "title": "Calm Down",
+          "artist": "Rema",
+          "scheduledIn": "9 mins"
         }
       ]
     }

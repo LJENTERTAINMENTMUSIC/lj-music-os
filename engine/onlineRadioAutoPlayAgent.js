@@ -185,16 +185,20 @@ class OnlineRadioAutoPlayAgent {
     state.totalDailySpins = (state.totalDailySpins || 1482) + (stationId ? 1 : 4);
     state.lastBroadcastAt = new Date().toISOString();
 
+    const primaryAudioStream = track.id === 'lj-000' 
+      ? "/audio/station-1-lagos-kira.m4a" 
+      : (track.previewUrl || "/audio/station-1-lagos-kira.m4a");
+
     const nowPlaying = {
       title: track.title,
       artist: track.artist,
       isLjPriority: true,
       rotationLevel: "FORCED POWER SPIN (LIVE NOW)",
       djIntro: `[LIVE OVERRIDE]: Swarm Agent broadcast trigger! Now playing '${track.title}' by ${track.artist}!`,
-      streamUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a",
+      streamUrl: primaryAudioStream,
       coverArt: track.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
       elapsedSeconds: 0,
-      durationSeconds: 231
+      durationSeconds: track.duration || 231
     };
 
     stationsToUpdate.forEach(st => {
