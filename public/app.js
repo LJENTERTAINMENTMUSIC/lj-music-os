@@ -4125,6 +4125,35 @@ function mobilizeSwarmOnBillboard() {
 }
 window.mobilizeSwarmOnBillboard = mobilizeSwarmOnBillboard;
 
+async function mobilizeSwarmOnCurrentWorkingTrack() {
+  const trackId = currentActiveTrackId || "lj-000";
+  const track = allTracks.find(t => t.id === trackId) || { id: trackId, title: "KIRA", artist: "Drey Star" };
+
+  showToast(`Mobilizing 10,000 AI Agent Swarm across 17 Specialized Divisions on "${track.title}" by ${track.artist}...`, 'info', 'Swarm Mobilized');
+  switchTab('tab-command');
+  
+  try {
+    const res = await fetch('/api/swarm/deploy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        artistName: track.artist,
+        trackData: track,
+        trackId: track.id
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`10,000 AI Agent Swarm successfully mobilized on "${track.title}"! All 17 divisions active.`, 'success', 'Swarm Active');
+      loadSwarmCommandCenter();
+    }
+  } catch (err) {
+    console.error("Error mobilizing swarm:", err);
+    loadSwarmCommandCenter();
+  }
+}
+window.mobilizeSwarmOnCurrentWorkingTrack = mobilizeSwarmOnCurrentWorkingTrack;
+
 function openPitchForBillboard() {
   const item = billboardFeaturedTracks[currentBillboardIndex];
   if (item) {
