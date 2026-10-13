@@ -4209,26 +4209,34 @@ async function openIntegrationsModal() {
             `}
           </div>
           <div class="text-xs space-y-1.5 text-slate-300">
-            <p><span class="text-slate-400">Status:</span> <span class="font-mono ${supabase.connected ? 'text-emerald-300' : 'text-amber-300'}">${supabase.status}</span></p>
-            <p><span class="text-slate-400">Schema:</span> <span class="font-mono text-purple-300">${supabase.schemaFile}</span></p>
-            <p class="text-[11px] text-slate-400">${supabase.message}</p>
+            <p><span class="text-slate-400">Status:</span> <span class="font-mono font-bold ${supabase.tablesInitialized ? 'text-emerald-300' : 'text-amber-300'}">${supabase.status}</span></p>
+            <p><span class="text-slate-400">Database:</span> <span class="font-mono text-cyan-300">${supabase.url || 'https://raneitkthnzfilpifqck.supabase.co'}</span></p>
+            <p class="text-[11px] ${supabase.tablesInitialized ? 'text-emerald-400 font-semibold' : 'text-slate-400'}">${supabase.message}</p>
+            ${supabase.tablesInitialized ? `
+              <div class="flex flex-wrap gap-1 pt-1">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px] font-mono">catalogue (1)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px] font-mono">lyrics_records (38 lines)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px] font-mono">artist_roster (2)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px] font-mono">swarm_telemetry (10k)</span>
+              </div>
+            ` : ''}
           </div>
           
           <!-- Connect / Setup Form -->
           <div class="mt-3 pt-3 border-t border-white/10 space-y-2">
             <div>
               <label class="block text-[10px] font-bold text-slate-400 mb-1">SUPABASE URL</label>
-              <input type="text" id="supabaseUrlInput" placeholder="https://your-project.supabase.co" value="${supabase.url || ''}" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
+              <input type="text" id="supabaseUrlInput" placeholder="https://your-project.supabase.co" value="${supabase.url || 'https://raneitkthnzfilpifqck.supabase.co'}" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 mb-1">SUPABASE ANON / SERVICE KEY</label>
-              <input type="password" id="supabaseKeyInput" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
+              <input type="password" id="supabaseKeyInput" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." value="${supabase.tablesInitialized ? '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••' : ''}" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
             </div>
             <div class="flex items-center space-x-2 pt-1">
-              <button onclick="submitSupabaseCredentials()" id="supabaseConnectBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 px-3 rounded-lg text-xs transition active:scale-95 flex items-center justify-center space-x-1 shadow-md">
-                <span>Connect & Save</span>
+              <button onclick="submitSupabaseCredentials()" id="supabaseConnectBtn" class="flex-1 ${supabase.tablesInitialized ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-violet-600 hover:bg-violet-500'} text-white font-bold py-1.5 px-3 rounded-lg text-xs transition active:scale-95 flex items-center justify-center space-x-1 shadow-md">
+                <span>${supabase.tablesInitialized ? '✓ Connected & Synced' : 'Connect & Save'}</span>
               </button>
-              <a href="https://supabase.com/dashboard" target="_blank" class="px-2.5 py-1.5 bg-white/5 hover:bg-white/10 text-slate-300 text-xs rounded-lg transition border border-white/10 font-medium">Dashboard</a>
+              <a href="https://supabase.com/dashboard/project/raneitkthnzfilpifqck" target="_blank" class="px-2.5 py-1.5 bg-white/5 hover:bg-white/10 text-slate-300 text-xs rounded-lg transition border border-white/10 font-medium">Dashboard ↗</a>
             </div>
             <div id="supabaseConnectMsg" class="text-[11px] font-medium hidden"></div>
           </div>

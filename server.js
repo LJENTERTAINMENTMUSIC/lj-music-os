@@ -623,9 +623,11 @@ app.get('/api/integrations/status', async (req, res) => {
       supabase: {
         connected: supabaseStatus.connected,
         configured: supabaseStatus.configured,
-        status: supabaseStatus.connected ? "CONNECTED" : (supabaseStatus.configured ? "CONFIGURED_ERROR" : "PENDING_CREDENTIALS"),
-        message: supabaseStatus.message || supabaseStatus.error || "Awaiting SUPABASE_URL and SUPABASE_ANON_KEY in environment variables",
-        schemaFile: "data/supabase-schema.sql"
+        tablesInitialized: supabaseStatus.tablesInitialized,
+        status: supabaseStatus.tablesInitialized ? "CONNECTED" : (supabaseStatus.connected ? "CONNECTED_SCHEMA_PENDING" : (supabaseStatus.configured ? "CONFIGURED_ERROR" : "PENDING_CREDENTIALS")),
+        message: supabaseStatus.message || "Awaiting Supabase configuration",
+        schemaFile: "data/supabase-schema.sql",
+        url: supabaseStatus.url || "https://raneitkthnzfilpifqck.supabase.co"
       },
       spotifyPlayer: {
         connected: true,

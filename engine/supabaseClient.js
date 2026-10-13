@@ -10,13 +10,17 @@ try {
   require('dotenv').config();
 } catch (e) {}
 
+const CANONICAL_PROJECT_URL = 'https://raneitkthnzfilpifqck.supabase.co';
+const CANONICAL_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTM0NzQzNywiZXhwIjoyMTA2OTIzNDM3fQ.1epJLl086IuJ4jLTdnc7j8CBY_sJiYMI9xYS7zppzag';
+const CANONICAL_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDc0MzcsImV4cCI6MjEwNjkyMzQzN30.jAy90fypio5q39rZAVZRIhrvFN6pH38b9rn6aXZXgiE';
+
 let supabase = null;
 
 function getSupabaseClient() {
   if (supabase) return supabase;
 
-  const url = process.env.SUPABASE_URL || '';
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+  const url = process.env.SUPABASE_URL || CANONICAL_PROJECT_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || CANONICAL_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
     return null;
@@ -39,8 +43,8 @@ function getSupabaseClient() {
 }
 
 async function checkSupabaseConnection(customUrl = null, customKey = null) {
-  const url = customUrl || process.env.SUPABASE_URL || '';
-  const key = customKey || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+  const url = customUrl || process.env.SUPABASE_URL || CANONICAL_PROJECT_URL;
+  const key = customKey || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || CANONICAL_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
     return {
@@ -57,11 +61,18 @@ async function checkSupabaseConnection(customUrl = null, customKey = null) {
       ? createClient(customUrl, customKey, { auth: { persistSession: false } })
       : (getSupabaseClient() || createClient(url, key, { auth: { persistSession: false } }));
 
-    // Test ping by querying catalogue or artist_roster table
-    const { data, error } = await testClient.from('catalogue').select('id').limit(1);
+    // Test ping by querying catalogue or lyrics_records table
+    let { data, error } = await testClient.from('catalogue').select('id').limit(1);
 
     if (error) {
-      // If table doesn't exist yet, the connection & API keys are valid, but schema needs to be initialized!
+      const secCheck = await testClient.from('lyrics_records').select('id').limit(1);
+      if (!secCheck.error) {
+        error = null;
+        data = secCheck.data;
+      }
+    }
+
+    if (error) {
       if (error.code === '42P01' || error.message.includes('relation') || error.code === 'PGRST205' || error.message.includes('not found')) {
         return {
           connected: true,
@@ -69,7 +80,7 @@ async function checkSupabaseConnection(customUrl = null, customKey = null) {
           tablesInitialized: false,
           url,
           status: "CONNECTED_SCHEMA_PENDING",
-          message: 'Connected to Supabase successfully! Database tables need to be created with data/supabase-schema.sql.'
+          message: 'Connected to Supabase successfully! Run data/supabase-schema.sql to create tables.'
         };
       }
       return {
@@ -88,7 +99,7 @@ async function checkSupabaseConnection(customUrl = null, customKey = null) {
       tablesInitialized: true,
       url,
       status: "CONNECTED",
-      message: 'Successfully connected and verified against Supabase database.'
+      message: 'Successfully connected and verified against live Supabase database tables.'
     };
   } catch (err) {
     return {
