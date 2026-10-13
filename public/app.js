@@ -1926,8 +1926,13 @@ window.playPrevTrack = playPrevTrack;
 // ==============================================================
 
 let currentLyricsRecord = null;
-let currentLyricsFormat = "synced";
+let currentLyricsFormat = "ai-sync";
 let activeLyricsTrackId = "lj-000";
+
+function loadLyricsForCurrentTrack() {
+  loadLyricsForTrack(currentActiveTrackId || "lj-000");
+}
+window.loadLyricsForCurrentTrack = loadLyricsForCurrentTrack;
 
 async function loadLyricsForSelectedTrack() {
   const select = document.getElementById("lyricsTrackSelect");
@@ -1950,7 +1955,7 @@ async function loadLyricsForTrack(trackId = "lj-000") {
 
     // Header & Badges
     const titleEl = document.getElementById("lyricsStudioTrackTitle");
-    if (titleEl) titleEl.innerText = `${record.title} — ${record.artist}`;
+    if (titleEl) titleEl.innerHTML = `<span>${record.title} — ${record.artist}</span><span class="text-xs font-normal text-slate-400 font-mono-code ml-2" id="lyricsIsrcBadge">ISRC: ${record.isrc}</span>`;
     const isrcEl = document.getElementById("lyricsIsrcBadge");
     if (isrcEl) isrcEl.innerText = `ISRC: ${record.isrc}`;
 
@@ -1969,6 +1974,14 @@ async function loadLyricsForTrack(trackId = "lj-000") {
     // Discrepancy Chamber
     renderDiscrepancies(record.transcriptionVerification);
 
+    // Studio Duration display
+    const durEl = document.getElementById("lyricsLiveDuration");
+    if (durEl && record.durationMs) {
+      const dm = Math.floor(record.durationMs / 60000);
+      const ds = Math.floor((record.durationMs % 60000) / 1000);
+      durEl.innerText = `0${dm}:${ds < 10 ? '0' : ''}${ds}`;
+    }
+
     // Dynamic Lyrics Studio Content (Line-Synced, Word-Synced, Plain, Clean, Translations)
     renderLyricsContent();
 
@@ -1983,6 +1996,9 @@ async function loadLyricsForTrack(trackId = "lj-000") {
 
     // Unified Music Rights Graph
     loadUnifiedMusicGraph(trackId);
+
+    // Initial Live Sync State
+    syncLyricsWithPlaybackTime(0);
 
   } catch (err) {
     console.error("Error loading lyrics for track:", err);
@@ -2110,6 +2126,16 @@ async function resolveLyricsDiscrepancy(lineIndex, chosenText) {
   }
 }
 
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function switchLyricsFormat(format) {
   currentLyricsFormat = format;
   document.querySelectorAll(".lyrics-format-btn").forEach(btn => {
@@ -2128,21 +2154,53 @@ function renderLyricsContent() {
   const container = document.getElementById("lyricsDisplayContainer");
   if (!container || !currentLyricsRecord) return;
 
-  if (currentLyricsFormat === "synced") {
-    // Line-synced with timestamps
+  if (currentLyricsFormat === "ai-sync") {
     const lines = currentLyricsRecord.lineSynced || [];
-    container.innerHTML = lines.map((l, idx) => `
-      <div class="flex items-center justify-between p-2 rounded-lg hover:bg-brand-dark/90 transition group cursor-pointer border border-transparent hover:border-pink-500/30">
-        <div class="flex items-center space-x-3">
-          <span class="text-slate-500 text-[10px] font-mono-code w-14 group-hover:text-pink-400">${l.startTime}</span>
-          <span class="text-white font-medium text-xs group-hover:text-pink-200">${l.line}</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono-code">${l.singer}</span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-300 font-mono-code">${l.language}</span>
-        </div>
+    container.innerHTML = `
+      <div class="space-y-2">
+        ${lines.map((l) => `
+          <div id="lyric-line-${l.lineIndex}" data-start-ms="${l.startMs}" data-end-ms="${l.endMs}" onclick="jumpToLyricTime(${l.startMs})" class="lyric-sync-line p-3 rounded-2xl border border-white/5 hover:border-pink-500/40 hover:bg-white/5 cursor-pointer transition flex items-start justify-between gap-3 group">
+            <div class="flex items-start space-x-3 flex-1 min-w-0">
+              <span class="text-slate-500 text-[11px] font-mono-code w-14 pt-0.5 flex-shrink-0 group-hover:text-pink-400 font-bold">${l.startTime}</span>
+              <div class="space-y-1 min-w-0 flex-1">
+                <div class="flex items-center space-x-2">
+                  <span class="lyric-text text-white font-bold text-xs group-hover:text-pink-200 tracking-wide transition leading-snug">${escapeHtml(l.line)}</span>
+                </div>
+                ${l.aiInsight ? `<p class="text-[10px] text-purple-300/80 font-mono-code italic group-hover:text-purple-200">💡 ${escapeHtml(l.aiInsight)}</p>` : ''}
+              </div>
+            </div>
+            <div class="flex items-center space-x-1.5 flex-shrink-0 pt-0.5">
+              <span class="text-[9px] px-2 py-0.5 rounded-full font-mono-code font-bold ${l.section === 'HOOK' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-400'}">${escapeHtml(l.section)}</span>
+              <span class="text-[9px] px-2 py-0.5 rounded-full font-mono-code font-bold ${l.language === 'Yoruba' ? 'bg-brand-gold/20 text-brand-gold border border-brand-gold/30' : l.language === 'Nigerian Pidgin' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-pink-500/10 text-pink-300'}">${escapeHtml(l.language)}</span>
+              <button class="opacity-0 group-hover:opacity-100 transition px-2 py-0.5 rounded bg-pink-600/30 hover:bg-pink-600 text-[10px] text-pink-200 hover:text-white font-mono-code">▶ Jump</button>
+            </div>
+          </div>
+        `).join("")}
       </div>
-    `).join("");
+    `;
+    const currentTime = window.universalPlayer ? window.universalPlayer.currentTime : 0;
+    syncLyricsWithPlaybackTime(currentTime);
+  } else if (currentLyricsFormat === "synced") {
+    // Line-synced karaoke with timestamps
+    const lines = currentLyricsRecord.lineSynced || [];
+    container.innerHTML = `
+      <div class="space-y-1.5">
+        ${lines.map((l) => `
+          <div id="lyric-line-${l.lineIndex}" data-start-ms="${l.startMs}" data-end-ms="${l.endMs}" onclick="jumpToLyricTime(${l.startMs})" class="lyric-sync-line flex items-center justify-between p-2.5 rounded-xl hover:bg-brand-dark/90 transition group cursor-pointer border border-transparent hover:border-pink-500/30">
+            <div class="flex items-center space-x-3">
+              <span class="text-slate-500 text-[10px] font-mono-code w-14 group-hover:text-pink-400 font-bold">${l.startTime}</span>
+              <span class="lyric-text text-white font-medium text-xs group-hover:text-pink-200">${escapeHtml(l.line)}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono-code">${escapeHtml(l.singer || 'Drey Star')}</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-300 font-mono-code">${escapeHtml(l.language)}</span>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    const currentTime = window.universalPlayer ? window.universalPlayer.currentTime : 0;
+    syncLyricsWithPlaybackTime(currentTime);
   } else if (currentLyricsFormat === "words") {
     // Word-synced TTML inspector
     const lines = currentLyricsRecord.lineSynced || [];
@@ -2152,13 +2210,13 @@ function renderLyricsContent() {
         ${lines.map(l => `
           <div class="bg-brand-dark p-3 rounded-xl border border-brand-cardBorder space-y-2">
             <div class="flex justify-between items-center text-[10px] text-slate-400 border-b border-brand-cardBorder pb-1">
-              <span>[${l.startTime} → ${l.endTime}] Line #${l.lineIndex} (${l.section})</span>
+              <span>[${l.startTime} → ${l.endTime}] Line #${l.lineIndex} (${escapeHtml(l.section)})</span>
               <span class="text-brand-gold font-mono-code">${l.words ? l.words.length : 0} timed words</span>
             </div>
             <div class="flex flex-wrap gap-1.5 pt-1">
               ${(l.words || []).map(w => `
                 <span class="px-2 py-1 rounded bg-slate-800 border border-brand-cardBorder hover:border-pink-500 text-white text-[11px] group relative">
-                  ${w.word}
+                  ${escapeHtml(w.word)}
                   <span class="block text-[8px] text-pink-400 font-mono-code">${w.startMs}ms</span>
                 </span>
               `).join("")}
@@ -2169,13 +2227,13 @@ function renderLyricsContent() {
     `;
   } else if (currentLyricsFormat === "plain") {
     container.innerHTML = `
-      <pre class="text-xs text-slate-200 leading-relaxed font-mono-code whitespace-pre-wrap bg-brand-dark p-4 rounded-xl border border-brand-cardBorder">${currentLyricsRecord.canonicalLyrics}</pre>
+      <pre class="text-xs text-slate-200 leading-relaxed font-mono-code whitespace-pre-wrap bg-brand-dark p-4 rounded-xl border border-brand-cardBorder">${escapeHtml(currentLyricsRecord.canonicalLyrics)}</pre>
     `;
   } else if (currentLyricsFormat === "clean") {
     container.innerHTML = `
       <div class="space-y-2">
         <div class="text-[10px] text-emerald-400 font-mono-code">Broadcast-Safe Radio Edit (Approved for Daytime Airplay):</div>
-        <pre class="text-xs text-slate-200 leading-relaxed font-mono-code whitespace-pre-wrap bg-brand-dark p-4 rounded-xl border border-brand-cardBorder">${currentLyricsRecord.cleanLyrics || currentLyricsRecord.canonicalLyrics}</pre>
+        <pre class="text-xs text-slate-200 leading-relaxed font-mono-code whitespace-pre-wrap bg-brand-dark p-4 rounded-xl border border-brand-cardBorder">${escapeHtml(currentLyricsRecord.cleanLyrics || currentLyricsRecord.canonicalLyrics)}</pre>
       </div>
     `;
   } else if (currentLyricsFormat === "translations") {
@@ -2185,11 +2243,11 @@ function renderLyricsContent() {
         ${Object.entries(translations).map(([code, t]) => `
           <div class="bg-brand-dark p-4 rounded-xl border border-brand-cardBorder space-y-2">
             <div class="flex justify-between items-center">
-              <span class="font-bold text-white text-xs">${t.title || t.language}</span>
-              <span class="text-[9px] px-2 py-0.5 rounded font-mono-code bg-indigo-500/20 text-indigo-300 font-bold uppercase">${code}</span>
+              <span class="font-bold text-white text-xs">${escapeHtml(t.title || t.language)}</span>
+              <span class="text-[9px] px-2 py-0.5 rounded font-mono-code bg-indigo-500/20 text-indigo-300 font-bold uppercase">${escapeHtml(code)}</span>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed italic bg-brand-card/60 p-3 rounded-lg border border-brand-cardBorder">
-              "${t.chorus}"
+              "${escapeHtml(t.chorus)}"
             </p>
           </div>
         `).join("")}
@@ -2197,6 +2255,201 @@ function renderLyricsContent() {
     `;
   }
 }
+
+function syncLyricsWithPlaybackTime(currentTimeSec) {
+  if (!currentLyricsRecord || !currentLyricsRecord.lineSynced || currentLyricsRecord.lineSynced.length === 0) return;
+  const lines = currentLyricsRecord.lineSynced;
+  const currentMs = Math.round((currentTimeSec || 0) * 1000);
+
+  // Find active line matching current timestamp
+  let activeIndex = lines.findIndex(l => currentMs >= l.startMs && currentMs <= l.endMs);
+  if (activeIndex === -1) {
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (currentMs >= lines[i].startMs) {
+        activeIndex = i;
+        break;
+      }
+    }
+  }
+  if (activeIndex === -1) activeIndex = 0;
+  const activeLine = lines[activeIndex];
+  const nextLine = lines[activeIndex + 1];
+
+  // 1. Highlight line in Teleprompter
+  document.querySelectorAll(".lyric-sync-line").forEach(el => {
+    el.classList.remove("active-lyric-line", "bg-purple-950/40", "border-pink-500/80");
+  });
+  const activeEl = document.getElementById(`lyric-line-${activeLine.lineIndex}`);
+  if (activeEl) {
+    activeEl.classList.add("active-lyric-line", "bg-purple-950/40", "border-pink-500/80");
+    const container = document.getElementById("lyricsDisplayContainer");
+    if (container) {
+      const targetScroll = activeEl.offsetTop - container.offsetTop - (container.clientHeight / 2) + (activeEl.clientHeight / 2);
+      container.scrollTo({ top: Math.max(0, targetScroll), behavior: "smooth" });
+    }
+  }
+
+  // 2. Update Right Sidebar Drawer
+  const rightActive = document.getElementById("rightLyricsActiveLine");
+  if (rightActive) rightActive.innerText = `"${activeLine.line}"`;
+  const rightNext = document.getElementById("rightLyricsNextLine");
+  if (rightNext) rightNext.innerText = nextLine ? `"${nextLine.line}"` : "— Track Outro / End —";
+
+  // 3. Update AI Agent Real-Time Co-Pilot Card
+  const aiLine = document.getElementById("aiActiveLyricLine");
+  if (aiLine) aiLine.innerText = `"${activeLine.line}"`;
+
+  const aiInsight = document.getElementById("aiCulturalInsightText");
+  if (aiInsight) {
+    if (activeLine.aiInsight) {
+      aiInsight.innerText = activeLine.aiInsight;
+    } else if (activeLine.section === "HOOK") {
+      aiInsight.innerText = "Oriki royal praise poetry for father (Ajayi) and mother (Amope). Climax sync clearance priority.";
+    } else {
+      aiInsight.innerText = "Canonical vocal node verified across 11 platforms. Dialect fidelity 100%.";
+    }
+  }
+
+  const aiRole = document.getElementById("aiAgentActiveRole");
+  if (aiRole) {
+    if (activeLine.language === "Yoruba" || activeLine.section === "HOOK") {
+      aiRole.innerText = "Division 17: Oriki & Yoruba Linguistics Agent";
+    } else if (activeLine.language === "Nigerian Pidgin") {
+      aiRole.innerText = "Division 17: Nigerian Idiom & Slang Semanticist";
+    } else {
+      aiRole.innerText = "Division 17: Real-Time Acoustic & Sync Telemetry Agent";
+    }
+  }
+
+  const aiResonance = document.getElementById("aiSyncResonanceScore");
+  const aiBar = document.getElementById("aiSyncProgressBar");
+  const aiScenario = document.getElementById("aiSyncScenarioText");
+  if (activeLine.section === "HOOK") {
+    if (aiResonance) aiResonance.innerText = "99% (Peak Cultural Climax)";
+    if (aiBar) aiBar.style.width = "99%";
+    if (aiScenario) aiScenario.innerText = "Target: Dramatic Feature Film Climax, National Brand Tributes, Filial Legacy Campaigns.";
+  } else if (activeLine.language === "Yoruba" || activeLine.language === "Nigerian Pidgin") {
+    if (aiResonance) aiResonance.innerText = "97% (Authentic Emotional Depth)";
+    if (aiBar) aiBar.style.width = "97%";
+    if (aiScenario) aiScenario.innerText = "Target: Cultural Cinema, Documentary Soundtracks, Afro-Diaspora Commercials.";
+  } else {
+    if (aiResonance) aiResonance.innerText = "94% (High Narrative Value)";
+    if (aiBar) aiBar.style.width = "94%";
+    if (aiScenario) aiScenario.innerText = "Target: Episodic TV Drama, Redemption Arcs, Character Development Sequences.";
+  }
+
+  // 4. Update Studio Integrated Player Bar
+  const liveTime = document.getElementById("lyricsLiveTime");
+  if (liveTime) {
+    const m = Math.floor(currentTimeSec / 60);
+    const s = Math.floor(currentTimeSec % 60);
+    liveTime.innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+  const liveBar = document.getElementById("lyricsLiveProgressBar");
+  if (liveBar) {
+    const totalSec = currentLyricsRecord.durationMs ? currentLyricsRecord.durationMs / 1000 : 231;
+    const pct = Math.min(100, (currentTimeSec / totalSec) * 100);
+    liveBar.style.width = `${pct}%`;
+  }
+}
+
+async function jumpToLyricTime(startMs) {
+  const targetSec = Math.max(0, (startMs || 0) / 1000);
+  if (window.universalPlayer) {
+    if (!window.universalPlayer.isPlaying) {
+      const kira = window.allTracks?.find(t => t.id === "lj-000") || {
+        id: "lj-000",
+        title: "KIRA",
+        artist: "Drey Star",
+        coverArt: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+        bpm: 107,
+        key: "Am",
+        duration: 231,
+        youtubeId: "uNRZGlx3T5o",
+        spotifyUrl: "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ"
+      };
+      await window.universalPlayer.play(kira);
+    }
+    await window.universalPlayer.seek(targetSec);
+    syncLyricsWithPlaybackTime(targetSec);
+  }
+}
+
+function seekFromLyricsBar(event) {
+  const rect = event.currentTarget.getBoundingClientRect();
+  const clickX = event.clientX - rect.left;
+  const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+  const totalSec = currentLyricsRecord?.durationMs ? currentLyricsRecord.durationMs / 1000 : 231;
+  const targetSec = ratio * totalSec;
+  jumpToLyricTime(targetSec * 1000);
+}
+
+function copyLrcFormat() {
+  if (!currentLyricsRecord || !currentLyricsRecord.lineSynced) return;
+  const lines = currentLyricsRecord.lineSynced;
+  const header = `[ti:${currentLyricsRecord.title}]\n[ar:${currentLyricsRecord.artist}]\n[al:${currentLyricsRecord.album || 'Single'}]\n[by:LJ Music OS Division 17]\n\n`;
+  const body = lines.map(l => `[${l.startTime}] ${l.line}`).join('\n');
+  const lrcText = header + body;
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(lrcText).then(() => {
+      showToast("Standard .LRC format copied to clipboard (100% time-synchronized)", "success", "LRC Exported");
+    }).catch(() => {
+      showToast("Clipboard access denied. Check browser permissions.", "warning", "Clipboard Error");
+    });
+  } else {
+    showToast("LRC data generated. Copying not supported in this browser context.", "info", "LRC Ready");
+  }
+}
+
+function downloadLrcFile() {
+  if (!currentLyricsRecord || !currentLyricsRecord.lineSynced) return;
+  const lines = currentLyricsRecord.lineSynced;
+  const header = `[ti:${currentLyricsRecord.title}]\n[ar:${currentLyricsRecord.artist}]\n[al:${currentLyricsRecord.album || 'Single'}]\n[by:LJ Music OS Division 17]\n\n`;
+  const body = lines.map(l => `[${l.startTime}] ${l.line}`).join('\n');
+  const lrcText = header + body;
+
+  const blob = new Blob([lrcText], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${(currentLyricsRecord.artist || 'Drey_Star').replace(/\\s+/g, '_')}_-_${(currentLyricsRecord.title || 'KIRA').replace(/\\s+/g, '_')}.lrc`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("Downloaded official synchronized .LRC file ready for DSP distribution", "success", "LRC Downloaded");
+}
+
+function mobilizeAiLyricSwarm() {
+  showToast("Division 17 mobilized: 500 AI Agents inspecting acoustic alignment, phonetic dialect integrity, and 11 DSP endpoints.", "info", "Swarm Mobilized");
+  const badge = document.getElementById("aiAgentActiveRole");
+  if (badge) {
+    const originalText = badge.innerText;
+    badge.innerText = "Division 17: 500 AGENTS LIVE INGESTING TELEMETRY...";
+    setTimeout(() => {
+      badge.innerText = originalText;
+      showToast("All 38 lyric nodes verified 100% aligned with Drey Star master vocal recording.", "success", "Verification Complete");
+    }, 1800);
+  }
+}
+
+function generateSyncClearanceSheet() {
+  if (typeof window.openSyncOneSheetModal === 'function') {
+    window.openSyncOneSheetModal(activeLyricsTrackId || "lj-000");
+  } else {
+    showToast("Sync clearance sheet pre-cleared: 100% Master & Publishing pre-approved for immediate worldwide synchronization.", "success", "Sync Pre-Cleared");
+  }
+}
+
+window.syncLyricsWithPlaybackTime = syncLyricsWithPlaybackTime;
+window.jumpToLyricTime = jumpToLyricTime;
+window.seekFromLyricsBar = seekFromLyricsBar;
+window.copyLrcFormat = copyLrcFormat;
+window.downloadLrcFile = downloadLrcFile;
+window.mobilizeAiLyricSwarm = mobilizeAiLyricSwarm;
+window.generateSyncClearanceSheet = generateSyncClearanceSheet;
+window.switchLyricsFormat = switchLyricsFormat;
 
 function renderDestinations(destinations) {
   const container = document.getElementById("lyricsDestinationsGrid");

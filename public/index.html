@@ -149,6 +149,25 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #7C3AED;
     }
+
+    /* AI Live Synced Lyrics Teleprompter & Karaoke Styling */
+    .active-lyric-line {
+      background: linear-gradient(90deg, rgba(124, 58, 237, 0.3) 0%, rgba(236, 72, 153, 0.18) 100%) !important;
+      border: 1px solid rgba(236, 72, 153, 0.6) !important;
+      border-left: 4px solid #EC4899 !important;
+      transform: scale(1.015);
+      box-shadow: 0 4px 24px -2px rgba(236, 72, 153, 0.25);
+      border-radius: 0.875rem !important;
+    }
+    .active-lyric-line .lyric-text {
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
+      text-shadow: 0 0 14px rgba(236, 72, 153, 0.5);
+    }
+    .active-lyric-line .lyric-time {
+      color: #F472B6 !important;
+      font-weight: 700 !important;
+    }
   </style>
 </head>
 <body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col selection:bg-purple-600 selection:text-white">
@@ -1292,30 +1311,159 @@
           </div>
         </div>
 
-        <!-- Main Studio: Live Synced Lyrics Studio & Multi-Format Inspector -->
-        <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-6 shadow-2xl space-y-5">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
+        <!-- Main Studio: AI Agent & Lyric Live Synchronization Cockpit -->
+        <div class="bg-brand-card border border-pink-500/40 rounded-3xl p-6 shadow-2xl space-y-6 relative overflow-hidden">
+          <!-- Ambient Glow Background -->
+          <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-pink-600/10 filter blur-3xl pointer-events-none"></div>
+
+          <!-- Studio Header & Integrated Player Bar -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-brand-cardBorder pb-4">
             <div>
               <div class="flex items-center space-x-2">
-                <span class="text-lg font-black text-white" id="lyricsStudioTrackTitle">KIRA — Drey Star</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono-code bg-brand-dark border border-brand-cardBorder text-slate-300" id="lyricsIsrcBadge">ISRC: NG-LJ1-26-00001</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-pink-500/20 text-pink-300 border border-pink-500/30 font-mono-code flex items-center space-x-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span>
+                  <span>AI Agent Live Lyric Sync</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono-code">Division 17 Telemetry</span>
               </div>
-              <p class="text-xs text-slate-400 mt-0.5">Click any timestamp or lyric line to jump playback directly to that millisecond mark.</p>
+              <h2 class="text-xl font-black text-white mt-1 flex items-center space-x-2" id="lyricsStudioTrackTitle">
+                <span>KIRA — Drey Star</span>
+                <span class="text-xs font-normal text-slate-400 font-mono-code" id="lyricsIsrcBadge">ISRC: NG-LJ1-26-00001</span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">Click any lyric line to jump playback directly to that millisecond mark. AI agents analyze cultural phonetics and sync licensing value in real time.</p>
             </div>
 
-            <!-- View Switcher -->
-            <div class="flex items-center space-x-1 bg-brand-dark p-1 rounded-xl border border-brand-cardBorder text-xs font-semibold">
-              <button onclick="switchLyricsFormat('synced')" id="btn-format-synced" class="lyrics-format-btn px-3 py-1.5 rounded-lg bg-pink-500 text-white font-bold transition">Line-Synced</button>
-              <button onclick="switchLyricsFormat('words')" id="btn-format-words" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Word-Synced</button>
-              <button onclick="switchLyricsFormat('plain')" id="btn-format-plain" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Plain Canonical</button>
-              <button onclick="switchLyricsFormat('clean')" id="btn-format-clean" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Clean / Radio</button>
-              <button onclick="switchLyricsFormat('translations')" id="btn-format-translations" class="lyrics-format-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Translations</button>
+            <!-- Integrated Studio Playback Controller Bar -->
+            <div class="flex items-center space-x-3 bg-black/40 border border-white/10 p-2.5 rounded-2xl">
+              <button onclick="playProceduralAfroBeat()" id="lyricsPlayPauseBtn" class="w-10 h-10 rounded-full purple-accent-gradient flex items-center justify-center text-white shadow-glow-violet hover:scale-105 active:scale-95 transition" title="Play / Pause Audio">
+                <svg class="w-5 h-5 ml-0.5 fill-current" id="lyricsPlayPauseIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="min-w-[140px]">
+                <div class="flex justify-between text-[10px] font-mono-code text-slate-400">
+                  <span id="lyricsLiveTime">00:00</span>
+                  <span id="lyricsLiveDuration">03:51</span>
+                </div>
+                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mt-1 cursor-pointer" onclick="seekFromLyricsBar(event)" title="Click to seek">
+                  <div id="lyricsLiveProgressBar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all" style="width: 0%;"></div>
+                </div>
+              </div>
+              <span class="text-[9px] px-2 py-1 rounded bg-purple-900/40 text-purple-300 font-mono-code border border-purple-500/30 font-bold hidden sm:inline-block" id="lyricsLiveSourceBadge">⚡ Full Master 0:00</span>
             </div>
           </div>
 
-          <!-- Dynamic Lyrics Content Area -->
-          <div id="lyricsDisplayContainer" class="min-h-[280px] max-h-[380px] overflow-y-auto pr-3 font-mono-code text-xs space-y-2">
-            <!-- Populated via JS -->
+          <!-- Format Selector Pills & Global Action Controls -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
+            <div class="flex items-center space-x-1.5 bg-brand-dark p-1 rounded-2xl border border-brand-cardBorder text-xs font-semibold overflow-x-auto no-scrollbar">
+              <button onclick="switchLyricsFormat('ai-sync')" id="btn-format-ai-sync" class="lyrics-format-btn px-3 py-1.5 rounded-xl bg-pink-500 text-white font-bold transition flex items-center space-x-1.5 whitespace-nowrap">
+                <span>🤖 AI Agent Live Sync</span>
+              </button>
+              <button onclick="switchLyricsFormat('synced')" id="btn-format-synced" class="lyrics-format-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap">
+                <span>🎵 Line-Synced Karaoke</span>
+              </button>
+              <button onclick="switchLyricsFormat('words')" id="btn-format-words" class="lyrics-format-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap">
+                <span>🔤 Word TTML</span>
+              </button>
+              <button onclick="switchLyricsFormat('plain')" id="btn-format-plain" class="lyrics-format-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap">
+                <span>📄 Plain Canonical</span>
+              </button>
+              <button onclick="switchLyricsFormat('clean')" id="btn-format-clean" class="lyrics-format-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap">
+                <span>📻 Radio Clean</span>
+              </button>
+              <button onclick="switchLyricsFormat('translations')" id="btn-format-translations" class="lyrics-format-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap">
+                <span>🇫🇷 French & Yoruba</span>
+              </button>
+            </div>
+
+            <!-- Global Action Controls -->
+            <div class="flex items-center space-x-2 flex-shrink-0">
+              <button onclick="copyLrcFormat()" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 text-xs font-mono-code transition flex items-center space-x-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                <span>Copy .LRC</span>
+              </button>
+              <button onclick="downloadLrcFile()" class="px-3 py-1.5 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white border border-pink-500/30 text-xs font-mono-code font-bold transition flex items-center space-x-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Download LRC</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Two-Column Synchronization Workspace -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left 7 Columns: Live Teleprompter / Line-Synced Viewer -->
+            <div class="lg:col-span-7 bg-brand-dark/70 rounded-2xl border border-white/10 p-4 shadow-inner">
+              <div class="flex items-center justify-between pb-3 border-b border-white/[0.06] text-[11px] text-slate-400 font-mono-code">
+                <span>TIMECODE • SECTION</span>
+                <span>LYRIC VOCAL LINE</span>
+                <span>JUMP TO TIME</span>
+              </div>
+              <div id="lyricsDisplayContainer" class="min-h-[380px] max-h-[460px] overflow-y-auto pr-2 space-y-2 mt-2">
+                <!-- Dynamically rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Right 5 Columns: AI Agent Real-Time Intelligence & Sync Co-Pilot -->
+            <div class="lg:col-span-5 space-y-4">
+              <!-- Live Active Agent Card -->
+              <div class="bg-gradient-to-br from-purple-900/30 via-brand-dark to-slate-900 border border-purple-500/40 rounded-2xl p-4 shadow-xl space-y-3">
+                <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+                  <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-xl purple-accent-gradient flex items-center justify-center text-white text-xs font-black shadow-glow-violet">
+                      🤖
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-white" id="aiAgentActiveRole">Division 17: Cultural Linguist Agent</div>
+                      <div class="text-[9px] text-purple-300 font-mono-code">Real-Time Acoustic & Semantic Tracking</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">100% IN SYNC</span>
+                </div>
+
+                <!-- Current Active Line Display -->
+                <div class="space-y-1">
+                  <span class="text-[10px] uppercase font-bold text-slate-400 font-mono-code">Currently Tracking Lyric Node:</span>
+                  <div class="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs font-bold text-white shadow-inner" id="aiActiveLyricLine">
+                    "I was weak and helpless..."
+                  </div>
+                </div>
+
+                <!-- Cultural Meaning & Oriki Analysis -->
+                <div class="space-y-1">
+                  <span class="text-[10px] uppercase font-bold text-brand-gold font-mono-code">Cultural Meaning & Oriki Insight:</span>
+                  <p class="text-xs text-slate-200 leading-relaxed bg-brand-card/60 p-3 rounded-xl border border-white/5" id="aiCulturalInsightText">
+                    Vulnerability opening. Prime sync placement for dramatic character backstory & redemption arcs.
+                  </p>
+                </div>
+
+                <!-- Commercial Sync Suitability -->
+                <div class="space-y-1.5 pt-1">
+                  <div class="flex justify-between text-[11px] font-mono-code">
+                    <span class="text-slate-400">Commercial Sync Resonance:</span>
+                    <strong class="text-emerald-400" id="aiSyncResonanceScore">98% (High Value)</strong>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+                    <div class="h-full bg-emerald-400 rounded-full transition-all duration-500" id="aiSyncProgressBar" style="width: 98%;"></div>
+                  </div>
+                  <p class="text-[11px] text-slate-400 leading-tight italic" id="aiSyncScenarioText">
+                    Target: Dramatic Feature Film Soundtracks, National Brand Tributes, Filial Legacy Commercials.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quick Swarm Action Panel -->
+              <div class="bg-brand-dark/80 border border-brand-cardBorder rounded-2xl p-4 space-y-2.5 text-xs">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono-code">Swarm Intelligence Actions</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="mobilizeAiLyricSwarm()" class="p-2.5 rounded-xl bg-purple-600/30 hover:bg-purple-600 border border-purple-500/40 text-purple-200 hover:text-white font-bold transition text-center flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm">⚡</span>
+                    <span class="text-[11px]">Mobilize Swarm</span>
+                  </button>
+                  <button onclick="generateSyncClearanceSheet()" class="p-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-200 hover:text-white font-bold transition text-center flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm">🛡️</span>
+                    <span class="text-[11px]">Sync Package</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

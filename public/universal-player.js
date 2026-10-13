@@ -290,6 +290,9 @@ class UniversalStreamingPlayer {
     const cockpitBtnIcon = document.getElementById("rightCockpitPlayIcon");
     if (cockpitBtnIcon) cockpitBtnIcon.innerHTML = this.isPlaying ? pauseSvg : playSvg;
 
+    const lyricsPlayIcon = document.getElementById("lyricsPlayPauseIcon");
+    if (lyricsPlayIcon) lyricsPlayIcon.innerHTML = this.isPlaying ? pauseSvg : playSvg;
+
     // Update active source indicator badge
     const badge = document.getElementById("activeStreamingSourceBadge");
     if (badge) {
@@ -324,6 +327,11 @@ class UniversalStreamingPlayer {
       const dm = Math.floor(this.duration / 60);
       const ds = Math.floor(this.duration % 60);
       durEl.textContent = `0${dm}:${ds < 10 ? '0' : ''}${ds}`;
+    }
+
+    // Live AI Lyric Synchronization Hook
+    if (typeof window.syncLyricsWithPlaybackTime === 'function') {
+      window.syncLyricsWithPlaybackTime(this.currentTime);
     }
   }
 
