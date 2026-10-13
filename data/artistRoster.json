@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": "art-lj-000",
+    "artist": "Drey Star",
+    "name": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment / Priority Roster",
+    "picture": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+    "banner": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop&q=80",
+    "followers": "12,500 Spotify Followers",
+    "fansCount": 376800,
+    "monthlyListeners": "12,500 Monthly Listeners",
+    "primaryGenre": "Afro-Fusion / Nightlife",
+    "spotifyUrl": "https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ",
+    "spotifyId": "4cOdK2wGLETKBW3PvgPWqT",
+    "spotifyUri": "spotify:artist:4cOdK2wGLETKBW3PvgPWqT",
+    "verified": true,
+    "bio": "Exclusive Priority Artist on LJ Music OS. Flagship single 'KIRA' celebrating filial gratitude, Yoruba Oriki praise poetry, and Afro-fusion rhythm.",
+    "addedAt": "2026-10-13T05:00:00.000Z",
+    "statusBadge": "⭐ PRIORITY FLAGSHIP ARTIST",
+    "tracksCount": 1,
+    "totalPlays": 376800,
+    "genres": [
+      "Afro-Fusion",
+      "Afrobeats"
+    ],
+    "tracks": [
+      "lj-000"
+    ]
+  },
+  {
+    "id": "art-237312",
+    "artist": "Dr. Orlando Owoh",
+    "name": "Dr. Orlando Owoh",
+    "isLjArtist": true,
+    "label": "LJ Entertainment / Priority Roster",
+    "picture": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+    "banner": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+    "followers": "630 Spotify & DSP Followers",
+    "fansCount": 250000,
+    "monthlyListeners": "Verified Global Streamer",
+    "primaryGenre": "Folk",
+    "spotifyUrl": "https://open.spotify.com/search/Dr.%20Orlando%20Owoh",
+    "spotifyId": null,
+    "spotifyUri": null,
+    "verified": true,
+    "bio": "Verified Spotify and global streaming artist with 55 releases cataloged worldwide.",
+    "addedAt": "2026-10-13T04:37:17.312Z",
+    "statusBadge": "✓ VERIFIED SPOTIFY PROFILE",
+    "tracksCount": 0,
+    "totalPlays": 0,
+    "genres": [
+      "Folk"
+    ],
+    "tracks": []
+  }
+]
