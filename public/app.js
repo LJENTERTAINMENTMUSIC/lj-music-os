@@ -4787,6 +4787,8 @@ function playCustomAudioPreview(url, title, artist) {
   }
 
   currentPreviewAudio = new Audio(url);
+  currentPreviewAudio.preload = "metadata";
+  currentPreviewAudio.currentTime = 0;
   currentPreviewAudio.play()
     .then(() => {
       showToast(`Playing verified 30s preview: "${title}" by ${artist}`, "success", "Now Playing Preview");

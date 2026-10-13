@@ -212,7 +212,7 @@ class OnlineRadioAutoPlayAgent {
   toggleAutoPlay(enabled = null) {
     this.initStorage();
     const state = this._loadJson(this.storageFile);
-    state.autoPlayEnabled = enabled !== null ? Boolean(enabled) : !state.autoPlayEnabled;
+    state.autoPlayEnabled = (enabled != null) ? Boolean(enabled) : !state.autoPlayEnabled;
     this._saveJson(this.storageFile, state);
 
     return {

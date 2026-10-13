@@ -206,8 +206,8 @@ async function runQaAudit() {
     assert('Live Radio Spin Override places track on-air immediately', spinRes.statusCode === 200 && spinRes.body?.success === true);
 
     // Test Toggle Radio Broadcast
-    const togRes = await post('/api/agent/radio/toggle', { stationId: 'rad-001' });
-    assert('Toggle Radio Auto-Play responds 200 OK', togRes.statusCode === 200 && togRes.body?.success === true);
+    const togRes = await post('/api/agent/radio/toggle', { enabled: true });
+    assert('Toggle Radio Auto-Play responds 200 OK and enabled', togRes.statusCode === 200 && togRes.body?.success === true && togRes.body?.autoPlayEnabled === true);
   } catch (err) {
     assert('Section 4 Radio Exception', false, err.message);
   }

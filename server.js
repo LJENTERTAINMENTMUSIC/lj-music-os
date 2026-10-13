@@ -663,9 +663,17 @@ app.post('/api/agent/radio/toggle', (req, res) => {
   res.json(onlineRadioAgent.toggleAutoPlay(enabled));
 });
 
-// Platform Integration Health Check
+// Platform Integration Health Check (with 30-second in-memory cache)
+let cachedSupabaseStatus = null;
+let lastSupabaseCheckTime = 0;
+
 app.get('/api/integrations/status', async (req, res) => {
-  const supabaseStatus = await checkSupabaseConnection();
+  const now = Date.now();
+  if (!cachedSupabaseStatus || (now - lastSupabaseCheckTime) > 30000) {
+    cachedSupabaseStatus = await checkSupabaseConnection();
+    lastSupabaseCheckTime = now;
+  }
+  const supabaseStatus = cachedSupabaseStatus;
   
   res.json({
     timestamp: new Date().toISOString(),
