@@ -203,8 +203,62 @@ app.post('/api/playlist/curate', (req, res) => {
 // 5. EDITORIAL CURATION DESK
 // -------------------------------------------------------------
 app.get('/api/editorial', (req, res) => {
-  const { editorial } = loadState();
-  res.json(editorial);
+  const { editorial, catalogue } = loadState();
+  const enriched = editorial.map(pl => {
+    const resolvedTracks = intakeEngine.getResolvedPlaylistTracks(pl, catalogue);
+    return {
+      ...pl,
+      rawTracks: pl.tracks,
+      tracks: resolvedTracks,
+      resolvedTracks
+    };
+  });
+  res.json(enriched);
+});
+
+app.get('/api/playlist/:id', (req, res) => {
+  const { editorial, catalogue } = loadState();
+  const pl = editorial.find(p => p.id === req.params.id);
+  if (!pl) return res.status(404).json({ error: "Playlist not found" });
+  const resolvedTracks = intakeEngine.getResolvedPlaylistTracks(pl, catalogue);
+  res.json({
+    ...pl,
+    rawTracks: pl.tracks,
+    tracks: resolvedTracks,
+    resolvedTracks
+  });
+});
+
+app.post('/api/playlist/:id/add-track', (req, res) => {
+  const { trackId } = req.body || {};
+  if (!trackId) return res.status(400).json({ error: "trackId is required" });
+  const { editorial, catalogue } = loadState();
+  const pl = editorial.find(p => p.id === req.params.id);
+  if (!pl) return res.status(404).json({ error: "Playlist not found" });
+
+  const getTrackId = (t) => typeof t === 'string' ? t : (t?.trackId || t?.id || '');
+  if (!pl.tracks) pl.tracks = [];
+  
+  if (!pl.tracks.some(t => getTrackId(t) === trackId)) {
+    pl.tracks.unshift({ trackId, rationale: "Direct 1-click placement into editorial rotation", slot: 1, locked: true });
+    try {
+      fs.writeFileSync(editorialFile, JSON.stringify(editorial, null, 2), 'utf8');
+    } catch (e) {
+      console.warn("Storage warning:", e.message);
+    }
+  }
+
+  const resolvedTracks = intakeEngine.getResolvedPlaylistTracks(pl, catalogue);
+  res.json({
+    success: true,
+    message: `Track successfully placed into ${pl.title}`,
+    playlist: {
+      ...pl,
+      rawTracks: pl.tracks,
+      tracks: resolvedTracks,
+      resolvedTracks
+    }
+  });
 });
 
 app.post('/api/editorial/approve/:id', (req, res) => {

@@ -316,6 +316,13 @@
               </div>
               <span class="text-[9px] bg-amber-400 text-black font-black px-1.5 py-0.5 rounded uppercase tracking-wider">AI TOOL</span>
             </button>
+            <button onclick="switchTab('tab-radio'); loadOnlineRadioConsole();" id="nav-radio" class="nav-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 transition font-semibold text-left group shadow-sm">
+              <div class="flex items-center space-x-2.5">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                <span>📻 Online Radio Swarm</span>
+              </div>
+              <span class="text-[9px] bg-purple-500 text-white font-black px-1.5 py-0.5 rounded uppercase tracking-wider">LIVE ON AIR</span>
+            </button>
           </nav>
         </div>
 
@@ -465,9 +472,9 @@
             <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             <span>AUTO PLAYLISTING</span>
           </button>
-          <button onclick="switchTab('tab-editorial'); scrollToOnlineRadio();" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 text-purple-300 hover:text-white whitespace-nowrap transition border border-purple-500/40 flex items-center space-x-1.5 shadow-sm">
-            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-            <span>📻 ONLINE RADIO</span>
+          <button onclick="switchCategory('tab-radio', this); loadOnlineRadioConsole();" id="pill-radio" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 text-purple-300 hover:text-white whitespace-nowrap transition border border-purple-500/40 flex items-center space-x-1.5 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span>📻 ONLINE RADIO (4 LIVE)</span>
           </button>
           <button onclick="openQuickAddArtistModal()" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 text-emerald-300 hover:text-white whitespace-nowrap transition border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm">
             <span>+ ADD ARTIST BY LINK</span>
@@ -491,6 +498,35 @@
           </div>
           <button onclick="handleTopSearchOrSpotify(document.getElementById('topGlobalSearchInput').value)" class="p-2 rounded-full bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white transition border border-purple-500/30" title="Search or Resolve Spotify Link">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- GLOBAL ON-AIR LIVE RADIO BROADCAST BAR -->
+      <div id="globalRadioBroadcastBar" class="p-3 px-4 rounded-2xl bg-gradient-to-r from-purple-950/90 via-[#180A2E] to-purple-950/90 border border-purple-500/40 shadow-glow-violet flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center space-x-3 min-w-0">
+          <span class="flex h-3 w-3 relative flex-shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </span>
+          <span class="text-[10px] font-mono-code font-black uppercase text-purple-300 tracking-wider flex-shrink-0">📻 ON-AIR NOW:</span>
+          <div class="flex items-center space-x-2 truncate">
+            <span class="text-xs font-black text-white truncate" id="globalRadioStationName">Lagos Nights Radio 98.5 HD</span>
+            <span class="text-slate-500 text-xs">•</span>
+            <span class="text-xs font-bold text-amber-300 truncate" id="globalRadioCurrentTrack">"KIRA" by Drey Star</span>
+            <span class="hidden md:inline-block px-1.5 py-0.2 rounded text-[8px] font-black bg-brand-gold text-black shadow">LJ FLAGSHIP</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button onclick="playCustomAudioPreview('https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a', 'KIRA - Live Broadcast', 'Drey Star')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs transition flex items-center space-x-1.5 shadow active:scale-95">
+            <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span>▶ Listen Live</span>
+          </button>
+          <button onclick="switchTab('tab-radio'); loadOnlineRadioConsole();" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white text-xs font-bold transition flex items-center space-x-1">
+            <span>📻 All 4 Stations</span>
+          </button>
+          <button onclick="forceRadioSpinFromUI('lj-000')" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center space-x-1" title="Trigger Forced Live Radio Spin across all stations">
+            <span>⚡ Spin LJ Track</span>
           </button>
         </div>
       </div>
@@ -2045,41 +2081,71 @@
             </div>
           </div>
 
-          <!-- DIVISION 16: ONLINE RADIO AUTONOMOUS ROTATION & AUTO-PLAY SWARM -->
-          <div id="onlineRadioSection" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/30 shadow-spatial space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+          <!-- DIVISION 16: ONLINE RADIO AUTONOMOUS ROTATION TEASER -->
+          <div class="glass-panel rounded-3xl p-6 border border-purple-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-purple-950/40 to-black/60 shadow-spatial">
+            <div class="flex items-center space-x-3.5">
+              <span class="w-3.5 h-3.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
-                  <span class="text-[10px] font-extrabold text-purple-400 uppercase tracking-widest font-mono-code">Division 16 • Broadcast Radio Swarm</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">HEAVY ROTATION ON AIR</span>
+                  <span class="text-[10px] font-mono-code font-black text-purple-400 uppercase tracking-widest">Division 16 • 4 Web Stations Streaming</span>
+                  <span class="px-2 py-0.2 rounded-full text-[8px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">LIVE ON AIR</span>
                 </div>
-                <h2 class="text-xl font-black text-white tracking-tight mt-1">Online Radio Autonomous Rotation & Auto-Play Swarm</h2>
-                <p class="text-xs text-slate-300 mt-0.5 max-w-2xl">
-                  Synchronizes with internet web radio stations across Lagos, London, NYC, and West Africa. Injects LJ tracks into heavy broadcast rotation every 35 minutes and ensures continuous auto-play.
-                </p>
-                <div class="mt-2 text-[10px] font-mono-code font-bold text-purple-300 bg-purple-950/40 border border-purple-500/30 px-3 py-1 rounded-xl inline-flex items-center space-x-1.5" id="onlineRadioStatsBadge">
-                  <span>📻 4 Stations Live • 1,482 Radio Spins Logged • Heavy Rotation Every 35m</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <button onclick="toggleRadioAutoPlayFromUI()" id="radioAutoPlayToggleBtn" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/40 text-purple-300 transition active:scale-95 flex items-center space-x-1.5">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                  <span id="radioAutoPlayLabel">Auto-Play: Active (Heavy Rotation)</span>
-                </button>
-                <button onclick="forceRadioSpinFromUI('lj-000')" class="px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-glow-violet transition active:scale-95 flex items-center space-x-1.5">
-                  <svg class="w-4 h-4 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                  <span>⚡ Force Live Radio Spin Now</span>
-                </button>
+                <h3 class="text-base font-black text-white mt-0.5">Online Radio Autonomous Rotation & Auto-Play Swarm</h3>
+                <p class="text-xs text-slate-300">Continuous heavy broadcast rotation across Lagos 98.5 HD, London UK Relay, NYC, and West Africa. Locks KIRA in continuous auto-play.</p>
               </div>
             </div>
-
-            <!-- Online Radio Stations On-Air Live Cards -->
-            <div id="onlineRadioStationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <!-- Rendered via JS -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <button onclick="playCustomAudioPreview('https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a', 'KIRA - Live Broadcast', 'Drey Star')" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition flex items-center space-x-1.5 shadow active:scale-95">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span>▶ Listen Live</span>
+              </button>
+              <button onclick="switchTab('tab-radio'); loadOnlineRadioConsole();" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs transition shadow-glow-violet flex items-center space-x-1.5 active:scale-95">
+                <span>Open Radio Swarm (4 Stations) →</span>
+              </button>
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB: ONLINE RADIO AUTONOMOUS ROTATION & BROADCAST SWARM       -->
+      <!-- ============================================================== -->
+      <section id="tab-radio" class="tab-panel hidden space-y-6">
+        <div id="onlineRadioSection" class="glass-panel rounded-3xl p-6 md:p-8 border border-purple-500/30 shadow-spatial space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="text-[10px] font-extrabold text-purple-400 uppercase tracking-widest font-mono-code">Division 16 • Broadcast Radio Swarm</span>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">HEAVY ROTATION ON AIR</span>
+              </div>
+              <h2 class="text-2xl font-black text-white tracking-tight mt-1 flex items-center space-x-2">
+                <span>📻 Online Radio Autonomous Rotation & Auto-Play Swarm</span>
+              </h2>
+              <p class="text-xs text-slate-300 mt-0.5 max-w-2xl">
+                Synchronizes with internet web radio stations across Lagos, London, NYC, Accra and West Africa. Injects LJ priority tracks (e.g. <strong class="text-amber-300">KIRA — Drey Star</strong>) into heavy broadcast rotation every 35 minutes and ensures continuous auto-play.
+              </p>
+              <div class="mt-2 text-[10px] font-mono-code font-bold text-purple-300 bg-purple-950/40 border border-purple-500/30 px-3 py-1 rounded-xl inline-flex items-center space-x-1.5" id="onlineRadioStatsBadge">
+                <span>📻 4 Stations Live • 1,506 Radio Spins Logged • Heavy Rotation Every 35m</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <button onclick="toggleRadioAutoPlayFromUI()" id="radioAutoPlayToggleBtn" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/40 text-purple-300 transition active:scale-95 flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span id="radioAutoPlayLabel">Auto-Play: Active (Heavy Rotation)</span>
+              </button>
+              <button onclick="forceRadioSpinFromUI('lj-000')" class="px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-glow-violet transition active:scale-95 flex items-center space-x-1.5">
+                <svg class="w-4 h-4 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>⚡ Force Live Radio Spin Now</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Online Radio Stations On-Air Live Cards -->
+          <div id="onlineRadioStationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Rendered via JS -->
+          </div>
         </div>
       </section>
 
@@ -2977,6 +3043,40 @@
             Open Full Editorial Curation Desk →
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PLAYLIST INSPECTOR & AUDIO PLAYER (FULL TRACKLIST VIEW) -->
+  <div id="playlistInspectorModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) closePlaylistInspectorModal()">
+    <div class="glass-panel border border-amber-500/40 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative space-y-6">
+      <button onclick="closePlaylistInspectorModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Playlist Details Header -->
+      <div id="playlistInspectorHeader" class="border-b border-white/10 pb-4">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Action Bar -->
+      <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs">
+        <div class="flex items-center space-x-2">
+          <span class="text-amber-400 font-bold font-mono-code uppercase tracking-wider">Playable Playlist Tracklist</span>
+          <span class="text-slate-500">•</span>
+          <span id="playlistInspectorTracksCount" class="text-slate-300 font-mono-code">5 Tracks</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="playlistInspectorPlayAllBtn" onclick="playEntirePlaylistFromUI()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition shadow-glow-emerald flex items-center space-x-1.5 active:scale-95">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span>▶ Play Full Playlist (From Slot #1)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Complete Tracklist Container -->
+      <div id="playlistInspectorTracksContainer" class="space-y-2.5">
+        <!-- Rendered via JS -->
       </div>
     </div>
   </div>

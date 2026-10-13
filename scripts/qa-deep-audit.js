@@ -260,8 +260,10 @@ async function runQaAudit() {
       
       if (onclickMatch) {
         const rawCode = onclickMatch[1].trim();
+        // Strip string literals so parentheses inside quotes are not falsely detected as function calls
+        const codeWithoutStrings = rawCode.replace(/'(?:\\'|[^'])*'/g, "''").replace(/"(?:\\"|[^"])*"/g, '""');
         // Extract top-level function call names: exclude chained methods like obj.method()
-        const funcMatches = rawCode.match(/(?:^|[^\w$.])([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g);
+        const funcMatches = codeWithoutStrings.match(/(?:^|[^\w$.])([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g);
         if (funcMatches) {
           funcMatches.forEach(fm => {
             const funcName = fm.replace(/^[^\w$]+/, '').replace('(', '').trim();

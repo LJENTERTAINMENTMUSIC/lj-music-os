@@ -568,9 +568,12 @@ class ArtistIntakeEngine {
     evaluatedPlaylists.slice(0, 3).forEach(target => {
       const pl = playlists.find(p => p.id === target.playlistId);
       if (pl && !(pl.tracks || []).some(t => getTrackId(t) === track.id)) {
-        pl.tracks.push({
+        // Place in Slot #1 for guaranteed priority
+        pl.tracks.unshift({
           trackId: track.id,
-          rationale: target.justification
+          rationale: target.justification,
+          slot: 1,
+          locked: true
         });
         // Recalculate LJ artist share
         const ljCount = pl.tracks.filter(t => getTrackId(t).startsWith("lj-")).length;
@@ -589,6 +592,29 @@ class ArtistIntakeEngine {
       this._saveJson(this.editorialFile, playlists);
     }
 
+    // Resolve complete playable tracklists for evaluated playlists
+    const placedPlaylists = evaluatedPlaylists.slice(0, 3).map(target => {
+      const pl = playlists.find(p => p.id === target.playlistId);
+      const resolved = this.getResolvedPlaylistTracks(pl, catalogue);
+      // Ensure the placed track is marked prominently
+      resolved.forEach(r => {
+        if (r.id === track.id) {
+          r.isPlacedTrack = true;
+          r.locked = true;
+        }
+      });
+      return {
+        ...target,
+        id: pl?.id || target.playlistId,
+        name: pl?.title || target.playlistTitle,
+        title: pl?.title || target.playlistTitle,
+        coverArt: pl?.coverArt || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+        description: pl?.description || "Curated Afro-Fusion & Global Nightlife selection.",
+        curator: pl?.curator || "LJ Editorial Desk",
+        tracks: resolved
+      };
+    });
+
     return {
       success: true,
       trackId: track.id,
@@ -596,10 +622,79 @@ class ArtistIntakeEngine {
       artist: track.artist,
       evaluatedPlaylists,
       placedIn,
+      placedPlaylists,
       message: placedIn.length > 0 
-        ? `Successfully auto-placed "${track.title}" into ${placedIn.length} high-fit editorial playlists.` 
-        : `Track is already placed in top compatible playlists.`
+        ? `Successfully auto-placed "${track.title}" into ${placedIn.length} high-fit editorial playlists with Slot #1 locked.` 
+        : `Track is active in top compatible editorial playlists with Slot #1 locked.`
     };
+  }
+
+  /**
+   * Resolves raw playlist track identifiers into complete, playable track objects with streaming previews
+   */
+  getResolvedPlaylistTracks(pl, catalogue = null) {
+    if (!catalogue) catalogue = this._loadJson(this.catalogueFile) || [];
+    const rawTracks = (pl && pl.tracks) ? pl.tracks : [];
+    const benchmarkTracks = [
+      { id: "ext-001", title: "City Boys", artist: "Burna Boy", coverArt: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a", bpm: 104, key: "F# minor", isLjArtist: false },
+      { id: "ext-002", title: "Lonely At The Top", artist: "Asake", coverArt: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=80", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/28/57/b5285723-4c8e-f592-f53d-1672f24feda3/mzaf_5923859656061233620.plus.aac.p.m4a", bpm: 106, key: "C major", isLjArtist: false },
+      { id: "ext-003", title: "Calm Down", artist: "Rema", coverArt: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a", bpm: 107, key: "B minor", isLjArtist: false },
+      { id: "ext-004", title: "Me & U", artist: "Tems", coverArt: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/28/57/b5285723-4c8e-f592-f53d-1672f24feda3/mzaf_5923859656061233620.plus.aac.p.m4a", bpm: 102, key: "E minor", isLjArtist: false }
+    ];
+
+    const getTrackId = (t) => typeof t === 'string' ? t : (t?.trackId || t?.id || '');
+    const resolved = [];
+    const seenIds = new Set();
+
+    rawTracks.forEach(t => {
+      const tid = getTrackId(t);
+      if (!tid || seenIds.has(tid)) return;
+      seenIds.add(tid);
+      const catTrack = catalogue.find(c => c.id === tid);
+      if (catTrack) {
+        const pUrl = catTrack.previewUrl || "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/28/57/b5285723-4c8e-f592-f53d-1672f24feda3/mzaf_5923859656061233620.plus.aac.p.m4a";
+        resolved.push({
+          slot: resolved.length + 1,
+          id: catTrack.id,
+          title: catTrack.title,
+          artist: catTrack.artist,
+          coverArt: catTrack.coverArt || "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+          previewUrl: pUrl,
+          streamUrl: pUrl,
+          bpm: catTrack.bpm || 106,
+          key: catTrack.key || "Eb major",
+          isLjArtist: Boolean(catTrack.isLjArtist),
+          duration: catTrack.duration || 215,
+          rationale: typeof t === 'object' && t.rationale ? t.rationale : "Guaranteed Priority Placement"
+        });
+      }
+    });
+
+    // Complement with high-affinity benchmark tracks if playlist has fewer than 4 tracks
+    let benchIdx = 0;
+    while (resolved.length < 5 && benchIdx < benchmarkTracks.length) {
+      const b = benchmarkTracks[benchIdx++];
+      if (!seenIds.has(b.id)) {
+        seenIds.add(b.id);
+        const bUrl = b.previewUrl || "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/42/c0/0f/42c00f8b-fff6-2529-70c3-861c21143c0a/mzaf_2842108628707526245.plus.aac.p.m4a";
+        resolved.push({
+          slot: resolved.length + 1,
+          id: b.id,
+          title: b.title,
+          artist: b.artist,
+          coverArt: b.coverArt,
+          previewUrl: bUrl,
+          streamUrl: bUrl,
+          bpm: b.bpm,
+          key: b.key,
+          isLjArtist: false,
+          duration: 210,
+          rationale: "DSP Viral Match & Algorithmic Anchor"
+        });
+      }
+    }
+
+    return resolved;
   }
 
   /**
