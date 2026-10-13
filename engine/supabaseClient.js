@@ -14,13 +14,35 @@ const CANONICAL_PROJECT_URL = 'https://raneitkthnzfilpifqck.supabase.co';
 const CANONICAL_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTM0NzQzNywiZXhwIjoyMTA2OTIzNDM3fQ.1epJLl086IuJ4jLTdnc7j8CBY_sJiYMI9xYS7zppzag';
 const CANONICAL_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDc0MzcsImV4cCI6MjEwNjkyMzQzN30.jAy90fypio5q39rZAVZRIhrvFN6pH38b9rn6aXZXgiE';
 
+function resolveProjectUrl(customUrl = null) {
+  if (customUrl) return customUrl.trim().replace(/\/$/, "");
+  const envUrl = process.env.SUPABASE_URL;
+  // Guard against foreign project mixup (e.g. SmartFix Energy project qfmeylybzvtjoabykblh)
+  if (envUrl && !envUrl.includes('qfmeylybzvtjoabykblh') && envUrl.includes('supabase.co')) {
+    return envUrl.trim().replace(/\/$/, "");
+  }
+  return CANONICAL_PROJECT_URL;
+}
+
+function resolveProjectKey(customKey = null, targetUrl = CANONICAL_PROJECT_URL) {
+  if (customKey) return customKey.trim();
+  const envKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  if (targetUrl === CANONICAL_PROJECT_URL) {
+    if (envKey && envKey.includes('raneitkthnzfilpifqck')) {
+      return envKey.trim();
+    }
+    return CANONICAL_SERVICE_ROLE_KEY;
+  }
+  return envKey || CANONICAL_SERVICE_ROLE_KEY;
+}
+
 let supabase = null;
 
 function getSupabaseClient() {
   if (supabase) return supabase;
 
-  const url = process.env.SUPABASE_URL || CANONICAL_PROJECT_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || CANONICAL_SERVICE_ROLE_KEY;
+  const url = resolveProjectUrl();
+  const key = resolveProjectKey(null, url);
 
   if (!url || !key) {
     return null;
@@ -43,8 +65,8 @@ function getSupabaseClient() {
 }
 
 async function checkSupabaseConnection(customUrl = null, customKey = null) {
-  const url = customUrl || process.env.SUPABASE_URL || CANONICAL_PROJECT_URL;
-  const key = customKey || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || CANONICAL_SERVICE_ROLE_KEY;
+  const url = resolveProjectUrl(customUrl);
+  const key = resolveProjectKey(customKey, url);
 
   if (!url || !key) {
     return {
