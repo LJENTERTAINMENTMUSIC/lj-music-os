@@ -657,6 +657,10 @@ class ArtistIntakeEngine {
     };
   }
 
+  getCatalogue() {
+    return this._loadJson(this.catalogueFile) || [];
+  }
+
   /**
    * Clears all artists, catalogue tracks, telemetry, rights, and lyrics to start completely from scratch
    */

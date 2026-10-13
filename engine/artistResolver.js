@@ -290,45 +290,60 @@ class UniversalArtistResolver {
    * 1-Click Ingests Artist & Discography into Local Roster & Syncs Live to Supabase
    */
   async ingestVerifiedArtist(artistProfile, intakeEngine) {
-    if (!artistProfile || !artistProfile.name) {
+    if (!artistProfile) {
       return { success: false, error: "Valid artist profile is required" };
     }
 
+    // Support unwrapping if nested inside { artistProfile } or { artist }
+    const profile = artistProfile.artistProfile || artistProfile.artist || artistProfile;
+    const finalName = (profile.name || profile.artist || profile.stageName || "").trim();
+    if (!finalName) {
+      return { success: false, error: "Valid artist profile is required" };
+    }
+    profile.name = finalName;
+
     // 1. Save to local artist roster
     const localResult = intakeEngine.registerArtistProfile({
-      name: artistProfile.name,
-      stageName: artistProfile.stageName || artistProfile.name,
-      picture: artistProfile.avatar || artistProfile.picture,
-      banner: artistProfile.banner || artistProfile.avatar,
-      spotifyUrl: artistProfile.spotifyUrl,
-      spotifyId: artistProfile.spotifyId,
-      appleMusicUrl: artistProfile.appleMusicUrl,
-      appleMusicId: artistProfile.appleMusicId,
-      monthlyListeners: artistProfile.monthlyListeners,
-      fansCount: artistProfile.fansCount,
-      primaryGenre: artistProfile.primaryGenre,
-      bio: artistProfile.bio,
+      name: profile.name,
+      stageName: profile.stageName || profile.name,
+      picture: profile.avatar || profile.picture,
+      banner: profile.banner || profile.avatar || profile.picture,
+      spotifyUrl: profile.spotifyUrl,
+      spotifyId: profile.spotifyId,
+      appleMusicUrl: profile.appleMusicUrl,
+      appleMusicId: profile.appleMusicId,
+      monthlyListeners: profile.monthlyListeners,
+      fansCount: profile.fansCount,
+      primaryGenre: profile.primaryGenre,
+      bio: profile.bio,
       isLjArtist: true,
       verified: true
     });
 
     // 2. Ingest top tracks into catalogue if provided
     let ingestedTracks = [];
-    if (artistProfile.topTracks && Array.isArray(artistProfile.topTracks) && artistProfile.topTracks.length > 0) {
-      artistProfile.topTracks.forEach(t => {
+    if (profile.topTracks && Array.isArray(profile.topTracks) && profile.topTracks.length > 0) {
+      const currentCat = intakeEngine.getCatalogue ? intakeEngine.getCatalogue() : [];
+      profile.topTracks.forEach(t => {
         try {
-          const res = intakeEngine.ingestArtistTrack({
-            title: t.title,
-            artist: artistProfile.name,
-            genre: t.genre || artistProfile.primaryGenre || 'Afrobeats',
-            coverArt: t.coverArt || artistProfile.avatar,
-            previewUrl: t.previewUrl,
-            bpm: t.bpm || 108,
-            key: t.key || 'A minor',
-            energy: t.energy || 85,
-            danceability: t.danceability || 90
-          });
-          if (res.track) ingestedTracks.push(res.track);
+          const alreadyExists = currentCat.some(x => 
+            x.title?.toLowerCase() === t.title?.toLowerCase() && 
+            x.artist?.toLowerCase() === profile.name?.toLowerCase()
+          );
+          if (!alreadyExists) {
+            const res = intakeEngine.ingestArtistTrack({
+              title: t.title,
+              artist: profile.name,
+              genre: t.genre || profile.primaryGenre || 'Afrobeats',
+              coverArt: t.coverArt || profile.avatar || profile.picture,
+              previewUrl: t.previewUrl,
+              bpm: t.bpm || 108,
+              key: t.key || 'A minor',
+              energy: t.energy || 85,
+              danceability: t.danceability || 90
+            });
+            if (res.track) ingestedTracks.push(res.track);
+          }
         } catch (e) {
           console.warn("Could not auto-ingest track:", t.title, e.message);
         }
@@ -343,17 +358,17 @@ class UniversalArtistResolver {
         const artistId = localResult.artist?.id || `art-${Date.now()}`;
         const { data, error } = await sb.from('artist_roster').upsert({
           id: artistId,
-          name: artistProfile.name,
-          stage_name: artistProfile.stageName || artistProfile.name,
-          bio: artistProfile.bio,
-          monthly_listeners: artistProfile.monthlyListenersRaw || 1420000,
+          name: profile.name,
+          stage_name: profile.stageName || profile.name,
+          bio: profile.bio,
+          monthly_listeners: profile.monthlyListenersRaw || (typeof profile.monthlyListeners === 'number' ? profile.monthlyListeners : 1420000),
           is_lj_priority: true,
           verified: true,
-          avatar_url: artistProfile.avatar || artistProfile.picture,
-          genres: artistProfile.genres || [artistProfile.primaryGenre || 'Afrobeats'],
+          avatar_url: profile.avatar || profile.picture,
+          genres: profile.genres || [profile.primaryGenre || 'Afrobeats'],
           social_links: {
-            spotify: artistProfile.spotifyUrl,
-            apple_music: artistProfile.appleMusicUrl
+            spotify: profile.spotifyUrl,
+            apple_music: profile.appleMusicUrl
           },
           updated_at: new Date().toISOString()
         }, { onConflict: 'id' });
@@ -372,10 +387,10 @@ class UniversalArtistResolver {
 
     return {
       success: true,
-      artist: localResult.artist,
+      artist: localResult.artist || profile,
       ingestedTracks,
       supabaseStatus,
-      message: `Artist "${artistProfile.name}" successfully onboarded, verified with high-res DSP photography, and synchronized across local OS & live Supabase!`
+      message: `Artist "${profile.name}" successfully onboarded, verified with high-res DSP photography, and synchronized across local OS & live Supabase!`
     };
   }
 }

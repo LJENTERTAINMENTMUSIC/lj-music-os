@@ -622,7 +622,7 @@ app.post('/api/artist/resolve-link', async (req, res) => {
 
 app.post('/api/artist/one-click-ingest', async (req, res) => {
   try {
-    const { artistProfile } = req.body;
+    const artistProfile = req.body?.artistProfile || req.body?.artist || req.body;
     const result = await universalResolver.ingestVerifiedArtist(artistProfile, intakeEngine);
     res.json(result);
   } catch (err) {

@@ -4692,22 +4692,30 @@ async function executeQuickArtistResolve() {
 }
 
 async function confirmAndIngestArtist() {
+  const btn = document.getElementById("confirmIngestBtn");
+  const input = document.getElementById("quickArtistLinkInput");
+
+  // If not resolved yet but input has a value, auto-resolve first
+  if (!currentResolvedArtist && input && input.value.trim()) {
+    await executeQuickArtistResolve();
+  }
+
   if (!currentResolvedArtist) {
-    showToast("No resolved artist to onboard.", "warning", "Error");
+    showToast("Please enter an artist name or Spotify link above, then click 'Resolve Profile'.", "warning", "Input Required");
     return;
   }
 
-  const btn = document.getElementById("confirmIngestBtn");
   if (btn) {
     btn.disabled = true;
     btn.innerHTML = `<span class="animate-spin inline-block mr-1">↻</span> Ingesting to Supabase...`;
   }
 
   try {
+    const payload = currentResolvedArtist.artist || currentResolvedArtist.artistProfile || currentResolvedArtist;
     const res = await fetch("/api/artist/one-click-ingest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(currentResolvedArtist)
+      body: JSON.stringify({ artistProfile: payload, artist: payload, ...payload })
     });
     const result = await res.json();
 
@@ -4715,7 +4723,8 @@ async function confirmAndIngestArtist() {
       throw new Error(result.error || "Failed to onboard artist.");
     }
 
-    showToast(`✓ ${result.artist.name} successfully onboarded and synchronized with Supabase Postgres & LJ Roster!`, "success", "Artist Onboarded");
+    const artistName = result.artist?.name || payload.name || "Artist";
+    showToast(`✓ ${artistName} successfully onboarded and synchronized with Supabase Postgres & LJ Roster!`, "success", "Artist Onboarded");
     closeQuickAddArtistModal();
 
     // Reload catalogue & roster
