@@ -1,1 +1,3135 @@
-{}
+{
+  "lj-000": {
+    "trackId": "lj-000",
+    "title": "KIRA",
+    "artist": "Drey Star",
+    "isrc": "NG-LJ1-26-00001",
+    "album": "KIRA - Single",
+    "releaseDate": "2026-09-26",
+    "durationMs": 231000,
+    "primaryLanguage": "Yoruba / English / Nigerian Pidgin",
+    "languages": {
+      "Yoruba": 45,
+      "English": 35,
+      "Nigerian Pidgin": 20
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "E ba mi kira fun",
+        "meaning": "Join me to salute, reverence, and pay highest homage to them (KIRA is Yoruba for paying royal honor).",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "Ajayi olola iju okunrin meta",
+        "meaning": "Paternal praise poetry (Oriki): 'Ajayi, the wealthy one of the forest, a man of valor worth three men!'",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "Amope aponbepore mi owon",
+        "meaning": "Maternal praise poetry (Oriki): 'Amope, the glowing fair-complexioned beauty, my beloved mother!'",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "Eyin n’igi leyin ogba mi",
+        "meaning": "Philosophical proverb: 'You are the sturdy protective tree standing tall behind my fence' (my ultimate shelter, defense, and backbone).",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "Awon obi mi owon",
+        "meaning": "My precious, dearly beloved parents.",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "Iya ni wura baba ni jigi ko s’eni fe j’ataare e laye",
+        "meaning": "Iconic African proverb: 'Mother is pure gold, father is a reflective mirror; no one wants to chew bitter alligator pepper alone in this world' (Parents are irreplaceable guardians; life without them is harsh).",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "even those times wey I fall your hand",
+        "meaning": "Even during moments when I let you down, disappointed you, or went astray.",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Ojo ti mo lo gba boolu ti mo d’egbo wale o",
+        "meaning": "Nostalgic memory: 'The day I went to play football and returned home with bleeding wounds (and you nursed me with love).'",
+        "language": "Yoruba"
+      },
+      {
+        "phrase": "The day wey we see food chop, the day wey e no dey at all",
+        "meaning": "Gratitude for resilience: 'The prosperous days of plenty, and the lean austere days when there was nothing to eat at all.'",
+        "language": "Nigerian Pidgin"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "I was weak and helpless\nYou held me and made me strong\nI was rough and I was reckless\nYou taught me to right my wrongs\nYou were with me all the way, even those times wey I fall your hand\nShey na the loving and affection plus those ones wey I no deserve\n\nI will always remember the good and the ugly times\nI will never forget the pains and the sacrifice\nCos iya ni wura baba ni jigi ko s’eni fe j’ataare e laye\n\n*HOOK*\nE ba mi kira fun\nAjayi olola iju okunrin meta\nE ba mi kira fun\nAmope aponbepore mi owon \nE ba mi kira fun\nEyin n’igi leyin ogba mi\nE ba mi kira fun\nAwon obi mi owon\n\n*Verse II*\nI was young and I was stubborn; you stood firm to guide me right\nI was blind and I was pompous,\nYou guided me to the light\nYou were with me all the way, even those times wey I fall your hand\nShey na the loving and affection plus those ones wey I no deserve \n\nI will never forget the great memories we had\nOjo ti mo lo gba boolu ti mo d’egbo wale o\nThe day wey we see food chop, the day wey e no dey at all\n\nOh oh oh oh\n\n*HOOK*\nE ba mi kira o e ba mi Kira\nYe!\nAjayi olola iju okunrin meta\nE ba mi kira fun\nAmope aponbepore mi owon \nE ba mi kira fun\nEyin n’igi leyin ogba mi\nE ba mi kira fun\nAwon obi mi owon",
+    "cleanLyrics": "I was weak and helpless\nYou held me and made me strong\nI was rough and I was reckless\nYou taught me to right my wrongs\nYou were with me all the way, even those times wey I fall your hand\nShey na the loving and affection plus those ones wey I no deserve\n\nI will always remember the good and the ugly times\nI will never forget the pains and the sacrifice\nCos iya ni wura baba ni jigi ko s’eni fe j’ataare e laye\n\n*HOOK*\nE ba mi kira fun\nAjayi olola iju okunrin meta\nE ba mi kira fun\nAmope aponbepore mi owon \nE ba mi kira fun\nEyin n’igi leyin ogba mi\nE ba mi kira fun\nAwon obi mi owon\n\n*Verse II*\nI was young and I was stubborn; you stood firm to guide me right\nI was blind and I was pompous,\nYou guided me to the light\nYou were with me all the way, even those times wey I fall your hand\nShey na the loving and affection plus those ones wey I no deserve \n\nI will never forget the great memories we had\nOjo ti mo lo gba boolu ti mo d’egbo wale o\nThe day wey we see food chop, the day wey e no dey at all\n\nOh oh oh oh\n\n*HOOK*\nE ba mi kira o e ba mi Kira\nYe!\nAjayi olola iju okunrin meta\nE ba mi kira fun\nAmope aponbepore mi owon \nE ba mi kira fun\nEyin n’igi leyin ogba mi\nE ba mi kira fun\nAwon obi mi owon",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 0,
+        "endMs": 8000,
+        "startTime": "00:00.00",
+        "endTime": "00:08.00",
+        "line": "(Intro — Guitars, Talking Drum & Log Drum Warmup)",
+        "singer": "Drey Star",
+        "language": "Instrumentation",
+        "aiInsight": "Acoustic baseline: 106 BPM in Eb major. Rhythmic talking drum establishing West African filial reverence.",
+        "words": [
+          {
+            "word": "(Intro",
+            "startMs": 0,
+            "endMs": 888
+          },
+          {
+            "word": "—",
+            "startMs": 888,
+            "endMs": 1776
+          },
+          {
+            "word": "Guitars,",
+            "startMs": 1776,
+            "endMs": 2664
+          },
+          {
+            "word": "Talking",
+            "startMs": 2664,
+            "endMs": 3552
+          },
+          {
+            "word": "Drum",
+            "startMs": 3552,
+            "endMs": 4440
+          },
+          {
+            "word": "&",
+            "startMs": 4440,
+            "endMs": 5328
+          },
+          {
+            "word": "Log",
+            "startMs": 5328,
+            "endMs": 6216
+          },
+          {
+            "word": "Drum",
+            "startMs": 6216,
+            "endMs": 7104
+          },
+          {
+            "word": "Warmup)",
+            "startMs": 7104,
+            "endMs": 7992
+          }
+        ]
+      },
+      {
+        "lineIndex": 2,
+        "section": "Verse 1",
+        "startMs": 8500,
+        "endMs": 13000,
+        "startTime": "00:08.50",
+        "endTime": "00:13.00",
+        "line": "I was weak and helpless",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Vulnerability opening. Prime sync placement for dramatic character backstory & redemption arcs.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 8500,
+            "endMs": 9400
+          },
+          {
+            "word": "was",
+            "startMs": 9400,
+            "endMs": 10300
+          },
+          {
+            "word": "weak",
+            "startMs": 10300,
+            "endMs": 11200
+          },
+          {
+            "word": "and",
+            "startMs": 11200,
+            "endMs": 12100
+          },
+          {
+            "word": "helpless",
+            "startMs": 12100,
+            "endMs": 13000
+          }
+        ]
+      },
+      {
+        "lineIndex": 3,
+        "section": "Verse 1",
+        "startMs": 13500,
+        "endMs": 18000,
+        "startTime": "00:13.50",
+        "endTime": "00:18.00",
+        "line": "You held me and made me strong",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Gratitude hook. Emotional transition from fragility to strength.",
+        "words": [
+          {
+            "word": "You",
+            "startMs": 13500,
+            "endMs": 14142
+          },
+          {
+            "word": "held",
+            "startMs": 14142,
+            "endMs": 14784
+          },
+          {
+            "word": "me",
+            "startMs": 14784,
+            "endMs": 15426
+          },
+          {
+            "word": "and",
+            "startMs": 15426,
+            "endMs": 16068
+          },
+          {
+            "word": "made",
+            "startMs": 16068,
+            "endMs": 16710
+          },
+          {
+            "word": "me",
+            "startMs": 16710,
+            "endMs": 17352
+          },
+          {
+            "word": "strong",
+            "startMs": 17352,
+            "endMs": 17994
+          }
+        ]
+      },
+      {
+        "lineIndex": 4,
+        "section": "Verse 1",
+        "startMs": 18500,
+        "endMs": 23000,
+        "startTime": "00:18.50",
+        "endTime": "00:23.00",
+        "line": "I was rough and I was reckless",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Confessional narrative. Raw youth retrospection.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 18500,
+            "endMs": 19142
+          },
+          {
+            "word": "was",
+            "startMs": 19142,
+            "endMs": 19784
+          },
+          {
+            "word": "rough",
+            "startMs": 19784,
+            "endMs": 20426
+          },
+          {
+            "word": "and",
+            "startMs": 20426,
+            "endMs": 21068
+          },
+          {
+            "word": "I",
+            "startMs": 21068,
+            "endMs": 21710
+          },
+          {
+            "word": "was",
+            "startMs": 21710,
+            "endMs": 22352
+          },
+          {
+            "word": "reckless",
+            "startMs": 22352,
+            "endMs": 22994
+          }
+        ]
+      },
+      {
+        "lineIndex": 5,
+        "section": "Verse 1",
+        "startMs": 23500,
+        "endMs": 28000,
+        "startTime": "00:23.50",
+        "endTime": "00:28.00",
+        "line": "You taught me to right my wrongs",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Parental mentorship & moral anchor theme.",
+        "words": [
+          {
+            "word": "You",
+            "startMs": 23500,
+            "endMs": 24142
+          },
+          {
+            "word": "taught",
+            "startMs": 24142,
+            "endMs": 24784
+          },
+          {
+            "word": "me",
+            "startMs": 24784,
+            "endMs": 25426
+          },
+          {
+            "word": "to",
+            "startMs": 25426,
+            "endMs": 26068
+          },
+          {
+            "word": "right",
+            "startMs": 26068,
+            "endMs": 26710
+          },
+          {
+            "word": "my",
+            "startMs": 26710,
+            "endMs": 27352
+          },
+          {
+            "word": "wrongs",
+            "startMs": 27352,
+            "endMs": 27994
+          }
+        ]
+      },
+      {
+        "lineIndex": 6,
+        "section": "Verse 1",
+        "startMs": 28500,
+        "endMs": 34000,
+        "startTime": "00:28.50",
+        "endTime": "00:34.00",
+        "line": "You were with me all the way, even those times wey I fall your hand",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin",
+        "aiInsight": "Pidgin cultural idiom: 'fall your hand' = disappointed your expectations. High relatability index (99%).",
+        "words": [
+          {
+            "word": "You",
+            "startMs": 28500,
+            "endMs": 28866
+          },
+          {
+            "word": "were",
+            "startMs": 28866,
+            "endMs": 29232
+          },
+          {
+            "word": "with",
+            "startMs": 29232,
+            "endMs": 29598
+          },
+          {
+            "word": "me",
+            "startMs": 29598,
+            "endMs": 29964
+          },
+          {
+            "word": "all",
+            "startMs": 29964,
+            "endMs": 30330
+          },
+          {
+            "word": "the",
+            "startMs": 30330,
+            "endMs": 30696
+          },
+          {
+            "word": "way,",
+            "startMs": 30696,
+            "endMs": 31062
+          },
+          {
+            "word": "even",
+            "startMs": 31062,
+            "endMs": 31428
+          },
+          {
+            "word": "those",
+            "startMs": 31428,
+            "endMs": 31794
+          },
+          {
+            "word": "times",
+            "startMs": 31794,
+            "endMs": 32160
+          },
+          {
+            "word": "wey",
+            "startMs": 32160,
+            "endMs": 32526
+          },
+          {
+            "word": "I",
+            "startMs": 32526,
+            "endMs": 32892
+          },
+          {
+            "word": "fall",
+            "startMs": 32892,
+            "endMs": 33258
+          },
+          {
+            "word": "your",
+            "startMs": 33258,
+            "endMs": 33624
+          },
+          {
+            "word": "hand",
+            "startMs": 33624,
+            "endMs": 33990
+          }
+        ]
+      },
+      {
+        "lineIndex": 7,
+        "section": "Verse 1",
+        "startMs": 34500,
+        "endMs": 40500,
+        "startTime": "00:34.50",
+        "endTime": "00:40.50",
+        "line": "Shey na the loving and affection plus those ones wey I no deserve",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin",
+        "aiInsight": "Theme of unconditional parental grace and undeserved devotion.",
+        "words": [
+          {
+            "word": "Shey",
+            "startMs": 34500,
+            "endMs": 34961
+          },
+          {
+            "word": "na",
+            "startMs": 34961,
+            "endMs": 35422
+          },
+          {
+            "word": "the",
+            "startMs": 35422,
+            "endMs": 35883
+          },
+          {
+            "word": "loving",
+            "startMs": 35883,
+            "endMs": 36344
+          },
+          {
+            "word": "and",
+            "startMs": 36344,
+            "endMs": 36805
+          },
+          {
+            "word": "affection",
+            "startMs": 36805,
+            "endMs": 37266
+          },
+          {
+            "word": "plus",
+            "startMs": 37266,
+            "endMs": 37727
+          },
+          {
+            "word": "those",
+            "startMs": 37727,
+            "endMs": 38188
+          },
+          {
+            "word": "ones",
+            "startMs": 38188,
+            "endMs": 38649
+          },
+          {
+            "word": "wey",
+            "startMs": 38649,
+            "endMs": 39110
+          },
+          {
+            "word": "I",
+            "startMs": 39110,
+            "endMs": 39571
+          },
+          {
+            "word": "no",
+            "startMs": 39571,
+            "endMs": 40032
+          },
+          {
+            "word": "deserve",
+            "startMs": 40032,
+            "endMs": 40493
+          }
+        ]
+      },
+      {
+        "lineIndex": 8,
+        "section": "Pre-Chorus",
+        "startMs": 41000,
+        "endMs": 46000,
+        "startTime": "00:41.00",
+        "endTime": "00:46.00",
+        "line": "I will always remember the good and the ugly times",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Bilingual bridge entry. Honest portrait of familial resilience through adversity.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 41000,
+            "endMs": 41500
+          },
+          {
+            "word": "will",
+            "startMs": 41500,
+            "endMs": 42000
+          },
+          {
+            "word": "always",
+            "startMs": 42000,
+            "endMs": 42500
+          },
+          {
+            "word": "remember",
+            "startMs": 42500,
+            "endMs": 43000
+          },
+          {
+            "word": "the",
+            "startMs": 43000,
+            "endMs": 43500
+          },
+          {
+            "word": "good",
+            "startMs": 43500,
+            "endMs": 44000
+          },
+          {
+            "word": "and",
+            "startMs": 44000,
+            "endMs": 44500
+          },
+          {
+            "word": "the",
+            "startMs": 44500,
+            "endMs": 45000
+          },
+          {
+            "word": "ugly",
+            "startMs": 45000,
+            "endMs": 45500
+          },
+          {
+            "word": "times",
+            "startMs": 45500,
+            "endMs": 46000
+          }
+        ]
+      },
+      {
+        "lineIndex": 9,
+        "section": "Pre-Chorus",
+        "startMs": 46500,
+        "endMs": 51500,
+        "startTime": "00:46.50",
+        "endTime": "00:51.50",
+        "line": "I will never forget the pains and the sacrifice",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Sacrifice crescendo. Percussion builds into emotional peak.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 46500,
+            "endMs": 47055
+          },
+          {
+            "word": "will",
+            "startMs": 47055,
+            "endMs": 47610
+          },
+          {
+            "word": "never",
+            "startMs": 47610,
+            "endMs": 48165
+          },
+          {
+            "word": "forget",
+            "startMs": 48165,
+            "endMs": 48720
+          },
+          {
+            "word": "the",
+            "startMs": 48720,
+            "endMs": 49275
+          },
+          {
+            "word": "pains",
+            "startMs": 49275,
+            "endMs": 49830
+          },
+          {
+            "word": "and",
+            "startMs": 49830,
+            "endMs": 50385
+          },
+          {
+            "word": "the",
+            "startMs": 50385,
+            "endMs": 50940
+          },
+          {
+            "word": "sacrifice",
+            "startMs": 50940,
+            "endMs": 51495
+          }
+        ]
+      },
+      {
+        "lineIndex": 10,
+        "section": "Pre-Chorus",
+        "startMs": 52000,
+        "endMs": 58000,
+        "startTime": "00:52.00",
+        "endTime": "00:58.00",
+        "line": "Cos iya ni wura baba ni jigi ko s’eni fe j’ataare e laye",
+        "singer": "Drey Star",
+        "language": "Yoruba Proverb",
+        "aiInsight": "Iconic African proverb: 'Mother is gold, father is a mirror; nobody wants to chew bitter alligator pepper alone in this world.'",
+        "words": [
+          {
+            "word": "Cos",
+            "startMs": 52000,
+            "endMs": 52461
+          },
+          {
+            "word": "iya",
+            "startMs": 52461,
+            "endMs": 52922
+          },
+          {
+            "word": "ni",
+            "startMs": 52922,
+            "endMs": 53383
+          },
+          {
+            "word": "wura",
+            "startMs": 53383,
+            "endMs": 53844
+          },
+          {
+            "word": "baba",
+            "startMs": 53844,
+            "endMs": 54305
+          },
+          {
+            "word": "ni",
+            "startMs": 54305,
+            "endMs": 54766
+          },
+          {
+            "word": "jigi",
+            "startMs": 54766,
+            "endMs": 55227
+          },
+          {
+            "word": "ko",
+            "startMs": 55227,
+            "endMs": 55688
+          },
+          {
+            "word": "s’eni",
+            "startMs": 55688,
+            "endMs": 56149
+          },
+          {
+            "word": "fe",
+            "startMs": 56149,
+            "endMs": 56610
+          },
+          {
+            "word": "j’ataare",
+            "startMs": 56610,
+            "endMs": 57071
+          },
+          {
+            "word": "e",
+            "startMs": 57071,
+            "endMs": 57532
+          },
+          {
+            "word": "laye",
+            "startMs": 57532,
+            "endMs": 57993
+          }
+        ]
+      },
+      {
+        "lineIndex": 11,
+        "section": "Hook",
+        "startMs": 58500,
+        "endMs": 63000,
+        "startTime": "00:58.50",
+        "endTime": "01:03.00",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Core Anthemic Hook: 'KIRA' = pay highest reverence and royal homage to parents.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 58500,
+            "endMs": 59400
+          },
+          {
+            "word": "ba",
+            "startMs": 59400,
+            "endMs": 60300
+          },
+          {
+            "word": "mi",
+            "startMs": 60300,
+            "endMs": 61200
+          },
+          {
+            "word": "kira",
+            "startMs": 61200,
+            "endMs": 62100
+          },
+          {
+            "word": "fun",
+            "startMs": 62100,
+            "endMs": 63000
+          }
+        ]
+      },
+      {
+        "lineIndex": 12,
+        "section": "Hook",
+        "startMs": 63500,
+        "endMs": 69000,
+        "startTime": "01:03.50",
+        "endTime": "01:09.00",
+        "line": "Ajayi olola iju okunrin meta",
+        "singer": "Drey Star",
+        "language": "Yoruba Oriki",
+        "aiInsight": "Paternal praise poetry (Oriki): 'Ajayi, the wealthy one of the forest, a champion worth three men!'",
+        "words": [
+          {
+            "word": "Ajayi",
+            "startMs": 63500,
+            "endMs": 64600
+          },
+          {
+            "word": "olola",
+            "startMs": 64600,
+            "endMs": 65700
+          },
+          {
+            "word": "iju",
+            "startMs": 65700,
+            "endMs": 66800
+          },
+          {
+            "word": "okunrin",
+            "startMs": 66800,
+            "endMs": 67900
+          },
+          {
+            "word": "meta",
+            "startMs": 67900,
+            "endMs": 69000
+          }
+        ]
+      },
+      {
+        "lineIndex": 13,
+        "section": "Hook",
+        "startMs": 69500,
+        "endMs": 74000,
+        "startTime": "01:09.50",
+        "endTime": "01:14.00",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Call to communal celebration.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 69500,
+            "endMs": 70400
+          },
+          {
+            "word": "ba",
+            "startMs": 70400,
+            "endMs": 71300
+          },
+          {
+            "word": "mi",
+            "startMs": 71300,
+            "endMs": 72200
+          },
+          {
+            "word": "kira",
+            "startMs": 72200,
+            "endMs": 73100
+          },
+          {
+            "word": "fun",
+            "startMs": 73100,
+            "endMs": 74000
+          }
+        ]
+      },
+      {
+        "lineIndex": 14,
+        "section": "Hook",
+        "startMs": 74500,
+        "endMs": 80000,
+        "startTime": "01:14.50",
+        "endTime": "01:20.00",
+        "line": "Amope aponbepore mi owon",
+        "singer": "Drey Star",
+        "language": "Yoruba Oriki",
+        "aiInsight": "Maternal praise poetry (Oriki): 'Amope, the glowing fair-complexioned jewel, my beloved mother!'",
+        "words": [
+          {
+            "word": "Amope",
+            "startMs": 74500,
+            "endMs": 75875
+          },
+          {
+            "word": "aponbepore",
+            "startMs": 75875,
+            "endMs": 77250
+          },
+          {
+            "word": "mi",
+            "startMs": 77250,
+            "endMs": 78625
+          },
+          {
+            "word": "owon",
+            "startMs": 78625,
+            "endMs": 80000
+          }
+        ]
+      },
+      {
+        "lineIndex": 15,
+        "section": "Hook",
+        "startMs": 80500,
+        "endMs": 85000,
+        "startTime": "01:20.50",
+        "endTime": "01:25.00",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Anthemic refrain.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 80500,
+            "endMs": 81400
+          },
+          {
+            "word": "ba",
+            "startMs": 81400,
+            "endMs": 82300
+          },
+          {
+            "word": "mi",
+            "startMs": 82300,
+            "endMs": 83200
+          },
+          {
+            "word": "kira",
+            "startMs": 83200,
+            "endMs": 84100
+          },
+          {
+            "word": "fun",
+            "startMs": 84100,
+            "endMs": 85000
+          }
+        ]
+      },
+      {
+        "lineIndex": 16,
+        "section": "Hook",
+        "startMs": 85500,
+        "endMs": 91000,
+        "startTime": "01:25.50",
+        "endTime": "01:31.00",
+        "line": "Eyin n’igi leyin ogba mi",
+        "singer": "Drey Star",
+        "language": "Yoruba Metaphor",
+        "aiInsight": "Philosophical metaphor: 'You are the sturdy protective tree standing tall behind my fence' (my ultimate shelter & defense).",
+        "words": [
+          {
+            "word": "Eyin",
+            "startMs": 85500,
+            "endMs": 86600
+          },
+          {
+            "word": "n’igi",
+            "startMs": 86600,
+            "endMs": 87700
+          },
+          {
+            "word": "leyin",
+            "startMs": 87700,
+            "endMs": 88800
+          },
+          {
+            "word": "ogba",
+            "startMs": 88800,
+            "endMs": 89900
+          },
+          {
+            "word": "mi",
+            "startMs": 89900,
+            "endMs": 91000
+          }
+        ]
+      },
+      {
+        "lineIndex": 17,
+        "section": "Hook",
+        "startMs": 91500,
+        "endMs": 96000,
+        "startTime": "01:31.50",
+        "endTime": "01:36.00",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Anthemic refrain.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 91500,
+            "endMs": 92400
+          },
+          {
+            "word": "ba",
+            "startMs": 92400,
+            "endMs": 93300
+          },
+          {
+            "word": "mi",
+            "startMs": 93300,
+            "endMs": 94200
+          },
+          {
+            "word": "kira",
+            "startMs": 94200,
+            "endMs": 95100
+          },
+          {
+            "word": "fun",
+            "startMs": 95100,
+            "endMs": 96000
+          }
+        ]
+      },
+      {
+        "lineIndex": 18,
+        "section": "Hook",
+        "startMs": 96500,
+        "endMs": 103000,
+        "startTime": "01:36.50",
+        "endTime": "01:43.00",
+        "line": "Awon obi mi owon",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Climax of Chorus: 'My precious, dearly beloved parents.'",
+        "words": [
+          {
+            "word": "Awon",
+            "startMs": 96500,
+            "endMs": 98125
+          },
+          {
+            "word": "obi",
+            "startMs": 98125,
+            "endMs": 99750
+          },
+          {
+            "word": "mi",
+            "startMs": 99750,
+            "endMs": 101375
+          },
+          {
+            "word": "owon",
+            "startMs": 101375,
+            "endMs": 103000
+          }
+        ]
+      },
+      {
+        "lineIndex": 19,
+        "section": "Interlude",
+        "startMs": 103500,
+        "endMs": 110000,
+        "startTime": "01:43.50",
+        "endTime": "01:50.00",
+        "line": "(Afrobeat Percussion & Talking Drum Solo)",
+        "singer": "Drey Star",
+        "language": "Instrumentation",
+        "aiInsight": "Log drum roll + brass inflection. Perfect sync cut point for cinematic scene transition.",
+        "words": [
+          {
+            "word": "(Afrobeat",
+            "startMs": 103500,
+            "endMs": 104583
+          },
+          {
+            "word": "Percussion",
+            "startMs": 104583,
+            "endMs": 105666
+          },
+          {
+            "word": "&",
+            "startMs": 105666,
+            "endMs": 106749
+          },
+          {
+            "word": "Talking",
+            "startMs": 106749,
+            "endMs": 107832
+          },
+          {
+            "word": "Drum",
+            "startMs": 107832,
+            "endMs": 108915
+          },
+          {
+            "word": "Solo)",
+            "startMs": 108915,
+            "endMs": 109998
+          }
+        ]
+      },
+      {
+        "lineIndex": 20,
+        "section": "Verse 2",
+        "startMs": 110500,
+        "endMs": 116000,
+        "startTime": "01:50.50",
+        "endTime": "01:56.00",
+        "line": "I was young and I was stubborn; you stood firm to guide me right",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Generational narrative. Tough love and parental steadfastness.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 110500,
+            "endMs": 110892
+          },
+          {
+            "word": "was",
+            "startMs": 110892,
+            "endMs": 111284
+          },
+          {
+            "word": "young",
+            "startMs": 111284,
+            "endMs": 111676
+          },
+          {
+            "word": "and",
+            "startMs": 111676,
+            "endMs": 112068
+          },
+          {
+            "word": "I",
+            "startMs": 112068,
+            "endMs": 112460
+          },
+          {
+            "word": "was",
+            "startMs": 112460,
+            "endMs": 112852
+          },
+          {
+            "word": "stubborn;",
+            "startMs": 112852,
+            "endMs": 113244
+          },
+          {
+            "word": "you",
+            "startMs": 113244,
+            "endMs": 113636
+          },
+          {
+            "word": "stood",
+            "startMs": 113636,
+            "endMs": 114028
+          },
+          {
+            "word": "firm",
+            "startMs": 114028,
+            "endMs": 114420
+          },
+          {
+            "word": "to",
+            "startMs": 114420,
+            "endMs": 114812
+          },
+          {
+            "word": "guide",
+            "startMs": 114812,
+            "endMs": 115204
+          },
+          {
+            "word": "me",
+            "startMs": 115204,
+            "endMs": 115596
+          },
+          {
+            "word": "right",
+            "startMs": 115596,
+            "endMs": 115988
+          }
+        ]
+      },
+      {
+        "lineIndex": 21,
+        "section": "Verse 2",
+        "startMs": 116500,
+        "endMs": 120500,
+        "startTime": "01:56.50",
+        "endTime": "02:00.50",
+        "line": "I was blind and I was pompous,",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Honest self-reckoning and humility.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 116500,
+            "endMs": 117071
+          },
+          {
+            "word": "was",
+            "startMs": 117071,
+            "endMs": 117642
+          },
+          {
+            "word": "blind",
+            "startMs": 117642,
+            "endMs": 118213
+          },
+          {
+            "word": "and",
+            "startMs": 118213,
+            "endMs": 118784
+          },
+          {
+            "word": "I",
+            "startMs": 118784,
+            "endMs": 119355
+          },
+          {
+            "word": "was",
+            "startMs": 119355,
+            "endMs": 119926
+          },
+          {
+            "word": "pompous,",
+            "startMs": 119926,
+            "endMs": 120497
+          }
+        ]
+      },
+      {
+        "lineIndex": 22,
+        "section": "Verse 2",
+        "startMs": 121000,
+        "endMs": 125500,
+        "startTime": "02:01.00",
+        "endTime": "02:05.50",
+        "line": "You guided me to the light",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Spiritual and moral guidance theme.",
+        "words": [
+          {
+            "word": "You",
+            "startMs": 121000,
+            "endMs": 121750
+          },
+          {
+            "word": "guided",
+            "startMs": 121750,
+            "endMs": 122500
+          },
+          {
+            "word": "me",
+            "startMs": 122500,
+            "endMs": 123250
+          },
+          {
+            "word": "to",
+            "startMs": 123250,
+            "endMs": 124000
+          },
+          {
+            "word": "the",
+            "startMs": 124000,
+            "endMs": 124750
+          },
+          {
+            "word": "light",
+            "startMs": 124750,
+            "endMs": 125500
+          }
+        ]
+      },
+      {
+        "lineIndex": 23,
+        "section": "Verse 2",
+        "startMs": 126000,
+        "endMs": 131500,
+        "startTime": "02:06.00",
+        "endTime": "02:11.50",
+        "line": "You were with me all the way, even those times wey I fall your hand",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin",
+        "aiInsight": "Second affirmation of unwavering loyalty despite human shortcomings.",
+        "words": [
+          {
+            "word": "You",
+            "startMs": 126000,
+            "endMs": 126366
+          },
+          {
+            "word": "were",
+            "startMs": 126366,
+            "endMs": 126732
+          },
+          {
+            "word": "with",
+            "startMs": 126732,
+            "endMs": 127098
+          },
+          {
+            "word": "me",
+            "startMs": 127098,
+            "endMs": 127464
+          },
+          {
+            "word": "all",
+            "startMs": 127464,
+            "endMs": 127830
+          },
+          {
+            "word": "the",
+            "startMs": 127830,
+            "endMs": 128196
+          },
+          {
+            "word": "way,",
+            "startMs": 128196,
+            "endMs": 128562
+          },
+          {
+            "word": "even",
+            "startMs": 128562,
+            "endMs": 128928
+          },
+          {
+            "word": "those",
+            "startMs": 128928,
+            "endMs": 129294
+          },
+          {
+            "word": "times",
+            "startMs": 129294,
+            "endMs": 129660
+          },
+          {
+            "word": "wey",
+            "startMs": 129660,
+            "endMs": 130026
+          },
+          {
+            "word": "I",
+            "startMs": 130026,
+            "endMs": 130392
+          },
+          {
+            "word": "fall",
+            "startMs": 130392,
+            "endMs": 130758
+          },
+          {
+            "word": "your",
+            "startMs": 130758,
+            "endMs": 131124
+          },
+          {
+            "word": "hand",
+            "startMs": 131124,
+            "endMs": 131490
+          }
+        ]
+      },
+      {
+        "lineIndex": 24,
+        "section": "Verse 2",
+        "startMs": 132000,
+        "endMs": 138000,
+        "startTime": "02:12.00",
+        "endTime": "02:18.00",
+        "line": "Shey na the loving and affection plus those ones wey I no deserve",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin",
+        "aiInsight": "Soulful melodic delivery over syncopated bassline.",
+        "words": [
+          {
+            "word": "Shey",
+            "startMs": 132000,
+            "endMs": 132461
+          },
+          {
+            "word": "na",
+            "startMs": 132461,
+            "endMs": 132922
+          },
+          {
+            "word": "the",
+            "startMs": 132922,
+            "endMs": 133383
+          },
+          {
+            "word": "loving",
+            "startMs": 133383,
+            "endMs": 133844
+          },
+          {
+            "word": "and",
+            "startMs": 133844,
+            "endMs": 134305
+          },
+          {
+            "word": "affection",
+            "startMs": 134305,
+            "endMs": 134766
+          },
+          {
+            "word": "plus",
+            "startMs": 134766,
+            "endMs": 135227
+          },
+          {
+            "word": "those",
+            "startMs": 135227,
+            "endMs": 135688
+          },
+          {
+            "word": "ones",
+            "startMs": 135688,
+            "endMs": 136149
+          },
+          {
+            "word": "wey",
+            "startMs": 136149,
+            "endMs": 136610
+          },
+          {
+            "word": "I",
+            "startMs": 136610,
+            "endMs": 137071
+          },
+          {
+            "word": "no",
+            "startMs": 137071,
+            "endMs": 137532
+          },
+          {
+            "word": "deserve",
+            "startMs": 137532,
+            "endMs": 137993
+          }
+        ]
+      },
+      {
+        "lineIndex": 25,
+        "section": "Verse 2",
+        "startMs": 138500,
+        "endMs": 143500,
+        "startTime": "02:18.50",
+        "endTime": "02:23.50",
+        "line": "I will never forget the great memories we had",
+        "singer": "Drey Star",
+        "language": "English",
+        "aiInsight": "Nostalgic storytelling.",
+        "words": [
+          {
+            "word": "I",
+            "startMs": 138500,
+            "endMs": 139055
+          },
+          {
+            "word": "will",
+            "startMs": 139055,
+            "endMs": 139610
+          },
+          {
+            "word": "never",
+            "startMs": 139610,
+            "endMs": 140165
+          },
+          {
+            "word": "forget",
+            "startMs": 140165,
+            "endMs": 140720
+          },
+          {
+            "word": "the",
+            "startMs": 140720,
+            "endMs": 141275
+          },
+          {
+            "word": "great",
+            "startMs": 141275,
+            "endMs": 141830
+          },
+          {
+            "word": "memories",
+            "startMs": 141830,
+            "endMs": 142385
+          },
+          {
+            "word": "we",
+            "startMs": 142385,
+            "endMs": 142940
+          },
+          {
+            "word": "had",
+            "startMs": 142940,
+            "endMs": 143495
+          }
+        ]
+      },
+      {
+        "lineIndex": 26,
+        "section": "Verse 2",
+        "startMs": 144000,
+        "endMs": 149000,
+        "startTime": "02:24.00",
+        "endTime": "02:29.00",
+        "line": "Ojo ti mo lo gba boolu ti mo d’egbo wale o",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Childhood memory: 'The day I went to play soccer and came back home with a bleeding sore/injury (and you treated me with warmth).'",
+        "words": [
+          {
+            "word": "Ojo",
+            "startMs": 144000,
+            "endMs": 144454
+          },
+          {
+            "word": "ti",
+            "startMs": 144454,
+            "endMs": 144908
+          },
+          {
+            "word": "mo",
+            "startMs": 144908,
+            "endMs": 145362
+          },
+          {
+            "word": "lo",
+            "startMs": 145362,
+            "endMs": 145816
+          },
+          {
+            "word": "gba",
+            "startMs": 145816,
+            "endMs": 146270
+          },
+          {
+            "word": "boolu",
+            "startMs": 146270,
+            "endMs": 146724
+          },
+          {
+            "word": "ti",
+            "startMs": 146724,
+            "endMs": 147178
+          },
+          {
+            "word": "mo",
+            "startMs": 147178,
+            "endMs": 147632
+          },
+          {
+            "word": "d’egbo",
+            "startMs": 147632,
+            "endMs": 148086
+          },
+          {
+            "word": "wale",
+            "startMs": 148086,
+            "endMs": 148540
+          },
+          {
+            "word": "o",
+            "startMs": 148540,
+            "endMs": 148994
+          }
+        ]
+      },
+      {
+        "lineIndex": 27,
+        "section": "Verse 2",
+        "startMs": 149500,
+        "endMs": 156500,
+        "startTime": "02:29.50",
+        "endTime": "02:36.50",
+        "line": "The day wey we see food chop, the day wey e no dey at all",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin",
+        "aiInsight": "Tribute to surviving hunger together: 'The days we had plenty, and the days there was nothing to eat at all.'",
+        "words": [
+          {
+            "word": "The",
+            "startMs": 149500,
+            "endMs": 149966
+          },
+          {
+            "word": "day",
+            "startMs": 149966,
+            "endMs": 150432
+          },
+          {
+            "word": "wey",
+            "startMs": 150432,
+            "endMs": 150898
+          },
+          {
+            "word": "we",
+            "startMs": 150898,
+            "endMs": 151364
+          },
+          {
+            "word": "see",
+            "startMs": 151364,
+            "endMs": 151830
+          },
+          {
+            "word": "food",
+            "startMs": 151830,
+            "endMs": 152296
+          },
+          {
+            "word": "chop,",
+            "startMs": 152296,
+            "endMs": 152762
+          },
+          {
+            "word": "the",
+            "startMs": 152762,
+            "endMs": 153228
+          },
+          {
+            "word": "day",
+            "startMs": 153228,
+            "endMs": 153694
+          },
+          {
+            "word": "wey",
+            "startMs": 153694,
+            "endMs": 154160
+          },
+          {
+            "word": "e",
+            "startMs": 154160,
+            "endMs": 154626
+          },
+          {
+            "word": "no",
+            "startMs": 154626,
+            "endMs": 155092
+          },
+          {
+            "word": "dey",
+            "startMs": 155092,
+            "endMs": 155558
+          },
+          {
+            "word": "at",
+            "startMs": 155558,
+            "endMs": 156024
+          },
+          {
+            "word": "all",
+            "startMs": 156024,
+            "endMs": 156490
+          }
+        ]
+      },
+      {
+        "lineIndex": 28,
+        "section": "Bridge",
+        "startMs": 157000,
+        "endMs": 163500,
+        "startTime": "02:37.00",
+        "endTime": "02:43.50",
+        "line": "Oh oh oh oh",
+        "singer": "Drey Star",
+        "language": "Chant",
+        "aiInsight": "Harmonic choral swell. Prepares audience for grand anthemic hook reprise.",
+        "words": [
+          {
+            "word": "Oh",
+            "startMs": 157000,
+            "endMs": 158625
+          },
+          {
+            "word": "oh",
+            "startMs": 158625,
+            "endMs": 160250
+          },
+          {
+            "word": "oh",
+            "startMs": 160250,
+            "endMs": 161875
+          },
+          {
+            "word": "oh",
+            "startMs": 161875,
+            "endMs": 163500
+          }
+        ]
+      },
+      {
+        "lineIndex": 29,
+        "section": "Hook",
+        "startMs": 164000,
+        "endMs": 169500,
+        "startTime": "02:44.00",
+        "endTime": "02:49.50",
+        "line": "E ba mi kira o e ba mi Kira",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Exuberant call to celebrate parents.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 164000,
+            "endMs": 164611
+          },
+          {
+            "word": "ba",
+            "startMs": 164611,
+            "endMs": 165222
+          },
+          {
+            "word": "mi",
+            "startMs": 165222,
+            "endMs": 165833
+          },
+          {
+            "word": "kira",
+            "startMs": 165833,
+            "endMs": 166444
+          },
+          {
+            "word": "o",
+            "startMs": 166444,
+            "endMs": 167055
+          },
+          {
+            "word": "e",
+            "startMs": 167055,
+            "endMs": 167666
+          },
+          {
+            "word": "ba",
+            "startMs": 167666,
+            "endMs": 168277
+          },
+          {
+            "word": "mi",
+            "startMs": 168277,
+            "endMs": 168888
+          },
+          {
+            "word": "Kira",
+            "startMs": 168888,
+            "endMs": 169499
+          }
+        ]
+      },
+      {
+        "lineIndex": 30,
+        "section": "Hook",
+        "startMs": 170000,
+        "endMs": 173500,
+        "startTime": "02:50.00",
+        "endTime": "02:53.50",
+        "line": "Ye!",
+        "singer": "Drey Star",
+        "language": "Exclamation",
+        "aiInsight": "Emphatic Afrobeat vocal punctuation.",
+        "words": [
+          {
+            "word": "Ye!",
+            "startMs": 170000,
+            "endMs": 173500
+          }
+        ]
+      },
+      {
+        "lineIndex": 31,
+        "section": "Hook",
+        "startMs": 174000,
+        "endMs": 179500,
+        "startTime": "02:54.00",
+        "endTime": "02:59.50",
+        "line": "Ajayi olola iju okunrin meta",
+        "singer": "Drey Star",
+        "language": "Yoruba Oriki",
+        "aiInsight": "Paternal praise poetry (Oriki) reprise with high-energy talking drums.",
+        "words": [
+          {
+            "word": "Ajayi",
+            "startMs": 174000,
+            "endMs": 175100
+          },
+          {
+            "word": "olola",
+            "startMs": 175100,
+            "endMs": 176200
+          },
+          {
+            "word": "iju",
+            "startMs": 176200,
+            "endMs": 177300
+          },
+          {
+            "word": "okunrin",
+            "startMs": 177300,
+            "endMs": 178400
+          },
+          {
+            "word": "meta",
+            "startMs": 178400,
+            "endMs": 179500
+          }
+        ]
+      },
+      {
+        "lineIndex": 32,
+        "section": "Hook",
+        "startMs": 180000,
+        "endMs": 184500,
+        "startTime": "03:00.00",
+        "endTime": "03:04.50",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Communal chorus.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 180000,
+            "endMs": 180900
+          },
+          {
+            "word": "ba",
+            "startMs": 180900,
+            "endMs": 181800
+          },
+          {
+            "word": "mi",
+            "startMs": 181800,
+            "endMs": 182700
+          },
+          {
+            "word": "kira",
+            "startMs": 182700,
+            "endMs": 183600
+          },
+          {
+            "word": "fun",
+            "startMs": 183600,
+            "endMs": 184500
+          }
+        ]
+      },
+      {
+        "lineIndex": 33,
+        "section": "Hook",
+        "startMs": 185000,
+        "endMs": 190500,
+        "startTime": "03:05.00",
+        "endTime": "03:10.50",
+        "line": "Amope aponbepore mi owon",
+        "singer": "Drey Star",
+        "language": "Yoruba Oriki",
+        "aiInsight": "Maternal praise poetry (Oriki) reprise.",
+        "words": [
+          {
+            "word": "Amope",
+            "startMs": 185000,
+            "endMs": 186375
+          },
+          {
+            "word": "aponbepore",
+            "startMs": 186375,
+            "endMs": 187750
+          },
+          {
+            "word": "mi",
+            "startMs": 187750,
+            "endMs": 189125
+          },
+          {
+            "word": "owon",
+            "startMs": 189125,
+            "endMs": 190500
+          }
+        ]
+      },
+      {
+        "lineIndex": 34,
+        "section": "Hook",
+        "startMs": 191000,
+        "endMs": 195500,
+        "startTime": "03:11.00",
+        "endTime": "03:15.50",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Communal chorus.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 191000,
+            "endMs": 191900
+          },
+          {
+            "word": "ba",
+            "startMs": 191900,
+            "endMs": 192800
+          },
+          {
+            "word": "mi",
+            "startMs": 192800,
+            "endMs": 193700
+          },
+          {
+            "word": "kira",
+            "startMs": 193700,
+            "endMs": 194600
+          },
+          {
+            "word": "fun",
+            "startMs": 194600,
+            "endMs": 195500
+          }
+        ]
+      },
+      {
+        "lineIndex": 35,
+        "section": "Hook",
+        "startMs": 196000,
+        "endMs": 201500,
+        "startTime": "03:16.00",
+        "endTime": "03:21.50",
+        "line": "Eyin n’igi leyin ogba mi",
+        "singer": "Drey Star",
+        "language": "Yoruba Metaphor",
+        "aiInsight": "Protective shelter metaphor reprise.",
+        "words": [
+          {
+            "word": "Eyin",
+            "startMs": 196000,
+            "endMs": 197100
+          },
+          {
+            "word": "n’igi",
+            "startMs": 197100,
+            "endMs": 198200
+          },
+          {
+            "word": "leyin",
+            "startMs": 198200,
+            "endMs": 199300
+          },
+          {
+            "word": "ogba",
+            "startMs": 199300,
+            "endMs": 200400
+          },
+          {
+            "word": "mi",
+            "startMs": 200400,
+            "endMs": 201500
+          }
+        ]
+      },
+      {
+        "lineIndex": 36,
+        "section": "Hook",
+        "startMs": 202000,
+        "endMs": 206500,
+        "startTime": "03:22.00",
+        "endTime": "03:26.50",
+        "line": "E ba mi kira fun",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Final salute call.",
+        "words": [
+          {
+            "word": "E",
+            "startMs": 202000,
+            "endMs": 202900
+          },
+          {
+            "word": "ba",
+            "startMs": 202900,
+            "endMs": 203800
+          },
+          {
+            "word": "mi",
+            "startMs": 203800,
+            "endMs": 204700
+          },
+          {
+            "word": "kira",
+            "startMs": 204700,
+            "endMs": 205600
+          },
+          {
+            "word": "fun",
+            "startMs": 205600,
+            "endMs": 206500
+          }
+        ]
+      },
+      {
+        "lineIndex": 37,
+        "section": "Hook",
+        "startMs": 207000,
+        "endMs": 216000,
+        "startTime": "03:27.00",
+        "endTime": "03:36.00",
+        "line": "Awon obi mi owon",
+        "singer": "Drey Star",
+        "language": "Yoruba",
+        "aiInsight": "Emotional peak: 'My precious parents!' Held vocal note with swelling strings.",
+        "words": [
+          {
+            "word": "Awon",
+            "startMs": 207000,
+            "endMs": 209250
+          },
+          {
+            "word": "obi",
+            "startMs": 209250,
+            "endMs": 211500
+          },
+          {
+            "word": "mi",
+            "startMs": 211500,
+            "endMs": 213750
+          },
+          {
+            "word": "owon",
+            "startMs": 213750,
+            "endMs": 216000
+          }
+        ]
+      },
+      {
+        "lineIndex": 38,
+        "section": "Outro",
+        "startMs": 216500,
+        "endMs": 231000,
+        "startTime": "03:36.50",
+        "endTime": "03:51.00",
+        "line": "(Talking Drums, Guitars & Log Drum Outro Fade)",
+        "singer": "Drey Star",
+        "language": "Instrumentation",
+        "aiInsight": "Master studio outro. Pre-cleared 100% for sync fades & radio trailing.",
+        "words": [
+          {
+            "word": "(Talking",
+            "startMs": 216500,
+            "endMs": 218312
+          },
+          {
+            "word": "Drums,",
+            "startMs": 218312,
+            "endMs": 220124
+          },
+          {
+            "word": "Guitars",
+            "startMs": 220124,
+            "endMs": 221936
+          },
+          {
+            "word": "&",
+            "startMs": 221936,
+            "endMs": 223748
+          },
+          {
+            "word": "Log",
+            "startMs": 223748,
+            "endMs": 225560
+          },
+          {
+            "word": "Drum",
+            "startMs": 225560,
+            "endMs": 227372
+          },
+          {
+            "word": "Outro",
+            "startMs": 227372,
+            "endMs": 229184
+          },
+          {
+            "word": "Fade)",
+            "startMs": 229184,
+            "endMs": 230996
+          }
+        ]
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "KIRA (Traduction Française)",
+        "chorus": "Aidez-moi à les saluer et leur rendre hommage (E ba mi kira fun)... Mes chers parents adorés (Awon obi mi owon).",
+        "fullLyrics": "J'étais faible et sans défense\nTu m'as soutenu et m'as rendu fort\nJ'étais turbulent et insouciant\nTu m'as appris à réparer mes erreurs\nTu étais avec moi tout au long du chemin, même quand je t'ai déçu\nN'est-ce pas ton amour et ton affection, que je ne méritais même pas ?\n\nJe me souviendrai toujours des bons et des mauvais moments\nJe n'oublierai jamais les peines et les sacrifices\nCar la mère est de l'or, le père est un miroir, personne ne veut affronter la vie seul dans l'amertume\n\n*REFRAIN*\nAidez-moi à les saluer et leur rendre hommage\nAjayi, seigneur distingué, homme vaillant qui vaut trois hommes\nAidez-moi à les saluer et leur rendre hommage\nAmope au teint radieux, ma bien-aimée\nAidez-moi à les saluer et leur rendre hommage\nVous êtes le grand arbre protecteur derrière ma clôture\nAidez-moi à les saluer et leur rendre hommage\nMes chers parents bien-aimés"
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 100,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 100,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 100,
+        "languageDetection": 100,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route (TTML Synced)",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-musixmatch",
+        "platform": "Musixmatch Verified",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Sync Catalog Push",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-genius",
+        "platform": "Genius Community & Verified Artist",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 VERIFIED",
+        "routeMethod": "Artist Verified Annotation",
+        "syncedSupported": false
+      },
+      {
+        "id": "dest-instagram",
+        "platform": "Instagram Stories & Reels",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Meta Rights Manager Lyric Sync",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-tiktok",
+        "platform": "TikTok Sound Sync",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "TikTok Commercial Sound Library",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-youtube",
+        "platform": "YouTube Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "YouTube Official Artist Channel Track",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search Knowledge Graph",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/drey-star/kira"
+      },
+      {
+        "id": "dest-deezer",
+        "platform": "Deezer Pan-African",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Label Feed (Bilingual Tags)",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-amazon",
+        "platform": "Amazon Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Amazon Digital Ingestion",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-boomplay",
+        "platform": "Boomplay Africa",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Boomplay Direct Ingestion",
+        "syncedSupported": true
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/drey-star/kira",
+      "title": "Drey Star — KIRA (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": [
+      {
+        "date": "2026-10-13",
+        "author": "Artist Executive Desk (Drey Star)",
+        "note": "Ingested authentic canonical lyrics with full Yoruba oriki & dialect expressions."
+      }
+    ]
+  },
+  "lj-001": {
+    "trackId": "lj-001",
+    "title": "Love & Attention",
+    "artist": "Drey Star",
+    "isrc": "NG-LJ1-26-00001",
+    "album": "Love & Attention - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Love & Attention)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Love & Attention)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Love & Attention)",
+        "singer": "Drey Star",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Drey Star, we dey elevate",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Drey Star",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Love & Attention (Français)",
+        "chorus": "Ressens l'énergie de Drey Star..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/drey-star/love-&-attention"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/drey-star/love-&-attention",
+      "title": "Drey Star — Love & Attention (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-002": {
+    "trackId": "lj-002",
+    "title": "Ori Mi",
+    "artist": "Drey Star",
+    "isrc": "NG-LJ1-26-00002",
+    "album": "Ori Mi - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Ori Mi)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Ori Mi)\n\nChorus:\nFeel the energy of Drey Star, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Ori Mi)",
+        "singer": "Drey Star",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Drey Star, we dey elevate",
+        "singer": "Drey Star",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Drey Star",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Ori Mi (Français)",
+        "chorus": "Ressens l'énergie de Drey Star..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/drey-star/ori-mi"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/drey-star/ori-mi",
+      "title": "Drey Star — Ori Mi (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-003": {
+    "trackId": "lj-003",
+    "title": "Gratitude",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00003",
+    "album": "Gratitude - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Gratitude)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Gratitude)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Gratitude)",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Gratitude (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/gratitude"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/gratitude",
+      "title": "Asake — Gratitude (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-004": {
+    "trackId": "lj-004",
+    "title": "MCBH",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00004",
+    "album": "MCBH - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - MCBH)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - MCBH)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - MCBH)",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "MCBH (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/mcbh"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/mcbh",
+      "title": "Asake — MCBH (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-005": {
+    "trackId": "lj-005",
+    "title": "Eja Meja (feat. Asake)",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00005",
+    "album": "Eja Meja (feat. Asake) - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Eja Meja (feat. Asake))\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Eja Meja (feat. Asake))\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Eja Meja (feat. Asake))",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Eja Meja (feat. Asake) (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/eja-meja-(feat.-asake)"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/eja-meja-(feat.-asake)",
+      "title": "Asake — Eja Meja (feat. Asake) (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-006": {
+    "trackId": "lj-006",
+    "title": "Jogodo",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00006",
+    "album": "Jogodo - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Jogodo)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Jogodo)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Jogodo)",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Jogodo (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/jogodo"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/jogodo",
+      "title": "Asake — Jogodo (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-007": {
+    "trackId": "lj-007",
+    "title": "Happiness",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00007",
+    "album": "Happiness - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Happiness)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Happiness)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Happiness)",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Happiness (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/happiness"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/happiness",
+      "title": "Asake — Happiness (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  },
+  "lj-008": {
+    "trackId": "lj-008",
+    "title": "Nzaza",
+    "artist": "Asake",
+    "isrc": "NG-LJ1-26-00008",
+    "album": "Nzaza - Single",
+    "releaseDate": "2026-10-13",
+    "durationMs": 185000,
+    "primaryLanguage": "English / Nigerian Pidgin",
+    "languages": {
+      "English": 60,
+      "Nigerian Pidgin": 40
+    },
+    "dialectExpressions": [
+      {
+        "phrase": "No dulling",
+        "meaning": "Stay active, sharp and ambitious",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "phrase": "Faaji time",
+        "meaning": "Celebration and enjoyment season",
+        "language": "Yoruba"
+      }
+    ],
+    "explicitContent": false,
+    "hasCleanVersion": true,
+    "canonicalLyrics": "Intro:\n(Music starts - Nzaza)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the underground.\n\nVerse:\nChasing the vision, walking the line\nEvery single day, we continue to shine.",
+    "cleanLyrics": "Intro:\n(Music starts - Nzaza)\n\nChorus:\nFeel the energy of Asake, we dey elevate\nFrom Lagos to the globe, they celebrate\nAfrican rhythm, unstoppable sound\nWe taking over the whole town.",
+    "lineSynced": [
+      {
+        "lineIndex": 1,
+        "section": "Intro",
+        "startMs": 2000,
+        "endMs": 5500,
+        "startTime": "00:02.00",
+        "endTime": "00:05.50",
+        "line": "(Intro - Nzaza)",
+        "singer": "Asake",
+        "language": "English"
+      },
+      {
+        "lineIndex": 2,
+        "section": "Chorus",
+        "startMs": 6000,
+        "endMs": 11000,
+        "startTime": "00:06.00",
+        "endTime": "00:11.00",
+        "line": "Feel the energy of Asake, we dey elevate",
+        "singer": "Asake",
+        "language": "Nigerian Pidgin"
+      },
+      {
+        "lineIndex": 3,
+        "section": "Chorus",
+        "startMs": 11500,
+        "endMs": 16500,
+        "startTime": "00:11.50",
+        "endTime": "00:16.50",
+        "line": "From Lagos to the globe, they celebrate",
+        "singer": "Asake",
+        "language": "English"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "language": "French",
+        "title": "Nzaza (Français)",
+        "chorus": "Ressens l'énergie de Asake..."
+      }
+    },
+    "transcriptionVerification": {
+      "status": "VERIFIED_CANONICAL",
+      "flaggedDiscrepanciesCount": 0,
+      "discrepancies": []
+    },
+    "lyricsQualityScore": {
+      "overallScore": 98,
+      "status": "APPROVED_PREMIUM",
+      "thresholdPassed": true,
+      "subScores": {
+        "transcriptionAccuracy": 99,
+        "artistVerification": 100,
+        "isrcMatch": 100,
+        "timingAccuracy": 96,
+        "languageDetection": 98,
+        "explicitClassification": 100,
+        "metadataCompleteness": 100
+      }
+    },
+    "destinations": [
+      {
+        "id": "dest-spotify",
+        "platform": "Spotify",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Approved lyrics partner API",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-apple",
+        "platform": "Apple Music",
+        "status": "DELIVERED_ACTIVE",
+        "statusBadge": "🟢 ACTIVE",
+        "routeMethod": "Direct Delivery Route",
+        "syncedSupported": true
+      },
+      {
+        "id": "dest-google",
+        "platform": "Google Search",
+        "status": "INDEXED_STRUCTURED_DATA",
+        "statusBadge": "🟢 INDEXED",
+        "routeMethod": "Schema.org MusicRecording",
+        "canonicalUrl": "https://ljentertainment.live/music/asake/nzaza"
+      }
+    ],
+    "canonicalWebPage": {
+      "url": "https://ljentertainment.live/music/asake/nzaza",
+      "title": "Asake — Nzaza (Official Lyrics) | LJ Entertainment",
+      "schemaType": "MusicRecording"
+    },
+    "correctionHistory": []
+  }
+}

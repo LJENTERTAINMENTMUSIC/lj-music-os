@@ -4230,6 +4230,12 @@ function switchHeroBillboard(idx) {
   const labelEl = document.getElementById("billboardIndexLabel");
   if (labelEl) labelEl.innerText = `${idx + 1} of ${billboardFeaturedTracks.length} Featured Masters`;
 
+  const spotifyStreamLink = document.getElementById("billboardSpotifyStreamLink");
+  if (spotifyStreamLink && item) {
+    const sUrl = item.spotifyUrl || (item.spotifyId ? `https://open.spotify.com/track/${item.spotifyId}` : 'https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ');
+    spotifyStreamLink.href = sUrl;
+  }
+
   // Update dots
   for (let i = 0; i < 4; i++) {
     const dot = document.getElementById(`billboardDot${i}`);

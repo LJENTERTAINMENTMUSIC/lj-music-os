@@ -584,10 +584,16 @@
               <!-- Billboard Action Buttons -->
               <div class="flex flex-wrap items-center gap-3 pt-1">
                 <!-- Listen Now (White Pill Button with Play) -->
-                <button onclick="playBillboardCurrentTrack()" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-purple-950 font-black text-xs md:text-sm transition flex items-center space-x-2 shadow-2xl active:scale-95">
+                <button onclick="playBillboardCurrentTrack()" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-purple-950 font-black text-xs md:text-sm transition flex items-center space-x-2 shadow-2xl active:scale-95" title="Play master audio">
                   <svg class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   <span>Listen Now</span>
                 </button>
+
+                <!-- Stream on Spotify (Counts in Spotify for Artists Live Counter) -->
+                <a id="billboardSpotifyStreamLink" href="https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f" target="_blank" class="px-4 py-2.5 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-black text-xs md:text-sm transition flex items-center space-x-1.5 shadow active:scale-95" title="Stream directly on Spotify App (Counts in Spotify for Artists 'Listening Now' counter)">
+                  <svg class="w-4 h-4 fill-current text-emerald-400" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.722 1.113.294.18.386.562.207.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.52-.973 3.632-1.102 8.147-.568 11.233 1.328.366.226.481.707.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.624-1.167 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.838.327 1.282-.264.443-.838.59-1.28.327z"/></svg>
+                  <span>Stream on Spotify</span>
+                </a>
 
                 <!-- Mobilize 10,000 Swarm (Electric Violet Glass Pill) -->
                 <button onclick="mobilizeSwarmOnBillboard()" class="px-5 py-2.5 rounded-full purple-accent-gradient hover:opacity-95 text-white font-extrabold text-xs md:text-sm transition flex items-center space-x-2 shadow-glow-violet border border-white/20 active:scale-95">
@@ -2786,19 +2792,27 @@
       </div>
 
       <!-- Official Spotify Interactive Embed Player Widget -->
-      <div id="spotifyEmbedCard" class="glass-panel-subtle rounded-2xl p-2.5 border border-white/10 space-y-2">
+      <div id="spotifyEmbedCard" class="glass-panel-subtle rounded-2xl p-3 border border-white/10 space-y-2.5">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center space-x-1.5">
             <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.722 1.113.294.18.386.562.207.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.52-.973 3.632-1.102 8.147-.568 11.233 1.328.366.226.481.707.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.624-1.167 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.838.327 1.282-.264.443-.838.59-1.28.327z"/></svg>
             <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">Spotify Master Player</span>
           </div>
-          <a id="spotifyDirectLink" href="https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f" target="_blank" class="text-[9px] text-slate-400 hover:text-white font-mono-code flex items-center space-x-0.5">
-            <span>Open in Spotify</span>
-            <span>↗</span>
+          <a id="spotifyDirectLink" href="https://open.spotify.com/track/5W1yl3OyfrKe8oHUY8rKbJ?si=799f4cafa448481f" target="_blank" class="text-[9px] text-slate-300 hover:text-white font-mono-code flex items-center space-x-0.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 px-2 py-0.5 rounded-lg transition">
+            <span>Open in Spotify ↗</span>
           </a>
         </div>
         <div class="rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner">
           <iframe id="spotifyIframe" src="https://open.spotify.com/embed/track/5W1yl3OyfrKe8oHUY8rKbJ?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <div class="p-2 rounded-xl bg-emerald-950/30 border border-emerald-500/20 text-[10px] space-y-1">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-bold text-emerald-300">Live Spotify for Artists Attribution:</span>
+          </div>
+          <p class="text-[9px] text-slate-300 leading-tight">
+            Clicking <strong class="text-white">Play</strong> inside the widget above or launching <strong class="text-white">Open in Spotify</strong> routes your playback directly to Spotify's servers, triggering the <em class="text-amber-300">"People listening now"</em> counter after 30 seconds of play.
+          </p>
         </div>
       </div>
 
