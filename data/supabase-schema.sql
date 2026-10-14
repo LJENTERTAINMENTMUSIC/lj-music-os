@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS public.catalogue (
     cover_art TEXT,
     preview_url TEXT,
     spotify_url TEXT,
+    youtube_id VARCHAR(100),
+    youtube_url TEXT,
     isrc VARCHAR(50),
     rights_clearance VARCHAR(50) DEFAULT '100% ONE-STOP',
     stream_count BIGINT DEFAULT 0,

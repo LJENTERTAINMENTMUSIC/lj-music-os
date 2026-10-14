@@ -1,0 +1,81 @@
+[
+  {
+    "id": "art-048320",
+    "artist": "Drey Star",
+    "name": "Drey Star",
+    "isLjArtist": true,
+    "label": "LJ Entertainment / Priority Roster",
+    "picture": "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+    "banner": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop&q=80",
+    "followers": "Verified Spotify Artist",
+    "fansCount": 1420000,
+    "monthlyListeners": "1,420,000 Monthly Listeners",
+    "primaryGenre": "Afro-Fusion / Nightlife",
+    "spotifyUrl": "https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT",
+    "appleMusicUrl": "https://music.apple.com/us/artist/drey-star/1791823901",
+    "spotifyId": "4cOdK2wGLETKBW3PvgPWqT",
+    "spotifyUri": "spotify:artist:4cOdK2wGLETKBW3PvgPWqT",
+    "verified": true,
+    "bio": "LJ Entertainment's flagship priority artist. Creator of the hit master 'KIRA'. Modern Lagos nightlife sound with talking drums and global crossover melody.",
+    "addedAt": "2026-10-13T07:37:28.320Z",
+    "statusBadge": "✓ VERIFIED SPOTIFY PROFILE",
+    "tracksCount": 0,
+    "totalPlays": 0,
+    "genres": [
+      "Afro-Fusion / Nightlife"
+    ],
+    "tracks": []
+  },
+  {
+    "id": "art-237312",
+    "artist": "Dr. Orlando Owoh",
+    "name": "Dr. Orlando Owoh",
+    "isLjArtist": true,
+    "label": "LJ Entertainment / Priority Roster",
+    "picture": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+    "banner": "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+    "followers": "630 Spotify & DSP Followers",
+    "fansCount": 250000,
+    "monthlyListeners": "Verified Global Streamer",
+    "primaryGenre": "Folk",
+    "spotifyUrl": "https://open.spotify.com/search/Dr.%20Orlando%20Owoh",
+    "spotifyId": null,
+    "spotifyUri": null,
+    "verified": true,
+    "bio": "Verified Spotify and global streaming artist with 55 releases cataloged worldwide.",
+    "addedAt": "2026-10-13T04:37:17.312Z",
+    "statusBadge": "✓ VERIFIED SPOTIFY PROFILE",
+    "tracksCount": 0,
+    "totalPlays": 0,
+    "genres": [
+      "Folk"
+    ],
+    "tracks": []
+  },
+  {
+    "id": "art-056552",
+    "artist": "Asake",
+    "name": "Asake",
+    "isLjArtist": true,
+    "label": "LJ Entertainment / Priority Roster",
+    "picture": "https://cdn-images.dzcdn.net/images/artist/29baf235626c8cd1cdc782c6d467aca8/1000x1000-000000-80-0-0.jpg",
+    "banner": "https://cdn-images.dzcdn.net/images/artist/29baf235626c8cd1cdc782c6d467aca8/1000x1000-000000-80-0-0.jpg",
+    "followers": "Verified Spotify Artist",
+    "fansCount": 135417,
+    "monthlyListeners": "135,417 Monthly Listeners",
+    "primaryGenre": "Afrobeats",
+    "spotifyUrl": "https://open.spotify.com/search/Asake",
+    "spotifyId": null,
+    "spotifyUri": null,
+    "verified": true,
+    "bio": "Verified streaming artist profile for Asake. Synchronized across Spotify and Apple Music ecosystem via LJ Music OS.",
+    "addedAt": "2026-10-13T07:37:36.552Z",
+    "statusBadge": "✓ VERIFIED SPOTIFY PROFILE",
+    "tracksCount": 0,
+    "totalPlays": 0,
+    "genres": [
+      "Afrobeats"
+    ],
+    "tracks": []
+  }
+]
