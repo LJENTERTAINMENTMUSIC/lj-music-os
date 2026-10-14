@@ -1046,21 +1046,8 @@ app.post('/api/integrations/supabase/configure', async (req, res) => {
 // Modeled after usemogul.com (Mogul for Artists & Music Entities)
 // -------------------------------------------------------------
 
-// Active in-memory session (defaults to owner ljentertainmentmusic@gmail.com)
-let activeMogulSession = {
-  user: {
-    id: 'usr-owner-001',
-    email: 'ljentertainmentmusic@gmail.com',
-    name: 'LJ Entertainment Owner',
-    role: 'Owner',
-    organization: 'LJ Entertainment Ltd',
-    projectRegion: 'East US (North Virginia)',
-    avatar: 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd',
-    permissions: ['ALL', 'ROYALTIES', 'AUDIT', 'DISTRIBUTION', 'CATALOGUE', 'SWARM', 'ENTITIES'],
-    authProvider: 'google',
-    signedInAt: new Date().toISOString()
-  }
-};
+// Active in-memory session (defaults to null so workspace requires explicit login or artist portal entry)
+let activeMogulSession = null;
 
 app.get('/api/auth/session', (req, res) => {
   res.json({ success: true, session: activeMogulSession });

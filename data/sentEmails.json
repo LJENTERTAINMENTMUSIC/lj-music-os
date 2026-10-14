@@ -1,5 +1,185 @@
 [
   {
+    "id": "msg-1791998552097-rblzx8",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+    "category": "curator_pitch",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:22:32.097Z",
+    "previewText": "Hi Kofi,\n\nHope all is well at Spotify Editorial (Sub-Saharan Africa).\n\nGiven your focus on Euphoric, High Energy, Modern Nightlife, Authentic Percussion on Afri...",
+    "meta": {
+      "curatorId": "cur-001",
+      "curatorName": "Kofi Mensah",
+      "organization": "Spotify Editorial (Sub-Saharan Africa)",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "artist": "Drey Star",
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998552092-kf5nec",
+    "fromAccount": "gmail",
+    "fromEmail": "ljentertainmentmusic@gmail.com",
+    "to": "eseosa.ighodaro@apple.com",
+    "recipientName": "eseosa.ighodaro@apple.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:22:32.092Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.gmail.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998552089-kjpsvm",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:22:32.089Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998491382-bhu44p",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+    "category": "curator_pitch",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:21:31.382Z",
+    "previewText": "Hi Kofi,\n\nHope all is well at Spotify Editorial (Sub-Saharan Africa).\n\nGiven your focus on Euphoric, High Energy, Modern Nightlife, Authentic Percussion on Afri...",
+    "meta": {
+      "curatorId": "cur-001",
+      "curatorName": "Kofi Mensah",
+      "organization": "Spotify Editorial (Sub-Saharan Africa)",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "artist": "Drey Star",
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998491376-wvfd0x",
+    "fromAccount": "gmail",
+    "fromEmail": "ljentertainmentmusic@gmail.com",
+    "to": "eseosa.ighodaro@apple.com",
+    "recipientName": "eseosa.ighodaro@apple.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:21:31.376Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.gmail.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998491373-nuzzzp",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:21:31.373Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998189458-pmoqzr",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+    "category": "curator_pitch",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:16:29.458Z",
+    "previewText": "Hi Kofi,\n\nHope all is well at Spotify Editorial (Sub-Saharan Africa).\n\nGiven your focus on Euphoric, High Energy, Modern Nightlife, Authentic Percussion on Afri...",
+    "meta": {
+      "curatorId": "cur-001",
+      "curatorName": "Kofi Mensah",
+      "organization": "Spotify Editorial (Sub-Saharan Africa)",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "artist": "Drey Star",
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998189453-hrvdd7",
+    "fromAccount": "gmail",
+    "fromEmail": "ljentertainmentmusic@gmail.com",
+    "to": "eseosa.ighodaro@apple.com",
+    "recipientName": "eseosa.ighodaro@apple.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:16:29.453Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.gmail.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791998189450-la23wh",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T17:16:29.450Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
     "id": "msg-1791997007495-5zb19m",
     "fromAccount": "zoho",
     "fromEmail": "lj@ljentertainment.live",

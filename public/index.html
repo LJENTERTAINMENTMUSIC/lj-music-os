@@ -311,24 +311,24 @@
           </div>
 
           <div class="space-y-0.5 pt-1">
-            <button onclick="openProfileSwitcherModal(); toggleMogulUserDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
+            <button onclick="handleSwitchWorkspaceClick()" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
               <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               <span>Switch Workspace / Entity</span>
             </button>
-            <button onclick="openMogulAuthModal(); toggleMogulUserDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
+            <button onclick="handleSwitchUserRoleClick()" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
               <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
               <span>Switch User Role / Account</span>
             </button>
-            <button onclick="openIntegrationsModal(); toggleMogulUserDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
+            <button onclick="handleCloudSettingsClick()" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
               <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               <span>Postgres & Cloud Settings</span>
             </button>
-            <button onclick="clearWorkspaceCacheAndRestart(); toggleMogulUserDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
+            <button onclick="clearWorkspaceCacheAndRestart()" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/60 text-left font-medium">
               <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               <span>Clear Cache & Clean Slate</span>
             </button>
             <div class="border-t border-zinc-800 my-1"></div>
-            <button id="mogulDropdownLogoutBtn" onclick="logoutMogul(); toggleMogulUserDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 text-left font-medium">
+            <button id="mogulDropdownLogoutBtn" onclick="handleMogulAccountAction()" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 text-left font-medium">
               <svg id="mogulDropdownLogoutIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
               <span id="mogulDropdownLogoutText">Sign Out / Lock Workspace</span>
             </button>
@@ -337,6 +337,25 @@
       </div>
     </div>
   </header>
+
+  <!-- WORKSPACE LOCKED BANNER (Shown when signed out) -->
+  <div id="workspaceLockedNoticeBar" class="hidden bg-gradient-to-r from-amber-950/90 via-zinc-950 to-amber-950/90 border-b border-amber-500/40 px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md z-30 sticky top-16">
+    <div class="flex items-center space-x-3 text-amber-300 font-bold">
+      <div class="w-7 h-7 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center flex-shrink-0">
+        <svg class="w-4 h-4 text-amber-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <div>
+        <div class="text-white font-black text-xs md:text-sm">WORKSPACE IS CURRENTLY LOCKED</div>
+        <p class="text-[11px] text-amber-200/80 font-normal">Sign in as Label Owner or enter your dedicated Artist Portal to prevent mistakes and access management tools.</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2">
+      <button onclick="openMogulAuthModal()" class="px-4 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-black text-xs transition active:scale-95 shadow-md flex items-center space-x-1.5">
+        <span>🔑 Sign In / Unlock Workspace</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
 
   <!-- DEDICATED SPOTIFY FOR ARTISTS ACTIVE PROFILE FOCUS BAR -->
   <div id="s4aActiveArtistBar" class="bg-gradient-to-r from-[#17092E] via-[#0D071B] to-[#17092E] border-b border-purple-500/25 px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md z-30 sticky top-16">

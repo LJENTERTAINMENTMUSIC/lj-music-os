@@ -6897,6 +6897,7 @@ function renderMogulAuthUI(user) {
   const logoutBtn = document.getElementById("mogulDropdownLogoutBtn");
   const logoutText = document.getElementById("mogulDropdownLogoutText");
   const logoutIcon = document.getElementById("mogulDropdownLogoutIcon");
+  const lockedNotice = document.getElementById("workspaceLockedNoticeBar");
 
   if (!user) {
     // 🔒 LOCKED / SIGNED OUT STATE
@@ -6918,7 +6919,10 @@ function renderMogulAuthUI(user) {
       roleEl.className = "text-[9px] text-amber-400 font-mono-code font-bold underline cursor-pointer";
     }
     if (dropEmail) dropEmail.innerText = "Signed Out (Locked)";
-    if (dropRole) dropRole.innerText = "None (Click Sign In)";
+    if (dropRole) {
+      dropRole.innerText = "None (Click Sign In)";
+      dropRole.className = "text-amber-400 font-bold";
+    }
     if (wsType) wsType.innerText = "🔒 Workspace Locked";
     if (labelToolsBtn) {
       labelToolsBtn.classList.add("opacity-40", "cursor-not-allowed");
@@ -6931,6 +6935,7 @@ function renderMogulAuthUI(user) {
     if (logoutIcon) {
       logoutIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>`;
     }
+    if (lockedNotice) lockedNotice.classList.remove("hidden");
     return;
   }
 
@@ -6969,6 +6974,7 @@ function renderMogulAuthUI(user) {
 
   if (dropRole) {
     dropRole.innerText = user.isArtistLocked ? `Artist (${user.artistName}) - Locked` : user.role;
+    dropRole.className = user.isArtistLocked ? "text-purple-400 font-bold" : "text-emerald-400 font-bold";
   }
 
   if (wsType) {
@@ -6992,18 +6998,53 @@ function renderMogulAuthUI(user) {
   if (logoutIcon) {
     logoutIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>`;
   }
+  if (lockedNotice) lockedNotice.classList.add("hidden");
 }
 
 // 2. Dropdown & Modal Controls
 function toggleMogulUserDropdown() {
+  const dd = document.getElementById("mogulUserDropdown");
+  if (!dd) return;
   if (!window.activeMogulSession || !window.activeMogulSession.user) {
     openMogulAuthModal();
-    const dd = document.getElementById("mogulUserDropdown");
-    if (dd) dd.classList.add("hidden");
+    dd.classList.add("hidden");
     return;
   }
+  dd.classList.toggle("hidden");
+}
+
+function closeMogulUserDropdown() {
   const dd = document.getElementById("mogulUserDropdown");
-  if (dd) dd.classList.toggle("hidden");
+  if (dd) dd.classList.add("hidden");
+}
+
+function handleMogulAccountAction() {
+  closeMogulUserDropdown();
+  if (window.activeMogulSession && window.activeMogulSession.user) {
+    logoutMogul();
+  } else {
+    openMogulAuthModal();
+  }
+}
+
+function handleSwitchWorkspaceClick() {
+  closeMogulUserDropdown();
+  if (!window.activeMogulSession || !window.activeMogulSession.user) {
+    showToast("Please sign in to switch workspace.", "info", "Sign In Required");
+    openMogulAuthModal();
+    return;
+  }
+  openProfileSwitcherModal();
+}
+
+function handleSwitchUserRoleClick() {
+  closeMogulUserDropdown();
+  openMogulAuthModal();
+}
+
+function handleCloudSettingsClick() {
+  closeMogulUserDropdown();
+  openIntegrationsModal();
 }
 
 function openMogulAuthModal() {
@@ -7117,7 +7158,8 @@ async function handleArtistEmailLogin(event) {
 
 // Clean Slate & Cache Reset (Clear Catch and Start Fresh)
 async function clearWorkspaceCacheAndRestart() {
-  const confirmed = confirm("✨ FRESH START & CACHE RESET:\n\nThis will purge all local browser caches, reset your active focus strictly to Drey Star, refresh server telemetry, and re-initialize a clean workspace.\n\nDo you want to proceed?");
+  closeMogulUserDropdown();
+  const confirmed = confirm("✨ FRESH START & CACHE RESET:\n\nThis will purge all local browser caches, reset your active focus, and start clean so each artist or owner logs in cleanly without mistakes.\n\nDo you want to proceed?");
   if (!confirmed) return;
 
   showToast("Purging local caches & re-initializing clean state...", "info", "Clean Start");
@@ -7129,7 +7171,6 @@ async function clearWorkspaceCacheAndRestart() {
       "s4a_focus_mode",
       "s4a_active_profile",
       "mogul_auth_session",
-      "mogul_logged_out",
       "active_tab",
       "spotify_live_cache",
       "pitch_form_data",
@@ -7142,6 +7183,9 @@ async function clearWorkspaceCacheAndRestart() {
     });
     try { sessionStorage.clear(); } catch (e) {}
 
+    // Mark logged out so the reload starts in a fresh, clean, locked login state
+    localStorage.setItem("mogul_logged_out", "true");
+
     // 2. Call server cache reset API
     try {
       await fetch("/api/system/reset-cache", { method: "POST" });
@@ -7150,6 +7194,7 @@ async function clearWorkspaceCacheAndRestart() {
     }
 
     // 3. Reset in-memory state
+    window.activeMogulSession = null;
     window.currentActiveArtist = "Drey Star";
     window.isArtistFocusMode = true;
 
@@ -7157,7 +7202,7 @@ async function clearWorkspaceCacheAndRestart() {
 
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 400);
   } catch (err) {
     console.error("Clean start error:", err);
     window.location.reload();
@@ -7232,18 +7277,23 @@ async function performMogulLogin(email, role, provider) {
 }
 
 async function logoutMogul() {
-  try {
-    await fetch("/api/auth/logout", { method: "POST" });
-  } catch (e) {
-    console.warn("Logout notification warning:", e);
-  }
+  // 1. Immediately wipe local auth session & set persistent logged_out flag
   localStorage.removeItem("mogul_auth_session");
   localStorage.setItem("mogul_logged_out", "true");
   window.activeMogulSession = null;
+
+  // 2. Immediately close dropdown
+  closeMogulUserDropdown();
+
+  // 3. Immediately render locked UI
   renderMogulAuthUI(null);
 
-  const dd = document.getElementById("mogulUserDropdown");
-  if (dd) dd.classList.add("hidden");
+  // 4. Notify server asynchronously in background
+  try {
+    fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+  } catch (e) {
+    console.warn("Logout notification warning:", e);
+  }
 
   showToast("Workspace locked & signed out. Please sign in to resume.", "info", "Signed Out");
   openMogulAuthModal();
@@ -7666,6 +7716,11 @@ window.populateArtistPortalSelectDropdown = populateArtistPortalSelectDropdown;
 window.loginAsArtist = loginAsArtist;
 window.handleArtistEmailLogin = handleArtistEmailLogin;
 window.clearWorkspaceCacheAndRestart = clearWorkspaceCacheAndRestart;
+window.closeMogulUserDropdown = closeMogulUserDropdown;
+window.handleMogulAccountAction = handleMogulAccountAction;
+window.handleSwitchWorkspaceClick = handleSwitchWorkspaceClick;
+window.handleSwitchUserRoleClick = handleSwitchUserRoleClick;
+window.handleCloudSettingsClick = handleCloudSettingsClick;
 
 // Real-Time Telemetry & Stream Engine exports
 window.initRealtimeTelemetryEngine = initRealtimeTelemetryEngine;
