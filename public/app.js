@@ -149,6 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initArtistProfileSwitcher();
   }
 
+  if (typeof initMogulAuth === 'function') {
+    initMogulAuth();
+  }
+
   // Initial Copilot brief run
   executeCopilotQuery("I need an Afrobeats song for a Lagos luxury real-estate commercial, male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics.");
 });
@@ -181,6 +185,8 @@ function switchTab(tabId) {
   } else if (tabId === "tab-editorial") {
     loadEditorialPlaylists();
     loadAutonomousPlaylists();
+  } else if (tabId === "tab-royalties") {
+    loadMogulRoyalties();
   }
 }
 
@@ -5875,6 +5881,7 @@ function selectArtistProfile(artistName) {
     try { renderSidebarRoster(); } catch (e) { console.warn("renderSidebarRoster err:", e); }
     try { renderArtistPortalTracks(); } catch (e) { console.warn("renderArtistPortalTracks err:", e); }
     try { syncArtistToCouncilAndLyrics(artistName); } catch (e) { console.warn("syncArtistToCouncilAndLyrics err:", e); }
+    try { if (typeof loadMogulRoyalties === 'function') loadMogulRoyalties(); } catch (e) { console.warn("loadMogulRoyalties err:", e); }
   } catch (err) {
     console.error("Critical error in selectArtistProfile:", err);
   }
@@ -6400,4 +6407,424 @@ window.deleteArtistProfile = deleteArtistProfile;
 window.purgeExternalProfilesPrompt = purgeExternalProfilesPrompt;
 window.toggleLabelSettingsDropdown = toggleLabelSettingsDropdown;
 window.toggleMoreModulesDropdown = toggleMoreModulesDropdown;
+
+// ==============================================================
+// MOGUL ENTERPRISE: AUTHENTICATION, ROYALTIES & AUDIT SUITE
+// Modeled after usemogul.com (Mogul for Music)
+// ==============================================================
+
+// 1. Initialize Mogul Auth & Session Management
+async function initMogulAuth() {
+  let session = null;
+  const saved = localStorage.getItem("mogul_auth_session");
+  if (saved) {
+    try {
+      session = JSON.parse(saved);
+    } catch (e) {
+      session = null;
+    }
+  }
+
+  if (!session) {
+    try {
+      const res = await fetch("/api/auth/session");
+      const data = await res.json();
+      if (data.success && data.session) {
+        session = data.session;
+      }
+    } catch (e) {
+      console.warn("Failed to fetch Mogul session:", e);
+    }
+  }
+
+  // Default fallback to owner ljentertainmentmusic@gmail.com
+  if (!session || !session.user) {
+    session = {
+      user: {
+        id: "usr-owner-001",
+        email: "ljentertainmentmusic@gmail.com",
+        name: "LJ Entertainment Owner",
+        role: "Owner",
+        organization: "LJ Entertainment Ltd",
+        projectRegion: "East US (North Virginia)",
+        avatar: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+        authProvider: "google"
+      }
+    };
+  }
+
+  window.activeMogulSession = session;
+  localStorage.setItem("mogul_auth_session", JSON.stringify(session));
+  renderMogulAuthUI(session.user);
+  loadMogulRoyalties();
+}
+
+function renderMogulAuthUI(user) {
+  if (!user) return;
+  const avatarEl = document.getElementById("mogulHeaderUserAvatar");
+  if (avatarEl) avatarEl.src = user.avatar || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd";
+
+  const nameEl = document.getElementById("mogulHeaderUserName");
+  if (nameEl) nameEl.innerText = user.name || user.email.split("@")[0];
+
+  const roleEl = document.getElementById("mogulUserRoleBadge");
+  if (roleEl) {
+    const isOwner = user.role.toLowerCase() === "owner";
+    roleEl.innerText = isOwner ? "👑 OWNER" : `● ${user.role.toUpperCase()}`;
+    roleEl.className = isOwner 
+      ? "text-[9px] text-emerald-400 font-mono-code font-bold" 
+      : "text-[9px] text-purple-400 font-mono-code font-bold";
+  }
+
+  const dropEmail = document.getElementById("mogulDropdownEmail");
+  if (dropEmail) dropEmail.innerText = user.email;
+
+  const dropRole = document.getElementById("mogulDropdownRole");
+  if (dropRole) dropRole.innerText = user.role;
+}
+
+// 2. Dropdown & Modal Controls
+function toggleMogulUserDropdown() {
+  const dd = document.getElementById("mogulUserDropdown");
+  if (dd) dd.classList.toggle("hidden");
+}
+
+function openMogulAuthModal() {
+  const modal = document.getElementById("mogulAuthModal");
+  if (modal) modal.classList.remove("hidden");
+}
+
+function closeMogulAuthModal() {
+  const modal = document.getElementById("mogulAuthModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+// 3. Mogul Login Handlers
+async function loginWithProvider(provider) {
+  let email = "ljentertainmentmusic@gmail.com";
+  let role = "Owner";
+
+  if (provider === "spotify") {
+    email = "dreystar@ljmusic.com";
+    role = "Artist";
+  } else if (provider === "apple") {
+    email = "music.director@ljmusic.com";
+    role = "Business Manager";
+  }
+
+  await performMogulLogin(email, role, provider);
+}
+
+async function handleMogulLoginForm(event) {
+  if (event) event.preventDefault();
+  const emailInput = document.getElementById("mogulAuthEmailInput");
+  const email = emailInput ? emailInput.value.trim() : "ljentertainmentmusic@gmail.com";
+  const role = email.toLowerCase().includes("drey") ? "Artist" : (email.toLowerCase().includes("lj") ? "Owner" : "Manager");
+  await performMogulLogin(email, role, "credentials");
+}
+
+async function quickSwitchAuthRole(role, email) {
+  await performMogulLogin(email, role, "quick_switch");
+}
+
+async function performMogulLogin(email, role, provider) {
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, role, provider })
+    });
+    const data = await res.json();
+    if (data.success && data.session) {
+      window.activeMogulSession = data.session;
+      localStorage.setItem("mogul_auth_session", JSON.stringify(data.session));
+      renderMogulAuthUI(data.session.user);
+      closeMogulAuthModal();
+      showToast(`Welcome ${data.session.user.name}! Switched role to ${data.session.user.role}.`, "success", "Mogul Auth");
+
+      if (role === "Artist") {
+        selectArtistProfile("Drey Star");
+      }
+      loadMogulRoyalties();
+    } else {
+      showToast("Authentication failed.", "error");
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    showToast("Network error during authentication.", "error");
+  }
+}
+
+async function logoutMogul() {
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+  } catch (e) {}
+  localStorage.removeItem("mogul_auth_session");
+  window.activeMogulSession = null;
+  showToast("Workspace locked. Please sign in to resume.", "info", "Signed Out");
+  openMogulAuthModal();
+}
+
+// 4. Load Mogul Royalties & Auditing Ledger
+async function loadMogulRoyalties() {
+  const currentEntity = window.currentActiveArtist || "Drey Star";
+  const entityDisplay = document.getElementById("mogulEntityDisplay");
+  if (entityDisplay) {
+    entityDisplay.innerText = currentEntity === "ALL" ? "LJ Entertainment (All Label)" : currentEntity;
+  }
+
+  try {
+    const res = await fetch(`/api/mogul/royalties?entity=${encodeURIComponent(currentEntity)}`);
+    const json = await res.json();
+    if (!json.success || !json.data) return;
+
+    const data = json.data;
+    const summary = data.summary || {};
+
+    // Render KPIs
+    const formatCurr = (val) => `$${(val || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    const kpiEarnings = document.getElementById("mogulKpiTotalEarnings");
+    if (kpiEarnings) kpiEarnings.innerText = formatCurr(summary.totalEarningsTracked);
+
+    const kpiMaster = document.getElementById("mogulKpiMaster");
+    if (kpiMaster) kpiMaster.innerText = formatCurr(summary.totalMasterPayout);
+
+    const kpiMech = document.getElementById("mogulKpiMechanicals");
+    if (kpiMech) kpiMech.innerText = formatCurr(summary.totalMechanicalPayout);
+
+    const kpiPerf = document.getElementById("mogulKpiPerformance");
+    if (kpiPerf) kpiPerf.innerText = formatCurr(summary.totalPerformancePayout);
+
+    const kpiNeigh = document.getElementById("mogulKpiNeighboring");
+    if (kpiNeigh) kpiNeigh.innerText = formatCurr(summary.totalNeighboringPayout);
+
+    const kpiUnclaimed = document.getElementById("mogulKpiUnclaimed");
+    if (kpiUnclaimed) kpiUnclaimed.innerText = formatCurr(summary.totalUnclaimedRecoverable);
+
+    const claimAllBtn = document.getElementById("mogulClaimAllBtn");
+    if (claimAllBtn) {
+      if (summary.totalUnclaimedRecoverable > 0) {
+        claimAllBtn.innerHTML = `<span class="w-2 h-2 rounded-full bg-black animate-ping"></span><span>⚡ 1-Click Auto-Claim All (${formatCurr(summary.totalUnclaimedRecoverable)})</span>`;
+        claimAllBtn.disabled = false;
+        claimAllBtn.className = "px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs transition flex items-center space-x-2 shadow-lg shadow-emerald-500/20 active:scale-95 cursor-pointer";
+      } else {
+        claimAllBtn.innerHTML = `<span>✓ All Discrepancies Recovered</span>`;
+        claimAllBtn.disabled = true;
+        claimAllBtn.className = "px-4 py-2 rounded-xl bg-zinc-800 text-zinc-400 font-bold text-xs border border-zinc-700 flex items-center space-x-2 cursor-not-allowed";
+      }
+    }
+
+    // Render Discrepancies Table
+    renderMogulDiscrepancies(data.auditDiscrepancies || []);
+
+    // Render Payout Sources
+    renderMogulPayoutSources(data.payoutSources || []);
+
+    // Render Repertoire Ledger
+    renderMogulRepertoire(data.tracks || []);
+
+  } catch (err) {
+    console.error("Error loading Mogul royalties:", err);
+  }
+}
+
+function renderMogulDiscrepancies(discrepancies) {
+  const tbody = document.getElementById("mogulDiscrepancyTableBody");
+  if (!tbody) return;
+
+  if (discrepancies.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="py-6 text-center text-zinc-500 text-xs">
+          ✓ No active royalty discrepancies detected. All DSP and collection society records are 100% matched.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = discrepancies.map(d => {
+    const isClaimed = d.status === "CLAIM_RECOVERED";
+    const sourceClass = d.source.includes("MLC") 
+      ? "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+      : (d.source.includes("SoundExchange") ? "text-purple-400 bg-purple-500/10 border-purple-500/20" : "text-amber-400 bg-amber-500/10 border-amber-500/20");
+
+    return `
+      <tr class="hover:bg-zinc-900/60 transition">
+        <td class="py-3 px-3">
+          <span class="px-2 py-0.5 rounded text-[9px] font-bold border ${sourceClass}">
+            ${d.source}
+          </span>
+        </td>
+        <td class="py-3 px-3">
+          <div class="font-bold text-white text-xs">${d.trackTitle}</div>
+          <div class="text-[10px] text-zinc-400">${d.artist}</div>
+        </td>
+        <td class="py-3 px-3 text-zinc-400 text-[11px]">${d.isrc}</td>
+        <td class="py-3 px-3 max-w-xs text-[11px] text-zinc-300 font-sans leading-tight">
+          ${d.description}
+        </td>
+        <td class="py-3 px-3 text-right font-bold ${isClaimed ? 'text-zinc-500 line-through' : 'text-emerald-400'} text-xs">
+          $${d.amount.toFixed(2)}
+        </td>
+        <td class="py-3 px-3 text-center">
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-mono-code bg-zinc-800 text-zinc-300 border border-zinc-700">
+            ${Math.round(d.confidence * 100)}% Match
+          </span>
+        </td>
+        <td class="py-3 px-3 text-right">
+          ${isClaimed ? `
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[10px] whitespace-nowrap">
+              ✓ RECOVERED
+            </span>
+          ` : `
+            <button onclick="claimMogulDiscrepancy('${d.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-[11px] transition shadow active:scale-95 whitespace-nowrap">
+              ⚡ 1-Click Claim
+            </button>
+          `}
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function renderMogulPayoutSources(sources) {
+  const container = document.getElementById("mogulPayoutSourcesContainer");
+  if (!container) return;
+
+  container.innerHTML = sources.map(s => {
+    return `
+      <div class="space-y-1.5 p-3 rounded-2xl bg-zinc-900/50 border border-zinc-800">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-white">${s.name}</span>
+          <span class="font-mono-code font-bold text-emerald-400">$${s.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+        </div>
+        <div class="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+          <div class="bg-gradient-to-r from-emerald-500 to-cyan-500 h-1.5 rounded-full" style="width: ${s.share};"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono-code">
+          <span>Repertoire Payout</span>
+          <span>${s.share} of total</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderMogulRepertoire(tracks) {
+  const tbody = document.getElementById("mogulRepertoireTableBody");
+  if (!tbody) return;
+
+  if (tracks.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-zinc-500">No tracks catalogued for this entity.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = tracks.map(t => {
+    return `
+      <tr class="hover:bg-zinc-900/60 transition">
+        <td class="py-2.5 px-3">
+          <div class="font-bold text-white text-xs">${t.title}</div>
+          <div class="text-[10px] text-zinc-400">${t.artist}</div>
+        </td>
+        <td class="py-2.5 px-3 text-zinc-400 text-[10px]">${t.isrc}</td>
+        <td class="py-2.5 px-3 text-right text-zinc-300 font-bold">${t.totalStreams.toLocaleString()}</td>
+        <td class="py-2.5 px-3 text-right text-white">$${t.earnings.master.toFixed(2)}</td>
+        <td class="py-2.5 px-3 text-right text-cyan-400">$${(t.earnings.mechanical + t.earnings.performance).toFixed(2)}</td>
+        <td class="py-2.5 px-3 text-right text-emerald-400 font-black">$${t.earnings.total.toFixed(2)}</td>
+        <td class="py-2.5 px-3 text-center">
+          <span class="px-1.5 py-0.5 rounded text-[8px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            ✓ 100% VERIFIED
+          </span>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+// 5. Claim Actions
+async function claimMogulDiscrepancy(discrepancyId) {
+  try {
+    const res = await fetch("/api/mogul/audit/claim", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ discrepancyId })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(data.message || "Claim submitted successfully!", "success", "Discrepancy Recovered");
+      await loadMogulRoyalties();
+    } else {
+      showToast(data.error || "Claim failed", "error");
+    }
+  } catch (err) {
+    console.error("Claim error:", err);
+    showToast("Network error submitting claim.", "error");
+  }
+}
+
+async function claimAllMogulDiscrepancies() {
+  const currentEntity = window.currentActiveArtist || "ALL";
+  try {
+    const res = await fetch("/api/mogul/audit/claim-all", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ entity: currentEntity })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(data.message, "success", "Mogul Audit Bot");
+      await loadMogulRoyalties();
+    } else {
+      showToast(data.error || "Claim all failed", "error");
+    }
+  } catch (err) {
+    console.error("Claim all error:", err);
+    showToast("Network error submitting bulk claim.", "error");
+  }
+}
+
+async function runMogulAudit() {
+  showToast("🔍 Mogul Audit Bot scanning global DSP logs, MLC statutory registrations, and PRO databases...", "info", "Audit Scanning");
+  try {
+    const currentEntity = window.currentActiveArtist || "ALL";
+    const res = await fetch(`/api/mogul/audit?entity=${encodeURIComponent(currentEntity)}`);
+    const data = await res.json();
+    if (data.success) {
+      setTimeout(() => {
+        showToast(`Audit Complete! Overall Health: ${data.overallAuditScore}%. Recoverable: $${data.totalUnclaimedRecoverable.toFixed(2)}`, "success", "Audit Finished");
+        loadMogulRoyalties();
+      }, 500);
+    }
+  } catch (e) {
+    console.error("Audit error:", e);
+  }
+}
+
+// Close Mogul user dropdown when clicking outside
+document.addEventListener("click", (e) => {
+  const trigger = document.getElementById("mogulAuthSessionContainer");
+  const dd = document.getElementById("mogulUserDropdown");
+  if (dd && !dd.classList.contains("hidden")) {
+    if (trigger && !trigger.contains(e.target) && !dd.contains(e.target)) {
+      dd.classList.add("hidden");
+    }
+  }
+});
+
+// Global exports for Mogul
+window.initMogulAuth = initMogulAuth;
+window.toggleMogulUserDropdown = toggleMogulUserDropdown;
+window.openMogulAuthModal = openMogulAuthModal;
+window.closeMogulAuthModal = closeMogulAuthModal;
+window.loginWithProvider = loginWithProvider;
+window.handleMogulLoginForm = handleMogulLoginForm;
+window.quickSwitchAuthRole = quickSwitchAuthRole;
+window.logoutMogul = logoutMogul;
+window.loadMogulRoyalties = loadMogulRoyalties;
+window.claimMogulDiscrepancy = claimMogulDiscrepancy;
+window.claimAllMogulDiscrepancies = claimAllMogulDiscrepancies;
+window.runMogulAudit = runMogulAudit;
+
 

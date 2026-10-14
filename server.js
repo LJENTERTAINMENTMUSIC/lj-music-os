@@ -64,6 +64,8 @@ const intakeEngine = new ArtistIntakeEngine(__dirname);
 const universalResolver = new UniversalArtistResolver(__dirname);
 const playlistTrendAgent = new AutonomousPlaylistTrendAgent(__dirname);
 const onlineRadioAgent = new OnlineRadioAutoPlayAgent(__dirname);
+const MogulRoyaltyEngine = require('./engine/mogulRoyaltyEngine');
+const mogulEngine = new MogulRoyaltyEngine(__dirname);
 
 // Helper to reload data
 function loadState() {
@@ -840,6 +842,103 @@ app.post('/api/integrations/supabase/configure', async (req, res) => {
   const { supabaseUrl, supabaseKey } = req.body || {};
   const result = await configureSupabase(supabaseUrl, supabaseKey);
   res.json(result);
+});
+
+// -------------------------------------------------------------
+// MOGUL ENTERPRISE: AUTHENTICATION, ROYALTIES & AUDITING APIS
+// Modeled after usemogul.com (Mogul for Artists & Music Entities)
+// -------------------------------------------------------------
+
+// Active in-memory session (defaults to owner ljentertainmentmusic@gmail.com)
+let activeMogulSession = {
+  user: {
+    id: 'usr-owner-001',
+    email: 'ljentertainmentmusic@gmail.com',
+    name: 'LJ Entertainment Owner',
+    role: 'Owner',
+    organization: 'LJ Entertainment Ltd',
+    projectRegion: 'East US (North Virginia)',
+    avatar: 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd',
+    permissions: ['ALL', 'ROYALTIES', 'AUDIT', 'DISTRIBUTION', 'CATALOGUE', 'SWARM', 'ENTITIES'],
+    authProvider: 'google',
+    signedInAt: new Date().toISOString()
+  }
+};
+
+app.get('/api/auth/session', (req, res) => {
+  res.json({ success: true, session: activeMogulSession });
+});
+
+app.post('/api/auth/login', (req, res) => {
+  const { email, password, role, provider, entity } = req.body || {};
+  const userEmail = email ? email.trim() : 'ljentertainmentmusic@gmail.com';
+  const userRole = role || (userEmail.includes('lj') ? 'Owner' : 'Artist');
+
+  activeMogulSession = {
+    user: {
+      id: `usr-${Date.now()}`,
+      email: userEmail,
+      name: userEmail.split('@')[0],
+      role: userRole,
+      organization: 'LJ Entertainment Ltd',
+      projectRegion: 'East US (North Virginia)',
+      avatar: userEmail.toLowerCase().includes('drey')
+        ? 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd'
+        : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80',
+      permissions: userRole === 'Owner' ? ['ALL'] : ['READ_CATALOGUE', 'ROYALTIES_SELF'],
+      authProvider: provider || 'credentials',
+      signedInAt: new Date().toISOString()
+    }
+  };
+
+  res.json({
+    success: true,
+    message: `Authenticated as ${activeMogulSession.user.email} (${activeMogulSession.user.role})`,
+    session: activeMogulSession
+  });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  activeMogulSession = null;
+  res.json({ success: true, message: 'Signed out of Mogul Workspace' });
+});
+
+// Mogul Royalty Ledger
+app.get('/api/mogul/royalties', (req, res) => {
+  const entity = req.query.entity || req.query.artist || 'ALL';
+  const data = mogulEngine.getRoyaltyLedger(entity);
+  res.json({ success: true, data });
+});
+
+// Mogul Royalty Audit & Missing Money Detection
+app.get('/api/mogul/audit', (req, res) => {
+  const entity = req.query.entity || req.query.artist || 'ALL';
+  const data = mogulEngine.getRoyaltyLedger(entity);
+  res.json({
+    success: true,
+    overallAuditScore: data.summary.overallAuditScore,
+    totalUnclaimedRecoverable: data.summary.totalUnclaimedRecoverable,
+    discrepancies: data.auditDiscrepancies
+  });
+});
+
+// 1-Click Auto Claim Single Royalty Discrepancy
+app.post('/api/mogul/audit/claim', (req, res) => {
+  const { discrepancyId } = req.body || {};
+  const result = mogulEngine.claimDiscrepancy(discrepancyId);
+  res.json(result);
+});
+
+// 1-Click Auto Claim All Discrepancies
+app.post('/api/mogul/audit/claim-all', (req, res) => {
+  const { entity } = req.body || {};
+  const result = mogulEngine.claimAllDiscrepancies(entity);
+  res.json(result);
+});
+
+// Mogul Separated Entities List
+app.get('/api/mogul/entities', (req, res) => {
+  res.json({ success: true, entities: mogulEngine.getEntitiesList() });
 });
 
 // Universal Streaming Player Telemetry & Resolver
