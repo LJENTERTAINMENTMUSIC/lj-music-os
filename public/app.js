@@ -145,6 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loadArtistRosterDirectory();
   executeStoreSearch();
 
+  if (typeof initArtistProfileSwitcher === 'function') {
+    initArtistProfileSwitcher();
+  }
+
   // Initial Copilot brief run
   executeCopilotQuery("I need an Afrobeats song for a Lagos luxury real-estate commercial, male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics.");
 });
@@ -153,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // NAVIGATION / TAB SWITCHING
 // ==============================================================
 function switchTab(tabId) {
+  if (tabId === "tab-command") tabId = "tab-command-center";
   document.querySelectorAll(".tab-panel").forEach(panel => {
     panel.classList.add("hidden");
   });
@@ -187,8 +192,10 @@ async function loadSwarmCommandCenter() {
     // 1. CEO Morning Briefing
     const resBriefing = await fetch("/api/swarm/briefing");
     const briefing = await resBriefing.json();
-    document.getElementById("briefingDate").innerText = briefing.date;
-    document.getElementById("briefingSummaryText").innerText = briefing.executiveSummary;
+    const dateEl = document.getElementById("briefingDate");
+    if (dateEl) dateEl.innerText = briefing.date;
+    const summaryEl = document.getElementById("briefingSummaryText");
+    if (summaryEl) summaryEl.innerText = briefing.executiveSummary;
 
     const actionList = document.getElementById("kiraActionList");
     actionList.innerHTML = briefing.priority1.recommendedActions.map(action => `
@@ -790,13 +797,13 @@ function applyFilters() {
   let filtered = allTracks.filter(track => {
     // Spotify for Artists Profile Focus: Lock to active artist unless All Label is selected
     if (window.isArtistFocusMode && window.currentActiveArtist && window.currentActiveArtist !== "ALL") {
-      if (track.artist.toLowerCase() !== window.currentActiveArtist.toLowerCase()) return false;
+      if (!track.artist || track.artist.toLowerCase() !== window.currentActiveArtist.toLowerCase()) return false;
     }
     if (currentFilter === "lj" && !track.isLjArtist) return false;
-    if (genre && !track.genre.toLowerCase().includes(genre.toLowerCase())) return false;
+    if (genre && (!track.genre || !track.genre.toLowerCase().includes(genre.toLowerCase()))) return false;
     if (searchTerm) {
-      const match = track.title.toLowerCase().includes(searchTerm) ||
-                    track.artist.toLowerCase().includes(searchTerm) ||
+      const match = (track.title && track.title.toLowerCase().includes(searchTerm)) ||
+                    (track.artist && track.artist.toLowerCase().includes(searchTerm)) ||
                     (track.key && track.key.toLowerCase().includes(searchTerm)) ||
                     (track.instrumentation && track.instrumentation.some(i => i.toLowerCase().includes(searchTerm)));
       if (!match) return false;
@@ -3195,7 +3202,7 @@ async function deploySwarmOnSelectedArtistTrack() {
             <button onclick="switchTab('tab-editorial'); loadEditorialPlaylists();" class="px-4 py-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-900 text-emerald-200 border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1.5">
               <span>⚡ Editorial Playlists</span>
             </button>
-            <button onclick="switchTab('tab-command'); loadSwarmCommandCenter();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition flex items-center space-x-1.5">
+            <button onclick="switchTab('tab-command-center'); loadSwarmCommandCenter();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition flex items-center space-x-1.5">
               <span>👑 Swarm Command Center</span>
             </button>
           </div>
@@ -3860,6 +3867,11 @@ async function restoreBenchmarkRosterPrompt() {
     if (data.success) {
       await loadCatalogue();
       await loadArtistRosterDirectory();
+      await initArtistProfileSwitcher();
+      const modal = document.getElementById("s4aProfileSwitcherModal");
+      if (modal && !modal.classList.contains("hidden")) {
+        renderS4aModalArtistList();
+      }
       showToast("Benchmark catalogue and artist roster restored successfully.", 'success', 'Roster Restored');
     }
   } catch (e) {
@@ -4178,7 +4190,7 @@ function handleTopSearchOrSpotify(val) {
   val = val.trim();
   if (val.includes("spotify.com")) {
     switchTab("tab-intake");
-    const input = document.getElementById("spotifyTrackUrlInput");
+    const input = document.getElementById("intakeSearchInput") || document.getElementById("spotifyTrackUrlInput");
     if (input) {
       input.value = val;
       executeStoreSearch('spotify');
@@ -4280,7 +4292,7 @@ async function mobilizeSwarmOnCurrentWorkingTrack() {
   const track = allTracks.find(t => t.id === trackId) || { id: trackId, title: "KIRA", artist: "Drey Star" };
 
   showToast(`Mobilizing 10,000 AI Agent Swarm across 17 Specialized Divisions on "${track.title}" by ${track.artist}...`, 'info', 'Swarm Mobilized');
-  switchTab('tab-command');
+  switchTab('tab-command-center');
   
   try {
     const res = await fetch('/api/swarm/deploy', {
@@ -4910,9 +4922,11 @@ async function confirmAndIngestArtist() {
     showToast(`✓ ${artistName} successfully onboarded and synchronized with Supabase Postgres & LJ Roster!`, "success", "Artist Onboarded");
     closeQuickAddArtistModal();
 
-    // Reload catalogue & roster
-    loadArtistRosterDirectory();
-    loadCatalogue();
+    // Reload catalogue & roster, then switch active profile to newly onboarded artist!
+    await loadCatalogue();
+    await loadArtistRosterDirectory();
+    await initArtistProfileSwitcher();
+    selectArtistProfile(artistName);
     if (typeof loadSwarmCommandCenter === "function") loadSwarmCommandCenter();
 
   } catch (err) {
@@ -5833,56 +5847,59 @@ async function initArtistProfileSwitcher() {
 function selectArtistProfile(artistName) {
   if (!artistName) return;
 
-  window.currentActiveArtist = artistName;
-  localStorage.setItem('s4a_active_artist', artistName);
+  try {
+    window.currentActiveArtist = artistName;
+    localStorage.setItem('s4a_active_artist', artistName);
 
-  if (artistName === "ALL") {
-    window.isArtistFocusMode = false;
-    localStorage.setItem('s4a_focus_mode', 'false');
-    showToast("🏢 Switched to Label Overview Mode. Showing all releases across roster.", "info", "Label Mode Active");
-  } else {
-    window.isArtistFocusMode = true;
-    localStorage.setItem('s4a_focus_mode', 'true');
-    showToast(`✓ Active Profile: ${artistName}\nWorkspace locked onto ${artistName}. Zero cross-artist confusion.`, "success", "Spotify for Artists");
+    if (artistName === "ALL") {
+      window.isArtistFocusMode = false;
+      localStorage.setItem('s4a_focus_mode', 'false');
+      showToast("🏢 Switched to Label Overview Mode. Showing all releases across roster.", "info", "Label Mode Active");
+    } else {
+      window.isArtistFocusMode = true;
+      localStorage.setItem('s4a_focus_mode', 'true');
+      showToast(`✓ Active Profile: ${artistName}\nWorkspace locked onto ${artistName}. Zero cross-artist confusion.`, "success", "Spotify for Artists");
 
-    // Automatically set top track for this artist as active working track
-    const artistTracks = allTracks.filter(t => t.artist.toLowerCase() === artistName.toLowerCase());
-    if (artistTracks.length > 0) {
-      setAsActiveWorkingTrack(artistTracks[0].id);
+      // Automatically set top track for this artist as active working track
+      const artistTracks = allTracks.filter(t => t.artist && t.artist.toLowerCase() === artistName.toLowerCase());
+      if (artistTracks.length > 0) {
+        setAsActiveWorkingTrack(artistTracks[0].id);
+      }
     }
+
+    // Update all UI elements safely
+    try { renderArtistProfileUI(); } catch (e) { console.warn("renderArtistProfileUI err:", e); }
+    try { updateBillboardForActiveArtist(); } catch (e) { console.warn("updateBillboardForActiveArtist err:", e); }
+    try { applyFilters(); } catch (e) { console.warn("applyFilters err:", e); }
+    try { renderTopArtistsGrid(); } catch (e) { console.warn("renderTopArtistsGrid err:", e); }
+    try { renderSidebarRoster(); } catch (e) { console.warn("renderSidebarRoster err:", e); }
+    try { renderArtistPortalTracks(); } catch (e) { console.warn("renderArtistPortalTracks err:", e); }
+    try { syncArtistToCouncilAndLyrics(artistName); } catch (e) { console.warn("syncArtistToCouncilAndLyrics err:", e); }
+  } catch (err) {
+    console.error("Critical error in selectArtistProfile:", err);
   }
-
-  // Update all UI elements
-  renderArtistProfileUI();
-  updateBillboardForActiveArtist();
-  applyFilters();
-  renderTopArtistsGrid();
-  renderSidebarRoster();
-  renderArtistPortalTracks();
-
-  // If in council debate or lyrics, sync track
-  syncArtistToCouncilAndLyrics(artistName);
 }
 
 // 3. Toggle single artist focus mode
 function setArtistFocusMode(enable) {
-  window.isArtistFocusMode = enable;
-  localStorage.setItem('s4a_focus_mode', enable ? 'true' : 'false');
-  if (enable && window.currentActiveArtist === "ALL" && window.artistRosterData.length > 0) {
-    window.currentActiveArtist = window.artistRosterData[0].artist || window.artistRosterData[0].name;
+  if (enable) {
+    const artistToFocus = (window.currentActiveArtist && window.currentActiveArtist !== "ALL")
+      ? window.currentActiveArtist
+      : (window.artistRosterData[0]?.artist || window.artistRosterData[0]?.name || "Drey Star");
+    selectArtistProfile(artistToFocus);
+  } else {
+    selectArtistProfile("ALL");
   }
-  showToast(enable 
-    ? `🎯 Focus Mode ON: Filtered strictly to ${window.currentActiveArtist}.` 
-    : "🏢 Label Overview: Displaying all releases across the roster.", "info", "Workspace Mode");
-  renderArtistProfileUI();
-  applyFilters();
 }
 
 // 4. Modal controls
-function openProfileSwitcherModal() {
+async function openProfileSwitcherModal() {
   const modal = document.getElementById("s4aProfileSwitcherModal");
   if (modal) {
     modal.classList.remove("hidden");
+    if (!window.artistRosterData || window.artistRosterData.length === 0) {
+      await initArtistProfileSwitcher();
+    }
     renderS4aModalArtistList();
     const searchInput = document.getElementById("s4aModalSearchInput");
     if (searchInput) {
@@ -5908,6 +5925,7 @@ function renderS4aModalArtistList(filterQuery = "") {
 
   const roster = window.artistRosterData || [];
   const q = filterQuery.toLowerCase().trim();
+  const isAllActive = window.currentActiveArtist === "ALL";
 
   const filtered = roster.filter(a => {
     if (!q) return true;
@@ -5916,26 +5934,67 @@ function renderS4aModalArtistList(filterQuery = "") {
     return name.includes(q) || genre.includes(q);
   });
 
-  if (filtered.length === 0) {
+  // All Label card HTML (shown if query is empty or matches "all" / "label")
+  let allLabelCardHtml = "";
+  if (!q || "all label artists overview".includes(q)) {
+    allLabelCardHtml = `
+      <div onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal();" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isAllActive ? 'border-purple-500 bg-purple-900/30 shadow-glow-violet ring-1 ring-purple-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
+        <div class="flex items-start justify-between gap-2.5">
+          <div class="flex items-start space-x-3.5 min-w-0">
+            <div class="relative w-14 h-14 rounded-2xl overflow-hidden bg-gradient-to-tr from-purple-800 to-indigo-700 border ${isAllActive ? 'border-purple-400 shadow-md' : 'border-white/15'} flex-shrink-0 flex items-center justify-center text-white text-2xl font-black">
+              🏢
+            </div>
+
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center space-x-2">
+                <h3 class="font-black text-sm text-white truncate">All Label Artists</h3>
+                ${isAllActive ? '<span class="px-2 py-0.5 rounded-full text-[8px] font-black bg-purple-500 text-white uppercase tracking-wider">ACTIVE</span>' : ''}
+              </div>
+              <p class="text-[11px] text-purple-300 font-mono-code font-bold mt-0.5 truncate">Label Overview Mode</p>
+              <p class="text-[10px] text-slate-400 mt-0.5 font-mono-code">${allTracks.length} Releases Across Entire Label</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
+          ${isAllActive ? `
+            <div class="flex items-center space-x-1.5 text-purple-300 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+              <span>Currently In Focus (All Releases)</span>
+            </div>
+            <button onclick="closeProfileSwitcherModal(); event.stopPropagation();" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
+              Keep Active
+            </button>
+          ` : `
+            <button onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal(); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
+              Switch to All Label →
+            </button>
+          `}
+        </div>
+      </div>
+    `;
+  }
+
+  if (filtered.length === 0 && !allLabelCardHtml) {
     container.innerHTML = `
       <div class="col-span-full py-8 text-center text-slate-400 text-xs border border-dashed border-white/10 rounded-2xl">
-        No artists matching "${filterQuery}". Click "+ Onboard New Artist" to link via Spotify.
+        No artists matching "${filterQuery}". Click "+ Onboard Artist" to link via Spotify.
       </div>
     `;
     return;
   }
 
-  container.innerHTML = filtered.map(a => {
+  const artistCardsHtml = filtered.map(a => {
     const name = a.artist || a.name;
-    const isActive = window.currentActiveArtist.toLowerCase() === name.toLowerCase();
-    const tracks = allTracks.filter(t => t.artist.toLowerCase() === name.toLowerCase());
+    const isActive = !isAllActive && window.currentActiveArtist.toLowerCase() === name.toLowerCase();
+    const tracks = allTracks.filter(t => t.artist && t.artist.toLowerCase() === name.toLowerCase());
     const trackCount = tracks.length || a.tracksCount || 0;
     const pic = a.picture || a.coverArt || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80";
     const listeners = a.monthlyListeners || a.followers || "Verified Spotify Profile";
     const genre = a.primaryGenre || (Array.isArray(a.genres) ? a.genres[0] : "Afrobeats") || "Afrobeats";
 
     return `
-      <div class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
+      <div onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal();" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
         <div class="flex items-start justify-between gap-2.5">
           <div class="flex items-start space-x-3.5 min-w-0">
             <div class="relative w-14 h-14 rounded-2xl overflow-hidden border ${isActive ? 'border-emerald-400 shadow-md' : 'border-white/15'} flex-shrink-0">
@@ -5964,16 +6023,16 @@ function renderS4aModalArtistList(filterQuery = "") {
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>Currently In Focus</span>
             </div>
-            <button onclick="closeProfileSwitcherModal()" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
+            <button onclick="closeProfileSwitcherModal(); event.stopPropagation();" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
               Keep Active
             </button>
           ` : `
-            <button onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
+            <button onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal(); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
               Switch to ${name} →
             </button>
           `}
           ${a.spotifyUrl ? `
-            <a href="${a.spotifyUrl}" target="_blank" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition text-xs font-bold" title="Open Spotify Profile">
+            <a href="${a.spotifyUrl}" target="_blank" onclick="event.stopPropagation();" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition text-xs font-bold" title="Open Spotify Profile">
               Spotify ↗
             </a>
           ` : ''}
@@ -5981,6 +6040,8 @@ function renderS4aModalArtistList(filterQuery = "") {
       </div>
     `;
   }).join("");
+
+  container.innerHTML = allLabelCardHtml + artistCardsHtml;
 }
 
 function filterS4aModalArtistList(val) {
@@ -6004,7 +6065,7 @@ function renderArtistProfileUI() {
     ? "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80"
     : (artistObj.picture || artistObj.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd");
   const listeners = isAll ? "53,180,000 Total Network Listeners" : (artistObj.monthlyListeners || "1,420,000 Monthly Listeners");
-  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist && t.artist.toLowerCase() === current.toLowerCase());
   const priorityTrack = artistTracks[0] || { title: "KIRA", id: "lj-000" };
 
   // A. Header Chip
@@ -6041,6 +6102,7 @@ function renderArtistProfileUI() {
   const focusBtnActive = document.getElementById("s4aFocusBtnActive");
   const focusBtnAll = document.getElementById("s4aFocusBtnAll");
   if (focusBtnActive && focusBtnAll) {
+    focusBtnAll.innerHTML = `🏢 All Label (${roster.length || 1})`;
     if (window.isArtistFocusMode && !isAll) {
       focusBtnActive.className = "px-3 py-1 rounded-lg bg-purple-600 text-white shadow-glow-violet transition";
       focusBtnAll.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
@@ -6057,7 +6119,7 @@ function renderArtistProfileUI() {
 
   // C. Catalogue focus banner
   const catFocusName = document.getElementById("catalogueFocusArtistName");
-  if (catFocusName) catFocusName.innerText = isAll ? "All Label Artists (9 releases)" : `${name} (${artistTracks.length} releases)`;
+  if (catFocusName) catFocusName.innerText = isAll ? `All Label Artists (${allTracks.length} releases)` : `${name} (${artistTracks.length} releases)`;
   const catFocusBadge = document.getElementById("catalogueFocusBadge");
   if (catFocusBadge) {
     catFocusBadge.innerText = (window.isArtistFocusMode && !isAll) ? "SINGLE ARTIST FOCUS ACTIVE" : "ALL LABEL CATALOGUE";
@@ -6075,7 +6137,7 @@ function renderArtistProfileUI() {
 function updateBillboardForActiveArtist() {
   const current = window.currentActiveArtist;
   const isAll = current === "ALL";
-  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist && t.artist.toLowerCase() === current.toLowerCase());
   const track = artistTracks[0] || allTracks[0];
   if (!track) return;
 
@@ -6175,7 +6237,7 @@ function renderSidebarRoster() {
 function spinActiveArtistOnRadio() {
   const current = window.currentActiveArtist;
   const isAll = current === "ALL";
-  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist && t.artist.toLowerCase() === (current || "").toLowerCase());
   const track = artistTracks[0] || allTracks[0];
   if (!track) {
     showToast("No track found to spin.", "warning");
@@ -6187,7 +6249,9 @@ function spinActiveArtistOnRadio() {
 
 // 11. Sync active artist to Adversarial Council, Lyrics & Pitch CRM
 function syncArtistToCouncilAndLyrics(artistName) {
-  const artistTracks = allTracks.filter(t => t.artist.toLowerCase() === artistName.toLowerCase());
+  if (!artistName) return;
+  const isAll = artistName === "ALL";
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist && t.artist.toLowerCase() === artistName.toLowerCase());
   if (artistTracks.length > 0) {
     const topTrack = artistTracks[0];
     const councilSelect = document.getElementById("councilTrackSelect");
