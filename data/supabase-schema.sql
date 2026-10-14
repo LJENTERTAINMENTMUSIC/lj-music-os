@@ -113,6 +113,48 @@ CREATE TABLE IF NOT EXISTS public.sync_briefs (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 7. MOGUL ROYALTIES & AUDIT LEDGER TABLE
+CREATE TABLE IF NOT EXISTS public.mogul_royalties (
+    id VARCHAR(64) PRIMARY KEY,
+    entity_name VARCHAR(255) NOT NULL,
+    entity_type VARCHAR(100) NOT NULL DEFAULT 'ARTIST_WORKSPACE',
+    currency VARCHAR(10) NOT NULL DEFAULT 'USD',
+    tracked_earnings NUMERIC(12,2) DEFAULT 0.00,
+    master_payout NUMERIC(12,2) DEFAULT 0.00,
+    mechanical_payout NUMERIC(12,2) DEFAULT 0.00,
+    performance_payout NUMERIC(12,2) DEFAULT 0.00,
+    neighboring_payout NUMERIC(12,2) DEFAULT 0.00,
+    unclaimed_recoverable NUMERIC(12,2) DEFAULT 0.00,
+    catalog_track_count INTEGER DEFAULT 0,
+    overall_audit_score NUMERIC(5,2) DEFAULT 99.4,
+    last_audited_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 8. MOGUL AUDIT DISCREPANCY CLAIMS TABLE
+CREATE TABLE IF NOT EXISTS public.mogul_audit_claims (
+    id VARCHAR(64) PRIMARY KEY,
+    discrepancy_type VARCHAR(100) NOT NULL,
+    collection_source VARCHAR(255) NOT NULL,
+    track_title VARCHAR(255) NOT NULL,
+    artist_name VARCHAR(255) NOT NULL,
+    isrc VARCHAR(50) NOT NULL,
+    amount NUMERIC(12,2) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'CLAIM_RECOVERED',
+    confidence NUMERIC(4,3) DEFAULT 0.980,
+    confirmation_code VARCHAR(100),
+    claimed_at TIMESTAMPTZ DEFAULT NOW(),
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Covering Indexes
+CREATE INDEX IF NOT EXISTS idx_catalogue_artist_id ON public.catalogue(artist_id);
+CREATE INDEX IF NOT EXISTS idx_lyrics_records_track_id ON public.lyrics_records(track_id);
+CREATE INDEX IF NOT EXISTS idx_sync_briefs_matched_track_id ON public.sync_briefs(matched_track_id);
+CREATE INDEX IF NOT EXISTS idx_catalogue_isrc ON public.catalogue(isrc);
+CREATE INDEX IF NOT EXISTS idx_mogul_royalties_entity ON public.mogul_royalties(entity_name);
+CREATE INDEX IF NOT EXISTS idx_mogul_claims_isrc ON public.mogul_audit_claims(isrc);
+
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.artist_roster ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.catalogue ENABLE ROW LEVEL SECURITY;
@@ -120,33 +162,51 @@ ALTER TABLE public.lyrics_records ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.curator_crm ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.swarm_telemetry ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.sync_briefs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.mogul_royalties ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.mogul_audit_claims ENABLE ROW LEVEL SECURITY;
 
 -- Idempotent Policy Drops
 DROP POLICY IF EXISTS "Public Read Catalogue" ON public.catalogue;
-DROP POLICY IF EXISTS "Public Read Roster" ON public.artist_roster;
-DROP POLICY IF EXISTS "Public Read Lyrics" ON public.lyrics_records;
-DROP POLICY IF EXISTS "Public Read Sync Briefs" ON public.sync_briefs;
 DROP POLICY IF EXISTS "Service Role All Catalogue" ON public.catalogue;
-DROP POLICY IF EXISTS "Service Role All Telemetry" ON public.swarm_telemetry;
-DROP POLICY IF EXISTS "Service Role All Lyrics" ON public.lyrics_records;
-DROP POLICY IF EXISTS "Service Role All Curators" ON public.curator_crm;
+DROP POLICY IF EXISTS "Public Read Roster" ON public.artist_roster;
 DROP POLICY IF EXISTS "Service Role All Roster" ON public.artist_roster;
+DROP POLICY IF EXISTS "Public Read Lyrics" ON public.lyrics_records;
+DROP POLICY IF EXISTS "Service Role All Lyrics" ON public.lyrics_records;
+DROP POLICY IF EXISTS "Public Read Curators" ON public.curator_crm;
+DROP POLICY IF EXISTS "Service Role All Curators" ON public.curator_crm;
+DROP POLICY IF EXISTS "Public Read Sync Briefs" ON public.sync_briefs;
 DROP POLICY IF EXISTS "Service Role All Sync Briefs" ON public.sync_briefs;
+DROP POLICY IF EXISTS "Public Read Mogul Royalties" ON public.mogul_royalties;
+DROP POLICY IF EXISTS "Service Role All Mogul Royalties" ON public.mogul_royalties;
+DROP POLICY IF EXISTS "Public Read Mogul Claims" ON public.mogul_audit_claims;
+DROP POLICY IF EXISTS "Service Role All Mogul Claims" ON public.mogul_audit_claims;
+DROP POLICY IF EXISTS "Service Role All Telemetry" ON public.swarm_telemetry;
 
--- Public Read Policies
-CREATE POLICY "Public Read Catalogue" ON public.catalogue FOR SELECT USING (true);
-CREATE POLICY "Public Read Roster" ON public.artist_roster FOR SELECT USING (true);
-CREATE POLICY "Public Read Lyrics" ON public.lyrics_records FOR SELECT USING (true);
-CREATE POLICY "Public Read Sync Briefs" ON public.sync_briefs FOR SELECT USING (true);
+-- Clean Scoped RLS Policies
+CREATE POLICY "Public Read Catalogue" ON public.catalogue FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Catalogue" ON public.catalogue FOR ALL TO service_role USING (true) WITH CHECK (true);
 
--- Service Role / Full Access Policies
-CREATE POLICY "Service Role All Catalogue" ON public.catalogue FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service Role All Telemetry" ON public.swarm_telemetry FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service Role All Lyrics" ON public.lyrics_records FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service Role All Curators" ON public.curator_crm FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service Role All Roster" ON public.artist_roster FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service Role All Sync Briefs" ON public.sync_briefs FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Public Read Roster" ON public.artist_roster FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Roster" ON public.artist_roster FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Public Read Lyrics" ON public.lyrics_records FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Lyrics" ON public.lyrics_records FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Public Read Curators" ON public.curator_crm FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Curators" ON public.curator_crm FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Public Read Sync Briefs" ON public.sync_briefs FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Sync Briefs" ON public.sync_briefs FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Public Read Mogul Royalties" ON public.mogul_royalties FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Mogul Royalties" ON public.mogul_royalties FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Public Read Mogul Claims" ON public.mogul_audit_claims FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "Service Role All Mogul Claims" ON public.mogul_audit_claims FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+CREATE POLICY "Service Role All Telemetry" ON public.swarm_telemetry FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- Permissions Grant
 GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres, service_role;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon, authenticated;
+
