@@ -6813,6 +6813,152 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// 6. CSV Claim Exports & Executive Statement Modal
+function downloadMlcClaimCsv() {
+  const currentEntity = window.currentActiveArtist || "ALL";
+  showToast("Preparing The MLC Bulk Mechanical Claim CSV...", "info", "Export Initiated");
+  window.location.href = `/api/mogul/export/mlc-claim-csv?entity=${encodeURIComponent(currentEntity)}`;
+}
+
+function downloadSoundExchangeCsv() {
+  const currentEntity = window.currentActiveArtist || "ALL";
+  showToast("Preparing SoundExchange Neighboring Rights Claim CSV...", "info", "Export Initiated");
+  window.location.href = `/api/mogul/export/soundexchange-csv?entity=${encodeURIComponent(currentEntity)}`;
+}
+
+async function openMogulStatementModal() {
+  const currentEntity = window.currentActiveArtist || "ALL";
+  showToast("Generating official Mogul Accounting Statement...", "info");
+
+  try {
+    const res = await fetch(`/api/mogul/export/statement?entity=${encodeURIComponent(currentEntity)}`);
+    const data = await res.json();
+    if (!data.success || !data.statement) return;
+
+    const stmt = data.statement;
+
+    const numEl = document.getElementById("stmtNumber");
+    if (numEl) numEl.innerText = stmt.statementNumber;
+
+    const dateEl = document.getElementById("stmtDate");
+    if (dateEl) dateEl.innerText = `Date: ${stmt.issueDate}`;
+
+    const periodEl = document.getElementById("stmtPeriod");
+    if (periodEl) periodEl.innerText = `Period: ${stmt.period}`;
+
+    const nameEl = document.getElementById("stmtEntityName");
+    if (nameEl) nameEl.innerText = stmt.entity;
+
+    const typeEl = document.getElementById("stmtEntityType");
+    if (typeEl) typeEl.innerText = `${stmt.entityType === 'LABEL_ENTERPRISE' ? 'Label Enterprise Consolidated Ledger' : 'Single Artist Workspace'} • Net Payout after 15% Admin Fee`;
+
+    const netEl = document.getElementById("stmtNetPayable");
+    if (netEl) netEl.innerText = `$${stmt.netPayable.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    const hashEl = document.getElementById("stmtVerificationHash");
+    if (hashEl) hashEl.innerText = `Verification Hash: ${stmt.signoff.verificationHash}`;
+
+    // Render Breakdown Table
+    const breakdownBody = document.getElementById("stmtBreakdownTableBody");
+    if (breakdownBody) {
+      breakdownBody.innerHTML = `
+        <tr class="hover:bg-zinc-900/50">
+          <td class="py-2.5 px-3 font-bold text-white">Master Sound Recording Revenue</td>
+          <td class="py-2.5 px-3 text-zinc-400">Spotify / Apple / DSPs</td>
+          <td class="py-2.5 px-3 font-bold text-white">$${stmt.masterBreakdown.totalMasterPayout.toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">100% Master</td>
+        </tr>
+        <tr class="hover:bg-zinc-900/50">
+          <td class="py-2.5 px-3 font-bold text-cyan-400">Interactive Streaming Mechanicals</td>
+          <td class="py-2.5 px-3 text-zinc-400">The MLC (Statutory)</td>
+          <td class="py-2.5 px-3 font-bold text-cyan-400">$${stmt.masterBreakdown.mechanicalsMLC.toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right text-zinc-300">$0.00091 / stream</td>
+        </tr>
+        <tr class="hover:bg-zinc-900/50">
+          <td class="py-2.5 px-3 font-bold text-purple-400">Public Performance Royalties</td>
+          <td class="py-2.5 px-3 text-zinc-400">PRS for Music / BMI / ASCAP</td>
+          <td class="py-2.5 px-3 font-bold text-purple-400">$${stmt.masterBreakdown.performancePRO.toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right text-zinc-300">Global Share</td>
+        </tr>
+        <tr class="hover:bg-zinc-900/50">
+          <td class="py-2.5 px-3 font-bold text-amber-400">Neighboring Rights / Web Radio</td>
+          <td class="py-2.5 px-3 text-zinc-400">SoundExchange</td>
+          <td class="py-2.5 px-3 font-bold text-amber-400">$${stmt.masterBreakdown.neighboringSoundExchange.toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right text-zinc-300">Digital Transmissions</td>
+        </tr>
+        <tr class="bg-zinc-900/80 font-bold border-t border-zinc-700">
+          <td class="py-2.5 px-3 text-white">Gross Tracked Royalties</td>
+          <td class="py-2.5 px-3 text-zinc-400">Total Pooled Collections</td>
+          <td class="py-2.5 px-3 text-white text-sm">$${stmt.grossEarnings.toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right text-emerald-400">100% Gross</td>
+        </tr>
+        <tr class="text-rose-400 text-[11px]">
+          <td class="py-2 px-3">Administration & Distribution Deductions (15%)</td>
+          <td class="py-2 px-3 text-zinc-500">Mogul Admin / DSP Fees</td>
+          <td class="py-2 px-3 font-mono-code">-$${stmt.adminFeeAmount.toFixed(2)}</td>
+          <td class="py-2 px-3 text-right">-15.00%</td>
+        </tr>
+        <tr class="bg-emerald-950/20 font-black text-emerald-300 border-t border-emerald-500/30">
+          <td class="py-3 px-3">NET AMOUNT PAYABLE TO PAYEE</td>
+          <td class="py-3 px-3 text-emerald-400/80">Approved Settlement</td>
+          <td class="py-3 px-3 text-base font-mono-code">$${stmt.netPayable.toFixed(2)}</td>
+          <td class="py-3 px-3 text-right">85.00% Net</td>
+        </tr>
+      `;
+    }
+
+    // Render Track Itemization
+    const trackListBody = document.getElementById("stmtTrackListBody");
+    if (trackListBody) {
+      trackListBody.innerHTML = (stmt.tracks || []).map(t => `
+        <tr class="hover:bg-zinc-900/50">
+          <td class="py-2 px-3 font-bold text-white">${t.title}</td>
+          <td class="py-2 px-3 text-zinc-400">${t.isrc}</td>
+          <td class="py-2 px-3 text-right text-zinc-300">${t.totalStreams.toLocaleString()}</td>
+          <td class="py-2 px-3 text-right text-white">$${t.earnings.master.toFixed(2)}</td>
+          <td class="py-2 px-3 text-right text-cyan-400">$${(t.earnings.mechanical + t.earnings.performance).toFixed(2)}</td>
+          <td class="py-2 px-3 text-right font-bold text-emerald-400">$${t.earnings.total.toFixed(2)}</td>
+        </tr>
+      `).join("");
+    }
+
+    const modal = document.getElementById("mogulStatementModal");
+    if (modal) modal.classList.remove("hidden");
+  } catch (err) {
+    console.error("Statement fetch error:", err);
+    showToast("Failed to generate statement.", "error");
+  }
+}
+
+function closeMogulStatementModal() {
+  const modal = document.getElementById("mogulStatementModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+// 7. Live Spotify API Direct Sync
+async function syncLiveSpotifyApi() {
+  const currentEntity = window.currentActiveArtist || "Drey Star";
+  showToast(`🔄 Connecting to Spotify Web API for ${currentEntity}...`, "info", "Spotify Sync");
+
+  try {
+    const res = await fetch("/api/spotify/sync-live", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ artistName: currentEntity })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`✓ ${data.message}\n${data.data.hint || ''}`, "success", "Spotify Synchronized");
+      renderArtistProfileUI();
+      loadMogulRoyalties();
+    } else {
+      showToast("Spotify synchronization error.", "warning");
+    }
+  } catch (e) {
+    console.error("Spotify sync error:", e);
+  }
+}
+
 // Global exports for Mogul
 window.initMogulAuth = initMogulAuth;
 window.toggleMogulUserDropdown = toggleMogulUserDropdown;
@@ -6826,5 +6972,11 @@ window.loadMogulRoyalties = loadMogulRoyalties;
 window.claimMogulDiscrepancy = claimMogulDiscrepancy;
 window.claimAllMogulDiscrepancies = claimAllMogulDiscrepancies;
 window.runMogulAudit = runMogulAudit;
+window.downloadMlcClaimCsv = downloadMlcClaimCsv;
+window.downloadSoundExchangeCsv = downloadSoundExchangeCsv;
+window.openMogulStatementModal = openMogulStatementModal;
+window.closeMogulStatementModal = closeMogulStatementModal;
+window.syncLiveSpotifyApi = syncLiveSpotifyApi;
+
 
 

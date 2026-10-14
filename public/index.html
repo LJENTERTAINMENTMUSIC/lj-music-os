@@ -1312,6 +1312,27 @@
               <button onclick="openProfileSwitcherModal()" class="text-emerald-400 hover:text-emerald-300 font-semibold underline text-[11px] ml-1">Switch</button>
             </div>
 
+            <!-- Sync Spotify API -->
+            <button onclick="syncLiveSpotifyApi()" class="px-3 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-bold transition flex items-center space-x-1.5 active:scale-95" title="Synchronize with live Spotify for Artists telemetry">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+              <span>Sync Spotify</span>
+            </button>
+
+            <!-- Export The MLC CSV -->
+            <button onclick="downloadMlcClaimCsv()" class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-semibold transition flex items-center space-x-1.5 active:scale-95" title="Download The MLC Bulk Mechanical Claim CSV">
+              <span>📥 The MLC CSV</span>
+            </button>
+
+            <!-- Export SoundExchange CSV -->
+            <button onclick="downloadSoundExchangeCsv()" class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-semibold transition flex items-center space-x-1.5 active:scale-95" title="Download SoundExchange Neighboring Rights Claim CSV">
+              <span>📥 SoundExchange CSV</span>
+            </button>
+
+            <!-- Printable Statement Modal Button -->
+            <button onclick="openMogulStatementModal()" class="px-3 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 hover:text-white border border-purple-500/30 text-xs font-bold transition flex items-center space-x-1.5 active:scale-95" title="Open Official Accounting Statement">
+              <span>🖨️ Statement (PDF)</span>
+            </button>
+
             <!-- Run Audit Button -->
             <button onclick="runMogulAudit()" class="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white border border-zinc-700 text-xs font-bold transition flex items-center space-x-2 shadow-sm active:scale-95">
               <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
@@ -3749,6 +3770,123 @@
             <div class="font-bold text-white group-hover:text-emerald-300">⚖️ MLC Auditor</div>
             <div class="text-[9px] text-zinc-400 truncate">auditor@themlc...</div>
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MOGUL EXECUTIVE ACCOUNTING STATEMENT MODAL (Printable PDF)     -->
+  <!-- ============================================================== -->
+  <div id="mogulStatementModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="bg-[#0D0D12] border border-zinc-800 rounded-3xl max-w-3xl w-full p-6 md:p-8 space-y-6 shadow-2xl relative my-8 text-white max-h-[90vh] overflow-y-auto font-sans">
+      <!-- Modal Action Controls -->
+      <div class="flex items-center justify-between border-b border-zinc-800 pb-4 print:hidden">
+        <div class="flex items-center space-x-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono-code font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">MOGUL CERTIFIED</span>
+          <span class="text-xs text-zinc-400 font-mono-code">OFFICIAL ROYALTY STATEMENT</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs transition flex items-center space-x-1.5 shadow active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Print / Save PDF</span>
+          </button>
+          <button onclick="closeMogulStatementModal()" class="text-zinc-400 hover:text-white p-1.5 rounded-xl hover:bg-zinc-800 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Statement Printable Content -->
+      <div id="mogulStatementPrintableBody" class="space-y-6">
+        <!-- Letterhead -->
+        <div class="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-zinc-800 pb-5">
+          <div>
+            <div class="text-xl font-black tracking-tight text-white flex items-center space-x-2">
+              <span class="font-mono-code text-emerald-400">MOGUL</span>
+              <span>×</span>
+              <span>LJ ENTERTAINMENT</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 mt-0.5">Mogul Global Music Financial Administration Protocol</p>
+            <p class="text-[10px] text-zinc-500 font-mono-code">East US (N. Virginia) • Licensed via The MLC & SoundExchange</p>
+          </div>
+          <div class="sm:text-right font-mono-code text-xs space-y-0.5">
+            <div class="text-zinc-400 text-[10px] uppercase">Statement ID:</div>
+            <div class="font-bold text-white text-sm" id="stmtNumber">MOGUL-STMT-2026-0091</div>
+            <div class="text-[10px] text-zinc-400" id="stmtDate">Date: October 14, 2026</div>
+            <div class="text-[10px] text-emerald-400 font-bold" id="stmtPeriod">Period: Q3 2026 (July - September)</div>
+          </div>
+        </div>
+
+        <!-- Beneficiary & Entity -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 text-xs">
+          <div>
+            <div class="text-[10px] font-mono-code text-zinc-400 uppercase tracking-wider">Account Holder / Payee:</div>
+            <div class="text-sm font-bold text-white mt-0.5" id="stmtEntityName">Drey Star</div>
+            <div class="text-[11px] text-zinc-400" id="stmtEntityType">Single Artist Workspace • 70% Direct Royalty Split</div>
+            <div class="text-[10px] text-zinc-500 font-mono-code mt-1">Bank: JPMorgan Chase / Silicon Valley Bank Commercial (••••8821)</div>
+          </div>
+          <div class="sm:text-right font-mono-code">
+            <div class="text-[10px] text-zinc-400 uppercase tracking-wider">Net Amount Payable:</div>
+            <div class="text-2xl font-black text-emerald-400 mt-0.5" id="stmtNetPayable">$220.32</div>
+            <div class="text-[10px] text-zinc-400">Currency: USD • Status: READY FOR SETTLEMENT</div>
+          </div>
+        </div>
+
+        <!-- Ledger Financial Breakdown -->
+        <div class="space-y-2">
+          <div class="text-xs font-bold text-white uppercase tracking-wider font-mono-code">Earnings & Rights Breakdown</div>
+          <div class="border border-zinc-800 rounded-2xl overflow-hidden text-xs">
+            <table class="w-full text-left font-mono-code">
+              <thead class="bg-zinc-900/80 border-b border-zinc-800 text-[10px] text-zinc-400 uppercase">
+                <tr>
+                  <th class="py-2.5 px-3">Revenue Category</th>
+                  <th class="py-2.5 px-3">Collection Partner</th>
+                  <th class="py-2.5 px-3">Gross ($)</th>
+                  <th class="py-2.5 px-3 text-right">Net Share</th>
+                </tr>
+              </thead>
+              <tbody id="stmtBreakdownTableBody" class="divide-y divide-zinc-800/60 text-xs">
+                <!-- Dynamically filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Repertoire Track Breakdown -->
+        <div class="space-y-2">
+          <div class="text-xs font-bold text-white uppercase tracking-wider font-mono-code">Catalogue Itemization</div>
+          <div class="border border-zinc-800 rounded-2xl overflow-hidden text-xs max-h-48 overflow-y-auto">
+            <table class="w-full text-left font-mono-code">
+              <thead class="bg-zinc-900/80 border-b border-zinc-800 text-[10px] text-zinc-400 uppercase sticky top-0">
+                <tr>
+                  <th class="py-2 px-3">Track</th>
+                  <th class="py-2 px-3">ISRC</th>
+                  <th class="py-2 px-3 text-right">Streams</th>
+                  <th class="py-2 px-3 text-right">Master ($)</th>
+                  <th class="py-2 px-3 text-right">Publishing ($)</th>
+                  <th class="py-2 px-3 text-right">Total ($)</th>
+                </tr>
+              </thead>
+              <tbody id="stmtTrackListBody" class="divide-y divide-zinc-800/60 text-[11px]">
+                <!-- Filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Certification & Hash Footer -->
+        <div class="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs">
+          <div class="space-y-0.5">
+            <div class="text-[10px] font-mono-code text-zinc-400 uppercase">Independent Verification Protocol:</div>
+            <div class="font-bold text-white text-[11px]">Mogul Royalty Protocol & The MLC Verification Engine</div>
+            <div class="text-[9px] font-mono-code text-zinc-500" id="stmtVerificationHash">Verification Hash: 0x8f2c31049bc88a729e1f...</div>
+          </div>
+          <div class="sm:text-right">
+            <span class="px-2.5 py-1 rounded-full text-[9px] font-mono-code font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              ✓ OFFICIALLY AUDITED & CERTIFIED
+            </span>
+          </div>
         </div>
       </div>
     </div>
