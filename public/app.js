@@ -628,6 +628,9 @@ async function loadCatalogue() {
     setupPitchSelect();
     setupCouncilTrackSelect();
     setupLyricsTrackSelect();
+    if (typeof initArtistProfileSwitcher === 'function') {
+      initArtistProfileSwitcher();
+    }
   } catch (err) {
     console.error("Error loading catalogue:", err);
   }
@@ -785,6 +788,10 @@ function applyFilters() {
   const energyLevel = document.getElementById("energyFilterSelect")?.value || "";
 
   let filtered = allTracks.filter(track => {
+    // Spotify for Artists Profile Focus: Lock to active artist unless All Label is selected
+    if (window.isArtistFocusMode && window.currentActiveArtist && window.currentActiveArtist !== "ALL") {
+      if (track.artist.toLowerCase() !== window.currentActiveArtist.toLowerCase()) return false;
+    }
     if (currentFilter === "lj" && !track.isLjArtist) return false;
     if (genre && !track.genre.toLowerCase().includes(genre.toLowerCase())) return false;
     if (searchTerm) {
@@ -4325,10 +4332,14 @@ function toggleRightCockpitFavorite() {
 window.toggleRightCockpitFavorite = toggleRightCockpitFavorite;
 
 function focusArtistInApp(artistName) {
-  showToast(`Focusing catalogue & swarm strategy on ${artistName}`, 'info', 'Artist Selected');
-  const matchedTrack = allTracks.find(t => t.artist.toLowerCase().includes(artistName.toLowerCase()));
-  if (matchedTrack) {
-    setAsActiveWorkingTrack(matchedTrack.id);
+  if (typeof selectArtistProfile === 'function') {
+    selectArtistProfile(artistName);
+  } else {
+    showToast(`Focusing catalogue & swarm strategy on ${artistName}`, 'info', 'Artist Selected');
+    const matchedTrack = allTracks.find(t => t.artist.toLowerCase().includes(artistName.toLowerCase()));
+    if (matchedTrack) {
+      setAsActiveWorkingTrack(matchedTrack.id);
+    }
   }
   switchTab("tab-command-center");
 }
@@ -5751,3 +5762,452 @@ window.closePlaylistInspectorModal = closePlaylistInspectorModal;
 window.playEntirePlaylistFromUI = playEntirePlaylistFromUI;
 window.filterEditorialByPlatform = filterEditorialByPlatform;
 window.loadEditorialPlaylists = loadEditorialPlaylists;
+
+// ==============================================================
+// SPOTIFY FOR ARTISTS - ACTIVE PROFILE & MULTI-ARTIST SWITCHER ENGINE
+// ==============================================================
+
+window.currentActiveArtist = localStorage.getItem('s4a_active_artist') || "Drey Star";
+window.isArtistFocusMode = localStorage.getItem('s4a_focus_mode') !== 'false'; // default true
+window.artistRosterData = [];
+
+// 1. Initialize and sync artist profile switcher
+async function initArtistProfileSwitcher() {
+  try {
+    const res = await fetch("/api/artist/roster");
+    window.artistRosterData = await res.json();
+    if (!Array.isArray(window.artistRosterData) || window.artistRosterData.length === 0) {
+      window.artistRosterData = [
+        {
+          id: "art-048320",
+          artist: "Drey Star",
+          name: "Drey Star",
+          picture: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+          monthlyListeners: "1,420,000 Monthly Listeners",
+          primaryGenre: "Afro-Fusion / Nightlife",
+          spotifyUrl: "https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT",
+          tracksCount: 3,
+          bio: "LJ Entertainment priority artist. Creator of the hit master 'KIRA'."
+        },
+        {
+          id: "art-056552",
+          artist: "Asake",
+          name: "Asake",
+          picture: "https://cdn-images.dzcdn.net/images/artist/29baf235626c8cd1cdc782c6d467aca8/1000x1000-000000-80-0-0.jpg",
+          monthlyListeners: "135,417 Monthly Listeners",
+          primaryGenre: "Afrobeats",
+          spotifyUrl: "https://open.spotify.com/search/Asake",
+          tracksCount: 6,
+          bio: "Verified streaming artist profile for Asake."
+        },
+        {
+          id: "art-237312",
+          artist: "Dr. Orlando Owoh",
+          name: "Dr. Orlando Owoh",
+          picture: "https://cdn-images.dzcdn.net/images/artist/3bedec5e5df1ddbce4fe2193e51e2664/1000x1000-000000-80-0-0.jpg",
+          monthlyListeners: "Verified Global Streamer",
+          primaryGenre: "Folk",
+          spotifyUrl: "https://open.spotify.com/search/Dr.%20Orlando%20Owoh",
+          tracksCount: 0,
+          bio: "Verified legacy recording artist."
+        }
+      ];
+    }
+
+    // Verify current active artist
+    const exists = window.artistRosterData.find(a => (a.artist || a.name).toLowerCase() === window.currentActiveArtist.toLowerCase());
+    if (!exists && window.currentActiveArtist !== "ALL" && window.artistRosterData.length > 0) {
+      window.currentActiveArtist = window.artistRosterData[0].artist || window.artistRosterData[0].name;
+    }
+
+    renderArtistProfileUI();
+    renderTopArtistsGrid();
+    renderSidebarRoster();
+    updateBillboardForActiveArtist();
+  } catch (err) {
+    console.error("Error initializing artist profile switcher:", err);
+  }
+}
+
+// 2. Select / Switch Profile
+function selectArtistProfile(artistName) {
+  if (!artistName) return;
+
+  window.currentActiveArtist = artistName;
+  localStorage.setItem('s4a_active_artist', artistName);
+
+  if (artistName === "ALL") {
+    window.isArtistFocusMode = false;
+    localStorage.setItem('s4a_focus_mode', 'false');
+    showToast("🏢 Switched to Label Overview Mode. Showing all releases across roster.", "info", "Label Mode Active");
+  } else {
+    window.isArtistFocusMode = true;
+    localStorage.setItem('s4a_focus_mode', 'true');
+    showToast(`✓ Active Profile: ${artistName}\nWorkspace locked onto ${artistName}. Zero cross-artist confusion.`, "success", "Spotify for Artists");
+
+    // Automatically set top track for this artist as active working track
+    const artistTracks = allTracks.filter(t => t.artist.toLowerCase() === artistName.toLowerCase());
+    if (artistTracks.length > 0) {
+      setAsActiveWorkingTrack(artistTracks[0].id);
+    }
+  }
+
+  // Update all UI elements
+  renderArtistProfileUI();
+  updateBillboardForActiveArtist();
+  applyFilters();
+  renderTopArtistsGrid();
+  renderSidebarRoster();
+  renderArtistPortalTracks();
+
+  // If in council debate or lyrics, sync track
+  syncArtistToCouncilAndLyrics(artistName);
+}
+
+// 3. Toggle single artist focus mode
+function setArtistFocusMode(enable) {
+  window.isArtistFocusMode = enable;
+  localStorage.setItem('s4a_focus_mode', enable ? 'true' : 'false');
+  if (enable && window.currentActiveArtist === "ALL" && window.artistRosterData.length > 0) {
+    window.currentActiveArtist = window.artistRosterData[0].artist || window.artistRosterData[0].name;
+  }
+  showToast(enable 
+    ? `🎯 Focus Mode ON: Filtered strictly to ${window.currentActiveArtist}.` 
+    : "🏢 Label Overview: Displaying all releases across the roster.", "info", "Workspace Mode");
+  renderArtistProfileUI();
+  applyFilters();
+}
+
+// 4. Modal controls
+function openProfileSwitcherModal() {
+  const modal = document.getElementById("s4aProfileSwitcherModal");
+  if (modal) {
+    modal.classList.remove("hidden");
+    renderS4aModalArtistList();
+    const searchInput = document.getElementById("s4aModalSearchInput");
+    if (searchInput) {
+      searchInput.value = "";
+      searchInput.focus();
+    }
+  }
+}
+
+function closeProfileSwitcherModal() {
+  const modal = document.getElementById("s4aProfileSwitcherModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+// 5. Render profile list inside modal
+function renderS4aModalArtistList(filterQuery = "") {
+  const container = document.getElementById("s4aModalArtistGrid");
+  const activeLabel = document.getElementById("s4aModalCurrentActiveName");
+  if (activeLabel) {
+    activeLabel.innerText = window.currentActiveArtist === "ALL" ? "All Label Artists (Overview Mode)" : window.currentActiveArtist;
+  }
+  if (!container) return;
+
+  const roster = window.artistRosterData || [];
+  const q = filterQuery.toLowerCase().trim();
+
+  const filtered = roster.filter(a => {
+    if (!q) return true;
+    const name = (a.artist || a.name || "").toLowerCase();
+    const genre = (a.primaryGenre || (a.genres || []).join(" ") || "").toLowerCase();
+    return name.includes(q) || genre.includes(q);
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-8 text-center text-slate-400 text-xs border border-dashed border-white/10 rounded-2xl">
+        No artists matching "${filterQuery}". Click "+ Onboard New Artist" to link via Spotify.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(a => {
+    const name = a.artist || a.name;
+    const isActive = window.currentActiveArtist.toLowerCase() === name.toLowerCase();
+    const tracks = allTracks.filter(t => t.artist.toLowerCase() === name.toLowerCase());
+    const trackCount = tracks.length || a.tracksCount || 0;
+    const pic = a.picture || a.coverArt || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80";
+    const listeners = a.monthlyListeners || a.followers || "Verified Spotify Profile";
+    const genre = a.primaryGenre || (Array.isArray(a.genres) ? a.genres[0] : "Afrobeats") || "Afrobeats";
+
+    return `
+      <div class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
+        <div class="flex items-start space-x-3.5">
+          <div class="relative w-14 h-14 rounded-2xl overflow-hidden border ${isActive ? 'border-emerald-400 shadow-md' : 'border-white/15'} flex-shrink-0">
+            <img src="${pic}" class="w-full h-full object-cover">
+            <span class="absolute bottom-1 right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center text-[7px] text-black font-black border border-black">✓</span>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center space-x-2">
+              <h3 class="font-black text-sm text-white truncate">${name}</h3>
+              ${isActive ? '<span class="px-2 py-0.5 rounded-full text-[8px] font-black bg-emerald-500 text-black uppercase tracking-wider">ACTIVE</span>' : ''}
+            </div>
+            <p class="text-[11px] text-emerald-400 font-mono-code font-bold mt-0.5 truncate">${listeners}</p>
+            <p class="text-[10px] text-slate-400 mt-0.5 font-mono-code">${genre} • ${trackCount} Releases</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
+          ${isActive ? `
+            <div class="flex items-center space-x-1.5 text-emerald-400 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Currently In Focus</span>
+            </div>
+            <button onclick="closeProfileSwitcherModal()" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
+              Keep Active
+            </button>
+          ` : `
+            <button onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
+              Switch to ${name} →
+            </button>
+          `}
+          ${a.spotifyUrl ? `
+            <a href="${a.spotifyUrl}" target="_blank" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition text-xs font-bold" title="Open Spotify Profile">
+              Spotify ↗
+            </a>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function filterS4aModalArtistList(val) {
+  renderS4aModalArtistList(val);
+}
+
+// 6. Update all UI elements for currentActiveArtist
+function renderArtistProfileUI() {
+  const current = window.currentActiveArtist;
+  const isAll = current === "ALL";
+  const roster = window.artistRosterData || [];
+  const artistObj = roster.find(a => (a.artist || a.name).toLowerCase() === current.toLowerCase()) || roster[0] || {
+    artist: "Drey Star",
+    picture: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
+    monthlyListeners: "1,420,000 Monthly Listeners",
+    spotifyUrl: "https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT"
+  };
+
+  const name = isAll ? "All Label Artists" : (artistObj.artist || artistObj.name || "Drey Star");
+  const avatar = isAll 
+    ? "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80"
+    : (artistObj.picture || artistObj.coverArt || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd");
+  const listeners = isAll ? "53,180,000 Total Network Listeners" : (artistObj.monthlyListeners || "1,420,000 Monthly Listeners");
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const priorityTrack = artistTracks[0] || { title: "KIRA", id: "lj-000" };
+
+  // A. Header Chip
+  const hAvatar = document.getElementById("headerArtistAvatar");
+  if (hAvatar) hAvatar.src = avatar;
+  const hName = document.getElementById("headerArtistName");
+  if (hName) hName.innerText = isAll ? "All Artists" : name;
+
+  // B. Sticky Active Profile Bar
+  const barAvatar = document.getElementById("s4aBarAvatar");
+  if (barAvatar) barAvatar.src = avatar;
+  const barName = document.getElementById("s4aBarArtistName");
+  if (barName) barName.innerText = name;
+  const barListeners = document.getElementById("s4aBarListeners");
+  if (barListeners) barListeners.innerText = listeners;
+  const barTracksCount = document.getElementById("s4aBarTracksCount");
+  if (barTracksCount) barTracksCount.innerText = `${artistTracks.length} Catalogued Releases`;
+  const barPriority = document.getElementById("s4aBarPriority");
+  if (barPriority) barPriority.innerText = `Priority Track: "${priorityTrack.title}"`;
+
+  const barModeBadge = document.getElementById("s4aBarModeBadge");
+  if (barModeBadge) {
+    barModeBadge.innerHTML = isAll
+      ? `<span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span>LABEL OVERVIEW MODE</span>`
+      : `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span><span>SINGLE-ARTIST FOCUS</span>`;
+    barModeBadge.className = isAll
+      ? "px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center space-x-1"
+      : "px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1";
+  }
+
+  const focusBtnArtist = document.getElementById("s4aFocusBtnArtistName");
+  if (focusBtnArtist) focusBtnArtist.innerText = isAll ? "Active" : name;
+
+  const focusBtnActive = document.getElementById("s4aFocusBtnActive");
+  const focusBtnAll = document.getElementById("s4aFocusBtnAll");
+  if (focusBtnActive && focusBtnAll) {
+    if (window.isArtistFocusMode && !isAll) {
+      focusBtnActive.className = "px-3 py-1 rounded-lg bg-purple-600 text-white shadow-glow-violet transition";
+      focusBtnAll.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
+    } else {
+      focusBtnAll.className = "px-3 py-1 rounded-lg bg-purple-600 text-white shadow-glow-violet transition";
+      focusBtnActive.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
+    }
+  }
+
+  const barSpotifyLink = document.getElementById("s4aBarSpotifyLink");
+  if (barSpotifyLink) {
+    barSpotifyLink.href = artistObj.spotifyUrl || `https://open.spotify.com/search/${encodeURIComponent(name)}`;
+  }
+
+  // C. Catalogue focus banner
+  const catFocusName = document.getElementById("catalogueFocusArtistName");
+  if (catFocusName) catFocusName.innerText = isAll ? "All Label Artists (9 releases)" : `${name} (${artistTracks.length} releases)`;
+  const catFocusBadge = document.getElementById("catalogueFocusBadge");
+  if (catFocusBadge) {
+    catFocusBadge.innerText = (window.isArtistFocusMode && !isAll) ? "SINGLE ARTIST FOCUS ACTIVE" : "ALL LABEL CATALOGUE";
+  }
+  const catShowAllBtn = document.getElementById("catalogueShowAllBtn");
+  if (catShowAllBtn) {
+    catShowAllBtn.innerText = (window.isArtistFocusMode && !isAll) 
+      ? `Show All Label Releases (${allTracks.length}) →` 
+      : `🎯 Focus strictly on ${name} →`;
+    catShowAllBtn.onclick = () => setArtistFocusMode(!window.isArtistFocusMode);
+  }
+}
+
+// 7. Update Hero Billboard for active artist
+function updateBillboardForActiveArtist() {
+  const current = window.currentActiveArtist;
+  const isAll = current === "ALL";
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const track = artistTracks[0] || allTracks[0];
+  if (!track) return;
+
+  const titleEl = document.getElementById("billboardTrackTitle");
+  if (titleEl) titleEl.innerText = track.title;
+  const artistEl = document.getElementById("billboardArtistName");
+  if (artistEl) artistEl.innerText = track.artist;
+  const genreEl = document.getElementById("billboardGenre");
+  if (genreEl) genreEl.innerText = `${track.genre} • ${track.bpm} BPM • Key ${track.key}`;
+  const imgEl = document.getElementById("billboardArtistImg");
+  if (imgEl) imgEl.src = track.coverArt;
+  const descEl = document.getElementById("billboardDescription");
+  if (descEl) {
+    descEl.innerText = `Priority Master Recording by ${track.artist}. Modern high-energy production with talking drums and global crossover melody. 10,000 specialist agents deployed for ${track.artist}.`;
+  }
+  const spotifyLink = document.getElementById("billboardSpotifyStreamLink");
+  if (spotifyLink) {
+    spotifyLink.href = track.spotifyUrl || `https://open.spotify.com/track/${track.spotifyId || '5W1yl3OyfrKe8oHUY8rKbJ'}`;
+  }
+}
+
+// 8. Render top artists row with active indicator
+function renderTopArtistsGrid() {
+  const container = document.getElementById("topArtistsGridContainer");
+  if (!container) return;
+
+  const roster = window.artistRosterData || [];
+  if (roster.length === 0) return;
+
+  const cardsHtml = roster.map(a => {
+    const name = a.artist || a.name;
+    const isActive = window.currentActiveArtist.toLowerCase() === name.toLowerCase();
+    const pic = a.picture || a.coverArt || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80";
+    const tracks = allTracks.filter(t => t.artist.toLowerCase() === name.toLowerCase());
+
+    return `
+      <div onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}')" class="glass-panel-subtle p-3 rounded-2xl border transition duration-300 group cursor-pointer text-center relative overflow-hidden shadow-lg ${isActive ? 'border-emerald-400 bg-purple-900/25 ring-2 ring-emerald-400 shadow-glow-emerald' : 'border-purple-500/40 bg-purple-500/5 hover:border-purple-400 hover:bg-purple-500/10'}">
+        <div class="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-2.5 relative shadow-md border ${isActive ? 'border-emerald-400' : 'border-purple-400/40'}">
+          <img src="${pic}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+          <div class="absolute inset-0 bg-purple-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <div class="w-8 h-8 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-lg"><svg class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+          ${isActive ? '<span class="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full flex items-center justify-center text-[8px] text-black font-black border border-black">✓</span>' : ''}
+        </div>
+        <div class="font-black text-xs text-white group-hover:text-purple-300 truncate">${name}</div>
+        <div class="text-[10px] text-emerald-400 font-mono-code font-bold">${tracks.length} Releases</div>
+        ${isActive 
+          ? '<span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-black bg-emerald-500 text-black shadow">● ACTIVE FOCUS</span>' 
+          : '<span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30">CLICK TO FOCUS</span>'}
+      </div>
+    `;
+  }).join("");
+
+  const addCardHtml = `
+    <div onclick="openQuickAddArtistModal()" class="glass-panel-subtle p-3 rounded-2xl border border-dashed border-white/20 hover:border-emerald-500/50 hover:bg-white/[0.04] transition group cursor-pointer text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[170px]">
+      <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 group-hover:border-emerald-500/40 flex items-center justify-center text-slate-300 group-hover:text-emerald-300 transition text-xl mb-2">
+        +
+      </div>
+      <div class="font-bold text-xs text-white group-hover:text-emerald-300 transition">Add New Artist</div>
+      <p class="text-[10px] text-slate-400 mt-1 max-w-[120px] leading-tight">Paste Spotify artist or track link</p>
+    </div>
+  `;
+
+  container.innerHTML = cardsHtml + addCardHtml;
+}
+
+// 9. Render sidebar priority roster with active indicator
+function renderSidebarRoster() {
+  const container = document.getElementById("sidebarRosterDynamicList");
+  if (!container) return;
+
+  const roster = window.artistRosterData || [];
+  container.innerHTML = roster.map(a => {
+    const name = a.artist || a.name;
+    const isActive = window.currentActiveArtist.toLowerCase() === name.toLowerCase();
+    const pic = a.picture || a.coverArt || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80";
+
+    return `
+      <button onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}')" class="w-full flex items-center space-x-2.5 p-2 rounded-xl transition text-left group ${isActive ? 'bg-purple-900/40 border border-emerald-500/60 shadow-glow-emerald ring-1 ring-emerald-400' : 'bg-white/[0.03] border border-white/5 hover:bg-purple-500/15 hover:border-purple-500/30'}">
+        <div class="relative w-7 h-7 rounded-full overflow-hidden border ${isActive ? 'border-emerald-400' : 'border-purple-400'} flex-shrink-0">
+          <img src="${pic}" class="w-full h-full object-cover">
+          ${isActive ? '<span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-black"></span>' : ''}
+        </div>
+        <div class="truncate flex-1">
+          <div class="font-bold text-white group-hover:text-purple-300 truncate flex items-center space-x-1">
+            <span>${name}</span>
+            ${isActive ? '<span class="text-[9px] text-emerald-400">●</span>' : ''}
+          </div>
+          <div class="text-[9px] ${isActive ? 'text-emerald-300 font-bold' : 'text-slate-400'} font-mono-code">${isActive ? 'Active in Workspace' : 'Verified Artist'}</div>
+        </div>
+      </button>
+    `;
+  }).join("");
+}
+
+// 10. Force radio spin for active artist
+function spinActiveArtistOnRadio() {
+  const current = window.currentActiveArtist;
+  const isAll = current === "ALL";
+  const artistTracks = isAll ? allTracks : allTracks.filter(t => t.artist.toLowerCase() === current.toLowerCase());
+  const track = artistTracks[0] || allTracks[0];
+  if (!track) {
+    showToast("No track found to spin.", "warning");
+    return;
+  }
+  forceRadioSpinFromUI(track.id);
+  showToast(`⚡ Forced Radio Spin: "${track.title}" by ${track.artist} now playing live across all 4 stations!`, "success", "Radio Spin Triggered");
+}
+
+// 11. Sync active artist to Adversarial Council, Lyrics & Pitch CRM
+function syncArtistToCouncilAndLyrics(artistName) {
+  const artistTracks = allTracks.filter(t => t.artist.toLowerCase() === artistName.toLowerCase());
+  if (artistTracks.length > 0) {
+    const topTrack = artistTracks[0];
+    const councilSelect = document.getElementById("councilTrackSelect");
+    if (councilSelect) councilSelect.value = topTrack.id;
+
+    const lyricsSelect = document.getElementById("lyricsTrackSelect");
+    if (lyricsSelect) {
+      lyricsSelect.value = topTrack.id;
+      loadLyricsForTrack(topTrack.id);
+    }
+
+    const pitchSelect = document.getElementById("pitchTrackSelect");
+    if (pitchSelect) pitchSelect.value = topTrack.id;
+  }
+}
+
+// Global exports for Spotify for Artists Profile Switcher
+window.initArtistProfileSwitcher = initArtistProfileSwitcher;
+window.selectArtistProfile = selectArtistProfile;
+window.setArtistFocusMode = setArtistFocusMode;
+window.openProfileSwitcherModal = openProfileSwitcherModal;
+window.closeProfileSwitcherModal = closeProfileSwitcherModal;
+window.renderS4aModalArtistList = renderS4aModalArtistList;
+window.filterS4aModalArtistList = filterS4aModalArtistList;
+window.spinActiveArtistOnRadio = spinActiveArtistOnRadio;
+window.renderArtistProfileUI = renderArtistProfileUI;
+window.updateBillboardForActiveArtist = updateBillboardForActiveArtist;
+window.renderTopArtistsGrid = renderTopArtistsGrid;
+window.renderSidebarRoster = renderSidebarRoster;

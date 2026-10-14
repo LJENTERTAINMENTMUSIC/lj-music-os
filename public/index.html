@@ -191,6 +191,25 @@
       </div>
     </div>
 
+    <!-- SPOTIFY FOR ARTISTS ACTIVE PROFILE CHIP IN HEADER -->
+    <div class="relative ml-2 sm:ml-4 hidden sm:block" id="headerProfileChipContainer">
+      <button onclick="openProfileSwitcherModal()" class="flex items-center space-x-2 bg-gradient-to-r from-purple-950/70 to-indigo-950/70 hover:from-purple-900/90 hover:to-indigo-900/90 border border-purple-500/40 px-3 py-1.5 rounded-full text-xs transition active:scale-95 group shadow-sm">
+        <div class="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-400 flex-shrink-0">
+          <img id="headerArtistAvatar" src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-full h-full object-cover">
+          <span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-black"></span>
+        </div>
+        <div class="text-left">
+          <div class="flex items-center space-x-1 leading-none">
+            <span class="font-black text-white text-[11px] group-hover:text-purple-300 truncate max-w-[110px]" id="headerArtistName">Drey Star</span>
+            <span class="text-[9px] text-emerald-400 font-bold">✓</span>
+          </div>
+          <span class="text-[8px] font-mono-code text-purple-300/80 leading-none">Spotify for Artists</span>
+        </div>
+        <span class="text-[8px] text-purple-200 font-extrabold bg-purple-500/30 px-1.5 py-0.5 rounded border border-purple-400/30 uppercase tracking-wider hidden lg:inline">Switch Profile ▾</span>
+        <svg class="w-3.5 h-3.5 text-purple-300 group-hover:text-white transition lg:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    </div>
+
     <!-- Live Intelligence Stats & Swarm Trigger -->
     <div class="flex items-center space-x-3">
       <div class="hidden xl:flex items-center space-x-2 bg-white/[0.03] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs backdrop-blur-md">
@@ -255,6 +274,65 @@
     <div class="flex items-center space-x-1.5"><span class="text-slate-500">GLOBAL EXPORT:</span> <strong class="text-indigo-400">8 MARKETS</strong></div>
     <div class="flex items-center space-x-1.5"><span class="text-slate-500">VERIFIED PLACEMENTS:</span> <strong class="text-emerald-400">13 TODAY</strong></div>
     <div class="flex items-center space-x-1.5"><span class="text-slate-500">RIGHTS CLEARANCE:</span> <strong class="text-purple-300 font-bold">100% ONE-STOP</strong></div>
+  </div>
+
+  <!-- DEDICATED SPOTIFY FOR ARTISTS ACTIVE PROFILE FOCUS BAR -->
+  <div id="s4aActiveArtistBar" class="bg-gradient-to-r from-[#17092E] via-[#0D071B] to-[#17092E] border-b border-purple-500/25 px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md z-30 sticky top-16">
+    <div class="flex items-center space-x-3.5 min-w-0">
+      <!-- Active Artist Avatar with Verified Green Badge -->
+      <div class="relative w-9 h-9 rounded-full overflow-hidden border-2 border-emerald-400 shadow-glow-emerald flex-shrink-0 cursor-pointer" onclick="openProfileSwitcherModal()" title="Click to Switch Artist Profile">
+        <img id="s4aBarAvatar" src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-full h-full object-cover">
+        <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center text-[7px] text-black font-black border border-black">✓</span>
+      </div>
+
+      <div class="min-w-0 leading-tight">
+        <div class="flex items-center space-x-2 flex-wrap">
+          <span class="text-[10px] font-mono-code font-bold text-slate-400 uppercase tracking-wider">Active Workspace:</span>
+          <span class="font-black text-sm md:text-base text-white hover:text-purple-300 transition cursor-pointer" onclick="openProfileSwitcherModal()" id="s4aBarArtistName">Drey Star</span>
+          <span class="px-2 py-0.5 rounded-full text-[9px] font-mono-code font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1" id="s4aBarModeBadge">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>SINGLE-ARTIST FOCUS</span>
+          </span>
+        </div>
+        <div class="text-[11px] text-purple-300/80 font-mono-code mt-0.5 truncate flex items-center space-x-2" id="s4aBarStats">
+          <span id="s4aBarListeners">1,420,000 Monthly Listeners</span>
+          <span>•</span>
+          <span id="s4aBarTracksCount">3 Catalogued Releases</span>
+          <span>•</span>
+          <span id="s4aBarPriority">Priority Single: "KIRA"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Controls: Focus Mode Toggle & Quick Switch -->
+    <div class="flex items-center gap-2 flex-wrap">
+      <!-- Single Artist vs All Label Toggle -->
+      <div class="bg-black/50 p-1 rounded-xl border border-white/10 flex items-center text-[10px] font-bold">
+        <button onclick="setArtistFocusMode(true)" id="s4aFocusBtnActive" class="px-3 py-1 rounded-lg bg-purple-600 text-white shadow-glow-violet transition">
+          🎯 Focus: <span id="s4aFocusBtnArtistName">Drey Star</span>
+        </button>
+        <button onclick="setArtistFocusMode(false)" id="s4aFocusBtnAll" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+          🏢 All Label (9)
+        </button>
+      </div>
+
+      <!-- Quick Switch Profile Button -->
+      <button onclick="openProfileSwitcherModal()" class="px-3.5 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/35 text-purple-200 border border-purple-500/40 text-xs font-bold transition flex items-center space-x-1.5 shadow active:scale-95" title="Switch between artists on your roster">
+        <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+        <span>Switch Profile ▾</span>
+      </button>
+
+      <!-- View on Spotify link for active artist -->
+      <a id="s4aBarSpotifyLink" href="https://open.spotify.com/artist/4cOdK2wGLETKBW3PvgPWqT" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition flex items-center space-x-1 shadow" title="Open official Spotify Profile">
+        <svg class="w-3.5 h-3.5 fill-current text-emerald-400" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.51 9.722 1.113.294.18.386.562.207.857zm1.226-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.52-.973 3.632-1.102 8.147-.568 11.233 1.328.366.226.481.707.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.624-1.167 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.838.327 1.282-.264.443-.838.59-1.28.327z"/></svg>
+        <span class="hidden sm:inline">Spotify</span>
+      </a>
+
+      <!-- Instant Spin on Radio for Active Artist -->
+      <button id="s4aBarRadioSpinBtn" onclick="spinActiveArtistOnRadio()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center space-x-1" title="Force Radio Spin of Active Artist across 4 Live Stations">
+        <span>⚡ Spin on Radio</span>
+      </button>
+    </div>
   </div>
 
   <!-- MAIN APP CONTAINER -->
@@ -1786,6 +1864,21 @@
               <option value="low">Low Energy (<50%)</option>
             </select>
           </div>
+        <!-- Spotify for Artists Catalogue Focus Indicator Banner -->
+        <div id="catalogueArtistFocusBanner" class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/30 flex flex-wrap items-center justify-between gap-3 text-xs shadow-sm">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-slate-300">Catalog Filter: <strong class="text-white font-extrabold" id="catalogueFocusArtistName">Drey Star</strong></span>
+            <span class="px-2 py-0.5 rounded-full text-[9px] bg-purple-500/25 text-purple-200 font-mono-code font-bold border border-purple-500/30" id="catalogueFocusBadge">SINGLE ARTIST FOCUS ACTIVE</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="setArtistFocusMode(false)" id="catalogueShowAllBtn" class="text-purple-300 hover:text-white font-bold hover:underline text-xs transition">
+              Show All Label Releases (9) →
+            </button>
+            <button onclick="openProfileSwitcherModal()" class="px-3 py-1 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/30 text-purple-200 text-xs font-bold transition flex items-center space-x-1">
+              <span>Switch Artist ▾</span>
+            </button>
+          </div>
         </div>
 
         <!-- 8.4 Full Catalog Grid -->
@@ -3244,6 +3337,58 @@
         <div class="text-center py-8 text-slate-400 text-xs border border-dashed border-white/10 rounded-2xl">
           Paste a Spotify link or artist name above to preview the verified profile with authentic high-res artwork.
         </div>
+      </div>
+    </div>
+  <!-- MODAL: SPOTIFY FOR ARTISTS PROFILE SWITCHER -->
+  <div id="s4aProfileSwitcherModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) closeProfileSwitcherModal()">
+    <div class="glass-panel border border-purple-500/40 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative space-y-6">
+      <button onclick="closeProfileSwitcherModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="border-b border-white/10 pb-4">
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-[10px] font-extrabold text-purple-300 uppercase tracking-widest font-mono-code">Spotify For Artists • Multi-Artist & Label Team Manager</span>
+        </div>
+        <h2 class="text-2xl font-black text-white tracking-tight mt-1 flex items-center space-x-2">
+          <span>Switch Artist Profile</span>
+        </h2>
+        <p class="text-xs text-slate-300 mt-1 max-w-xl">
+          Select an artist profile to lock the entire workspace (catalogue, hero billboard, 10,000 swarm agents, radio rotation, and playlist pitching) to that single artist. Zero confusion, dedicated focus.
+        </p>
+      </div>
+
+      <!-- Search and View Mode Controls -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="relative flex-1">
+          <input type="text" id="s4aModalSearchInput" oninput="filterS4aModalArtistList(this.value)" placeholder="Search artist by name or genre..." class="w-full bg-[#0E0B1A] border border-white/15 rounded-xl px-3.5 py-2.5 pl-9 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 font-mono-code">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal();" class="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 active:scale-95">
+            <span>🏢 All Label (Overview)</span>
+          </button>
+          <button onclick="closeProfileSwitcherModal(); openQuickAddArtistModal();" class="px-3.5 py-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm active:scale-95">
+            <span>+ Onboard New Artist</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Current Active Profile Status Banner inside modal -->
+      <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-between text-xs">
+        <div class="flex items-center space-x-2.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-slate-300">Currently Active: <strong class="text-emerald-300 font-black" id="s4aModalCurrentActiveName">Drey Star</strong></span>
+        </div>
+        <span class="text-[10px] font-mono-code text-purple-300">Click any card below to switch instantly</span>
+      </div>
+
+      <!-- Artists Grid in Modal -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5" id="s4aModalArtistGrid">
+        <!-- Rendered via JS -->
       </div>
     </div>
   </div>
