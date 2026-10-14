@@ -1,12 +1,12 @@
 {
   "lj-000": {
-    "plays": 12504,
+    "plays": 12507,
     "weeklyGrowthPct": 38.5,
     "saves": 2600,
     "shares": 980,
     "playlistAdds": 840,
     "skips": 140,
-    "completionRatePct": 82.8,
+    "completionRatePct": 83.1,
     "repeatListeningPct": 42.4,
     "momentumScore": 91,
     "momentumStatus": "RISING_NOW",
@@ -88,14 +88,14 @@
   },
   "lj-002": {
     "plays": 12500,
-    "weeklyGrowthPct": 38.5,
-    "saves": 2600,
+    "weeklyGrowthPct": 38.6,
+    "saves": 2601,
     "shares": 980,
     "playlistAdds": 840,
     "skips": 140,
     "completionRatePct": 82.5,
     "repeatListeningPct": 41.2,
-    "momentumScore": 92,
+    "momentumScore": 90,
     "momentumStatus": "RISING_NOW",
     "rankMovement": "+4",
     "geoBreakdown": {
@@ -127,6 +127,7 @@
         "date": "Day 5",
         "plays": 12500
       }
-    ]
+    ],
+    "status": "RISING_NOW"
   }
 }

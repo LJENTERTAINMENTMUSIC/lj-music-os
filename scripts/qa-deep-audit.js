@@ -163,6 +163,34 @@ async function runQaAudit() {
 
     const councilRes = await get('/api/council/debate/lj-000');
     assert('/api/council/debate/lj-000 returns strategic debate', councilRes.statusCode === 200 && (councilRes.body?.synthesis?.verdict || councilRes.body?.verdict));
+
+    const mailStatusRes = await get('/api/mail/status');
+    assert('/api/mail/status returns 200 OK', mailStatusRes.statusCode === 200);
+    assert('/api/mail/status has Zoho account (lj@ljentertainment.live)', mailStatusRes.body?.zoho?.email === 'lj@ljentertainment.live');
+    assert('/api/mail/status has Gmail account (ljentertainmentmusic@gmail.com)', mailStatusRes.body?.gmail?.email === 'ljentertainmentmusic@gmail.com');
+
+    const sendZohoRes = await post('/api/mail/send', {
+      fromAccount: 'zoho',
+      to: 'kofi.mensah@spotify-editorial.com',
+      subject: 'QA Test Pitch',
+      text: 'Test email body'
+    });
+    assert('/api/mail/send (Zoho) dispatches from lj@ljentertainment.live', sendZohoRes.statusCode === 200 && sendZohoRes.body?.sentFrom === 'lj@ljentertainment.live');
+
+    const sendGmailRes = await post('/api/mail/send', {
+      fromAccount: 'gmail',
+      to: 'eseosa.ighodaro@apple.com',
+      subject: 'QA Test Pitch',
+      text: 'Test email body'
+    });
+    assert('/api/mail/send (Gmail) dispatches from ljentertainmentmusic@gmail.com', sendGmailRes.statusCode === 200 && sendGmailRes.body?.sentFrom === 'ljentertainmentmusic@gmail.com');
+
+    const directCuratorPitchRes = await post('/api/curator/pitch/direct-send', {
+      curatorId: 'cur-001',
+      trackId: 'lj-000',
+      fromAccount: 'zoho'
+    });
+    assert('/api/curator/pitch/direct-send sends 1-click pitch to verified curator', directCuratorPitchRes.statusCode === 200 && directCuratorPitchRes.body?.success === true);
   } catch (err) {
     assert('Section 1 Pipeline Exception', false, err.message);
   }

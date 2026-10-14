@@ -441,15 +441,21 @@ async function evaluateActiveCuratorPitch() {
           <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold text-[10px] uppercase">✓ Verified Direct Email</span>
           <span class="font-mono-code font-bold text-white select-all">${curatorEmail || 'Direct Submission Portal'}</span>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center flex-wrap gap-2">
           ${curatorEmail ? `
+            <button onclick="sendDirectCuratorPitch('${activeCuratorId}', 'zoho')" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-[11px] font-extrabold transition shadow-glow flex items-center space-x-1 active:scale-95" title="Dispatch pitch via official Zoho address: lj@ljentertainment.live">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              <span>🚀 Pitch (lj@ljentertainment.live)</span>
+            </button>
+            <button onclick="sendDirectCuratorPitch('${activeCuratorId}', 'gmail')" class="px-2.5 py-1.5 rounded-lg bg-red-600/30 hover:bg-red-600/50 text-red-200 border border-red-500/40 text-[11px] font-bold transition flex items-center space-x-1 active:scale-95" title="Dispatch pitch via Gmail: ljentertainmentmusic@gmail.com">
+              <span>via Gmail</span>
+            </button>
             <button onclick="copyCuratorEmail('${curatorEmail}')" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold transition flex items-center space-x-1">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-              <span>Copy Email</span>
+              <span>Copy</span>
             </button>
-            <a href="mailto:${curatorEmail}?subject=${encodeURIComponent(evalData.generatedPitch?.subject || '')}&body=${encodeURIComponent(evalData.generatedPitch?.body || '')}" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-extrabold transition shadow-glow-emerald flex items-center space-x-1">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <span>Send Direct Email Pitch</span>
+            <a href="mailto:${curatorEmail}?subject=${encodeURIComponent(evalData.generatedPitch?.subject || '')}&body=${encodeURIComponent(evalData.generatedPitch?.body || '')}" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-[11px] font-medium transition flex items-center space-x-1" title="Open Desktop Mail App">
+              <span>mailto:</span>
             </a>
           ` : ''}
         </div>
@@ -7668,3 +7674,313 @@ window.emitClientTelemetryEvent = emitClientTelemetryEvent;
 window.formatSecondsToTime = formatSecondsToTime;
 window.appendRealtimeSignalPill = appendRealtimeSignalPill;
 window.handleIncomingTelemetryPulse = handleIncomingTelemetryPulse;
+
+// ==============================================================
+// DUAL-MAILBOX EMAIL DISPATCHER (ZOHO / GMAIL)
+// ==============================================================
+let emailStatusCache = null;
+
+async function openEmailDispatcherModal(prefillOptions = null) {
+  const modal = document.getElementById("emailDispatcherModal");
+  if (!modal) return;
+  modal.classList.remove("hidden");
+
+  try {
+    const res = await fetch("/api/mail/status");
+    const data = await res.json();
+    emailStatusCache = data;
+
+    const zohoEl = document.getElementById("zohoConnectionStatus");
+    if (zohoEl) {
+      zohoEl.innerHTML = data.zoho.configured 
+        ? `<span class="text-emerald-400">● Live SMTP Connected</span>`
+        : `<span class="text-amber-400">● Sandbox Ready</span>`;
+    }
+
+    const gmailEl = document.getElementById("gmailConnectionStatus");
+    if (gmailEl) {
+      gmailEl.innerHTML = data.gmail.configured
+        ? `<span class="text-emerald-400">● Live SMTP Connected</span>`
+        : `<span class="text-amber-400">● Sandbox Ready</span>`;
+    }
+
+    const outboxCountEl = document.getElementById("emailOutboxCount");
+    if (outboxCountEl) {
+      outboxCountEl.innerText = data.totalDispatches || 0;
+    }
+  } catch (err) {
+    console.warn("Mail status fetch note:", err);
+  }
+
+  if (prefillOptions) {
+    if (prefillOptions.to) {
+      const toInput = document.getElementById("emailComposeTo");
+      if (toInput) toInput.value = prefillOptions.to;
+    }
+    if (prefillOptions.subject) {
+      const subInput = document.getElementById("emailComposeSubject");
+      if (subInput) subInput.value = prefillOptions.subject;
+    }
+    if (prefillOptions.body) {
+      const bodyInput = document.getElementById("emailComposeBody");
+      if (bodyInput) bodyInput.value = prefillOptions.body;
+    }
+    if (prefillOptions.fromAccount) {
+      const radios = document.getElementsByName("emailSenderAccount");
+      for (const r of radios) {
+        if (r.value === prefillOptions.fromAccount) r.checked = true;
+      }
+    }
+  }
+}
+
+function closeEmailDispatcherModal() {
+  const modal = document.getElementById("emailDispatcherModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+function switchEmailModalTab(tab) {
+  const tabs = ['compose', 'outbox', 'settings'];
+  tabs.forEach(t => {
+    const pane = document.getElementById(`emailPane-${t}`);
+    const btn = document.getElementById(`emailTabBtn-${t}`);
+    if (pane) {
+      if (t === tab) {
+        pane.classList.remove("hidden");
+      } else {
+        pane.classList.add("hidden");
+      }
+    }
+    if (btn) {
+      if (t === tab) {
+        btn.className = "px-4 py-2 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-500/40 transition";
+      } else {
+        btn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white transition";
+      }
+    }
+  });
+
+  if (tab === 'outbox') {
+    refreshEmailOutbox();
+  }
+}
+
+function loadEmailTemplatePreset(presetKey) {
+  const toInput = document.getElementById("emailComposeTo");
+  const subInput = document.getElementById("emailComposeSubject");
+  const bodyInput = document.getElementById("emailComposeBody");
+
+  if (presetKey === 'curator_kira') {
+    if (subInput) subInput.value = 'LJ Entertainment Priority Pitch: "KIRA" by Drey Star (43% Organic Velocity)';
+    if (bodyInput) bodyInput.value = `Dear Editorial Curator,\n\nLJ Entertainment is pleased to present the breakthrough Afrobeats anthem "KIRA" by Drey Star.\n\nKey Performance Metrics:\n- Global Streams: 1,420,000+ Verified Monthly Listeners\n- Momentum Score: 98/100 (43% Growth Rate)\n- Sonic Profile: 106 BPM, Talking Drums, Log Drums, Euphoric Horn Arrangement\n- Master Quality: 24-bit/48kHz Mastered for Spotify & Spatial Audio on Apple Music\n\nListen to Master: https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/44/14/b4/4414b434-7fc7-6014-9fa2-f045952f4168/mzaf_10037300481745492470.plus.aac.p.m4a\nOfficial S4A Link: https://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6\n\nThank you for your consideration for playlist placement.\n\nWarm regards,\nLJ Entertainment Operations\nlj@ljentertainment.live`;
+  } else if (presetKey === 'sync_brief') {
+    if (subInput) subInput.value = 'Commercial Sync Submission: High-Energy African Anthem ("KIRA" by Drey Star - 100% One-Stop Clear)';
+    if (bodyInput) bodyInput.value = `Dear Music Supervisor & Creative Licensing Team,\n\nPresenting an authentic sync asset tailored for commercial, drama, and sports gaming licensing:\n\nTrack: "KIRA"\nArtist: Drey Star\nLabel / Publisher: LJ Entertainment (100% Master & Publishing Pre-Cleared / One-Stop)\nTempo: 106 BPM | Mood: Euphoric, Triumphant, Cultural Resilience, High-Energy\nClearance: Master & Publishing controlled under single entity. Instrumental, clean radio edit, and full STEM packages (Talking Drums, 808 Bass, Vocals, Horns) ready for immediate delivery.\n\nPreview Link: https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/44/14/b4/4414b434-7fc7-6014-9fa2-f045952f4168/mzaf_10037300481745492470.plus.aac.p.m4a\n\nWe are ready to issue clearance immediately.\n\nBest regards,\nLJ Entertainment Sync Desk\nlj@ljentertainment.live`;
+  } else if (presetKey === 'mlc_claim') {
+    if (toInput) toInput.value = 'unmatched@themlc.com';
+    if (subInput) subInput.value = 'Notice of Mechanical Royalty Discrepancy — LJ Entertainment / Drey Star (ISRC US-LJ2-26-00001)';
+    if (bodyInput) bodyInput.value = `To The Mechanical Licensing Collective (MLC) Dispute Resolution Desk,\n\nThis notice serves as an official inquiry and royalty claim regarding mechanical streaming distributions for the following master recording:\n\nWork Title: KIRA\nArtist: Drey Star\nISRC: US-LJ2-26-00001\nPublisher / Master Owner: LJ Entertainment\nEstimated Unmatched Balance: $14,280.00\nPeriod: Q1 2026 – Q3 2026\n\nOur internal audit generated by Mogul x LJ Music OS indicates significant unmatched digital phonorecord deliveries across DSPs. Attached please find our mechanical claim schedule.\n\nPlease confirm receipt and open ticket.\n\nRespectfully submitted,\nLJ Entertainment Rights Administration\nljentertainmentmusic@gmail.com`;
+  } else if (presetKey === 'radio_promo') {
+    if (subInput) subInput.value = 'Radio Broadcast WAV & Station Drops: Drey Star — "KIRA" (Radio Clean Edit)';
+    if (bodyInput) bodyInput.value = `Dear Music Director & Radio DJ Pool,\n\nPlease find the broadcast-quality delivery of "KIRA" by Drey Star, officially serviced for terrestrial and digital radio syndication:\n\nTrack: KIRA (Radio Clean Edit)\nDuration: 03:15 | BPM: 106 | Language: English / Yoruba / Pidgin\nContent: Strictly Radio-Clean (Zero explicit language)\nStation Drop Audio: "Hey this is Drey Star and you're listening to the best Afrobeats on-air!"\n\nDownload Broadcast WAV: https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/44/14/b4/4414b434-7fc7-6014-9fa2-f045952f4168/mzaf_10037300481745492470.plus.aac.p.m4a\n\nOfficial Servicing by:\nLJ Entertainment Music\nlj@ljentertainment.live`;
+  }
+}
+
+async function dispatchEmailFromUI() {
+  const submitBtn = document.getElementById("emailDispatchSubmitBtn");
+  const toInput = document.getElementById("emailComposeTo");
+  const subInput = document.getElementById("emailComposeSubject");
+  const bodyInput = document.getElementById("emailComposeBody");
+
+  const to = toInput ? toInput.value.trim() : "";
+  const subject = subInput ? subInput.value.trim() : "";
+  const body = bodyInput ? bodyInput.value.trim() : "";
+
+  let fromAccount = 'zoho';
+  const radios = document.getElementsByName("emailSenderAccount");
+  for (const r of radios) {
+    if (r.checked) fromAccount = r.value;
+  }
+
+  if (!to) {
+    showToast("Please enter a recipient email address", "warning", "Missing Recipient");
+    return;
+  }
+  if (!subject) {
+    showToast("Please enter a subject line", "warning", "Missing Subject");
+    return;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span>⏳ Dispatching...</span>`;
+  }
+
+  try {
+    const res = await fetch("/api/mail/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fromAccount,
+        to,
+        subject,
+        text: body,
+        category: "manual_dispatch",
+        meta: { sentVia: "UI Dispatcher" }
+      })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      showToast(`✓ Dispatched to ${to} from ${data.sentFrom} (${data.status})!`, "success", "Email Sent");
+      if (toInput) toInput.value = "";
+      if (subInput) subInput.value = "";
+      if (bodyInput) bodyInput.value = "";
+      switchEmailModalTab('outbox');
+    } else {
+      showToast(data.error || "Failed to dispatch email", "error", "Dispatch Error");
+    }
+  } catch (err) {
+    console.error("Email dispatch error:", err);
+    showToast("Network error dispatching email: " + err.message, "error", "Error");
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        <span>🚀 Dispatch Email</span>
+      `;
+    }
+  }
+}
+
+async function testMailConnectionFromUI() {
+  let fromAccount = 'zoho';
+  const radios = document.getElementsByName("emailSenderAccount");
+  for (const r of radios) {
+    if (r.checked) fromAccount = r.value;
+  }
+
+  showToast(`Testing connection to ${fromAccount === 'zoho' ? 'smtp.zoho.com (lj@ljentertainment.live)' : 'smtp.gmail.com (ljentertainmentmusic@gmail.com)'}...`, "info", "Testing SMTP");
+
+  try {
+    const res = await fetch("/api/mail/test-connection", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ account: fromAccount })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(data.message, "success", "SMTP Verified");
+    } else {
+      showToast(`${data.message}\nNote: Sandbox mode active until App Password is provided.`, "warning", "Connection Note");
+    }
+  } catch (err) {
+    showToast("Connection test error: " + err.message, "error", "Error");
+  }
+}
+
+async function saveMailAppPassword(accountKey) {
+  const input = document.getElementById(accountKey === 'zoho' ? "zohoAppPasswordInput" : "gmailAppPasswordInput");
+  const pass = input ? input.value.trim() : "";
+  if (!pass) {
+    showToast("Please enter an App Password before saving", "warning");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/mail/config", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ account: accountKey, password: pass })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`Saved credentials for ${data.account}! Verifying connection...`, "success", "Saved");
+      testMailConnectionFromUI();
+    }
+  } catch (err) {
+    showToast("Error saving credentials: " + err.message, "error");
+  }
+}
+
+async function refreshEmailOutbox() {
+  const container = document.getElementById("emailOutboxList");
+  if (!container) return;
+
+  try {
+    const res = await fetch("/api/mail/status");
+    const data = await res.json();
+    const dispatches = data.recentDispatches || [];
+
+    const outboxCountEl = document.getElementById("emailOutboxCount");
+    if (outboxCountEl) outboxCountEl.innerText = data.totalDispatches || dispatches.length;
+
+    if (dispatches.length === 0) {
+      container.innerHTML = `<div class="p-6 text-center text-xs text-slate-400 font-mono-code">No emails sent yet.</div>`;
+      return;
+    }
+
+    container.innerHTML = dispatches.map(item => `
+      <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1.5 transition hover:bg-white/[0.08]">
+        <div class="flex items-center justify-between text-[10px] font-mono-code">
+          <span class="font-bold text-white flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full ${item.status.includes('DELIVERED') ? 'bg-emerald-400' : 'bg-sky-400'}"></span>
+            <span>From: <strong class="${item.fromEmail.includes('zoho') || item.fromEmail.includes('live') ? 'text-sky-300' : 'text-amber-300'}">${item.fromEmail}</strong></span>
+          </span>
+          <span class="text-slate-400">${new Date(item.timestamp).toLocaleString()}</span>
+        </div>
+        <div class="text-xs font-bold text-white truncate">${item.subject}</div>
+        <div class="text-[11px] text-slate-300 truncate font-mono-code">To: ${item.to} ${item.recipientName ? `(${item.recipientName})` : ''}</div>
+        <div class="text-[10px] text-slate-400 line-clamp-1 italic">${item.previewText || ''}</div>
+        <div class="flex items-center justify-between pt-1 text-[9px] font-mono-code">
+          <span class="px-2 py-0.5 rounded-full ${item.status.includes('DELIVERED') ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'} font-bold">
+            ${item.status}
+          </span>
+          <span class="text-slate-500">ID: ${item.id}</span>
+        </div>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error("Outbox refresh error:", err);
+  }
+}
+
+async function sendDirectCuratorPitch(curatorId, fromAccount = 'zoho') {
+  const trackSelect = document.getElementById("curatorPitchTrackSelect");
+  const trackId = trackSelect ? trackSelect.value : (window.currentActiveTrackId || "lj-000");
+
+  const senderEmail = fromAccount === 'zoho' ? 'lj@ljentertainment.live' : 'ljentertainmentmusic@gmail.com';
+  showToast(`🚀 Connecting to ${senderEmail} to dispatch pitch...`, "info", "Sending Pitch");
+
+  try {
+    const res = await fetch("/api/curator/pitch/direct-send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ curatorId, trackId, fromAccount })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      showToast(`✓ Pitch successfully dispatched to ${data.mailResult.to}!\nFrom: ${senderEmail} (${data.mailResult.status})`, "success", "Pitch Dispatched");
+      refreshEmailOutbox();
+    } else {
+      showToast(data.error || "Failed to send direct pitch", "error", "Pitch Error");
+    }
+  } catch (err) {
+    console.error("Direct curator pitch error:", err);
+    showToast("Pitch send failed: " + err.message, "error", "Error");
+  }
+}
+
+// Global exports for Email Dispatcher
+window.openEmailDispatcherModal = openEmailDispatcherModal;
+window.closeEmailDispatcherModal = closeEmailDispatcherModal;
+window.switchEmailModalTab = switchEmailModalTab;
+window.loadEmailTemplatePreset = loadEmailTemplatePreset;
+window.dispatchEmailFromUI = dispatchEmailFromUI;
+window.testMailConnectionFromUI = testMailConnectionFromUI;
+window.saveMailAppPassword = saveMailAppPassword;
+window.refreshEmailOutbox = refreshEmailOutbox;
+window.sendDirectCuratorPitch = sendDirectCuratorPitch;
+

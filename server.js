@@ -36,6 +36,7 @@ const UniversalArtistResolver = require('./engine/artistResolver');
 const AutonomousPlaylistTrendAgent = require('./engine/autonomousPlaylistTrendAgent');
 const OnlineRadioAutoPlayAgent = require('./engine/onlineRadioAutoPlayAgent');
 const { checkSupabaseConnection, configureSupabase } = require('./engine/supabaseClient');
+const emailService = require('./services/emailService');
 
 const app = express();
 const PORT = process.env.PORT || 3456;
@@ -598,6 +599,89 @@ app.post('/api/curator/evaluate', (req, res) => {
 
   const evaluation = evaluateCuratorPitch(curator, track);
   res.json(evaluation);
+});
+
+// -------------------------------------------------------------
+// DUAL-MAILBOX EMAIL DISPATCHER (ZOHO / GMAIL)
+// -------------------------------------------------------------
+app.get('/api/mail/status', (req, res) => {
+  res.json(emailService.getStatus());
+});
+
+app.post('/api/mail/send', async (req, res) => {
+  try {
+    const { fromAccount, to, subject, text, html, category, meta } = req.body;
+    const result = await emailService.sendEmail({
+      fromAccount: fromAccount || 'zoho',
+      to,
+      subject,
+      text,
+      html,
+      category: category || 'general',
+      meta: meta || {}
+    });
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/mail/config', (req, res) => {
+  const { account, password, email, host, port } = req.body;
+  const result = emailService.updateRuntimeConfig(account, { password, email, host, port });
+  res.json(result);
+});
+
+app.post('/api/mail/test-connection', async (req, res) => {
+  const { account } = req.body;
+  const result = await emailService.testConnection(account);
+  res.json(result);
+});
+
+app.post('/api/curator/pitch/direct-send', async (req, res) => {
+  try {
+    const { curatorId, trackId, fromAccount = 'zoho', customNote = '' } = req.body;
+    const curators = JSON.parse(fs.readFileSync(curatorFile, 'utf8'));
+    const { catalogue } = loadState();
+
+    const curator = curators.find(c => c.id === curatorId);
+    const track = catalogue.find(t => t.id === trackId);
+    if (!curator || !track) return res.status(404).json({ error: "Curator or Track not found" });
+
+    const evaluation = evaluateCuratorPitch(curator, track);
+    const targetEmail = curator.verifiedEmail || curator.email;
+    if (!targetEmail) return res.status(400).json({ error: "Curator does not have a verified direct email" });
+
+    const subject = evaluation.generatedPitch?.subject || `LJ Priority Pitch: "${track.title}" by ${track.artist}`;
+    let body = evaluation.generatedPitch?.body || `Hello ${curator.name},\n\nPresenting "${track.title}" by ${track.artist}.`;
+    if (customNote) {
+      body = `${customNote}\n\n---\n${body}`;
+    }
+
+    const mailResult = await emailService.sendEmail({
+      fromAccount,
+      to: targetEmail,
+      subject,
+      text: body,
+      category: 'curator_pitch',
+      meta: {
+        curatorId,
+        curatorName: curator.name,
+        organization: curator.organization,
+        trackId,
+        trackTitle: track.title,
+        artist: track.artist
+      }
+    });
+
+    res.json({
+      success: true,
+      mailResult,
+      evaluation
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 // -------------------------------------------------------------

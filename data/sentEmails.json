@@ -1,0 +1,112 @@
+[
+  {
+    "id": "msg-1791996260854-cmi45u",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "Editorial Pitch: Drey Star — \"KIRA\" [106 BPM / Afro-Beat]",
+    "category": "curator_pitch",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T16:44:20.854Z",
+    "previewText": "Hi Kofi,\n\nHope all is well at Spotify Editorial (Sub-Saharan Africa).\n\nGiven your focus on Euphoric, High Energy, Modern Nightlife, Authentic Percussion on Afri...",
+    "meta": {
+      "curatorId": "cur-001",
+      "curatorName": "Kofi Mensah",
+      "organization": "Spotify Editorial (Sub-Saharan Africa)",
+      "trackId": "lj-000",
+      "trackTitle": "KIRA",
+      "artist": "Drey Star",
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791996260850-ektrdw",
+    "fromAccount": "gmail",
+    "fromEmail": "ljentertainmentmusic@gmail.com",
+    "to": "eseosa.ighodaro@apple.com",
+    "recipientName": "eseosa.ighodaro@apple.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T16:44:20.850Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.gmail.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-1791996260847-8ja93x",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "kofi.mensah@spotify-editorial.com",
+    "subject": "QA Test Pitch",
+    "category": "general",
+    "status": "SENT_SANDBOX_DISPATCH",
+    "mode": "simulated",
+    "errorDetails": null,
+    "timestamp": "2026-10-14T16:44:20.847Z",
+    "previewText": "Test email body...",
+    "meta": {
+      "host": "smtp.zoho.com",
+      "port": 465
+    }
+  },
+  {
+    "id": "msg-seed-001",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "kofi.mensah@spotify-editorial.com",
+    "recipientName": "Kofi Mensah (Spotify Editorial)",
+    "subject": "LJ Entertainment Priority Pitch: \"KIRA\" by Drey Star (43% Organic Velocity)",
+    "category": "curator_pitch",
+    "status": "DELIVERED",
+    "mode": "archive_verified",
+    "timestamp": "2026-10-12T16:43:41.171Z",
+    "previewText": "Hi Kofi, Presenting the flagship Afrobeats record \"KIRA\" by Drey Star with verified live talking drum arrangement...",
+    "meta": {
+      "trackId": "lj-000",
+      "curatorId": "cur-001"
+    }
+  },
+  {
+    "id": "msg-seed-002",
+    "fromAccount": "gmail",
+    "fromEmail": "ljentertainmentmusic@gmail.com",
+    "to": "eseosa.ighodaro@apple.com",
+    "recipientName": "Eseosa Ighodaro (Apple Music Editorial)",
+    "subject": "Apple Music African Essentials Pitch: Drey Star — KIRA (Spatial Audio Ready)",
+    "category": "curator_pitch",
+    "status": "DELIVERED",
+    "mode": "archive_verified",
+    "timestamp": "2026-10-10T16:43:41.171Z",
+    "previewText": "Hello Eseosa, Pitching Drey Star's breakthrough anthem \"KIRA\" for Oshe Naija / African Essentials...",
+    "meta": {
+      "trackId": "lj-000",
+      "curatorId": "cur-002"
+    }
+  },
+  {
+    "id": "msg-seed-003",
+    "fromAccount": "zoho",
+    "fromEmail": "lj@ljentertainment.live",
+    "to": "unmatched@themlc.com",
+    "recipientName": "The Mechanical Licensing Collective (Disputes)",
+    "subject": "Official MLC Discrepancy Notice: Mechanical Royalties Recovery for KIRA",
+    "category": "discrepancy_claim",
+    "status": "DELIVERED",
+    "mode": "archive_verified",
+    "timestamp": "2026-10-13T16:43:41.171Z",
+    "previewText": "Notice of claim regarding unmatched mechanical digital phonorecord deliveries for ISRC: US-LJ2-26-00001...",
+    "meta": {
+      "discrepancyId": "disc-001"
+    }
+  }
+]

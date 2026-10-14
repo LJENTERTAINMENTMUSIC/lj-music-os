@@ -233,6 +233,12 @@
         <span class="sm:hidden">+ Artist</span>
       </button>
 
+      <!-- Email Dispatcher Button -->
+      <button onclick="openEmailDispatcherModal()" class="hidden md:flex items-center space-x-1.5 bg-sky-950/40 hover:bg-sky-900/60 text-sky-200 border border-sky-500/40 px-3.5 py-2 rounded-full text-xs font-bold transition shadow-sm active:scale-95" title="Open Mail Dispatcher: Send from lj@ljentertainment.live or ljentertainmentmusic@gmail.com">
+        <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <span>✉️ Mail Dispatcher</span>
+      </button>
+
       <!-- Label Tools Dropdown -->
       <div class="relative">
         <button onclick="toggleLabelSettingsDropdown()" id="labelSettingsBtn" class="flex items-center space-x-1 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs font-semibold border border-white/10 transition active:scale-95" title="Label Workspace Settings">
@@ -241,6 +247,9 @@
         </button>
 
         <div id="labelSettingsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-[#0E0C1C] border border-white/15 rounded-2xl shadow-2xl p-2 z-50 space-y-1 backdrop-blur-2xl">
+          <button onclick="openEmailDispatcherModal(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-sky-300 hover:text-sky-100 hover:bg-white/5 text-left font-medium">
+            <span>✉️ Mail Dispatcher (Zoho / Gmail)</span>
+          </button>
           <button onclick="clearWorkspaceCacheAndRestart(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-emerald-300 hover:text-emerald-100 hover:bg-white/5 text-left font-medium">
             <span>✨ Clear Cache & Clean Start</span>
           </button>
@@ -3491,6 +3500,195 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <div id="syncPackageContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: EMAIL DISPATCHER (ZOHO / GMAIL) -->
+  <div id="emailDispatcherModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target === this) closeEmailDispatcherModal()">
+    <div class="glass-panel border border-sky-500/40 rounded-3xl w-full max-w-3xl max-h-[92vh] overflow-y-auto p-6 md:p-8 shadow-spatial relative space-y-6">
+      <button onclick="closeEmailDispatcherModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Header -->
+      <div class="flex items-center space-x-3 border-b border-white/10 pb-4">
+        <div class="w-10 h-10 rounded-2xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 text-xl font-black">
+          ✉️
+        </div>
+        <div>
+          <h2 class="text-lg font-black text-white">Dual-Mailbox Dispatcher</h2>
+          <p class="text-xs text-slate-400">Connect & send executive communications via Zoho Mail (<code class="text-sky-300">lj@ljentertainment.live</code>) or Gmail (<code class="text-amber-300">ljentertainmentmusic@gmail.com</code>)</p>
+        </div>
+      </div>
+
+      <!-- Connected Mailboxes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="mailboxesStatusGrid">
+        <!-- Zoho Mailbox Card -->
+        <div class="p-4 rounded-2xl bg-sky-950/30 border border-sky-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-white flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>Zoho Mail (Domain)</span>
+            </span>
+            <span class="text-[9px] font-mono-code font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40">OFFICIAL SENDER</span>
+          </div>
+          <div class="text-sm font-mono-code font-bold text-sky-200">lj@ljentertainment.live</div>
+          <div class="text-[10px] text-slate-400 flex items-center justify-between font-mono-code">
+            <span>smtp.zoho.com:465</span>
+            <span id="zohoConnectionStatus" class="text-emerald-400 font-bold">● Active & Ready</span>
+          </div>
+        </div>
+
+        <!-- Gmail Mailbox Card -->
+        <div class="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-white flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>Google Workspace / Gmail</span>
+            </span>
+            <span class="text-[9px] font-mono-code font-bold px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">BACKUP SENDER</span>
+          </div>
+          <div class="text-sm font-mono-code font-bold text-amber-200">ljentertainmentmusic@gmail.com</div>
+          <div class="text-[10px] text-slate-400 flex items-center justify-between font-mono-code">
+            <span>smtp.gmail.com:465</span>
+            <span id="gmailConnectionStatus" class="text-emerald-400 font-bold">● Active & Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex items-center space-x-2 border-b border-white/10 pb-2 text-xs font-bold">
+        <button onclick="switchEmailModalTab('compose')" id="emailTabBtn-compose" class="px-4 py-2 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-500/40 transition">
+          ✍️ Compose & Dispatch
+        </button>
+        <button onclick="switchEmailModalTab('outbox')" id="emailTabBtn-outbox" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white transition">
+          📬 Outbox History (<span id="emailOutboxCount">0</span>)
+        </button>
+        <button onclick="switchEmailModalTab('settings')" id="emailTabBtn-settings" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white transition">
+          ⚙️ SMTP App Passwords
+        </button>
+      </div>
+
+      <!-- TAB 1: COMPOSE -->
+      <div id="emailPane-compose" class="space-y-4">
+        <!-- Sender Selector -->
+        <div>
+          <label class="block text-[11px] font-mono-code uppercase text-slate-400 font-bold mb-1.5">Send From Official Address:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <label class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-sky-500/40 cursor-pointer hover:bg-white/10 transition has-[:checked]:border-sky-400 has-[:checked]:bg-sky-950/40">
+              <input type="radio" name="emailSenderAccount" value="zoho" checked class="text-sky-500 focus:ring-0">
+              <div>
+                <div class="text-xs font-black text-white">lj@ljentertainment.live</div>
+                <div class="text-[10px] text-slate-400">Zoho Mail • Official Domain Address</div>
+              </div>
+            </label>
+            <label class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition has-[:checked]:border-red-400 has-[:checked]:bg-red-950/30">
+              <input type="radio" name="emailSenderAccount" value="gmail" class="text-red-500 focus:ring-0">
+              <div>
+                <div class="text-xs font-black text-white">ljentertainmentmusic@gmail.com</div>
+                <div class="text-[10px] text-slate-400">Gmail • Master Label Backup Address</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Template Presets -->
+        <div>
+          <label class="block text-[11px] font-mono-code uppercase text-slate-400 font-bold mb-1.5">Load Intelligent Template Preset:</label>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="loadEmailTemplatePreset('curator_kira')" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-mono-code text-slate-300 border border-white/10 transition">
+              🎧 Spotify/Apple Curator Pitch (KIRA)
+            </button>
+            <button onclick="loadEmailTemplatePreset('sync_brief')" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-mono-code text-slate-300 border border-white/10 transition">
+              🎬 Sync Licensing Submission (Netflix/Commercial)
+            </button>
+            <button onclick="loadEmailTemplatePreset('mlc_claim')" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-mono-code text-slate-300 border border-white/10 transition">
+              ⚖️ MLC / SoundExchange Royalty Claim
+            </button>
+            <button onclick="loadEmailTemplatePreset('radio_promo')" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-mono-code text-slate-300 border border-white/10 transition">
+              📻 Radio Clean WAV Broadcast Drop
+            </button>
+          </div>
+        </div>
+
+        <!-- To Email -->
+        <div>
+          <label class="block text-[11px] font-mono-code uppercase text-slate-400 font-bold mb-1">Recipient Email (To):</label>
+          <input type="email" id="emailComposeTo" placeholder="e.g. kofi.mensah@spotify-editorial.com, music@netflix.com" class="w-full bg-black/50 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 font-mono-code">
+        </div>
+
+        <!-- Subject -->
+        <div>
+          <label class="block text-[11px] font-mono-code uppercase text-slate-400 font-bold mb-1">Subject Line:</label>
+          <input type="text" id="emailComposeSubject" placeholder="e.g. LJ Entertainment Priority Pitch: KIRA by Drey Star" class="w-full bg-black/50 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+        </div>
+
+        <!-- Body -->
+        <div>
+          <label class="block text-[11px] font-mono-code uppercase text-slate-400 font-bold mb-1">Email Body:</label>
+          <textarea id="emailComposeBody" rows="6" placeholder="Write your pitch or message..." class="w-full bg-black/50 border border-white/10 rounded-xl p-3.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 font-mono-code leading-relaxed"></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="testMailConnectionFromUI()" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold border border-white/10 transition active:scale-95 flex items-center space-x-1.5">
+            <span>🔌 Test Connection</span>
+          </button>
+          <button onclick="dispatchEmailFromUI()" id="emailDispatchSubmitBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-black transition active:scale-95 shadow-glow flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            <span>🚀 Dispatch Email</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: OUTBOX HISTORY -->
+      <div id="emailPane-outbox" class="space-y-3 hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400">Live record of all communications dispatched via LJ Music OS.</span>
+          <button onclick="refreshEmailOutbox()" class="text-xs text-sky-400 hover:underline font-bold">↻ Refresh Outbox</button>
+        </div>
+        <div id="emailOutboxList" class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 3: SETTINGS -->
+      <div id="emailPane-settings" class="space-y-4 hidden">
+        <div class="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 text-xs text-amber-200 space-y-1.5">
+          <div class="font-bold flex items-center space-x-1.5">
+            <span>🔐 Live SMTP Authentication Setup</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-[11px]">
+            To enable actual live delivery directly to external inboxes, enter your Zoho Mail or Gmail <strong>App Password</strong> below. If left blank, LJ Music OS runs in <strong>Sandbox Mode</strong> (full simulation, formatted logging, zero delivery errors).
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+            <div class="text-xs font-bold text-white flex items-center justify-between">
+              <span>Zoho Mail (<code class="text-sky-300">lj@ljentertainment.live</code>)</span>
+              <span class="text-[10px] text-slate-400 font-mono-code">smtp.zoho.com:465</span>
+            </div>
+            <p class="text-[10px] text-slate-400">Generate at: Zoho Mail &gt; Settings &gt; Security &gt; Application-Specific Passwords.</p>
+            <div class="flex gap-2">
+              <input type="password" id="zohoAppPasswordInput" placeholder="Enter Zoho App Password" class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white font-mono-code focus:outline-none focus:border-sky-500">
+              <button onclick="saveMailAppPassword('zoho')" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition">Save</button>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+            <div class="text-xs font-bold text-white flex items-center justify-between">
+              <span>Gmail (<code class="text-amber-300">ljentertainmentmusic@gmail.com</code>)</span>
+              <span class="text-[10px] text-slate-400 font-mono-code">smtp.gmail.com:465</span>
+            </div>
+            <p class="text-[10px] text-slate-400">Generate at: Google Account &gt; Security &gt; 2-Step Verification &gt; App Passwords (16-character code).</p>
+            <div class="flex gap-2">
+              <input type="password" id="gmailAppPasswordInput" placeholder="Enter 16-character Gmail App Password" class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white font-mono-code focus:outline-none focus:border-red-500">
+              <button onclick="saveMailAppPassword('gmail')" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
