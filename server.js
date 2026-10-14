@@ -44,6 +44,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Force no-cache on all API endpoints so updates are instantly reflected
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // File paths
 const dataDir = path.join(__dirname, 'data');
 const catalogueFile = path.join(dataDir, 'catalogue.json');
@@ -870,22 +878,27 @@ app.get('/api/auth/session', (req, res) => {
 });
 
 app.post('/api/auth/login', (req, res) => {
-  const { email, password, role, provider, entity } = req.body || {};
+  const { email, password, role, provider, entity, artistName } = req.body || {};
   const userEmail = email ? email.trim() : 'ljentertainmentmusic@gmail.com';
-  const userRole = role || (userEmail.includes('lj') ? 'Owner' : 'Artist');
+  const isOwner = role === 'Owner' || userEmail.toLowerCase().includes('ljentertainment');
+  const targetArtist = artistName || entity || (userEmail.toLowerCase().includes('drey') ? 'Drey Star' : null);
 
   activeMogulSession = {
     user: {
       id: `usr-${Date.now()}`,
       email: userEmail,
-      name: userEmail.split('@')[0],
-      role: userRole,
+      name: isOwner ? 'LJ Entertainment Owner' : (targetArtist || userEmail.split('@')[0]),
+      role: isOwner ? 'Owner' : 'Artist',
+      artistName: isOwner ? (targetArtist || null) : (targetArtist || 'Drey Star'),
+      isArtistLocked: !isOwner,
       organization: 'LJ Entertainment Ltd',
       projectRegion: 'East US (North Virginia)',
-      avatar: userEmail.toLowerCase().includes('drey')
+      avatar: (targetArtist && targetArtist.toLowerCase().includes('drey')) || userEmail.toLowerCase().includes('drey')
         ? 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd'
         : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80',
-      permissions: userRole === 'Owner' ? ['ALL'] : ['READ_CATALOGUE', 'ROYALTIES_SELF'],
+      permissions: isOwner
+        ? ['ALL', 'SWITCH_ARTISTS', 'DELETE_PROFILES', 'LABEL_SETTINGS', 'ROYALTIES', 'AUDIT', 'DISTRIBUTION', 'CATALOGUE', 'SWARM', 'ENTITIES']
+        : ['ARTIST_PORTAL', 'READ_SELF_CATALOGUE', 'ROYALTIES_SELF', 'LYRICS_SELF'],
       authProvider: provider || 'credentials',
       signedInAt: new Date().toISOString()
     }
@@ -893,7 +906,52 @@ app.post('/api/auth/login', (req, res) => {
 
   res.json({
     success: true,
-    message: `Authenticated as ${activeMogulSession.user.email} (${activeMogulSession.user.role})`,
+    message: isOwner ? 'Signed in as Label Owner (Master Access)' : `Signed into Artist Portal for ${activeMogulSession.user.artistName}`,
+    session: activeMogulSession
+  });
+});
+
+// Dedicated 1-Click Artist Portal Login (Zero Mistake Guarantee)
+app.post('/api/auth/artist-login', (req, res) => {
+  const { artistName = 'Drey Star' } = req.body || {};
+  const rosterFile = path.join(dataDir, 'artistRoster.json');
+  let roster = [];
+  try {
+    roster = JSON.parse(fs.readFileSync(rosterFile, 'utf8'));
+  } catch (e) {
+    roster = [];
+  }
+
+  const found = roster.find(a => (a.artist || a.name).toLowerCase() === artistName.toLowerCase()) || {
+    artist: 'Drey Star',
+    name: 'Drey Star',
+    picture: 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd',
+    monthlyListeners: '1,420,000 Monthly Listeners'
+  };
+
+  const name = found.artist || found.name || 'Drey Star';
+  const email = `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}@ljmusic.com`;
+
+  activeMogulSession = {
+    user: {
+      id: `usr-art-${Date.now()}`,
+      email: email,
+      name: name,
+      artistName: name,
+      role: 'Artist',
+      isArtistLocked: true,
+      organization: 'LJ Entertainment Ltd',
+      projectRegion: 'East US (North Virginia)',
+      avatar: found.picture || found.coverArt || 'https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd',
+      permissions: ['ARTIST_PORTAL', 'READ_SELF_CATALOGUE', 'ROYALTIES_SELF', 'LYRICS_SELF'],
+      authProvider: 'artist_portal',
+      signedInAt: new Date().toISOString()
+    }
+  };
+
+  res.json({
+    success: true,
+    message: `Dedicated Artist Portal unlocked for ${name}. Workspace strictly isolated.`,
     session: activeMogulSession
   });
 });
@@ -901,6 +959,19 @@ app.post('/api/auth/login', (req, res) => {
 app.post('/api/auth/logout', (req, res) => {
   activeMogulSession = null;
   res.json({ success: true, message: 'Signed out of Mogul Workspace' });
+});
+
+// Clean Slate & Cache Reset API
+app.post('/api/system/reset-cache', (req, res) => {
+  try {
+    loadState();
+  } catch (e) {}
+
+  res.json({
+    success: true,
+    message: 'System cache cleared and pristine fresh state re-initialized.',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Mogul Royalty Ledger

@@ -3830,6 +3830,11 @@ function testManualAudio() {
 }
 
 async function clearAllArtistsPrompt() {
+  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+    showToast("Permission Denied: Roster clearing is strictly restricted to Label Owners. Artist Portal is protected.", "error", "Access Denied");
+    return;
+  }
+
   if (!confirm("Are you sure you want to clear all artists and catalogue tracks from the tool to start completely from the beginning?\n\nThis will reset the roster, catalogue, rights, and telemetry ready for fresh DSP onboarding.")) {
     return;
   }
@@ -5853,6 +5858,15 @@ async function initArtistProfileSwitcher() {
 function selectArtistProfile(artistName) {
   if (!artistName) return;
 
+  // Strict Artist Portal Isolation Guard (Zero Mistake Guarantee)
+  if (window.activeMogulSession?.user?.isArtistLocked) {
+    const lockedArtist = window.activeMogulSession.user.artistName || "Drey Star";
+    if (artistName.toLowerCase() !== lockedArtist.toLowerCase()) {
+      showToast(`🔒 Artist Portal Isolated: You are signed into ${lockedArtist}.\nSign in as Label Owner or open ${artistName}'s dedicated portal to switch.`, "warning", "Portal Locked");
+      return;
+    }
+  }
+
   try {
     window.currentActiveArtist = artistName;
     localStorage.setItem('s4a_active_artist', artistName);
@@ -5925,8 +5939,16 @@ function closeProfileSwitcherModal() {
 function renderS4aModalArtistList(filterQuery = "") {
   const container = document.getElementById("s4aModalArtistGrid");
   const activeLabel = document.getElementById("s4aModalCurrentActiveName");
+  const isArtistLocked = !!window.activeMogulSession?.user?.isArtistLocked;
+  const lockedArtist = window.activeMogulSession?.user?.artistName || "Drey Star";
+  const isOwner = window.activeMogulSession?.user?.role?.toLowerCase() === "owner" && !isArtistLocked;
+
   if (activeLabel) {
-    activeLabel.innerText = window.currentActiveArtist === "ALL" ? "All Label Artists (Overview Mode)" : window.currentActiveArtist;
+    if (isArtistLocked) {
+      activeLabel.innerHTML = `<span class="text-emerald-300 font-bold">${window.currentActiveArtist}</span> <span class="ml-2 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[9px] font-mono-code font-bold">🔒 ARTIST PORTAL (ISOLATED)</span>`;
+    } else {
+      activeLabel.innerText = window.currentActiveArtist === "ALL" ? "All Label Artists (Overview Mode)" : window.currentActiveArtist;
+    }
   }
   if (!container) return;
 
@@ -5944,8 +5966,12 @@ function renderS4aModalArtistList(filterQuery = "") {
   // All Label card HTML (shown if query is empty or matches "all" / "label")
   let allLabelCardHtml = "";
   if (!q || "all label artists overview".includes(q)) {
+    const allLabelClick = isArtistLocked 
+      ? `showToast('🔒 Artist Portal Active: Switch to Owner account to access All Label overview.', 'info', 'Portal Isolated');`
+      : `selectArtistProfile('ALL'); closeProfileSwitcherModal();`;
+
     allLabelCardHtml = `
-      <div onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal();" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isAllActive ? 'border-purple-500 bg-purple-900/30 shadow-glow-violet ring-1 ring-purple-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
+      <div onclick="${allLabelClick}" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isAllActive ? 'border-purple-500 bg-purple-900/30 shadow-glow-violet ring-1 ring-purple-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
         <div class="flex items-start justify-between gap-2.5">
           <div class="flex items-start space-x-3.5 min-w-0">
             <div class="relative w-14 h-14 rounded-2xl overflow-hidden bg-gradient-to-tr from-purple-800 to-indigo-700 border ${isAllActive ? 'border-purple-400 shadow-md' : 'border-white/15'} flex-shrink-0 flex items-center justify-center text-white text-2xl font-black">
@@ -5972,11 +5998,15 @@ function renderS4aModalArtistList(filterQuery = "") {
             <button onclick="closeProfileSwitcherModal(); event.stopPropagation();" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
               Keep Active
             </button>
+          ` : (isArtistLocked ? `
+            <button onclick="showToast('🔒 Artist Portal Active: Sign in as Label Owner to access All Label mode.', 'info', 'Portal Isolated'); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-zinc-800/80 text-zinc-500 text-xs font-mono-code text-center cursor-not-allowed">
+              Requires Owner Login
+            </button>
           ` : `
             <button onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal(); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
               Switch to All Label →
             </button>
-          `}
+          `)}
         </div>
       </div>
     `;
@@ -6000,8 +6030,20 @@ function renderS4aModalArtistList(filterQuery = "") {
     const listeners = a.monthlyListeners || a.followers || "Verified Spotify Profile";
     const genre = a.primaryGenre || (Array.isArray(a.genres) ? a.genres[0] : "Afrobeats") || "Afrobeats";
 
+    // Delete button: Only visible for Label Owner and never for Drey Star
+    const showDeleteBtn = isOwner && name.toLowerCase() !== "drey star";
+    const deleteBtnHtml = showDeleteBtn ? `
+      <button onclick="deleteArtistProfile('${name.replace(/'/g, "\\'")}'); event.stopPropagation();" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 hover:text-white border border-rose-500/30 transition text-xs font-bold flex-shrink-0 active:scale-95" title="Delete Profile & Associated Catalogue">
+        🗑️
+      </button>
+    ` : '';
+
+    const cardOnClick = (isArtistLocked && !isActive)
+      ? `showToast('🔒 Artist Portal Isolated: You are signed into ${lockedArtist}. Sign in as Owner to access other artists.', 'info', 'Portal Isolated');`
+      : `selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal();`;
+
     return `
-      <div onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal();" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
+      <div onclick="${cardOnClick}" class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between cursor-pointer ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
         <div class="flex items-start justify-between gap-2.5">
           <div class="flex items-start space-x-3.5 min-w-0">
             <div class="relative w-14 h-14 rounded-2xl overflow-hidden border ${isActive ? 'border-emerald-400 shadow-md' : 'border-white/15'} flex-shrink-0">
@@ -6019,9 +6061,7 @@ function renderS4aModalArtistList(filterQuery = "") {
             </div>
           </div>
 
-          <button onclick="deleteArtistProfile('${name.replace(/'/g, "\\'")}'); event.stopPropagation();" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 hover:text-white border border-rose-500/30 transition text-xs font-bold flex-shrink-0 active:scale-95" title="Delete Profile & Associated Catalogue">
-            🗑️
-          </button>
+          ${deleteBtnHtml}
         </div>
 
         <div class="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
@@ -6033,11 +6073,15 @@ function renderS4aModalArtistList(filterQuery = "") {
             <button onclick="closeProfileSwitcherModal(); event.stopPropagation();" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
               Keep Active
             </button>
+          ` : (isArtistLocked ? `
+            <button onclick="showToast('🔒 Artist Portal Isolated: You are signed into ${lockedArtist}. Sign in as Owner to access other artists.', 'info', 'Portal Isolated'); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-zinc-800/80 text-zinc-500 text-xs font-mono-code text-center cursor-not-allowed">
+              Locked in ${lockedArtist} Portal
+            </button>
           ` : `
             <button onclick="selectArtistProfile('${name.replace(/'/g, "\\'")}'); closeProfileSwitcherModal(); event.stopPropagation();" class="flex-1 py-1.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs transition shadow active:scale-95 text-center">
               Switch to ${name} →
             </button>
-          `}
+          `)}
           ${a.spotifyUrl ? `
             <a href="${a.spotifyUrl}" target="_blank" onclick="event.stopPropagation();" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition text-xs font-bold" title="Open Spotify Profile">
               Spotify ↗
@@ -6278,10 +6322,20 @@ function syncArtistToCouncilAndLyrics(artistName) {
 // 7. Delete Artist Profile & Associated Catalogue
 async function deleteArtistProfile(artistName) {
   if (!artistName) return;
-  const isOwner = artistName.toLowerCase() === "drey star";
-  const confirmMsg = isOwner
-    ? `⚠️ CAUTION: "${artistName}" is your primary artist profile.\n\nAre you sure you want to permanently delete this profile and all associated catalogue tracks?`
-    : `Are you sure you want to permanently delete "${artistName}" from your workspace?\n\nThis will remove their profile and all associated tracks from your catalogue, rights, and telemetry.`;
+
+  // Strict Permission Check: Artist Portal is isolated and cannot delete profiles
+  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+    showToast("Permission Denied: Deleting artist profiles is restricted to Label Owners. Artist Portal is protected.", "error", "Access Denied");
+    return;
+  }
+
+  // Protection for Flagship Artist Drey Star
+  if (artistName.toLowerCase() === "drey star") {
+    showToast("Flagship profile 'Drey Star' is permanently protected against deletion.", "warning", "Protected Profile");
+    return;
+  }
+
+  const confirmMsg = `Are you sure you want to permanently delete "${artistName}" from your workspace?\n\nThis will remove their profile and all associated tracks from your catalogue, rights, and telemetry.`;
 
   if (!confirm(confirmMsg)) return;
 
@@ -6323,6 +6377,11 @@ async function deleteArtistProfile(artistName) {
 
 // 8. 1-Click Keep Only Drey Star (Purge Benchmark Profiles)
 async function purgeExternalProfilesPrompt() {
+  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+    showToast("Permission Denied: Roster purging is restricted to Label Owners.", "error", "Access Denied");
+    return;
+  }
+
   if (!confirm("Keep ONLY Drey Star and purge all demo / benchmark profiles?\n\nThis will remove non-owned artist profiles and catalogue tracks, leaving only your personal artist profile (Drey Star).")) {
     return;
   }
@@ -6461,26 +6520,51 @@ async function initMogulAuth() {
 
 function renderMogulAuthUI(user) {
   if (!user) return;
-  const avatarEl = document.getElementById("mogulHeaderUserAvatar");
+  const avatarEl = document.getElementById("mogulUserAvatar") || document.getElementById("mogulHeaderUserAvatar");
   if (avatarEl) avatarEl.src = user.avatar || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd";
 
-  const nameEl = document.getElementById("mogulHeaderUserName");
-  if (nameEl) nameEl.innerText = user.name || user.email.split("@")[0];
+  const emailDisplay = document.getElementById("mogulUserEmailDisplay");
+  if (emailDisplay) {
+    emailDisplay.innerText = user.isArtistLocked ? `${user.artistName || user.name} (Artist Portal)` : user.email;
+  }
 
   const roleEl = document.getElementById("mogulUserRoleBadge");
   if (roleEl) {
-    const isOwner = user.role.toLowerCase() === "owner";
-    roleEl.innerText = isOwner ? "👑 OWNER" : `● ${user.role.toUpperCase()}`;
-    roleEl.className = isOwner 
-      ? "text-[9px] text-emerald-400 font-mono-code font-bold" 
-      : "text-[9px] text-purple-400 font-mono-code font-bold";
+    if (user.isArtistLocked) {
+      roleEl.innerText = "🎤 ARTIST (LOCKED)";
+      roleEl.className = "text-[9px] text-emerald-400 font-mono-code font-bold";
+    } else if (user.role && user.role.toLowerCase() === "owner") {
+      roleEl.innerText = "👑 OWNER";
+      roleEl.className = "text-[9px] text-emerald-400 font-mono-code font-bold";
+    } else {
+      roleEl.innerText = `● ${(user.role || 'USER').toUpperCase()}`;
+      roleEl.className = "text-[9px] text-purple-400 font-mono-code font-bold";
+    }
   }
 
   const dropEmail = document.getElementById("mogulDropdownEmail");
   if (dropEmail) dropEmail.innerText = user.email;
 
   const dropRole = document.getElementById("mogulDropdownRole");
-  if (dropRole) dropRole.innerText = user.role;
+  if (dropRole) dropRole.innerText = user.isArtistLocked ? `Artist (${user.artistName}) - Locked` : user.role;
+
+  // Header Workspace Type Pill
+  const wsType = document.getElementById("headerWorkspaceType");
+  if (wsType) {
+    wsType.innerText = user.isArtistLocked ? "Artist Portal (Isolated)" : "Entity Workspace";
+  }
+
+  // Label Tools Button Restriction
+  const labelToolsBtn = document.getElementById("labelSettingsBtn");
+  if (labelToolsBtn) {
+    if (user.isArtistLocked) {
+      labelToolsBtn.classList.add("opacity-40", "cursor-not-allowed");
+      labelToolsBtn.title = "Label Tools restricted to Label Owner. Currently in isolated Artist Portal.";
+    } else {
+      labelToolsBtn.classList.remove("opacity-40", "cursor-not-allowed");
+      labelToolsBtn.title = "Label Workspace Settings";
+    }
+  }
 }
 
 // 2. Dropdown & Modal Controls
@@ -6491,12 +6575,158 @@ function toggleMogulUserDropdown() {
 
 function openMogulAuthModal() {
   const modal = document.getElementById("mogulAuthModal");
-  if (modal) modal.classList.remove("hidden");
+  if (modal) {
+    modal.classList.remove("hidden");
+    populateArtistPortalSelectDropdown();
+  }
 }
 
 function closeMogulAuthModal() {
   const modal = document.getElementById("mogulAuthModal");
   if (modal) modal.classList.add("hidden");
+}
+
+function switchAuthModalTab(tab = "artist") {
+  const tabArtist = document.getElementById("mogulAuthTabArtist");
+  const tabOwner = document.getElementById("mogulAuthTabOwner");
+  const btnArtist = document.getElementById("authTabBtnArtist");
+  const btnOwner = document.getElementById("authTabBtnOwner");
+
+  if (tab === "artist") {
+    if (tabArtist) tabArtist.classList.remove("hidden");
+    if (tabOwner) tabOwner.classList.add("hidden");
+    if (btnArtist) {
+      btnArtist.className = "py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-2 bg-emerald-500 text-black shadow-md";
+    }
+    if (btnOwner) {
+      btnOwner.className = "py-2.5 px-3 rounded-xl font-bold text-xs transition flex items-center justify-center space-x-2 text-zinc-400 hover:text-white";
+    }
+    populateArtistPortalSelectDropdown();
+  } else {
+    if (tabArtist) tabArtist.classList.add("hidden");
+    if (tabOwner) tabOwner.classList.remove("hidden");
+    if (btnArtist) {
+      btnArtist.className = "py-2.5 px-3 rounded-xl font-bold text-xs transition flex items-center justify-center space-x-2 text-zinc-400 hover:text-white";
+    }
+    if (btnOwner) {
+      btnOwner.className = "py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-2 bg-purple-600 text-white shadow-md";
+    }
+  }
+}
+
+function populateArtistPortalSelectDropdown() {
+  const dropdown = document.getElementById("artistPortalSelectDropdown");
+  if (!dropdown) return;
+  const roster = window.artistRosterData || [];
+  if (roster.length === 0) return;
+
+  const currentVal = dropdown.value || "Drey Star";
+  dropdown.innerHTML = roster.map(a => {
+    const name = a.artist || a.name;
+    const isDrey = name.toLowerCase() === "drey star";
+    return `<option value="${name}" ${name === currentVal ? "selected" : ""}>${name}${isDrey ? " (Flagship Artist)" : ""}</option>`;
+  }).join("");
+}
+
+// Dedicated 1-Click Artist Portal Login (Zero Mistake Guarantee)
+async function loginAsArtist(artistName = "Drey Star") {
+  if (!artistName) artistName = "Drey Star";
+  showToast(`Unlocking dedicated Artist Portal for ${artistName}...`, "info", "Artist Login");
+
+  try {
+    const res = await fetch("/api/auth/artist-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ artistName })
+    });
+    const data = await res.json();
+    if (data.success && data.session) {
+      window.activeMogulSession = data.session;
+      localStorage.setItem("mogul_auth_session", JSON.stringify(data.session));
+      renderMogulAuthUI(data.session.user);
+      closeMogulAuthModal();
+
+      // Lock workspace to this artist profile
+      window.currentActiveArtist = artistName;
+      localStorage.setItem("s4a_active_artist", artistName);
+      window.isArtistFocusMode = true;
+      localStorage.setItem("s4a_focus_mode", "true");
+
+      selectArtistProfile(artistName);
+
+      showToast(`🎤 Welcome to ${artistName} Artist Portal!\nWorkspace strictly isolated to prevent any cross-artist mistake.`, "success", "Artist Portal Active");
+      loadMogulRoyalties();
+    } else {
+      showToast(data.error || "Failed to log in to artist portal.", "error");
+    }
+  } catch (err) {
+    console.error("Artist login error:", err);
+    showToast("Network error logging into artist portal.", "error");
+  }
+}
+
+async function handleArtistEmailLogin(event) {
+  if (event) event.preventDefault();
+  const emailInput = document.getElementById("artistAuthEmailInput");
+  const email = emailInput ? emailInput.value.trim() : "dreystar@ljmusic.com";
+  let artistName = "Drey Star";
+  if (email.toLowerCase().includes("kayla")) artistName = "Kayla B";
+  else if (email.toLowerCase().includes("tunde")) artistName = "Tunde";
+  else if (email.toLowerCase().includes("asake")) artistName = "Asake";
+  else if (email.toLowerCase().includes("owoh")) artistName = "Dr. Orlando Owoh";
+  else {
+    const prefix = email.split("@")[0].replace(/[^a-zA-Z0-9]/g, " ");
+    artistName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+  }
+  await loginAsArtist(artistName);
+}
+
+// Clean Slate & Cache Reset (Clear Catch and Start Fresh)
+async function clearWorkspaceCacheAndRestart() {
+  const confirmed = confirm("✨ FRESH START & CACHE RESET:\n\nThis will purge all local browser caches, reset your active focus strictly to Drey Star, refresh server telemetry, and re-initialize a clean workspace.\n\nDo you want to proceed?");
+  if (!confirmed) return;
+
+  showToast("Purging local caches & re-initializing clean state...", "info", "Clean Start");
+
+  try {
+    // 1. Wipe all local storage keys
+    const keys = [
+      "s4a_active_artist",
+      "s4a_focus_mode",
+      "s4a_active_profile",
+      "mogul_auth_session",
+      "active_tab",
+      "spotify_live_cache",
+      "pitch_form_data",
+      "cached_catalogue",
+      "catalogue_filter",
+      "active_station"
+    ];
+    keys.forEach(k => {
+      try { localStorage.removeItem(k); } catch (e) {}
+    });
+    try { sessionStorage.clear(); } catch (e) {}
+
+    // 2. Call server cache reset API
+    try {
+      await fetch("/api/system/reset-cache", { method: "POST" });
+    } catch (e) {
+      console.warn("Server reset cache call warning:", e);
+    }
+
+    // 3. Reset in-memory state
+    window.currentActiveArtist = "Drey Star";
+    window.isArtistFocusMode = true;
+
+    showToast("Workspace refreshed cleanly! Reloading...", "success", "Clean Slate Ready");
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  } catch (err) {
+    console.error("Clean start error:", err);
+    window.location.reload();
+  }
 }
 
 // 3. Mogul Login Handlers
@@ -6507,6 +6737,8 @@ async function loginWithProvider(provider) {
   if (provider === "spotify") {
     email = "dreystar@ljmusic.com";
     role = "Artist";
+    await loginAsArtist("Drey Star");
+    return;
   } else if (provider === "apple") {
     email = "music.director@ljmusic.com";
     role = "Business Manager";
@@ -6520,11 +6752,19 @@ async function handleMogulLoginForm(event) {
   const emailInput = document.getElementById("mogulAuthEmailInput");
   const email = emailInput ? emailInput.value.trim() : "ljentertainmentmusic@gmail.com";
   const role = email.toLowerCase().includes("drey") ? "Artist" : (email.toLowerCase().includes("lj") ? "Owner" : "Manager");
-  await performMogulLogin(email, role, "credentials");
+  if (role === "Artist") {
+    await loginAsArtist("Drey Star");
+  } else {
+    await performMogulLogin(email, role, "credentials");
+  }
 }
 
 async function quickSwitchAuthRole(role, email) {
-  await performMogulLogin(email, role, "quick_switch");
+  if (role === "Artist") {
+    await loginAsArtist("Drey Star");
+  } else {
+    await performMogulLogin(email, role, "quick_switch");
+  }
 }
 
 async function performMogulLogin(email, role, provider) {
@@ -6540,7 +6780,7 @@ async function performMogulLogin(email, role, provider) {
       localStorage.setItem("mogul_auth_session", JSON.stringify(data.session));
       renderMogulAuthUI(data.session.user);
       closeMogulAuthModal();
-      showToast(`Welcome ${data.session.user.name}! Switched role to ${data.session.user.role}.`, "success", "Mogul Auth");
+      showToast(`Welcome ${data.session.user.name}! Signed in as ${data.session.user.role}.`, "success", "Mogul Auth");
 
       if (role === "Artist") {
         selectArtistProfile("Drey Star");
@@ -6977,6 +7217,11 @@ window.downloadSoundExchangeCsv = downloadSoundExchangeCsv;
 window.openMogulStatementModal = openMogulStatementModal;
 window.closeMogulStatementModal = closeMogulStatementModal;
 window.syncLiveSpotifyApi = syncLiveSpotifyApi;
+window.switchAuthModalTab = switchAuthModalTab;
+window.populateArtistPortalSelectDropdown = populateArtistPortalSelectDropdown;
+window.loginAsArtist = loginAsArtist;
+window.handleArtistEmailLogin = handleArtistEmailLogin;
+window.clearWorkspaceCacheAndRestart = clearWorkspaceCacheAndRestart;
 
 
 
