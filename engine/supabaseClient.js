@@ -14,6 +14,17 @@ const CANONICAL_PROJECT_URL = 'https://raneitkthnzfilpifqck.supabase.co';
 const CANONICAL_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTM0NzQzNywiZXhwIjoyMTA2OTIzNDM3fQ.1epJLl086IuJ4jLTdnc7j8CBY_sJiYMI9xYS7zppzag';
 const CANONICAL_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbmVpdGt0aG56ZmlscGlmcWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDc0MzcsImV4cCI6MjEwNjkyMzQzN30.jAy90fypio5q39rZAVZRIhrvFN6pH38b9rn6aXZXgiE';
 
+function sanitizeKey(key) {
+  if (!key || typeof key !== 'string') return null;
+  const trimmed = key.trim();
+  if (!trimmed) return null;
+  // If string contains bullets (\u2022 / 8226), masking circles (\u25cf), or non-ASCII characters, it's a UI mask!
+  if (/[\u2022\u25cf\u2219*]/.test(trimmed) || /[^\x00-\x7F]/.test(trimmed)) {
+    return null;
+  }
+  return trimmed;
+}
+
 function resolveProjectUrl(customUrl = null) {
   if (customUrl) return customUrl.trim().replace(/\/$/, "");
   const envUrl = process.env.SUPABASE_URL;
@@ -25,11 +36,13 @@ function resolveProjectUrl(customUrl = null) {
 }
 
 function resolveProjectKey(customKey = null, targetUrl = CANONICAL_PROJECT_URL) {
-  if (customKey) return customKey.trim();
-  const envKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  const cleanCustom = sanitizeKey(customKey);
+  if (cleanCustom) return cleanCustom;
+
+  const envKey = sanitizeKey(process.env.SUPABASE_SERVICE_ROLE_KEY) || sanitizeKey(process.env.SUPABASE_ANON_KEY);
   if (targetUrl === CANONICAL_PROJECT_URL) {
     if (envKey && envKey.includes('raneitkthnzfilpifqck')) {
-      return envKey.trim();
+      return envKey;
     }
     return CANONICAL_SERVICE_ROLE_KEY;
   }
@@ -170,12 +183,21 @@ function saveEnvCredentials(url, key) {
 }
 
 async function configureSupabase(url, key) {
-  if (!url || !key) {
-    return { success: false, message: "Both SUPABASE_URL and SUPABASE_ANON_KEY are required." };
+  if (!url) {
+    return { success: false, message: "SUPABASE_URL is required." };
   }
 
   const cleanUrl = url.trim().replace(/\/$/, "");
-  const cleanKey = key.trim();
+  let cleanKey = sanitizeKey(key);
+
+  // If user submitted without changing key or with masked bullets, keep existing valid key
+  if (!cleanKey) {
+    cleanKey = resolveProjectKey(null, cleanUrl);
+  }
+
+  if (!cleanKey) {
+    return { success: false, message: "Valid SUPABASE_ANON_KEY or SERVICE_ROLE_KEY is required." };
+  }
 
   // Test credentials first
   const testResult = await checkSupabaseConnection(cleanUrl, cleanKey);

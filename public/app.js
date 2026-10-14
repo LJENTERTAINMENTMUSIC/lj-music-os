@@ -4600,7 +4600,8 @@ async function openIntegrationsModal() {
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 mb-1">SUPABASE ANON / SERVICE KEY</label>
-              <input type="password" id="supabaseKeyInput" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." value="${supabase.tablesInitialized ? '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••' : ''}" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 font-mono">
+              <input type="password" id="supabaseKeyInput" placeholder="${supabase.tablesInitialized ? 'Configured (Leave blank to keep existing key)' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6...'}" value="" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-violet-500 font-mono">
+              ${supabase.tablesInitialized ? '<p class="text-[10px] text-emerald-400 font-mono mt-1">✓ Verified East US key active. Leave blank to keep current credentials.</p>' : ''}
             </div>
             <div class="flex items-center space-x-2 pt-1">
               <button onclick="submitSupabaseCredentials()" id="supabaseConnectBtn" class="flex-1 ${supabase.tablesInitialized ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-violet-600 hover:bg-violet-500'} text-white font-bold py-1.5 px-3 rounded-lg text-xs transition active:scale-95 flex items-center justify-center space-x-1 shadow-md">
@@ -4663,11 +4664,16 @@ async function submitSupabaseCredentials() {
 
   if (!urlEl || !keyEl || !btn || !msg) return;
   const url = urlEl.value.trim();
-  const key = keyEl.value.trim();
+  let key = keyEl.value.trim();
 
-  if (!url || !key) {
+  // If key contains masked bullets (\u2022 / 8226) or is blank, send empty string so server uses verified existing key
+  if (/[\u2022\u25cf\u2219*]/.test(key)) {
+    key = "";
+  }
+
+  if (!url) {
     msg.className = "text-[11px] text-rose-400 font-medium";
-    msg.innerText = "Please provide both Supabase URL and Key.";
+    msg.innerText = "Please provide Supabase Project URL.";
     msg.classList.remove("hidden");
     return;
   }
