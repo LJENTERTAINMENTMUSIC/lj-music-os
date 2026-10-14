@@ -223,6 +223,10 @@ async function runQaAudit() {
     // Test E: Supabase status check
     const sbStatus = await get('/api/integrations/status');
     assert('/api/integrations/status returns connected or config status', sbStatus.statusCode === 200 && (typeof sbStatus.body?.integrations?.supabase?.configured === 'boolean' || typeof sbStatus.body?.integrations?.supabase?.connected === 'boolean'));
+
+    // Test F: Spotify Developer API OAuth & Credentials Status
+    const spotifyStatus = await get('/api/spotify/status');
+    assert('/api/spotify/status returns connected with live credentials', spotifyStatus.statusCode === 200 && spotifyStatus.body?.connected === true);
   } catch (err) {
     assert('Section 2 Ingest Exception', false, err.message);
   }

@@ -1,9 +1,9 @@
 {
   "autoPlayEnabled": true,
   "rotationFrequencyMinutes": 35,
-  "totalDailySpins": 1566,
+  "totalDailySpins": 1568,
   "estimatedActiveListeners": 98600,
-  "lastBroadcastAt": "2026-10-14T16:44:23.385Z",
+  "lastBroadcastAt": "2026-10-14T16:56:50.412Z",
   "stations": [
     {
       "id": "rad-001",

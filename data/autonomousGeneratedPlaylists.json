@@ -1,24 +1,24 @@
 [
   {
-    "id": "pl-auto-3376",
+    "id": "pl-auto-0402",
     "title": "Global Afro-House Velocity",
-    "curator": "LJ Autonomous Trend Agent (Swarm #983)",
-    "platform": "TikTok Viral Soundboard",
+    "curator": "LJ Autonomous Trend Agent (Swarm #943)",
+    "platform": "Apple Music High-Velocity",
     "category": "Custom Trend",
     "seoKeywords": "global afro-house velocity, drey star kira",
     "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-    "savesCount": 165160,
-    "saves": "165,160 saves",
-    "monthlyListenersCount": 355194,
-    "monthlyListeners": "355,194 monthly listeners",
-    "followers": "165,160 DSP Followers",
-    "algorithmScore": 98,
-    "trendVelocity": "+354% Weekly Growth",
+    "savesCount": 254593,
+    "saves": "254,593 saves",
+    "monthlyListenersCount": 890621,
+    "monthlyListeners": "890,621 monthly listeners",
+    "followers": "254,593 DSP Followers",
+    "algorithmScore": 95,
+    "trendVelocity": "+337% Weekly Growth",
     "ljTrackPlacementSlot": 1,
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 131654,
+    "totalPlaysDriven": 79610,
     "tracks": [
       {
         "slot": 1,
@@ -57,7 +57,127 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.376Z"
+    "lastRebalanced": "2026-10-14T16:56:50.402Z"
+  },
+  {
+    "id": "pl-auto-2028",
+    "title": "Global Afro-House Velocity",
+    "curator": "LJ Autonomous Trend Agent (Swarm #924)",
+    "platform": "Boomplay Daily Trending",
+    "category": "Custom Trend",
+    "seoKeywords": "global afro-house velocity, drey star kira",
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "savesCount": 196481,
+    "saves": "196,481 saves",
+    "monthlyListenersCount": 483299,
+    "monthlyListeners": "483,299 monthly listeners",
+    "followers": "196,481 DSP Followers",
+    "algorithmScore": 96,
+    "trendVelocity": "+353% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "KIRA",
+    "priorityArtist": "Drey Star",
+    "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
+    "totalPlaysDriven": 105926,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-000",
+        "title": "KIRA",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "t-ext-1",
+        "title": "Trending Hit 01",
+        "artist": "Burna Boy",
+        "isLjTrack": false
+      },
+      {
+        "slot": 3,
+        "id": "t-ext-2",
+        "title": "Amapiano Pulse",
+        "artist": "Asake",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-ext-3",
+        "title": "Vibe Anthem",
+        "artist": "Rema",
+        "isLjTrack": false
+      },
+      {
+        "slot": 5,
+        "id": "t-ext-4",
+        "title": "Afro Soul",
+        "artist": "Tems",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
+  },
+  {
+    "id": "pl-auto-3376",
+    "title": "Global Afro-House Velocity",
+    "curator": "LJ Autonomous Trend Agent (Swarm #983)",
+    "platform": "TikTok Viral Soundboard",
+    "category": "Custom Trend",
+    "seoKeywords": "global afro-house velocity, drey star kira",
+    "coverArt": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "savesCount": 165160,
+    "saves": "165,160 saves",
+    "monthlyListenersCount": 355194,
+    "monthlyListeners": "355,194 monthly listeners",
+    "followers": "165,160 DSP Followers",
+    "algorithmScore": 99,
+    "trendVelocity": "+354% Weekly Growth",
+    "ljTrackPlacementSlot": 1,
+    "priorityTrackTitle": "KIRA",
+    "priorityArtist": "Drey Star",
+    "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
+    "totalPlaysDriven": 137759,
+    "tracks": [
+      {
+        "slot": 1,
+        "id": "lj-000",
+        "title": "KIRA",
+        "artist": "Drey Star",
+        "isLjTrack": true,
+        "locked": true
+      },
+      {
+        "slot": 2,
+        "id": "t-ext-1",
+        "title": "Trending Hit 01",
+        "artist": "Burna Boy",
+        "isLjTrack": false
+      },
+      {
+        "slot": 3,
+        "id": "t-ext-2",
+        "title": "Amapiano Pulse",
+        "artist": "Asake",
+        "isLjTrack": false
+      },
+      {
+        "slot": 4,
+        "id": "t-ext-3",
+        "title": "Vibe Anthem",
+        "artist": "Rema",
+        "isLjTrack": false
+      },
+      {
+        "slot": 5,
+        "id": "t-ext-4",
+        "title": "Afro Soul",
+        "artist": "Tems",
+        "isLjTrack": false
+      }
+    ],
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-3774",
@@ -72,13 +192,13 @@
     "monthlyListenersCount": 215466,
     "monthlyListeners": "215,466 monthly listeners",
     "followers": "74,682 DSP Followers",
-    "algorithmScore": 96,
+    "algorithmScore": 98,
     "trendVelocity": "+278% Weekly Growth",
     "ljTrackPlacementSlot": 1,
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 93962,
+    "totalPlaysDriven": 99818,
     "tracks": [
       {
         "slot": 1,
@@ -117,7 +237,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-8904",
@@ -138,7 +258,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 131539,
+    "totalPlaysDriven": 139038,
     "tracks": [
       {
         "slot": 1,
@@ -177,7 +297,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-8010",
@@ -198,7 +318,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 131361,
+    "totalPlaysDriven": 134937,
     "tracks": [
       {
         "slot": 1,
@@ -237,7 +357,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-3096",
@@ -258,7 +378,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 83372,
+    "totalPlaysDriven": 88970,
     "tracks": [
       {
         "slot": 1,
@@ -297,7 +417,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-6770",
@@ -318,7 +438,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 117970,
+    "totalPlaysDriven": 122076,
     "tracks": [
       {
         "slot": 1,
@@ -357,7 +477,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-6405",
@@ -378,7 +498,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 129609,
+    "totalPlaysDriven": 135908,
     "tracks": [
       {
         "slot": 1,
@@ -417,7 +537,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-5451",
@@ -438,7 +558,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 130735,
+    "totalPlaysDriven": 137822,
     "tracks": [
       {
         "slot": 1,
@@ -477,7 +597,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-1604",
@@ -498,7 +618,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 119972,
+    "totalPlaysDriven": 122715,
     "tracks": [
       {
         "slot": 1,
@@ -537,7 +657,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-1272",
@@ -558,7 +678,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 119202,
+    "totalPlaysDriven": 127050,
     "tracks": [
       {
         "slot": 1,
@@ -597,7 +717,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-9958",
@@ -618,7 +738,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 99478,
+    "totalPlaysDriven": 102173,
     "tracks": [
       {
         "slot": 1,
@@ -657,7 +777,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-7490",
@@ -678,7 +798,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 121921,
+    "totalPlaysDriven": 129785,
     "tracks": [
       {
         "slot": 1,
@@ -717,7 +837,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-1021",
@@ -738,7 +858,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 144364,
+    "totalPlaysDriven": 149603,
     "tracks": [
       {
         "slot": 1,
@@ -777,7 +897,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-0051",
@@ -798,7 +918,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 93580,
+    "totalPlaysDriven": 101613,
     "tracks": [
       {
         "slot": 1,
@@ -837,7 +957,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-4111",
@@ -858,7 +978,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 174039,
+    "totalPlaysDriven": 176757,
     "tracks": [
       {
         "slot": 1,
@@ -897,7 +1017,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-3066",
@@ -918,7 +1038,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 123289,
+    "totalPlaysDriven": 127720,
     "tracks": [
       {
         "slot": 1,
@@ -957,7 +1077,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-0292",
@@ -978,7 +1098,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 131964,
+    "totalPlaysDriven": 138953,
     "tracks": [
       {
         "slot": 1,
@@ -1017,7 +1137,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-6630",
@@ -1038,7 +1158,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 113922,
+    "totalPlaysDriven": 122479,
     "tracks": [
       {
         "slot": 1,
@@ -1077,7 +1197,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-4113",
@@ -1098,7 +1218,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 149408,
+    "totalPlaysDriven": 155941,
     "tracks": [
       {
         "slot": 1,
@@ -1137,7 +1257,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-4355",
@@ -1158,7 +1278,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 121699,
+    "totalPlaysDriven": 128101,
     "tracks": [
       {
         "slot": 1,
@@ -1197,7 +1317,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z"
+    "lastRebalanced": "2026-10-14T16:56:50.397Z"
   },
   {
     "id": "pl-auto-6578",
@@ -1214,7 +1334,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 103277,
+    "totalPlaysDriven": 109504,
     "tracks": [
       {
         "slot": 1,
@@ -1253,7 +1373,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 79000,
     "saves": "79,000 saves",
     "monthlyListenersCount": 173800,
@@ -1274,7 +1394,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 108938,
+    "totalPlaysDriven": 115772,
     "tracks": [
       {
         "slot": 1,
@@ -1313,7 +1433,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 86000,
     "saves": "86,000 saves",
     "monthlyListenersCount": 223600,
@@ -1334,7 +1454,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 111504,
+    "totalPlaysDriven": 118238,
     "tracks": [
       {
         "slot": 1,
@@ -1373,7 +1493,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 64000,
     "saves": "64,000 saves",
     "monthlyListenersCount": 192000,
@@ -1394,7 +1514,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 117521,
+    "totalPlaysDriven": 125974,
     "tracks": [
       {
         "slot": 1,
@@ -1433,7 +1553,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 63000,
     "saves": "63,000 saves",
     "monthlyListenersCount": 138600,
@@ -1454,7 +1574,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 99101,
+    "totalPlaysDriven": 106970,
     "tracks": [
       {
         "slot": 1,
@@ -1493,7 +1613,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 71000,
     "saves": "71,000 saves",
     "monthlyListenersCount": 184600,
@@ -1514,7 +1634,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 117346,
+    "totalPlaysDriven": 123402,
     "tracks": [
       {
         "slot": 1,
@@ -1553,7 +1673,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 57000,
     "saves": "57,000 saves",
     "monthlyListenersCount": 171000,
@@ -1574,7 +1694,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 107321,
+    "totalPlaysDriven": 112893,
     "tracks": [
       {
         "slot": 1,
@@ -1613,7 +1733,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 60000,
     "saves": "60,000 saves",
     "monthlyListenersCount": 132000,
@@ -1634,7 +1754,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 108416,
+    "totalPlaysDriven": 116339,
     "tracks": [
       {
         "slot": 1,
@@ -1673,7 +1793,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 55000,
     "saves": "55,000 saves",
     "monthlyListenersCount": 143000,
@@ -1694,7 +1814,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 119125,
+    "totalPlaysDriven": 126991,
     "tracks": [
       {
         "slot": 1,
@@ -1733,7 +1853,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 75000,
     "saves": "75,000 saves",
     "monthlyListenersCount": 225000,
@@ -1754,7 +1874,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Slot #1 Locked For Algorithm Trigger)",
-    "totalPlaysDriven": 122097,
+    "totalPlaysDriven": 128872,
     "tracks": [
       {
         "slot": 1,
@@ -1793,7 +1913,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 61000,
     "saves": "61,000 saves",
     "monthlyListenersCount": 134200,
@@ -1814,7 +1934,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Heavy Algorithmic Rotation)",
-    "totalPlaysDriven": 239061,
+    "totalPlaysDriven": 244450,
     "tracks": [
       {
         "slot": 1,
@@ -1853,7 +1973,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 88200,
     "saves": "88,200 saves",
     "monthlyListenersCount": 229320,
@@ -1874,7 +1994,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Peak Nightlife Prime Time)",
-    "totalPlaysDriven": 189286,
+    "totalPlaysDriven": 192698,
     "tracks": [
       {
         "slot": 1,
@@ -1906,7 +2026,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 71900,
     "saves": "71,900 saves",
     "monthlyListenersCount": 215700,
@@ -1927,7 +2047,7 @@
     "priorityTrackTitle": "Aiye Nreti Eleya",
     "priorityArtist": "Dr. Orlando Owoh",
     "playGuaranteeStatus": "ACTIVE (Heritage Heavy Rotation)",
-    "totalPlaysDriven": 160632,
+    "totalPlaysDriven": 167309,
     "tracks": [
       {
         "slot": 1,
@@ -1960,7 +2080,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 64500,
     "saves": "64,500 saves",
     "monthlyListenersCount": 141900,
@@ -1981,7 +2101,7 @@
     "priorityTrackTitle": "KIRA",
     "priorityArtist": "Drey Star",
     "playGuaranteeStatus": "ACTIVE (Global Algorithmic Pickup)",
-    "totalPlaysDriven": 200658,
+    "totalPlaysDriven": 205595,
     "tracks": [
       {
         "slot": 1,
@@ -2013,7 +2133,7 @@
         "isLjTrack": false
       }
     ],
-    "lastRebalanced": "2026-10-14T16:44:23.371Z",
+    "lastRebalanced": "2026-10-14T16:56:50.397Z",
     "savesCount": 79100,
     "saves": "79,100 saves",
     "monthlyListenersCount": 205660,
