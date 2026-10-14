@@ -3830,7 +3830,8 @@ function testManualAudio() {
 }
 
 async function clearAllArtistsPrompt() {
-  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+  const isOwner = window.activeMogulSession?.user?.role?.toLowerCase() === "owner" && !window.activeMogulSession?.user?.isArtistLocked;
+  if (!isOwner) {
     showToast("Permission Denied: Roster clearing is strictly restricted to Label Owners. Artist Portal is protected.", "error", "Access Denied");
     return;
   }
@@ -6329,8 +6330,9 @@ function syncArtistToCouncilAndLyrics(artistName) {
 async function deleteArtistProfile(artistName) {
   if (!artistName) return;
 
-  // Strict Permission Check: Artist Portal is isolated and cannot delete profiles
-  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+  // Strict Permission Check: Artist Portal and unauthenticated sessions cannot delete profiles
+  const isOwner = window.activeMogulSession?.user?.role?.toLowerCase() === "owner" && !window.activeMogulSession?.user?.isArtistLocked;
+  if (!isOwner) {
     showToast("Permission Denied: Deleting artist profiles is restricted to Label Owners. Artist Portal is protected.", "error", "Access Denied");
     return;
   }
@@ -6383,7 +6385,8 @@ async function deleteArtistProfile(artistName) {
 
 // 8. 1-Click Keep Only Drey Star (Purge Benchmark Profiles)
 async function purgeExternalProfilesPrompt() {
-  if (window.activeMogulSession?.user?.isArtistLocked || (window.activeMogulSession?.user?.role && window.activeMogulSession.user.role.toLowerCase() !== "owner")) {
+  const isOwner = window.activeMogulSession?.user?.role?.toLowerCase() === "owner" && !window.activeMogulSession?.user?.isArtistLocked;
+  if (!isOwner) {
     showToast("Permission Denied: Roster purging is restricted to Label Owners.", "error", "Access Denied");
     return;
   }
@@ -6480,6 +6483,13 @@ window.toggleMoreModulesDropdown = toggleMoreModulesDropdown;
 
 // 1. Initialize Mogul Auth & Session Management
 async function initMogulAuth() {
+  // If explicitly logged out, enforce locked state and do NOT auto-login
+  if (localStorage.getItem("mogul_logged_out") === "true") {
+    window.activeMogulSession = null;
+    renderMogulAuthUI(null);
+    return;
+  }
+
   let session = null;
   const saved = localStorage.getItem("mogul_auth_session");
   if (saved) {
@@ -6502,20 +6512,11 @@ async function initMogulAuth() {
     }
   }
 
-  // Default fallback to owner ljentertainmentmusic@gmail.com
+  // If no session exists (e.g. user logged out or fresh unauthenticated visit)
   if (!session || !session.user) {
-    session = {
-      user: {
-        id: "usr-owner-001",
-        email: "ljentertainmentmusic@gmail.com",
-        name: "LJ Entertainment Owner",
-        role: "Owner",
-        organization: "LJ Entertainment Ltd",
-        projectRegion: "East US (North Virginia)",
-        avatar: "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd",
-        authProvider: "google"
-      }
-    };
+    window.activeMogulSession = null;
+    renderMogulAuthUI(null);
+    return;
   }
 
   window.activeMogulSession = session;
@@ -6525,16 +6526,73 @@ async function initMogulAuth() {
 }
 
 function renderMogulAuthUI(user) {
-  if (!user) return;
   const avatarEl = document.getElementById("mogulUserAvatar") || document.getElementById("mogulHeaderUserAvatar");
-  if (avatarEl) avatarEl.src = user.avatar || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd";
-
+  const avatarContainer = document.getElementById("mogulUserAvatarContainer");
+  const avatarDot = document.getElementById("mogulUserAvatarStatusDot") || avatarEl?.nextElementSibling;
   const emailDisplay = document.getElementById("mogulUserEmailDisplay");
-  if (emailDisplay) {
-    emailDisplay.innerText = user.isArtistLocked ? `${user.artistName || user.name} (Artist Portal)` : user.email;
+  const roleEl = document.getElementById("mogulUserRoleBadge");
+  const dropEmail = document.getElementById("mogulDropdownEmail");
+  const dropRole = document.getElementById("mogulDropdownRole");
+  const wsType = document.getElementById("headerWorkspaceType");
+  const labelToolsBtn = document.getElementById("labelSettingsBtn");
+  const logoutBtn = document.getElementById("mogulDropdownLogoutBtn");
+  const logoutText = document.getElementById("mogulDropdownLogoutText");
+  const logoutIcon = document.getElementById("mogulDropdownLogoutIcon");
+
+  if (!user) {
+    // 🔒 LOCKED / SIGNED OUT STATE
+    if (avatarEl) {
+      avatarEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fbbf24'%3E%3Cpath fill-rule='evenodd' d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z' clip-rule='evenodd' /%3E%3C/svg%3E";
+    }
+    if (avatarContainer) {
+      avatarContainer.className = "relative w-6 h-6 rounded-full overflow-hidden border border-amber-400/80 bg-amber-950/40 p-0.5 flex-shrink-0 shadow-sm";
+    }
+    if (avatarDot) {
+      avatarDot.className = "absolute bottom-0 right-0 w-2 h-2 rounded-full bg-amber-400 border border-black animate-pulse";
+    }
+    if (emailDisplay) {
+      emailDisplay.innerText = "Signed Out (Locked)";
+      emailDisplay.className = "font-bold text-amber-300 text-[11px] truncate max-w-[130px]";
+    }
+    if (roleEl) {
+      roleEl.innerText = "🔒 SIGN IN";
+      roleEl.className = "text-[9px] text-amber-400 font-mono-code font-bold underline cursor-pointer";
+    }
+    if (dropEmail) dropEmail.innerText = "Signed Out (Locked)";
+    if (dropRole) dropRole.innerText = "None (Click Sign In)";
+    if (wsType) wsType.innerText = "🔒 Workspace Locked";
+    if (labelToolsBtn) {
+      labelToolsBtn.classList.add("opacity-40", "cursor-not-allowed");
+      labelToolsBtn.title = "Workspace locked. Sign in to access label tools.";
+    }
+    if (logoutText) logoutText.innerText = "Sign In to Workspace";
+    if (logoutBtn) {
+      logoutBtn.className = "w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-emerald-400 hover:text-emerald-200 hover:bg-emerald-500/10 text-left font-medium";
+    }
+    if (logoutIcon) {
+      logoutIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>`;
+    }
+    return;
   }
 
-  const roleEl = document.getElementById("mogulUserRoleBadge");
+  // 👤 ACTIVE SESSION (OWNER OR ARTIST)
+  if (avatarEl) {
+    avatarEl.src = user.avatar || "https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd";
+  }
+  if (avatarContainer) {
+    avatarContainer.className = user.isArtistLocked
+      ? "relative w-6 h-6 rounded-full overflow-hidden border border-emerald-400 flex-shrink-0"
+      : "relative w-6 h-6 rounded-full overflow-hidden border border-purple-400 flex-shrink-0";
+  }
+  if (avatarDot) {
+    avatarDot.className = "absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-black";
+  }
+
+  if (emailDisplay) {
+    emailDisplay.innerText = user.isArtistLocked ? `${user.artistName || user.name} (Artist Portal)` : user.email;
+    emailDisplay.className = "font-bold text-white text-[11px] truncate max-w-[130px]";
+  }
+
   if (roleEl) {
     if (user.isArtistLocked) {
       roleEl.innerText = "🎤 ARTIST (LOCKED)";
@@ -6548,20 +6606,16 @@ function renderMogulAuthUI(user) {
     }
   }
 
-  const dropEmail = document.getElementById("mogulDropdownEmail");
   if (dropEmail) dropEmail.innerText = user.email;
 
-  const dropRole = document.getElementById("mogulDropdownRole");
-  if (dropRole) dropRole.innerText = user.isArtistLocked ? `Artist (${user.artistName}) - Locked` : user.role;
+  if (dropRole) {
+    dropRole.innerText = user.isArtistLocked ? `Artist (${user.artistName}) - Locked` : user.role;
+  }
 
-  // Header Workspace Type Pill
-  const wsType = document.getElementById("headerWorkspaceType");
   if (wsType) {
     wsType.innerText = user.isArtistLocked ? "Artist Portal (Isolated)" : "Entity Workspace";
   }
 
-  // Label Tools Button Restriction
-  const labelToolsBtn = document.getElementById("labelSettingsBtn");
   if (labelToolsBtn) {
     if (user.isArtistLocked) {
       labelToolsBtn.classList.add("opacity-40", "cursor-not-allowed");
@@ -6571,10 +6625,24 @@ function renderMogulAuthUI(user) {
       labelToolsBtn.title = "Label Workspace Settings";
     }
   }
+
+  if (logoutText) logoutText.innerText = "Sign Out / Lock Workspace";
+  if (logoutBtn) {
+    logoutBtn.className = "w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 text-left font-medium";
+  }
+  if (logoutIcon) {
+    logoutIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>`;
+  }
 }
 
 // 2. Dropdown & Modal Controls
 function toggleMogulUserDropdown() {
+  if (!window.activeMogulSession || !window.activeMogulSession.user) {
+    openMogulAuthModal();
+    const dd = document.getElementById("mogulUserDropdown");
+    if (dd) dd.classList.add("hidden");
+    return;
+  }
   const dd = document.getElementById("mogulUserDropdown");
   if (dd) dd.classList.toggle("hidden");
 }
@@ -6647,6 +6715,7 @@ async function loginAsArtist(artistName = "Drey Star") {
     });
     const data = await res.json();
     if (data.success && data.session) {
+      localStorage.removeItem("mogul_logged_out");
       window.activeMogulSession = data.session;
       localStorage.setItem("mogul_auth_session", JSON.stringify(data.session));
       renderMogulAuthUI(data.session.user);
@@ -6701,6 +6770,7 @@ async function clearWorkspaceCacheAndRestart() {
       "s4a_focus_mode",
       "s4a_active_profile",
       "mogul_auth_session",
+      "mogul_logged_out",
       "active_tab",
       "spotify_live_cache",
       "pitch_form_data",
@@ -6782,6 +6852,7 @@ async function performMogulLogin(email, role, provider) {
     });
     const data = await res.json();
     if (data.success && data.session) {
+      localStorage.removeItem("mogul_logged_out");
       window.activeMogulSession = data.session;
       localStorage.setItem("mogul_auth_session", JSON.stringify(data.session));
       renderMogulAuthUI(data.session.user);
@@ -6804,10 +6875,18 @@ async function performMogulLogin(email, role, provider) {
 async function logoutMogul() {
   try {
     await fetch("/api/auth/logout", { method: "POST" });
-  } catch (e) {}
+  } catch (e) {
+    console.warn("Logout notification warning:", e);
+  }
   localStorage.removeItem("mogul_auth_session");
+  localStorage.setItem("mogul_logged_out", "true");
   window.activeMogulSession = null;
-  showToast("Workspace locked. Please sign in to resume.", "info", "Signed Out");
+  renderMogulAuthUI(null);
+
+  const dd = document.getElementById("mogulUserDropdown");
+  if (dd) dd.classList.add("hidden");
+
+  showToast("Workspace locked & signed out. Please sign in to resume.", "info", "Signed Out");
   openMogulAuthModal();
 }
 

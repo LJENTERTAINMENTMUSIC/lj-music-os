@@ -966,6 +966,7 @@ app.post('/api/system/reset-cache', (req, res) => {
   try {
     loadState();
   } catch (e) {}
+  activeMogulSession = null;
 
   res.json({
     success: true,
