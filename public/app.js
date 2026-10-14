@@ -153,6 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initMogulAuth();
   }
 
+  if (typeof initRealtimeTelemetryEngine === 'function') {
+    initRealtimeTelemetryEngine();
+  }
+
   // Initial Copilot brief run
   executeCopilotQuery("I need an Afrobeats song for a Lagos luxury real-estate commercial, male vocal, 100–110 BPM, aspirational, premium, no explicit lyrics.");
 });
@@ -1052,9 +1056,13 @@ async function loadListeningIntelligence() {
   try {
     const res = await fetch("/api/listening-intelligence");
     const data = await res.json();
-    document.getElementById("risingBadgeCount").innerText = `🔥 ${data.risingNowCount} Rising Now`;
+    const risingBadge = document.getElementById("risingBadgeCount");
+    if (risingBadge) {
+      risingBadge.innerText = `🔥 ${data.risingNowCount} Rising Now`;
+    }
 
     const container = document.getElementById("listeningTableView");
+    if (!container) return;
     container.innerHTML = `
       <table class="w-full text-left text-xs">
         <thead class="bg-brand-dark/70 text-slate-400 uppercase text-[10px] tracking-wider border-b border-brand-cardBorder">
@@ -1071,22 +1079,22 @@ async function loadListeningIntelligence() {
         </thead>
         <tbody class="divide-y divide-brand-cardBorder/60">
           ${data.tracks.map(t => `
-            <tr class="hover:bg-brand-cardBorder/30 transition">
+            <tr id="telemetry-row-${t.id}" class="hover:bg-brand-cardBorder/30 transition duration-300">
               <td class="py-3 px-4 font-semibold text-white">
                 ${t.title} <span class="text-slate-400 font-normal">(${t.artist})</span>
               </td>
-              <td class="py-3 px-4 font-mono-code text-slate-300">${t.plays.toLocaleString()}</td>
-              <td class="py-3 px-4 font-mono-code text-slate-300">${t.saves.toLocaleString()}</td>
-              <td class="py-3 px-4 font-mono-code text-slate-300">${t.playlistAdds.toLocaleString()}</td>
-              <td class="py-3 px-4 font-mono-code text-emerald-400">${t.completionRatePct}%</td>
-              <td class="py-3 px-4 font-mono-code text-indigo-400">${t.repeatListeningPct}%</td>
+              <td class="py-3 px-4 font-mono-code text-slate-300" id="telemetry-plays-${t.id}">${t.plays.toLocaleString()}</td>
+              <td class="py-3 px-4 font-mono-code text-slate-300" id="telemetry-saves-${t.id}">${t.saves.toLocaleString()}</td>
+              <td class="py-3 px-4 font-mono-code text-slate-300" id="telemetry-adds-${t.id}">${t.playlistAdds.toLocaleString()}</td>
+              <td class="py-3 px-4 font-mono-code text-emerald-400" id="telemetry-comp-${t.id}">${t.completionRatePct}%</td>
+              <td class="py-3 px-4 font-mono-code text-indigo-400" id="telemetry-repeat-${t.id}">${t.repeatListeningPct}%</td>
               <td class="py-3 px-4">
-                <span class="px-2 py-0.5 rounded font-mono-code font-bold text-xs ${t.momentumScore >= 90 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-brand-card text-brand-gold'}">
+                <span id="telemetry-momentum-${t.id}" class="px-2 py-0.5 rounded font-mono-code font-bold text-xs ${t.momentumScore >= 90 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-brand-card text-brand-gold'}">
                   ${t.momentumScore}/100
                 </span>
               </td>
               <td class="py-3 px-4 text-right">
-                <span class="text-[10px] font-bold ${t.momentumScore >= 90 ? 'text-red-400 animate-pulse' : 'text-slate-400'}">
+                <span id="telemetry-label-${t.id}" class="text-[10px] font-bold ${t.momentumScore >= 90 ? 'text-red-400 animate-pulse' : 'text-slate-400'}">
                   ${t.momentumLabel}
                 </span>
               </td>
@@ -1108,14 +1116,321 @@ async function injectTelemetrySignal(trackId, signalType) {
       body: JSON.stringify({ trackId, signalType })
     });
     const result = await res.json();
-    const track = allTracks.find(t => t.id === trackId) || { title: trackId };
+    const track = allTracks.find(t => t.id === trackId) || { title: trackId, artist: "LJ Artist" };
     showToast(`Signal Ingested: [${signalType}] on "${track.title}".\nRecalculated Momentum: ${result.result.momentum.score}/100 (Velocity: +${result.result.momentum.growthPct}%)`, 'success', 'Telemetry Pipeline Updated');
+    
+    appendRealtimeSignalPill({
+      trackId: trackId,
+      trackTitle: track.title,
+      artist: track.artist || "LJ Artist",
+      signal: signalType,
+      platform: "Spotify (Direct)",
+      city: "Lagos Hub",
+      relativeTime: "just now"
+    });
+
     loadListeningIntelligence();
     loadCharts();
     loadSwarmCommandCenter();
   } catch (err) {
     console.error("Signal injection error:", err);
   }
+}
+
+// ==============================================================
+// REAL-TIME STREAMING TELEMETRY & EVENT INGESTION ENGINE
+// ==============================================================
+let realtimeTelemetryEventSource = null;
+let realtimeTelemetryPollInterval = null;
+let realtimeRadioClockInterval = null;
+let lastKnownLiveListeners = 1420184;
+
+function formatSecondsToTime(sec) {
+  if (isNaN(sec) || sec < 0) sec = 0;
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function appendRealtimeSignalPill(sig) {
+  const container = document.getElementById("liveTelemetryFeedList");
+  if (!container) return;
+
+  const platformColors = {
+    "Spotify": "bg-[#1DB954]/20 text-[#1ed760] border-[#1DB954]/40",
+    "Spotify (Direct)": "bg-[#1DB954]/20 text-[#1ed760] border-[#1DB954]/40",
+    "Apple Music": "bg-[#FC3C44]/20 text-[#ff4f57] border-[#FC3C44]/40",
+    "Audiomack": "bg-amber-500/20 text-amber-300 border-amber-500/40",
+    "Radio 98.5 HD": "bg-purple-500/20 text-purple-300 border-purple-500/40",
+    "TikTok Sound": "bg-cyan-500/20 text-cyan-300 border-cyan-500/40",
+    "Audio Player Web Stream": "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+  };
+  const pillStyle = platformColors[sig.platform] || "bg-violet-500/20 text-violet-300 border-violet-500/40";
+
+  const pill = document.createElement("div");
+  pill.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono-code border transition-all duration-300 ${pillStyle}`;
+  pill.innerHTML = `
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+    <span class="font-bold uppercase tracking-wider">${sig.signal || 'PLAY'}</span>
+    <span class="text-white font-semibold">"${sig.trackTitle || 'KIRA'}"</span>
+    <span class="text-slate-400">(${sig.artist || 'LJ'})</span>
+    <span class="opacity-80">• ${sig.platform || 'Spotify'} [${sig.city || 'Lagos'}]</span>
+  `;
+
+  if (container.firstChild) {
+    container.insertBefore(pill, container.firstChild);
+  } else {
+    container.appendChild(pill);
+  }
+
+  while (container.children.length > 16) {
+    container.removeChild(container.lastChild);
+  }
+}
+
+function handleIncomingTelemetryPulse(pulse, stats) {
+  if (!pulse) return;
+
+  // 1. Update Header Live Listeners with smooth pulse
+  const headerCountEl = document.getElementById("headerLiveListenersCount");
+  const listenersVal = pulse.activeListeners || lastKnownLiveListeners;
+  lastKnownLiveListeners = listenersVal;
+
+  if (headerCountEl) {
+    headerCountEl.innerText = listenersVal.toLocaleString();
+    headerCountEl.classList.add("text-emerald-300", "scale-105");
+    setTimeout(() => {
+      headerCountEl.classList.remove("text-emerald-300", "scale-105");
+    }, 600);
+  }
+
+  // 2. Update S4A Focus Bar
+  const s4aBarListeners = document.getElementById("s4aBarListeners");
+  if (s4aBarListeners) {
+    const formattedShort = (listenersVal / 1000000).toFixed(2) + "M";
+    s4aBarListeners.innerText = `${formattedShort} Active Listeners`;
+  }
+
+  const s4aTickerText = document.getElementById("s4aBarRealtimeText");
+  if (s4aTickerText && pulse.signals && pulse.signals.length > 0) {
+    const firstSig = pulse.signals[0];
+    s4aTickerText.innerText = `+${pulse.signals.length} streams in real-time (${firstSig.city || 'Lagos'} • ${firstSig.platform || 'Spotify'} • "${firstSig.trackTitle || 'KIRA'}")`;
+  }
+
+  // 3. Update Status Pill
+  const statusPill = document.getElementById("telemetryStatusPill");
+  if (statusPill) {
+    statusPill.innerHTML = `LIVE TELEMETRY ACTIVE • ${pulse.activeListeners ? pulse.activeListeners.toLocaleString() : '1.42M+'} LISTENERS`;
+  }
+
+  // 4. Ingest signal pills into Live Feed List
+  if (Array.isArray(pulse.signals)) {
+    pulse.signals.forEach(sig => {
+      appendRealtimeSignalPill(sig);
+    });
+  }
+
+  // 5. Smoothly increment numbers in Listening Table View
+  if (pulse.trackId) {
+    const playsEl = document.getElementById(`telemetry-plays-${pulse.trackId}`);
+    const savesEl = document.getElementById(`telemetry-saves-${pulse.trackId}`);
+    const momentumEl = document.getElementById(`telemetry-momentum-${pulse.trackId}`);
+    const rowEl = document.getElementById(`telemetry-row-${pulse.trackId}`);
+
+    if (playsEl) {
+      const currentPlays = parseInt(playsEl.innerText.replace(/,/g, ''), 10) || 0;
+      const playCount = (pulse.signals || []).filter(s => s.signal === 'PLAY' || s.signal === 'COMPLETE').length || 1;
+      playsEl.innerText = (currentPlays + playCount).toLocaleString();
+      playsEl.classList.add("text-emerald-400", "font-bold");
+      setTimeout(() => playsEl.classList.remove("text-emerald-400", "font-bold"), 700);
+    }
+
+    if (savesEl) {
+      const saveCount = (pulse.signals || []).filter(s => s.signal === 'SAVE' || s.signal === 'PLAYLIST_ADD').length;
+      if (saveCount > 0) {
+        const currentSaves = parseInt(savesEl.innerText.replace(/,/g, ''), 10) || 0;
+        savesEl.innerText = (currentSaves + saveCount).toLocaleString();
+        savesEl.classList.add("text-purple-400", "font-bold");
+        setTimeout(() => savesEl.classList.remove("text-purple-400", "font-bold"), 700);
+      }
+    }
+
+    if (momentumEl && pulse.momentumScore) {
+      momentumEl.innerText = `${pulse.momentumScore}/100`;
+      if (pulse.momentumScore >= 90) {
+        momentumEl.className = "px-2 py-0.5 rounded font-mono-code font-bold text-xs bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse";
+      }
+    }
+
+    if (rowEl) {
+      rowEl.classList.add("bg-emerald-500/10");
+      setTimeout(() => rowEl.classList.remove("bg-emerald-500/10"), 600);
+    }
+  }
+
+  // 6. Update Rising Now Badge if stats present
+  if (stats && stats.risingNowCount !== undefined) {
+    const risingBadge = document.getElementById("risingBadgeCount");
+    if (risingBadge) {
+      risingBadge.innerText = `🔥 ${stats.risingNowCount} Rising Now`;
+    }
+  }
+}
+
+async function triggerSimulatedStreamSurge() {
+  try {
+    showToast("⚡ Dispatching organic real-time stream pulse across global hubs...", "info", "Stream Surge");
+    const res = await fetch("/api/telemetry/generate-pulse", { method: "POST" });
+    const data = await res.json();
+    if (data && data.success) {
+      handleIncomingTelemetryPulse(data.pulse, data.stats);
+      showToast(`✓ Ingested ${data.pulse.signals.length} real-time signals across ${data.pulse.activeListeners.toLocaleString()} live listeners!`, "success", "Global Surge Ingested");
+    }
+  } catch (err) {
+    console.error("Error triggering stream surge:", err);
+  }
+}
+
+async function emitClientTelemetryEvent(trackId, signalType = 'PLAY', source = 'Web Client') {
+  try {
+    const res = await fetch("/api/telemetry/signal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ trackId, signalType, source })
+    });
+    const data = await res.json();
+    if (data && data.success && data.result) {
+      const track = (window.allTracks || []).find(t => t.id === trackId) || { title: trackId, artist: "LJ Artist" };
+      appendRealtimeSignalPill({
+        trackId: trackId,
+        trackTitle: track.title,
+        artist: track.artist || "LJ Artist",
+        signal: signalType,
+        platform: source,
+        city: "Lagos Hub",
+        relativeTime: "just now"
+      });
+      const momentumEl = document.getElementById(`telemetry-momentum-${trackId}`);
+      if (momentumEl && data.result.momentum) {
+        momentumEl.innerText = `${data.result.momentum.score}/100`;
+      }
+    }
+  } catch (err) {
+    console.warn("Client telemetry emission non-fatal:", err);
+  }
+}
+
+function updateRadioProgressTickers() {
+  if (!window.radioPlayer || !window.radioPlayer.stations) return;
+
+  window.radioPlayer.stations.forEach(st => {
+    const cur = st.currentTrack;
+    if (!cur) return;
+    const elapsed = cur.elapsedSeconds || 0;
+    const duration = cur.durationSeconds || 195;
+    const pct = Math.min(100, Math.round((elapsed / duration) * 100));
+
+    const clockEl = document.getElementById(`radioStationClock-${st.id}`);
+    if (clockEl) {
+      clockEl.innerText = `${formatSecondsToTime(elapsed)} / ${formatSecondsToTime(duration)}`;
+    }
+
+    const barEl = document.getElementById(`radioStationBar-${st.id}`);
+    if (barEl) {
+      barEl.style.width = `${pct}%`;
+    }
+  });
+
+  const activeStation = (window.radioPlayer.stations || []).find(s => s.id === window.radioPlayer.activeStationId) || window.radioPlayer.stations[0];
+  if (activeStation && activeStation.currentTrack) {
+    const masterDial = document.getElementById("radioMasterDial");
+    if (masterDial && window.radioPlayer.isPlaying) {
+      const cur = activeStation.currentTrack;
+      masterDial.innerText = `${activeStation.frequency || '98.5 MHz'} • ${formatSecondsToTime(cur.elapsedSeconds || 0)} / ${formatSecondsToTime(cur.durationSeconds || 195)}`;
+    }
+  }
+}
+
+function initRealtimeTelemetryEngine() {
+  console.log("⚡ Starting Real-Time Telemetry & Radio Clock Engine...");
+
+  // 1. Initial live pulse fetch on page load
+  fetch("/api/telemetry/live-pulse")
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.pulse) {
+        handleIncomingTelemetryPulse(data.pulse, data.stats);
+      }
+    })
+    .catch(e => console.warn("Initial live pulse load note:", e));
+
+  // 2. Server-Sent Events (SSE) Live Stream Connection
+  let sseActive = false;
+  try {
+    if (typeof EventSource !== "undefined") {
+      realtimeTelemetryEventSource = new EventSource("/api/telemetry/stream");
+
+      realtimeTelemetryEventSource.onopen = () => {
+        sseActive = true;
+        const pill = document.getElementById("telemetryStatusPill");
+        if (pill) pill.innerText = "LIVE TELEMETRY SSE • ACTIVE (3.5s)";
+      };
+
+      realtimeTelemetryEventSource.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload && payload.pulse) {
+            handleIncomingTelemetryPulse(payload.pulse, payload.stats);
+          }
+        } catch (err) {
+          console.warn("Telemetry SSE payload parse error:", err);
+        }
+      };
+
+      realtimeTelemetryEventSource.onerror = () => {
+        sseActive = false;
+        const pill = document.getElementById("telemetryStatusPill");
+        if (pill) pill.innerText = "LIVE TELEMETRY POLLING • ACTIVE (3.5s)";
+      };
+    }
+  } catch (err) {
+    console.warn("EventSource setup skipped, using resilient polling fallback:", err);
+  }
+
+  // 3. Resilient Polling Fallback (every 3.5 seconds)
+  if (realtimeTelemetryPollInterval) clearInterval(realtimeTelemetryPollInterval);
+  realtimeTelemetryPollInterval = setInterval(async () => {
+    if (sseActive) return;
+    try {
+      const res = await fetch("/api/telemetry/live-pulse");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.pulse) {
+        handleIncomingTelemetryPulse(data.pulse, data.stats);
+      }
+    } catch (err) {
+      // Non-fatal background fetch
+    }
+  }, 3500);
+
+  // 4. Online Radio 1-Second Continuous Broadcast Clock
+  if (realtimeRadioClockInterval) clearInterval(realtimeRadioClockInterval);
+  realtimeRadioClockInterval = setInterval(() => {
+    if (!window.radioPlayer || !window.radioPlayer.stations) return;
+
+    window.radioPlayer.stations.forEach(st => {
+      if (!st.currentTrack) return;
+      st.currentTrack.elapsedSeconds = (st.currentTrack.elapsedSeconds || 0) + 1;
+      const duration = st.currentTrack.durationSeconds || 195;
+
+      if (st.currentTrack.elapsedSeconds >= duration) {
+        st.currentTrack.elapsedSeconds = 0;
+        advanceRadioQueue(st.id);
+      }
+    });
+
+    updateRadioProgressTickers();
+  }, 1000);
 }
 
 // ==============================================================
@@ -1970,6 +2285,24 @@ function playDirectAudio(url, title, artist) {
   try {
     activeAudioStream = new Audio(url);
     activeAudioStream.currentTime = 0;
+
+    const matchedTrack = (window.allTracks || []).find(t => 
+      (t.title && title && t.title.toLowerCase() === title.toLowerCase()) ||
+      (t.previewUrl === url)
+    ) || { id: window.currentActiveTrackId || "lj-000", title: title || "Track", artist: artist || "LJ Artist" };
+
+    activeAudioStream.addEventListener('play', () => {
+      if (typeof emitClientTelemetryEvent === 'function') {
+        emitClientTelemetryEvent(matchedTrack.id, 'PLAY', 'Audio Player Web Stream');
+      }
+    }, { once: true });
+
+    activeAudioStream.addEventListener('ended', () => {
+      if (typeof emitClientTelemetryEvent === 'function') {
+        emitClientTelemetryEvent(matchedTrack.id, 'COMPLETE', 'Audio Player Web Stream');
+      }
+    }, { once: true });
+
     activeAudioStream.play().catch(e => console.warn("Direct audio playback error:", e));
     showToast(`Streaming Audio: "${title}" by ${artist}`, 'info', 'Live Audio Preview');
     const playIcon = document.getElementById("playIcon");
@@ -5501,6 +5834,20 @@ function renderOnlineRadioGridCards() {
             ` : ''}
           </div>
 
+          <!-- Live Real-Time Broadcast Progress Ticker -->
+          <div class="space-y-1 bg-black/40 p-2.5 rounded-xl border border-white/5">
+            <div class="flex items-center justify-between text-[9px] font-mono-code text-slate-400">
+              <span class="flex items-center gap-1.5">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="text-slate-300 font-semibold tracking-wide">BROADCAST ELAPSED</span>
+              </span>
+              <span id="radioStationClock-${st.id}" class="text-white font-bold font-mono-code">${formatSecondsToTime(cur.elapsedSeconds || 45)} / ${formatSecondsToTime(cur.durationSeconds || 195)}</span>
+            </div>
+            <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+              <div id="radioStationBar-${st.id}" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-1000 ease-linear" style="width: ${Math.min(100, Math.round(((cur.elapsedSeconds || 45) / (cur.durationSeconds || 195)) * 100))}%"></div>
+            </div>
+          </div>
+
           <div class="flex items-center justify-between text-[10px] font-mono-code text-slate-400">
             <span>Listeners: <strong class="text-white">${(st.listenersCount || 25000).toLocaleString()}</strong></span>
             <span>Next: <strong class="text-emerald-400">"${nextTrack.title}" (${nextTrack.scheduledIn || 'Soon'})</strong></span>
@@ -5531,6 +5878,12 @@ async function loadOnlineRadioConsole() {
     if (!data.success || !Array.isArray(data.stations)) return;
 
     window.radioPlayer.stations = data.stations;
+    window.radioPlayer.stations.forEach(st => {
+      if (st.currentTrack && st.currentTrack.elapsedSeconds === undefined) {
+        st.currentTrack.elapsedSeconds = Math.floor(Math.random() * 60) + 15;
+        st.currentTrack.durationSeconds = st.currentTrack.durationSeconds || 195;
+      }
+    });
     window.radioPlayer.autoPlayEnabled = data.autoPlayEnabled;
 
     const statsBadge = document.getElementById("onlineRadioStatsBadge");
@@ -7308,5 +7661,10 @@ window.loginAsArtist = loginAsArtist;
 window.handleArtistEmailLogin = handleArtistEmailLogin;
 window.clearWorkspaceCacheAndRestart = clearWorkspaceCacheAndRestart;
 
-
-
+// Real-Time Telemetry & Stream Engine exports
+window.initRealtimeTelemetryEngine = initRealtimeTelemetryEngine;
+window.triggerSimulatedStreamSurge = triggerSimulatedStreamSurge;
+window.emitClientTelemetryEvent = emitClientTelemetryEvent;
+window.formatSecondsToTime = formatSecondsToTime;
+window.appendRealtimeSignalPill = appendRealtimeSignalPill;
+window.handleIncomingTelemetryPulse = handleIncomingTelemetryPulse;

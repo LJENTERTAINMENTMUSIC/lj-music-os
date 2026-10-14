@@ -7,6 +7,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
 
 const BASE_URL = 'http://localhost:3456';
 
@@ -53,7 +54,32 @@ function request(method, endpoint, body = null) {
 const get = (endpoint) => request('GET', endpoint);
 const post = (endpoint, body) => request('POST', endpoint, body);
 
+async function ensureServerRunning() {
+  try {
+    await get('/');
+    return null;
+  } catch (e) {
+    const serverProc = spawn(process.execPath, [path.join(__dirname, '../server.js')], {
+      env: { ...process.env, PORT: '3456' },
+      stdio: 'ignore'
+    });
+    for (let i = 0; i < 40; i++) {
+      await new Promise(r => setTimeout(r, 150));
+      try {
+        await get('/');
+        return serverProc;
+      } catch (err) {}
+    }
+    return serverProc;
+  }
+}
+
 async function runQaAudit() {
+  let spawnedServer = null;
+  try {
+    spawnedServer = await ensureServerRunning();
+  } catch (e) {}
+
   const results = {
     total: 0,
     passed: 0,
@@ -101,6 +127,17 @@ async function runQaAudit() {
     const telemRes = await get('/api/telemetry/signals');
     assert('/api/telemetry/signals returns 200 OK', telemRes.statusCode === 200);
     assert('/api/telemetry/signals has telemetry signals', Array.isArray(telemRes.body?.signals) || !!telemRes.body?.recentDetections);
+
+    const livePulseRes = await get('/api/telemetry/live-pulse');
+    assert('/api/telemetry/live-pulse returns 200 OK', livePulseRes.statusCode === 200);
+    assert('/api/telemetry/live-pulse has active listeners count', typeof livePulseRes.body?.pulse?.activeListeners === 'number');
+    assert('/api/telemetry/live-pulse has signals array', Array.isArray(livePulseRes.body?.pulse?.signals));
+
+    const genPulseRes = await post('/api/telemetry/generate-pulse', {});
+    assert('/api/telemetry/generate-pulse generates live pulse', genPulseRes.statusCode === 200 && genPulseRes.body?.success === true);
+
+    const sigRes = await post('/api/telemetry/signal', { trackId: 'lj-000', signalType: 'PLAY', source: 'QA Automated Tester' });
+    assert('/api/telemetry/signal in-flight ingestion returns recalculated momentum', sigRes.statusCode === 200 && typeof sigRes.body?.result?.momentum?.score === 'number');
 
     const rightsRes = await get('/api/sync/briefs');
     assert('/api/sync/briefs returns 200 OK', rightsRes.statusCode === 200);
@@ -299,6 +336,12 @@ async function runQaAudit() {
   console.log('\n===============================================================');
   console.log(`📊 QA AUDIT COMPLETE: ${results.passed}/${results.total} PASSED | ${results.failed} FAILED | ${results.warnings} WARNINGS`);
   console.log('===============================================================\n');
+
+  if (spawnedServer) {
+    try {
+      spawnedServer.kill();
+    } catch (e) {}
+  }
 
   return results;
 }

@@ -118,6 +118,9 @@ class UniversalStreamingPlayer {
     }
 
     this.isPlaying = started;
+    if (started && typeof window.emitClientTelemetryEvent === 'function') {
+      window.emitClientTelemetryEvent(track.id, 'PLAY', this.currentSource || 'Universal Player');
+    }
     this.broadcastState();
     this.updateDomElements(track);
   }
