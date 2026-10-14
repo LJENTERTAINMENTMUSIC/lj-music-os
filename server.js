@@ -687,6 +687,28 @@ app.post('/api/artist/restore-catalogue', (req, res) => {
   res.json(result);
 });
 
+app.delete('/api/artist/:name', (req, res) => {
+  try {
+    const artistName = req.params.name;
+    const result = intakeEngine.deleteArtistProfile(artistName);
+    res.json(result);
+  } catch (err) {
+    console.error("Error deleting artist profile:", err);
+    res.status(500).json({ error: "Failed to delete artist profile", details: err.message });
+  }
+});
+
+app.post('/api/artist/keep-only', (req, res) => {
+  try {
+    const artistName = req.body.artist || req.body.name || "Drey Star";
+    const result = intakeEngine.keepOnlyArtist(artistName);
+    res.json(result);
+  } catch (err) {
+    console.error("Error keeping only artist:", err);
+    res.status(500).json({ error: "Failed to purge external profiles", details: err.message });
+  }
+});
+
 // ==============================================================
 // 24. UNIVERSAL MULTI-PLATFORM ARTIST RESOLVER (SPOTIFY + APPLE)
 // ==============================================================

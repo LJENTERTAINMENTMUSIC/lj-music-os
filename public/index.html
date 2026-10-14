@@ -173,108 +173,96 @@
 <body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col selection:bg-purple-600 selection:text-white">
 
   <!-- TOP HEADER & BRAND APPARATUS -->
-  <header class="h-16 border-b border-white/[0.08] bg-[#07070A]/85 backdrop-blur-2xl sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between">
-    <div class="flex items-center space-x-3.5">
-      <!-- Minimal Luxury Wordmark Icon -->
-      <div class="w-10 h-10 rounded-2xl purple-accent-gradient flex items-center justify-center font-black text-white text-base shadow-glow-violet border border-white/20">
-        LJ
-      </div>
-      <div>
-        <div class="flex items-center space-x-2">
-          <span class="font-black tracking-tight text-white text-base purple-gradient-text">LJ MUSIC OS</span>
-          <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold bg-purple-500/15 text-purple-300 border border-purple-500/30 flex items-center space-x-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping"></span>
-            <span>10,000 AI AGENTS ACTIVE</span>
-          </span>
+  <!-- TOP HEADER (SPOTIFY FOR ARTISTS CLEAN LUXURY DESIGN) -->
+  <header class="h-16 border-b border-white/[0.08] bg-[#0A0713]/90 backdrop-blur-2xl sticky top-0 z-40 px-4 md:px-8 flex items-center justify-between">
+    <!-- Left: Brand Logo & Spotify for Artists Active Profile Selector -->
+    <div class="flex items-center space-x-3 sm:space-x-4 min-w-0">
+      <div class="flex items-center space-x-2.5 flex-shrink-0">
+        <div class="w-9 h-9 rounded-2xl purple-accent-gradient flex items-center justify-center font-black text-white text-base shadow-glow-violet border border-white/20">
+          LJ
         </div>
-        <p class="text-[10px] text-slate-400 tracking-wide font-medium">LJ Entertainment • Music Intelligence & Growth Operating System</p>
+        <div class="hidden sm:block">
+          <span class="font-black tracking-tight text-white text-sm purple-gradient-text">LJ MUSIC OS</span>
+          <p class="text-[9px] text-slate-400 font-mono-code leading-none">Spotify for Artists Edition</p>
+        </div>
       </div>
-    </div>
 
-    <!-- SPOTIFY FOR ARTISTS ACTIVE PROFILE CHIP IN HEADER -->
-    <div class="relative ml-2 sm:ml-4 hidden sm:block" id="headerProfileChipContainer">
-      <button onclick="openProfileSwitcherModal()" class="flex items-center space-x-2 bg-gradient-to-r from-purple-950/70 to-indigo-950/70 hover:from-purple-900/90 hover:to-indigo-900/90 border border-purple-500/40 px-3 py-1.5 rounded-full text-xs transition active:scale-95 group shadow-sm">
-        <div class="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-400 flex-shrink-0">
-          <img id="headerArtistAvatar" src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-full h-full object-cover">
-          <span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-black"></span>
-        </div>
-        <div class="text-left">
-          <div class="flex items-center space-x-1 leading-none">
-            <span class="font-black text-white text-[11px] group-hover:text-purple-300 truncate max-w-[110px]" id="headerArtistName">Drey Star</span>
-            <span class="text-[9px] text-emerald-400 font-bold">✓</span>
+      <!-- S4A Active Profile Switcher Pill -->
+      <div class="relative" id="headerProfileChipContainer">
+        <button onclick="openProfileSwitcherModal()" class="flex items-center space-x-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-purple-400/50 px-3 py-1.5 rounded-full text-xs transition active:scale-95 group shadow-sm">
+          <div class="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-400 flex-shrink-0">
+            <img id="headerArtistAvatar" src="https://i.scdn.co/image/ab67616d0000b27377e5e6ebf6d0352cc1c2d0bd" class="w-full h-full object-cover">
+            <span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-black"></span>
           </div>
-          <span class="text-[8px] font-mono-code text-purple-300/80 leading-none">Spotify for Artists</span>
-        </div>
-        <span class="text-[8px] text-purple-200 font-extrabold bg-purple-500/30 px-1.5 py-0.5 rounded border border-purple-400/30 uppercase tracking-wider hidden lg:inline">Switch Profile ▾</span>
-        <svg class="w-3.5 h-3.5 text-purple-300 group-hover:text-white transition lg:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-      </button>
+          <div class="text-left leading-none">
+            <div class="flex items-center space-x-1">
+              <span class="font-black text-white text-xs group-hover:text-purple-300 truncate max-w-[120px]" id="headerArtistName">Drey Star</span>
+              <span class="text-[9px] text-emerald-400 font-bold">✓</span>
+            </div>
+            <span class="text-[9px] text-purple-300/80 font-mono-code">Active Workspace</span>
+          </div>
+          <span class="text-[9px] text-purple-200 font-bold bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-400/30 uppercase tracking-wider hidden md:inline">Switch ▾</span>
+          <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-white transition md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+      </div>
     </div>
 
-    <!-- Live Intelligence Stats & Swarm Trigger -->
-    <div class="flex items-center space-x-3">
-      <div class="hidden xl:flex items-center space-x-2 bg-white/[0.03] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-slate-400 text-[11px]">Swarm Workforce:</span>
-        <span class="text-violet-300 font-semibold font-mono-code text-[11px]">9,842 ACTIVE · 73 COLLABORATING</span>
+    <!-- Center: Global Search -->
+    <div class="hidden lg:flex items-center flex-1 max-w-md mx-6">
+      <div class="relative w-full">
+        <input type="text" id="topGlobalSearchInput" onkeydown="if(event.key==='Enter') handleTopSearchOrSpotify(this.value)" placeholder="Search song, lyrics, or paste Spotify URL..." class="w-full bg-[#120E22] border border-white/10 rounded-full px-4 py-2 pl-9 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition shadow-inner font-mono-code">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </div>
+    </div>
+
+    <!-- Right: Clean Actions -->
+    <div class="flex items-center space-x-2.5">
+      <!-- Quick Onboard Button -->
+      <button onclick="openQuickAddArtistModal()" class="flex items-center space-x-1.5 bg-[#1DB954] hover:bg-[#1ed760] text-black font-extrabold px-3.5 py-2 rounded-full text-xs transition shadow-md active:scale-95">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        <span class="hidden sm:inline">+ Onboard Artist</span>
+        <span class="sm:hidden">+ Artist</span>
+      </button>
+
+      <!-- Label Tools Dropdown -->
+      <div class="relative">
+        <button onclick="toggleLabelSettingsDropdown()" id="labelSettingsBtn" class="flex items-center space-x-1 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs font-semibold border border-white/10 transition active:scale-95" title="Label Workspace Settings">
+          <span>⚙️ Tools</span>
+          <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+
+        <div id="labelSettingsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-[#0E0C1C] border border-white/15 rounded-2xl shadow-2xl p-2 z-50 space-y-1 backdrop-blur-2xl">
+          <button onclick="openIntegrationsModal(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Cloud & Supabase Status</span>
+          </button>
+          <button onclick="triggerQuickAutomation('weekly'); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-purple-300 hover:text-purple-100 hover:bg-white/5 text-left font-medium">
+            <span>⚡ Run Swarm Cycle</span>
+          </button>
+          <button onclick="purgeExternalProfilesPrompt(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-amber-300 hover:text-amber-100 hover:bg-white/5 text-left font-medium">
+            <span>🧹 Keep Only Drey Star</span>
+          </button>
+          <button onclick="restoreBenchmarkRosterPrompt(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 text-left">
+            <span>🔄 Restore Demo Roster</span>
+          </button>
+          <button onclick="clearAllArtistsPrompt(); toggleLabelSettingsDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 text-left font-medium">
+            <span>🗑️ Reset All Roster</span>
+          </button>
+        </div>
       </div>
 
-      <div class="hidden md:flex items-center space-x-2 bg-white/[0.03] border border-white/[0.08] px-3 py-1.5 rounded-full text-xs backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
-        <span class="text-slate-400 text-[11px]">Safety:</span>
-        <span class="text-indigo-300 font-semibold font-mono-code text-[11px]">ZERO-BOT ENFORCED</span>
-      </div>
-
-      <!-- Prominent Add New Artist & Reset Roster Controls -->
-      <button onclick="openAddArtistFlow()" class="flex items-center space-x-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 hover:text-white font-extrabold px-3.5 py-2 rounded-xl text-xs transition border border-emerald-500/40 shadow-md active:scale-95">
-        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-        <span>+ Add New Artist</span>
-      </button>
-
-      <button onclick="clearAllArtistsPrompt()" class="flex items-center space-x-1 bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 hover:text-rose-100 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-rose-500/20 active:scale-95" title="Clear all artists to start completely fresh from scratch">
-        <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-        <span>Clear Roster</span>
-      </button>
-
-      <button onclick="restoreBenchmarkRosterPrompt()" class="hidden md:flex items-center space-x-1 bg-purple-500/10 hover:bg-purple-500/25 text-purple-300 hover:text-purple-100 font-medium px-2.5 py-2 rounded-xl text-xs transition border border-purple-500/20 active:scale-95" title="Restore benchmark catalogue">
-        <span>🔄 Restore</span>
-      </button>
-
-      <button onclick="openIntegrationsModal()" class="flex items-center space-x-1.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white font-semibold px-3 py-2 rounded-xl text-xs transition border border-white/10 active:scale-95 shadow-sm" title="View Cloud Integrations Status (GitHub, Vercel, Supabase, Spotify)">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="hidden sm:inline">Integrations</span>
-        <span class="px-1.5 py-0.2 rounded text-[9px] bg-purple-500/30 text-purple-200 font-mono font-bold">3/4</span>
-      </button>
-
-      <button onclick="triggerQuickAutomation('weekly')" class="flex items-center space-x-2 purple-accent-gradient hover:opacity-95 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-glow-violet active:scale-95 border border-white/20">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span class="tracking-wide">Run Swarm Cycle</span>
-      </button>
-
-      <!-- Executive Desk Profile -->
-      <div class="flex items-center space-x-2 pl-3 border-l border-white/[0.08]">
+      <!-- User Profile -->
+      <div class="flex items-center space-x-2 pl-2 border-l border-white/[0.08]">
         <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-900 to-indigo-700 border border-violet-400/40 flex items-center justify-center text-xs font-bold text-violet-200 shadow-md">
           LJ
         </div>
-        <div class="hidden lg:block text-left text-xs leading-tight">
+        <div class="hidden xl:block text-left text-xs leading-tight">
           <div class="font-bold text-slate-200">Executive Desk</div>
-          <div class="text-[9px] text-slate-400">Master Clearance</div>
+          <div class="text-[9px] text-emerald-400 font-mono-code">Master Admin</div>
         </div>
       </div>
     </div>
   </header>
-
-  <!-- LIVE MUSIC TRADING FLOOR TICKER -->
-  <div class="bg-[#050508] border-b border-white/[0.06] px-4 md:px-6 py-2 overflow-x-auto text-[11px] font-mono-code flex items-center space-x-6 text-slate-300">
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">ACTIVE CATALOGUE:</span> <strong class="text-white">428 SONGS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">MOMENTUM SURGES:</span> <strong class="text-violet-400 font-bold animate-pulse">37 TRACKS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">BREAKOUTS:</span> <strong class="text-purple-300">9 ARTISTS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">PLAYLIST LEADS:</span> <strong class="text-emerald-400">84 OPPS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">RADIO TARGETS:</span> <strong class="text-amber-400">31 STATIONS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">SYNC BRIEFS:</span> <strong class="text-violet-400">17 ACTIVE</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">GLOBAL EXPORT:</span> <strong class="text-indigo-400">8 MARKETS</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">VERIFIED PLACEMENTS:</span> <strong class="text-emerald-400">13 TODAY</strong></div>
-    <div class="flex items-center space-x-1.5"><span class="text-slate-500">RIGHTS CLEARANCE:</span> <strong class="text-purple-300 font-bold">100% ONE-STOP</strong></div>
-  </div>
 
   <!-- DEDICATED SPOTIFY FOR ARTISTS ACTIVE PROFILE FOCUS BAR -->
   <div id="s4aActiveArtistBar" class="bg-gradient-to-r from-[#17092E] via-[#0D071B] to-[#17092E] border-b border-purple-500/25 px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md z-30 sticky top-16">
@@ -527,55 +515,68 @@
       <!-- ============================================================== -->
       <!-- TOP CONTROL & CATEGORY BAR (Muzes & Groovvy Style)            -->
       <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- TOP CONTROL & S4A NAVIGATION TABS                              -->
+      <!-- ============================================================== -->
       <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-2 border-b border-white/[0.06]">
-        <!-- Category Navigation Pills -->
+        <!-- Primary S4A Tabs -->
         <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0 text-xs font-bold no-scrollbar">
-          <button onclick="switchCategory('tab-command-center', this)" class="category-pill px-4 py-2 rounded-full bg-purple-600 text-white shadow-glow-violet whitespace-nowrap transition">
-            MUSIC OS
+          <button onclick="switchCategory('tab-command-center', this)" class="category-pill px-4 py-2 rounded-full bg-purple-600 text-white shadow-glow-violet whitespace-nowrap transition flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <span>Overview</span>
           </button>
-          <button onclick="switchCategory('tab-intake', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>REALTIME SPOTIFY</span>
+          <button onclick="switchCategory('tab-discover', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+            <span>Music & Catalog</span>
           </button>
-          <button onclick="switchCategory('tab-command', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            10,000 SWARM
+          <button onclick="openAutoPlaylistingModal()" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span>Playlists</span>
           </button>
-          <button onclick="switchCategory('tab-discover', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            DISCOVERY
-          </button>
-          <button onclick="switchCategory('tab-charts', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            CHARTS & DSP
-          </button>
-          <button onclick="openAutoPlaylistingModal()" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 hover:text-white whitespace-nowrap transition border border-amber-500/40 flex items-center space-x-1.5 shadow-sm">
-            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>AUTO PLAYLISTING</span>
-          </button>
-          <button onclick="switchCategory('tab-radio', this); loadOnlineRadioConsole();" id="pill-radio" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 text-purple-300 hover:text-white whitespace-nowrap transition border border-purple-500/40 flex items-center space-x-1.5 shadow-sm">
+          <button onclick="switchCategory('tab-radio', this); loadOnlineRadioConsole();" id="pill-radio" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
             <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>📻 ONLINE RADIO (4 LIVE)</span>
+            <span>Radio (4 Live)</span>
           </button>
-          <button onclick="openQuickAddArtistModal()" class="category-pill px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 text-emerald-300 hover:text-white whitespace-nowrap transition border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm">
-            <span>+ ADD ARTIST BY LINK</span>
+          <button onclick="switchCategory('tab-command', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Audience & Swarm</span>
           </button>
-          <button onclick="switchCategory('tab-lyrics', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            LYRICS INTELLIGENCE
-          </button>
-          <button onclick="switchCategory('tab-council', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            COUNCIL DEBATE
-          </button>
-          <button onclick="switchCategory('tab-pitch', this)" class="category-pill px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5">
-            PITCH CRM
-          </button>
+
+          <!-- More Modules Dropdown -->
+          <div class="relative">
+            <button onclick="toggleMoreModulesDropdown()" id="moreModulesBtn" class="category-pill px-3.5 py-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white whitespace-nowrap transition border border-white/5 flex items-center space-x-1">
+              <span>More Modules</span>
+              <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="moreModulesDropdown" class="hidden absolute left-0 mt-2 w-56 bg-[#0E0C1C] border border-white/15 rounded-2xl shadow-2xl p-2 z-50 space-y-1 backdrop-blur-2xl text-xs">
+              <button onclick="switchCategory('tab-charts', this); toggleMoreModulesDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+                <span>📈 Charts & DSP Velocity</span>
+              </button>
+              <button onclick="switchCategory('tab-intake', this); toggleMoreModulesDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Realtime Spotify Intake</span>
+              </button>
+              <button onclick="switchCategory('tab-lyrics', this); toggleMoreModulesDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+                <span>🎤 Lyrics Intelligence</span>
+              </button>
+              <button onclick="switchCategory('tab-council', this); toggleMoreModulesDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+                <span>🏛️ Council Strategic Debate</span>
+              </button>
+              <button onclick="switchCategory('tab-pitch', this); toggleMoreModulesDropdown();" class="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-left font-medium">
+                <span>📬 Curator Pitch CRM</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Quick Spotify Resolver & Global Search Input -->
-        <div class="flex items-center space-x-2">
-          <div class="relative flex-1 md:w-80">
-            <input type="text" id="topGlobalSearchInput" onkeydown="if(event.key==='Enter') handleTopSearchOrSpotify(this.value)" placeholder="Search song or paste Spotify URL..." class="w-full bg-[#0E0B1A] border border-white/10 rounded-full px-4 py-2 pl-9 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition shadow-inner">
-            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          </div>
-          <button onclick="handleTopSearchOrSpotify(document.getElementById('topGlobalSearchInput').value)" class="p-2 rounded-full bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white transition border border-purple-500/30" title="Search or Resolve Spotify Link">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <!-- Quick Switch Profile & Mode Shortcut Button -->
+        <div class="flex items-center space-x-2 flex-shrink-0">
+          <button onclick="openProfileSwitcherModal()" class="px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 hover:text-white border border-purple-500/40 text-xs font-bold transition flex items-center space-x-1.5 shadow-sm active:scale-95">
+            <svg class="w-3.5 h-3.5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            <span>Switch Artist</span>
+          </button>
+          <button onclick="openQuickAddArtistModal()" class="px-3 py-1.5 rounded-full bg-[#1DB954]/20 hover:bg-[#1DB954]/30 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1 shadow-sm active:scale-95">
+            <span>+ Add by Link</span>
           </button>
         </div>
       </div>
@@ -3367,12 +3368,15 @@
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal();" class="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 active:scale-95">
-            <span>🏢 All Label (Overview)</span>
+        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <button onclick="purgeExternalProfilesPrompt()" class="px-3.5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 active:scale-95 whitespace-nowrap" title="Purge external demo profiles and keep only Drey Star">
+            <span>🧹 Keep Only Drey Star</span>
           </button>
-          <button onclick="closeProfileSwitcherModal(); openQuickAddArtistModal();" class="px-3.5 py-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm active:scale-95">
-            <span>+ Onboard New Artist</span>
+          <button onclick="selectArtistProfile('ALL'); closeProfileSwitcherModal();" class="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 active:scale-95 whitespace-nowrap">
+            <span>🏢 All Label</span>
+          </button>
+          <button onclick="closeProfileSwitcherModal(); openQuickAddArtistModal();" class="px-3.5 py-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm active:scale-95 whitespace-nowrap">
+            <span>+ Onboard Artist</span>
           </button>
         </div>
       </div>

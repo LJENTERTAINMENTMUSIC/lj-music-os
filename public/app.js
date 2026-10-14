@@ -5936,20 +5936,26 @@ function renderS4aModalArtistList(filterQuery = "") {
 
     return `
       <div class="glass-panel-subtle p-4 rounded-2xl border transition duration-300 relative flex flex-col justify-between ${isActive ? 'border-emerald-500/80 bg-purple-900/20 shadow-glow-emerald ring-1 ring-emerald-400' : 'border-white/10 hover:border-purple-400/50 hover:bg-white/[0.03]'}">
-        <div class="flex items-start space-x-3.5">
-          <div class="relative w-14 h-14 rounded-2xl overflow-hidden border ${isActive ? 'border-emerald-400 shadow-md' : 'border-white/15'} flex-shrink-0">
-            <img src="${pic}" class="w-full h-full object-cover">
-            <span class="absolute bottom-1 right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center text-[7px] text-black font-black border border-black">✓</span>
+        <div class="flex items-start justify-between gap-2.5">
+          <div class="flex items-start space-x-3.5 min-w-0">
+            <div class="relative w-14 h-14 rounded-2xl overflow-hidden border ${isActive ? 'border-emerald-400 shadow-md' : 'border-white/15'} flex-shrink-0">
+              <img src="${pic}" class="w-full h-full object-cover">
+              <span class="absolute bottom-1 right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center text-[7px] text-black font-black border border-black">✓</span>
+            </div>
+
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center space-x-2">
+                <h3 class="font-black text-sm text-white truncate">${name}</h3>
+                ${isActive ? '<span class="px-2 py-0.5 rounded-full text-[8px] font-black bg-emerald-500 text-black uppercase tracking-wider">ACTIVE</span>' : ''}
+              </div>
+              <p class="text-[11px] text-emerald-400 font-mono-code font-bold mt-0.5 truncate">${listeners}</p>
+              <p class="text-[10px] text-slate-400 mt-0.5 font-mono-code">${genre} • ${trackCount} Releases</p>
+            </div>
           </div>
 
-          <div class="min-w-0 flex-1">
-            <div class="flex items-center space-x-2">
-              <h3 class="font-black text-sm text-white truncate">${name}</h3>
-              ${isActive ? '<span class="px-2 py-0.5 rounded-full text-[8px] font-black bg-emerald-500 text-black uppercase tracking-wider">ACTIVE</span>' : ''}
-            </div>
-            <p class="text-[11px] text-emerald-400 font-mono-code font-bold mt-0.5 truncate">${listeners}</p>
-            <p class="text-[10px] text-slate-400 mt-0.5 font-mono-code">${genre} • ${trackCount} Releases</p>
-          </div>
+          <button onclick="deleteArtistProfile('${name.replace(/'/g, "\\'")}'); event.stopPropagation();" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 hover:text-white border border-rose-500/30 transition text-xs font-bold flex-shrink-0 active:scale-95" title="Delete Profile & Associated Catalogue">
+            🗑️
+          </button>
         </div>
 
         <div class="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
@@ -6198,6 +6204,121 @@ function syncArtistToCouncilAndLyrics(artistName) {
   }
 }
 
+// 7. Delete Artist Profile & Associated Catalogue
+async function deleteArtistProfile(artistName) {
+  if (!artistName) return;
+  const isOwner = artistName.toLowerCase() === "drey star";
+  const confirmMsg = isOwner
+    ? `⚠️ CAUTION: "${artistName}" is your primary artist profile.\n\nAre you sure you want to permanently delete this profile and all associated catalogue tracks?`
+    : `Are you sure you want to permanently delete "${artistName}" from your workspace?\n\nThis will remove their profile and all associated tracks from your catalogue, rights, and telemetry.`;
+
+  if (!confirm(confirmMsg)) return;
+
+  try {
+    const res = await fetch(`/api/artist/${encodeURIComponent(artistName)}`, { method: "DELETE" });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`Artist "${artistName}" and ${data.removedTracksCount || 0} track(s) removed successfully.`, "success", "Profile Deleted");
+      await loadCatalogue();
+      await loadArtistRosterDirectory();
+      await initArtistProfileSwitcher();
+
+      // If active artist was deleted, reset focus
+      if (window.currentActiveArtist && window.currentActiveArtist.toLowerCase() === artistName.toLowerCase()) {
+        const remaining = window.artistRosterData || [];
+        if (remaining.length > 0) {
+          selectArtistProfile(remaining[0].artist || remaining[0].name);
+        } else {
+          selectArtistProfile("ALL");
+        }
+      } else {
+        renderArtistProfileUI();
+      }
+
+      // Re-render modal if open
+      const modal = document.getElementById("s4aProfileSwitcherModal");
+      if (modal && !modal.classList.contains("hidden")) {
+        const searchInput = document.getElementById("s4aModalSearchInput");
+        renderS4aModalArtistList(searchInput ? searchInput.value : "");
+      }
+    } else {
+      showToast(data.error || "Failed to delete artist profile.", "error", "Delete Failed");
+    }
+  } catch (err) {
+    console.error("Error deleting artist profile:", err);
+    showToast("Network error while deleting artist profile.", "error");
+  }
+}
+
+// 8. 1-Click Keep Only Drey Star (Purge Benchmark Profiles)
+async function purgeExternalProfilesPrompt() {
+  if (!confirm("Keep ONLY Drey Star and purge all demo / benchmark profiles?\n\nThis will remove non-owned artist profiles and catalogue tracks, leaving only your personal artist profile (Drey Star).")) {
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/artist/keep-only", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ artist: "Drey Star" })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast("Workspace cleaned: Kept only Drey Star. All external demo profiles purged.", "success", "Workspace Cleaned");
+      await loadCatalogue();
+      await loadArtistRosterDirectory();
+      await initArtistProfileSwitcher();
+      selectArtistProfile("Drey Star");
+
+      // Re-render modal if open
+      const modal = document.getElementById("s4aProfileSwitcherModal");
+      if (modal && !modal.classList.contains("hidden")) {
+        renderS4aModalArtistList();
+      }
+    } else {
+      showToast(data.error || "Failed to purge external profiles.", "error");
+    }
+  } catch (err) {
+    console.error("Error purging external profiles:", err);
+    showToast("Network error while cleaning workspace.", "error");
+  }
+}
+
+// 9. Label Settings Dropdown Toggle
+function toggleLabelSettingsDropdown() {
+  const dd = document.getElementById("labelSettingsDropdown");
+  if (dd) {
+    dd.classList.toggle("hidden");
+  }
+}
+
+// 10. More Modules Dropdown Toggle
+function toggleMoreModulesDropdown() {
+  const dd = document.getElementById("moreModulesDropdown");
+  if (dd) {
+    dd.classList.toggle("hidden");
+  }
+}
+
+// Close dropdowns on outside click
+document.addEventListener("click", (e) => {
+  const labelBtn = document.getElementById("labelSettingsBtn");
+  const labelDd = document.getElementById("labelSettingsDropdown");
+  if (labelDd && !labelDd.classList.contains("hidden")) {
+    if (labelBtn && !labelBtn.contains(e.target) && !labelDd.contains(e.target)) {
+      labelDd.classList.add("hidden");
+    }
+  }
+
+  const moreBtn = document.getElementById("moreModulesBtn");
+  const moreDd = document.getElementById("moreModulesDropdown");
+  if (moreDd && !moreDd.classList.contains("hidden")) {
+    if (moreBtn && !moreBtn.contains(e.target) && !moreDd.contains(e.target)) {
+      moreDd.classList.add("hidden");
+    }
+  }
+});
+
 // Global exports for Spotify for Artists Profile Switcher
 window.initArtistProfileSwitcher = initArtistProfileSwitcher;
 window.selectArtistProfile = selectArtistProfile;
@@ -6211,3 +6332,8 @@ window.renderArtistProfileUI = renderArtistProfileUI;
 window.updateBillboardForActiveArtist = updateBillboardForActiveArtist;
 window.renderTopArtistsGrid = renderTopArtistsGrid;
 window.renderSidebarRoster = renderSidebarRoster;
+window.deleteArtistProfile = deleteArtistProfile;
+window.purgeExternalProfilesPrompt = purgeExternalProfilesPrompt;
+window.toggleLabelSettingsDropdown = toggleLabelSettingsDropdown;
+window.toggleMoreModulesDropdown = toggleMoreModulesDropdown;
+

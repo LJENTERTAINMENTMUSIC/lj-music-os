@@ -760,6 +760,107 @@ class ArtistIntakeEngine {
     };
   }
 
+  /**
+   * Deletes a specific artist profile and removes their associated catalogue tracks
+   */
+  deleteArtistProfile(artistIdentifier) {
+    if (!artistIdentifier) return { success: false, error: "Artist identifier is required" };
+
+    const target = artistIdentifier.toLowerCase().trim();
+
+    // 1. Remove from artistRoster.json
+    let roster = this._loadJson(this.rosterFile) || [];
+    roster = roster.filter(a => 
+      (a.id && a.id.toLowerCase() !== target) &&
+      (a.artist && a.artist.toLowerCase() !== target) &&
+      (a.name && a.name.toLowerCase() !== target)
+    );
+    this._saveJson(this.rosterFile, roster);
+
+    // 2. Remove associated tracks from catalogue.json
+    let catalogue = this._loadJson(this.catalogueFile) || [];
+    const removedTracks = catalogue.filter(t => t.artist && t.artist.toLowerCase() === target);
+    const removedTrackIds = new Set(removedTracks.map(t => t.id));
+    catalogue = catalogue.filter(t => !t.artist || t.artist.toLowerCase() !== target);
+    this._saveJson(this.catalogueFile, catalogue);
+
+    // 3. Clean up rights, telemetry, and lyrics for removed tracks
+    const rights = this._loadJson(this.rightsFile) || {};
+    const telemetry = this._loadJson(this.telemetryFile) || {};
+    const lyrics = this._loadJson(this.lyricsFile) || {};
+
+    removedTrackIds.forEach(id => {
+      delete rights[id];
+      delete telemetry[id];
+      delete lyrics[id];
+    });
+
+    this._saveJson(this.rightsFile, rights);
+    this._saveJson(this.telemetryFile, telemetry);
+    this._saveJson(this.lyricsFile, lyrics);
+
+    // 4. Remove tracks from editorialPlaylists.json
+    let playlists = this._loadJson(this.editorialFile) || [];
+    const getTrackId = (t) => typeof t === 'string' ? t : (t?.trackId || t?.id || '');
+    playlists = playlists.map(pl => {
+      const filtered = (pl.tracks || []).filter(t => !removedTrackIds.has(getTrackId(t)));
+      return {
+        ...pl,
+        tracks: filtered
+      };
+    });
+    this._saveJson(this.editorialFile, playlists);
+
+    return {
+      success: true,
+      deletedArtist: artistIdentifier,
+      removedTracksCount: removedTracks.length,
+      remainingRosterCount: roster.length,
+      remainingTracksCount: catalogue.length,
+      message: `Successfully removed artist "${artistIdentifier}" and ${removedTracks.length} catalogued track(s).`
+    };
+  }
+
+  /**
+   * Purges external benchmark artists, keeping only the specified artist (default: Drey Star)
+   */
+  keepOnlyArtist(artistName = "Drey Star") {
+    const keepTarget = artistName.toLowerCase().trim();
+
+    let roster = this._loadJson(this.rosterFile) || [];
+    roster = roster.filter(a => 
+      (a.artist && a.artist.toLowerCase() === keepTarget) ||
+      (a.name && a.name.toLowerCase() === keepTarget)
+    );
+    this._saveJson(this.rosterFile, roster);
+
+    let catalogue = this._loadJson(this.catalogueFile) || [];
+    const removedTracks = catalogue.filter(t => !t.artist || t.artist.toLowerCase() !== keepTarget);
+    const removedTrackIds = new Set(removedTracks.map(t => t.id));
+    catalogue = catalogue.filter(t => t.artist && t.artist.toLowerCase() === keepTarget);
+    this._saveJson(this.catalogueFile, catalogue);
+
+    const rights = this._loadJson(this.rightsFile) || {};
+    const telemetry = this._loadJson(this.telemetryFile) || {};
+    const lyrics = this._loadJson(this.lyricsFile) || {};
+    removedTrackIds.forEach(id => {
+      delete rights[id];
+      delete telemetry[id];
+      delete lyrics[id];
+    });
+    this._saveJson(this.rightsFile, rights);
+    this._saveJson(this.telemetryFile, telemetry);
+    this._saveJson(this.lyricsFile, lyrics);
+
+    return {
+      success: true,
+      keptArtist: artistName,
+      remainingTracksCount: catalogue.length,
+      remainingRosterCount: roster.length,
+      message: `Cleaned workspace: kept only "${artistName}". All external profiles removed.`
+    };
+  }
+
   getCatalogue() {
     return this._loadJson(this.catalogueFile) || [];
   }
