@@ -1,14 +1,14 @@
 {
   "lj-000": {
-    "plays": 12517,
-    "weeklyGrowthPct": 38.6,
-    "saves": 2600,
+    "plays": 12623,
+    "weeklyGrowthPct": 42.9,
+    "saves": 2618,
     "shares": 980,
-    "playlistAdds": 841,
+    "playlistAdds": 859,
     "skips": 140,
-    "completionRatePct": 83.7,
-    "repeatListeningPct": 44.7,
-    "momentumScore": 91,
+    "completionRatePct": 90.6,
+    "repeatListeningPct": 68.7,
+    "momentumScore": 99,
     "momentumStatus": "RISING_NOW",
     "rankMovement": "+4",
     "geoBreakdown": {
@@ -44,15 +44,15 @@
     "status": "RISING_NOW"
   },
   "lj-001": {
-    "plays": 12500,
-    "weeklyGrowthPct": 38.5,
-    "saves": 2600,
+    "plays": 12514,
+    "weeklyGrowthPct": 39.1,
+    "saves": 2602,
     "shares": 980,
-    "playlistAdds": 840,
+    "playlistAdds": 843,
     "skips": 140,
-    "completionRatePct": 82.5,
-    "repeatListeningPct": 41.2,
-    "momentumScore": 92,
+    "completionRatePct": 83.7,
+    "repeatListeningPct": 42.4,
+    "momentumScore": 91,
     "momentumStatus": "RISING_NOW",
     "rankMovement": "+4",
     "geoBreakdown": {
@@ -84,18 +84,19 @@
         "date": "Day 5",
         "plays": 12500
       }
-    ]
+    ],
+    "status": "RISING_NOW"
   },
   "lj-002": {
-    "plays": 12500,
-    "weeklyGrowthPct": 38.6,
-    "saves": 2601,
+    "plays": 12510,
+    "weeklyGrowthPct": 39,
+    "saves": 2604,
     "shares": 980,
-    "playlistAdds": 840,
+    "playlistAdds": 841,
     "skips": 140,
-    "completionRatePct": 82.5,
-    "repeatListeningPct": 41.2,
-    "momentumScore": 90,
+    "completionRatePct": 83.4,
+    "repeatListeningPct": 42.4,
+    "momentumScore": 91,
     "momentumStatus": "RISING_NOW",
     "rankMovement": "+4",
     "geoBreakdown": {
